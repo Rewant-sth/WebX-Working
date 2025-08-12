@@ -1,0 +1,12 @@
+
+export interface  ICertificate {
+    _id: string,
+    name:  string;
+    description:  string
+    image: string
+    imagePublicId: string
+    createdAt: string
+    updatedAt: string
+    __v: number
+
+}

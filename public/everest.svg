@@ -1,0 +1,8 @@
+<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full h-auto">
+  <path
+    fill="none"
+    stroke="#A8F1FF"
+    strokeWidth="4"
+    d="M0,320 L180,180 L320,220 L450,100 L600,250 L720,140 L840,180 L960,120 L1080,200 L1260,160 L1440,220"
+  />
+</svg>

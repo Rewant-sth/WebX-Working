@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+/* Optimize scroll performance and prevent flickering */
+html {
+    scroll-behavior: auto !important;
+    /* Let Lenis handle smooth scrolling */
+}
+
+* {
+    /* Hardware acceleration for better performance */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    will-change: auto;
+}
+
+/* Optimize animations */
+.motion-safe {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Prevent layout shifts */
+img,
+video {
+    transform: translateZ(0);
+}
+
+/* Optimize for smooth scrolling */
+body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+
+
+@keyframes ringPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6);
+    }
+
+    70% {
+        box-shadow: 0 0 0 12px rgba(99, 102, 241, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+.group:hover .hover-pulse {
+    animation: ringPulse 1.2s ease-out infinite;
+}
+
+.font-playfair {
+    font-family: Playfair !important;
+}
+
+.font-inter {
+    font-family: Inter !important;
+}
+
+:root {
+    --duration: 20s;
+    --gap: 2rem;
+    --event-primary: #2563eb;
+    --event-primary-dark: #1d4ed8;
+    --event-primary-light: #3b82f6;
+
+    /* Secondary Indigo - Premium Feel */
+    --event-secondary: #4f46e5;
+    --event-secondary-dark: #4338ca;
+    --event-secondary-light: #6366f1;
+
+    /* Accent Colors */
+    --event-success: #10b981;
+    --event-warning: #f59e0b;
+    --event-danger: #ef4444;
+
+    /* Neutral Palette */
+    --event-gray-50: #f8fafc;
+    --event-gray-100: #f1f5f9;
+    --event-gray-600: #475569;
+    --event-gray-900: #0f172a;
+
+    /* Background Gradients */
+    --event-bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+    --event-bg-card: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.8) 100%);
+}
+
+/* Accessibility-compliant color combinations */
+.event-high-contrast {
+    --text-primary: #0f172a;
+    --text-secondary: #374151;
+    --bg-primary: #ffffff;
+    --accent-primary: #1d4ed8;
+}
+
+.marquee-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-track {
+    display: flex;
+    gap: var(--gap);
+    width: max-content;
+    animation: marquee var(--duration) linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+.infinite-scroll-x::-webkit-scrollbar {
+    display: none;
+}
+
+.infinite-scroll-x {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.bg {
+    background-image: linear-gradient(rgba(0, 0, 255, 0.7), rgba(0, 0, 255, 0.7)), url('../../public/mountain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Enhanced Modern UI Classes */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Glass morphism effect */
+.glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Smooth scale animation */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+}
+
+/* Gradient text animation */
+@keyframes gradientText {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.gradient-text-animated {
+    background: linear-gradient(-45deg, #3b82f6, #6366f1, #8b5cf6, #a855f7);
+    background-size: 400% 400%;
+    animation: gradientText 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Professional fade-in animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+
+@font-face {
+    font-family: "Montserrat";
+    src: url('/public/fonts/montserrat.ttf');
+}
+
+.font-montserrat {
+    font-family: "Montserrat", sans-serif;
+}
+
+.image-card {
+    position: relative;
+    overflow: hidden;
+}
