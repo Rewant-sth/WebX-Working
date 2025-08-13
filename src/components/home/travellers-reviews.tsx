@@ -1,180 +1,146 @@
-"use client";
-import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
+"use client"
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
+import React, { useCallback, useEffect, useState } from 'react';
+import { ChevronRight, Star } from 'lucide-react';
 
-interface ExternalReview {
-    id: string;
-    author: string;
-    avatarUrl?: string;
-    rating: number; // 1-5
-    text: string;
-    source: "google" | "tripadvisor";
-    url?: string; // link to original
-    time: string; // ISO
-}
 
-// Small star rating renderer
-const Stars = ({ rating }: { rating: number }) => {
+const reviews = [
+    {
+        name: "Anisha Thapa",
+        role: "Trekking Enthusiast",
+        review: "The Real Himalaya team made my Everest Base Camp trek unforgettable. Every detail was planned perfectly, and I felt safe the entire time."
+    },
+    {
+        name: "Bikash Shrestha",
+        role: "Adventure Photographer",
+        review: "Spectacular routes, friendly guides, and breathtaking landscapes! I captured some of my best shots during this journey and enjoyed every moment."
+    },
+    {
+        name: "Maya Gurung",
+        role: "Travel Blogger",
+        review: "The cultural immersion on this trip was beyond my expectations. From traditional dances to local cuisine, every experience felt truly authentic and memorable."
+    },
+    {
+        name: "Kiran Adhikari",
+        role: "Mountaineer",
+        review: "Excellent logistics for high-altitude climbs. The team ensured we had the right equipment, acclimatization, and guidance for a safe and successful summit."
+    },
+    {
+        name: "Suman Koirala",
+        role: "Nature Lover",
+        review: "Breathtaking scenery combined with well-paced itineraries made this journey unforgettable. Every day brought a new landscape that left me inspired and humbled."
+    }
+];
+
+
+
+// EmblaCarousel-2_5Slides.jsx
+// Tailwind + Embla carousel component that shows 2.5 slides per view by default.
+// - Install: npm i embla-carousel-react
+// - TailwindCSS must be configured in your project
+// - Usage: <EmblaCarousel slides={arrayOfJSXOrImageUrls} />
+
+export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' }) {
+    // Embla hook
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
+        Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }),
+    ]);
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    const onSelect = useCallback(() => {
+        if (!emblaApi) return;
+        setSelectedIndex(emblaApi.selectedScrollSnap());
+    }, [emblaApi]);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+        emblaApi.on('select', onSelect);
+        onSelect();
+    }, [emblaApi, onSelect]);
+
+    const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+    const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
     return (
-        <div className="flex gap-0.5" aria-label={`Rating ${rating} of 5`}>
-            {Array.from({ length: 5 }).map((_, i) => {
-                const filled = i < Math.round(rating);
-                return (
-                    <svg
-                        key={i}
-                        viewBox="0 0 20 20"
-                        className={`h-4 w-4 ${filled ? "fill-yellow-400 text-yellow-400" : "fill-none text-yellow-400"} stroke-yellow-400`}
+        <div id='reviews' className={`relative w-full flex flex-col py-24 justify-center items-center   ${className}`}>
+
+            <h2 className='text-4xl pb-10 text-center font-semibold max-w-xl leading-12'><span className='bg-orange-500 text-white px-4 '>Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>platforms</span></h2>
+
+            {/* Embla viewport */}
+            <div className="overflow-hidden relative w-full" ref={emblaRef}>
+                <div className="absolute h-full top-0 left-0 w-80 lg:w-96 bg-gradient-to-r z-[99] from-white to-transparent"></div>
+                <div className="absolute h-full top-0 right-0 w-80 lg:w-96 bg-gradient-to-l z-[99] from-white to-transparent"></div>
+
+
+                {/* Controls */}
+                <div className="absolute inset-y-1/2 left-2 transform -translate-y-1/2 z-[999]">
+                    <button
+                        onClick={scrollPrev}
+                        className="size-16 text-4xl flex justify-center items-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none"
+                        aria-label="Previous"
                     >
-                        <path
-                            strokeWidth={1.2}
-                            d="M10 2.5l2.3 4.67 5.15.75-3.72 3.63.88 5.13L10 14.96l-4.61 2.42.88-5.13L2.55 7.92l5.15-.75z"
-                        />
-                    </svg>
-                );
-            })}
-        </div>
-    );
-};
-
-// Fetch helpers (hit our Next.js API routes)
-async function fetchGoogleReviews(): Promise<ExternalReview[]> {
-    const res = await fetch("/api/google-reviews", { next: { revalidate: 300 } });
-    if (!res.ok) throw new Error("Failed to load Google reviews");
-    return res.json();
-}
-
-async function fetchTripAdvisorReviews(): Promise<ExternalReview[]> {
-    const res = await fetch("/api/tripadvisor-reviews", { next: { revalidate: 300 } });
-    if (!res.ok) throw new Error("Failed to load TripAdvisor reviews");
-    return res.json();
-}
-
-export default function TravellerReview() {
-    const [active, setActive] = useState<"google" | "tripadvisor">("google");
-
-    const googleQuery = useQuery({
-        queryKey: ["google-reviews"],
-        queryFn: fetchGoogleReviews,
-        staleTime: 5 * 60 * 1000,
-    });
-
-    const tripQuery = useQuery({
-        queryKey: ["tripadvisor-reviews"],
-        queryFn: fetchTripAdvisorReviews,
-        staleTime: 5 * 60 * 1000,
-        enabled: active === "tripadvisor", // lazy fetch
-    });
-
-    const loading = active === "google" ? googleQuery.isLoading : tripQuery.isLoading;
-    const error = active === "google" ? googleQuery.error : tripQuery.error;
-    const data = active === "google" ? googleQuery.data : tripQuery.data;
-
-    return (
-        <section id="travellers-reviews" className="py-20 bg-gradient-to-b from-white to-gray-50">
-            <div className="px-4 lg:px-16 mx-auto ">
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-                    <div>
-                        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Traveller Reviews</h2>
-                        <p className="text-gray-600 mt-2 max-w-xl text-sm md:text-base">
-                            Real experiences shared by our guests. Pulled directly from Google and TripAdvisor so you
-                            can book with confidence.
-                        </p>
-                    </div>
-                    <div className="inline-flex rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm">
-                        <button
-                            className={`px-4 py-2 text-sm font-medium transition-colors ${active === "google" ? "bg-primary text-white" : "text-gray-600 hover:bg-gray-100"
-                                }`}
-                            onClick={() => setActive("google")}
-                        >
-                            Google
-                        </button>
-                        <button
-                            className={`px-4 py-2 text-sm font-medium transition-colors border-l border-gray-200 ${active === "tripadvisor" ? "bg-primary text-white" : "text-gray-600 hover:bg-gray-100"
-                                }`}
-                            onClick={() => setActive("tripadvisor")}
-                        >
-                            TripAdvisor
-                        </button>
-                    </div>
+                        <ChevronRight className='rotate-180' />
+                    </button>
                 </div>
 
-                {/* Content */}
-                <div className="min-h-[280px]">
-                    {loading && (
-                        <div className="grid gap-6 md:grid-cols-3 animate-pulse">
-                            {Array.from({ length: 3 }).map((_, i) => (
-                                <div key={i} className="p-5 rounded-xl bg-white shadow-sm border border-gray-100">
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <div className="h-12 w-12 rounded-full bg-gray-200" />
-                                        <div className="flex-1 space-y-2">
-                                            <div className="h-3 w-1/2 bg-gray-200 rounded" />
-                                            <div className="h-3 w-1/3 bg-gray-200 rounded" />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <div className="h-3 bg-gray-200 rounded" />
-                                        <div className="h-3 bg-gray-200 rounded w-5/6" />
-                                        <div className="h-3 bg-gray-200 rounded w-2/3" />
-                                    </div>
+                <div className="absolute inset-y-1/2 right-2 transform -translate-y-1/2 z-[999]">
+                    <button
+                        onClick={scrollNext}
+                        className="size-16 text-4xl flex justify-center items-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none"
+                        aria-label="Next"
+                    >
+                        <ChevronRight className='' />
+
+                    </button>
+                </div>
+
+                {/* Embla container */}
+                <div className="flex -ml-4">
+                    {reviews.map((slide, idx) => (
+                        <div
+                            key={idx}
+                            className="embla__slide flex-none p-4"
+                            style={{
+
+                                // 2.5 slides per view => each slide is 40% of the viewport width (100 / 2.5)
+                                // Adjust this value if you want different slides-per-view.
+                                minWidth: '38%',
+                                maxWidth: '38%',
+                            }}
+                        >
+                            <div className="min-h-96  border py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
+                                <div className="absolute  text-lg max-w-[150px] text-center -rotate-[20deg] font-cursive top-10 left-20 z-[99]">
+                                    {slide.name}
                                 </div>
-                            ))}
+                                <img src={`/${idx + 1}.jpeg`} alt="" className='w-50 h-64 overflow-hidden object-cover grayscale-100 relative z-[50]' />
+                                <h2 className='text-2xl font-semibold mt-6'>{slide.name}</h2>
+                                <div className="flex gap-1 items-center justify-center">
+                                    {[...Array(5)].map((_, i) => {
+                                        return <Star key={i} className='fill-yellow-500 stroke-0 text-yellow-500' />;
+                                    })}
+                                </div>
+                                <p className='mt-4 px-4 text-lg line-clamp-3 text-center'>{slide.review}</p>
+                            </div>
                         </div>
-                    )}
-
-                    {error && !loading && (
-                        <div className="text-red-600 text-sm">
-                            {(error as Error).message} – configure API keys to load live reviews.
-                        </div>
-                    )}
-
-                    {!loading && !error && (
-                        <div className="grid gap-6 md:grid-cols-2">
-                            {data && data.length > 0 ? (
-                                data.slice(0, 6).map((r) => (
-                                    <article
-                                        key={r.id}
-                                        className=" rounded-sm min-h-[44dvh] bg-white relative  border border-gray-100 flex flex-col justify-end items-end"
-                                    >
-                                        <div className="absolute inset-0">
-                                            <Image src={r.avatarUrl as string} alt={r.author} layout="fill" className="object-cover rounded-sm" />
-                                        </div>
-
-                                        <div className="h-full w-full relative shrink-0 ">
-                                            <div className="absolute inset-0">
-                                                <Image src={"/cloud_3.webp"} alt={r.author} layout="fill" className="object-cover rounded-sm" />
-                                            </div>
-                                        </div>
-
-                                    </article>
-                                ))
-                            ) : (
-                                <div className="col-span-full text-sm text-gray-500">No reviews available.</div>
-                            )}
-                        </div>
-                    )}
-                </div>
-
-                <div className="mt-10 flex flex-wrap gap-4 text-xs text-gray-500">
-                    <p>
-                        Want your feedback here? Leave us a review on {" "}
-                        <a
-                            href="#"
-                            className="underline decoration-dotted underline-offset-2 hover:text-gray-700"
-                        >
-                            Google
-                        </a>{" "}
-                        or {" "}
-                        <a
-                            href="#"
-                            className="underline decoration-dotted underline-offset-2 hover:text-gray-700"
-                        >
-                            TripAdvisor
-                        </a>
-                        .
-                    </p>
+                    ))}
                 </div>
             </div>
-        </section>
+
+
+            {/* Pagination (optional small dots) */}
+            <div className="flex items-center justify-center gap-2 mt-4">
+                {Array.from({ length: Math.max(1, slides.length) }).map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => emblaApi && emblaApi.scrollTo(i)}
+                        className={`w-2 h-2 rounded-full ${i === selectedIndex ? 'bg-gray-800' : 'bg-gray-300'}`}
+                        aria-label={`Go to slide ${i + 1}`}
+                    />
+                ))}
+            </div>
+
+
+        </div>
     );
 }

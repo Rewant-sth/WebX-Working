@@ -73,6 +73,12 @@ export default function Intro() {
     return (
         <section ref={containerRef} className="min-h-screen flex justify-center items-center h-full relative  snap-start">
 
+            <div className="absolute -top-1/2 z-[80] left-0 flex justify-between w-full">
+                <img src="/cloud_1.webp" alt="" />
+                {/* <img src="/cloud_3.webp" alt="" /> */}
+                <img src="/cloud_2.webp" alt="" />
+            </div>
+
             <div
                 className='grid grid-cols-2 max-w-7xl mx-auto py-20 '
             >
@@ -92,14 +98,14 @@ export default function Intro() {
                     <motion.p
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
                         className='text-2xl'>
                         We have developed interesting routes across <b>different continents</b>, countries, and places on the planet that will allow us to get to know the world closer.
                     </motion.p>
                     <motion.p
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.5, delay: 0.3 }}
                         className='text-2xl'>
                         Team of professional guides and a support team with years of <u> experience</u> in traveling and climbing. Our guides will ensure the safety of the tour, will give you useful <u>knowledge and skills</u> for independent travel in the future.
                     </motion.p>

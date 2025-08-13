@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useLayoutEffect } from 'react'
+import TalkToExperts from './TalkToExperts/TalkToExperts';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,24 +36,26 @@ export default function Footer() {
     return () => context.revert();
   })
   return (
-    <footer ref={footerRef} className="min-h-screen w-full  flex flex-col justify-end items-end bg-orange-500  text-zinc-900">
+    <footer ref={footerRef} className="min-h-screen bg-[#01283F] text-white w-full relative  flex flex-col justify-end items-end   ">
+      <div className="absolute bottom-0 right-0 w-full">
+        <img src="https://static.vecteezy.com/system/resources/previews/019/873/281/non_2x/mountain-line-drawing-png.png" alt="mountains" className='opacity-5 invert ' />
+      </div>
       {/* footer expert part */}
 
-      <div ref={divRef} className=" bg-white text-zinc-900  flex justify-center items-center h-[50dvh] w-full  ">
+      <div ref={divRef} className=" bg-white text-zinc-900 border-b  flex justify-center items-center h-[50dvh] w-full  ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
           <h2 className='text-4xl font-semibold'>Talk To Experts</h2>
-          <div className="h-[30dvh] max-w-7xl w-full bg-yellow-50 mt-6"></div>
+          <div className="h-[30dvh] max-w-7xl w-full  mt-6">
+
+          </div>
         </div>
       </div>
 
       {/* footer bottom part */}
-      <div className="w-full flex flex-col justify-center   text-white relative   pb-4">
-
-
-
-        <div className="relative text-center w-full  h-fit">
+      <div className="w-full flex flex-col justify-center  text-white  relative   pb-4">
+        <div className="relative text-center w-full pt-5  h-fit">
           <div className="w-max mx-auto">
-            <h2 className='text-[12vw] leading-[90%] tracking-widest font-bold pt-8 '>
+            <h2 className='text-[12vw] text-amber-500 leading-[90%] tracking-widest font-bold pt-8 '>
               <span ref={el => {
                 if (textRef.current != null) {
                   textRef.current[0] = el as HTMLHeadingElement
@@ -74,17 +77,27 @@ export default function Footer() {
                 }
               }} >L</span>
             </h2>
-            <h2 className='text-right text-4xl max-w-7xl mx-auto'>HIMALAYA</h2>
+            <h2 className='text-right text-4xl max-w-7xl text-amber-500 mx-auto'>HIMALAYA</h2>
           </div>
           <div className="max-w-7xl border-b b pb-5 mb-5 border-dashed border-zinc-300 mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
-            <p>&copy; 2023 REAL HIMALAYA, All Rights Reserved.</p>
-            <div className="">
-              <ul className="flex gap-6">
-                <li>Home</li>
-                <li>About</li>
-                <li>Contact</li>
-                <li>Privacy Policy</li>
-              </ul>
+            <div className="flex gap-6 items-center">
+              <p className='text-xl'>Recommended By : </p>
+              <div className="">
+                <ul className="flex gap-6">
+                  <li className='size-10'><img src="/tripadvisor.png" alt="" /></li>
+                  <li className="size-10 bg-white rounded-full flex justify-center items-center"><Icon icon={"flat-color-icons:google"} className='text-4xl' /></li>
+                  <li className='w-32 translate-y-2'><img src="https://www.acethehimalaya.com/wp-content/uploads/2023/10/mrt-logo.png.webp" alt="" /></li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex gap-6 items-center">
+              <p className='text-xl'>We Accept : </p>
+              <div className="">
+                <ul className="flex gap-6">
+                  <li className='w-40 '><img src="https://www.omegla.chat/images/OmeglePaymentOptions.webp" alt="" /></li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className="max-w-7xl  text-sm mt-4 w-full flex flex-col justify-between items-center gap-4  flex-wrap mx-auto">

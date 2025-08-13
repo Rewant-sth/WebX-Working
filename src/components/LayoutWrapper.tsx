@@ -10,19 +10,9 @@ export default function LayoutWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const is404 =
-    pathname === "/not-found" || pathname === "/404" || pathname === "/test" || pathname.startsWith("/booking");
-
   return (
     <>
-      {/* <div className="hidden lg:block"> {!is404 && <Navbar />}</div>
-      <div className="lg:hidden">
-        {" "}
-        <MobileNavbar />
-      </div> */}
       {children}
-      {/* {!is404 && <Footer />} */}
     </>
   );
 }

@@ -11,39 +11,66 @@ export default function AboutUs() {
 
   const cloudRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const manRef = useRef<HTMLImageElement | null>(null);
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
-      gsap.to(cloudRef.current, {
+
+
+      const tl = gsap.timeline();
+
+
+      tl.fromTo(cloudRef.current, {
+        y: "50%"
+      }, {
         ease: "none",
-        height: "120vh",
+        y: "0%",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top center",
           end: "+=100%",
           scrub: 2,
-          markers: true
+
         }
-      })
+      }, 0)
+
+
+      tl.fromTo(manRef.current, {
+        sacale: 1
+      }, {
+        ease: "none",
+        scale: 1.1,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top center",
+          end: "+=100%",
+          scrub: 2,
+
+        }
+      }, 0)
+
+
     })
     return () => context.revert()
   }, [])
 
   return (
     <section ref={sectionRef} className="h-screen overflow-hidden relative  snap-start flex justify-end items-center">
-      <div className="absolute top-0 left-0 w-full h-[45vh] z-[99] bg-gradient-to-b from-white to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-dvh z-[99] bg-gradient-to-b from-white to-transparent"></div>
       <motion.div
 
         className="absolute inset-0 z-[9999]   w-full flex justify-end items-end">
         <motion.div
           ref={cloudRef}
-          className="w-full h-[50vh] opacity-85  relative">
-          <Image src={"/cloud_3.webp"} alt='bg' fill className='z-[99] relative object-cover object-center' />
+          className="w-full h-[100vh]    relative">
+          <Image src={"/cloud_3.png"} alt='bg' fill className='z-[99] translate-y-4 relative object-cover object-center' />
         </motion.div>
       </motion.div>
+
+
       <div className="absolute inset-0  z-[30] ">
         <div className="relative h-full blend  w-full">
-          <Image src={"/DSC00722.JPG"} alt='bg' fill className='z-[30] relative object-cover ' />
+          <Image ref={manRef} src={"/DSC00722.JPG"} alt='bg' fill className='z-[30] relative object-cover object-bottom ' />
         </div>
       </div>
 

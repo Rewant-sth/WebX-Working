@@ -18,7 +18,7 @@ export function TestimonialCard({
     text,
     href,
     className
-}: TestimonialCardProps) {
+}: TestimonialCardProps) { 
     const Card = href ? 'a' : 'div'
 
     return (

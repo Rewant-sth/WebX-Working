@@ -7,6 +7,7 @@ import Providers from "./react-query-provider";
 import { Toaster } from "react-hot-toast";
 import TrackVisitors from "@/components/trackVisitors/TrackVisitors";
 import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
+import Navbar from "@/components/common/navbar/Navbar";
 
 
 // ✅ Correctly export metadata
@@ -24,15 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={""} suppressHydrationWarning>
+        <Navbar />
         <TrackVisitors />
         <Providers>
-
           <LenisProvider />
-
-          <LayoutWrapper>
-            <SelectedTripProvider>{children}</SelectedTripProvider>
-          </LayoutWrapper>
-
+          <SelectedTripProvider>{children}</SelectedTripProvider>
           <Toaster position="top-right" reverseOrder={false} />
         </Providers>
       </body>

@@ -32,6 +32,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    padding-top: 4rem;
+    /* Add padding for fixed navbar */
 }
 
 
