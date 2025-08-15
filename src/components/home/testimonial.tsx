@@ -13,7 +13,7 @@ const TestimonialsSections = () => {
             initial={{ scale: 0.5, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.5, delay: index * 0.1, ease: "easeInOut" }}
+            transition={{ duration: 0.3, delay: index * 0.05, ease: "easeInOut" }}
             key={index} className={`col-span-1 rounded-xl w-full h-[220px] relative ${index % 2 == 0 ? "translate-y-14" : ""}
           ${index > 1 && index < 6 ? "row-span-2" : ""}
           `}>
@@ -29,7 +29,7 @@ const TestimonialsSections = () => {
           <span className='bg-amber-600 flex justify-center items-center text-white size-12 rounded-full'>
             <Play className='fill-white' />
           </span>
-          <span className='text-left  leading-4 uppercase'>Success <br /> Story</span>
+          <span className='text-left  leading-4 uppercase font-semibold'>Success <br /> Story</span>
         </button>
       </div>
     </section>

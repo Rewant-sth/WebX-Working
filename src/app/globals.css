@@ -8,10 +8,16 @@ html {
 
 * {
     /* Hardware acceleration for better performance */
-    transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000;
     will-change: auto;
+}
+
+/* Apply transform only to specific elements that need it */
+.motion-safe,
+img:not(.bg-fixed),
+video:not(.bg-fixed) {
+    transform: translateZ(0);
 }
 
 /* Optimize animations */
@@ -162,6 +168,26 @@ body {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Fixed background classes */
+.bg-fixed {
+    background-attachment: fixed !important;
+    /* Prevent transforms on fixed backgrounds */
+    transform: none !important;
+    will-change: auto !important;
+}
+
+.bg-fixed-fallback {
+    /* Ensure no conflicting transforms */
+    transform: none !important;
+}
+
+/* Responsive fixed background - disable on mobile for better performance */
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll !important;
+    }
 }
 
 /* Smooth scale animation */

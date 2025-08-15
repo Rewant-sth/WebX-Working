@@ -68,13 +68,13 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
             <h2 className='text-4xl pb-10 text-center font-semibold max-w-xl leading-12'><span className='bg-orange-500 text-white px-4 '>Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>platforms</span></h2>
 
             {/* Embla viewport */}
-            <div className="overflow-hidden relative w-full" ref={emblaRef}>
-                <div className="absolute h-full top-0 left-0 w-80 lg:w-96 bg-gradient-to-r z-[99] from-white to-transparent"></div>
-                <div className="absolute h-full top-0 right-0 w-80 lg:w-96 bg-gradient-to-l z-[99] from-white to-transparent"></div>
+            <div className="overflow-hidden relative max-w-7xl mx-auto w-full" ref={emblaRef}>
+                {/* <div className="absolute h-full top-0 left-0 w-80 lg:w-96 bg-gradient-to-r z-[99] from-white to-transparent"></div>
+                <div className="absolute h-full top-0 right-0 w-80 lg:w-96 bg-gradient-to-l z-[99] from-white to-transparent"></div> */}
 
 
                 {/* Controls */}
-                <div className="absolute inset-y-1/2 left-2 transform -translate-y-1/2 z-[999]">
+                {/* <div className="absolute inset-y-1/2 left-2 transform -translate-y-1/2 z-[999]">
                     <button
                         onClick={scrollPrev}
                         className="size-16 text-4xl flex justify-center items-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none"
@@ -93,26 +93,24 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
                         <ChevronRight className='' />
 
                     </button>
-                </div>
+                </div> */}
 
                 {/* Embla container */}
-                <div className="flex -ml-4">
+                <div className="flex ">
                     {reviews.map((slide, idx) => (
                         <div
                             key={idx}
-                            className="embla__slide flex-none p-4"
+                            className="embla__slide flex-none px-3"
                             style={{
-
-                                // 2.5 slides per view => each slide is 40% of the viewport width (100 / 2.5)
-                                // Adjust this value if you want different slides-per-view.
                                 minWidth: '38%',
                                 maxWidth: '38%',
                             }}
                         >
                             <div className="min-h-96  border py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
-                                <div className="absolute  text-lg max-w-[150px] text-center -rotate-[20deg] font-cursive top-10 left-20 z-[99]">
+                                {/* Signature */}
+                                <p className="absolute text-4xl  max-w-[150px] text-center -rotate-[20deg] top-10 left-20 z-[99] font-semibold" style={{ fontFamily: "var(--font-dancing-script), 'Brush Script MT', cursive" }}>
                                     {slide.name}
-                                </div>
+                                </p>
                                 <img src={`/${idx + 1}.jpeg`} alt="" className='w-50 h-64 overflow-hidden object-cover grayscale-100 relative z-[50]' />
                                 <h2 className='text-2xl font-semibold mt-6'>{slide.name}</h2>
                                 <div className="flex gap-1 items-center justify-center">

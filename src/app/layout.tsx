@@ -8,6 +8,14 @@ import { Toaster } from "react-hot-toast";
 import TrackVisitors from "@/components/trackVisitors/TrackVisitors";
 import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
 import Navbar from "@/components/common/navbar/Navbar";
+import { Dancing_Script } from "next/font/google";
+
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-dancing-script",
+  display: "swap"
+});
 
 
 // ✅ Correctly export metadata
@@ -24,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={""} suppressHydrationWarning>
+      <body className={`${dancingScript.variable}`} suppressHydrationWarning>
         <Navbar />
         <TrackVisitors />
         <Providers>

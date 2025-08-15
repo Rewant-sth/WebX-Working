@@ -12,13 +12,26 @@ export default function AboutUs() {
   const cloudRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const manRef = useRef<HTMLImageElement | null>(null);
+  const bgRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
 
-
       const tl = gsap.timeline();
 
+      // Parallax effect for background (mimics background-attachment: fixed)
+      tl.fromTo(bgRef.current, {
+        y: "0%"
+      }, {
+        ease: "none",
+        y: "-20%",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        }
+      }, 0)
 
       tl.fromTo(cloudRef.current, {
         y: "50%"
@@ -30,13 +43,11 @@ export default function AboutUs() {
           start: "top center",
           end: "+=100%",
           scrub: 2,
-
         }
       }, 0)
 
-
       tl.fromTo(manRef.current, {
-        sacale: 1
+        scale: 1
       }, {
         ease: "none",
         scale: 1.1,
@@ -45,18 +56,26 @@ export default function AboutUs() {
           start: "top center",
           end: "+=100%",
           scrub: 2,
-
         }
       }, 0)
-
 
     })
     return () => context.revert()
   }, [])
 
   return (
-    <section ref={sectionRef} className="h-screen overflow-hidden relative  snap-start flex justify-end items-center">
-      <div className="absolute top-0 left-0 w-full h-dvh z-[99] bg-gradient-to-b from-white to-transparent"></div>
+    <section ref={sectionRef}
+      style={{
+        backgroundImage: "url('/DSC00722.JPG')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed"
+      }}
+      className="h-screen overflow-hidden relative snap-start flex justify-end items-center bg-fixed-fallback">
+
+
+
+      {/* <div className="absolute top-0 left-0 w-full h-dvh z-[99] bg-gradient-to-b from-white to-transparent"></div> */}
       <motion.div
 
         className="absolute inset-0 z-[9999]   w-full flex justify-end items-end">
@@ -66,14 +85,6 @@ export default function AboutUs() {
           <Image src={"/cloud_3.png"} alt='bg' fill className='z-[99] translate-y-4 relative object-cover object-center' />
         </motion.div>
       </motion.div>
-
-
-      <div className="absolute inset-0  z-[30] ">
-        <div className="relative h-full blend  w-full">
-          <Image ref={manRef} src={"/DSC00722.JPG"} alt='bg' fill className='z-[30] relative object-cover object-bottom ' />
-        </div>
-      </div>
-
 
       <div
         className='flex  pl-40 relative  z-[99]  items-center w-full justify-start '
@@ -88,8 +99,6 @@ export default function AboutUs() {
           </div>
         </div>
       </div>
-
-
     </section >
   )
 }

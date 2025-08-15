@@ -73,11 +73,7 @@ export default function Intro() {
     return (
         <section ref={containerRef} className="min-h-screen flex justify-center items-center h-full relative  snap-start">
 
-            <div className="absolute -top-1/2 z-[80] left-0 flex justify-between w-full">
-                <img src="/cloud_1.webp" alt="" />
-                {/* <img src="/cloud_3.webp" alt="" /> */}
-                <img src="/cloud_2.webp" alt="" />
-            </div>
+
 
             <div
                 className='grid grid-cols-2 max-w-7xl mx-auto py-20 '

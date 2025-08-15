@@ -4,89 +4,83 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useLayoutEffect } from 'react'
 import TalkToExperts from './TalkToExperts/TalkToExperts';
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const divRef = React.useRef<HTMLDivElement>(null);
   const footerRef = React.useRef<HTMLDivElement>(null);
-  const textRef = React.useRef<HTMLHeadingElement[] | null>([]);
+  const textRef = React.useRef<HTMLHeadingElement | null>(null);
 
 
   useLayoutEffect(() => {
-    const context = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: "top center",   // start earlier
-          end: "+=700",     // end later
-          scrub: 0.5,
-        }
-      });
+    const path = document.querySelector("#visualpath") as SVGPathElement;
+    const length = path.getTotalLength();
 
-      tl.fromTo(divRef.current, {
-        borderRadius: "0px 0px 0px 0px"
-
-      }, {
-        borderRadius: "0px 0px 100px 100px",
-        duration: 0.3,
-        ease: "power2.out"
-      });
+    gsap.set(path, {
+      strokeDasharray: length,
+      strokeDashoffset: length
     });
 
-    return () => context.revert();
-  })
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: footerRef.current,
+        start: "top center",
+        end: "+=100%",
+        scrub: 0.5,
+      }
+    }).to(path, {
+      strokeDashoffset: 0,
+      duration: 2,
+      ease: "power2.inOut",
+
+    })
+
+
+  });
+
   return (
-    <footer ref={footerRef} className="min-h-screen bg-[#01283F] text-white w-full relative  flex flex-col justify-end items-end   ">
-      <div className="absolute bottom-0 right-0 w-full">
-        <img src="https://static.vecteezy.com/system/resources/previews/019/873/281/non_2x/mountain-line-drawing-png.png" alt="mountains" className='opacity-5 invert ' />
+    <footer ref={footerRef} className="min-h-screen  text-[#01283F] w-full relative  flex flex-col justify-end items-end   ">
+      <div className="absolute bottom-0 right-0 w-screen overflow-hidden">
+        <svg id="visual" viewBox="0 0 900 600" className='w-full scale-105 drop-shadow-2xl shadow-black-300 fill-none' xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" stroke="#01283F"
+          strokeWidth="2" >
+          <path id='visualpath' d="M0 429L45 411L90 391L135 407L180 392L225 454L270 420L315 412L360 384L405 406L450 448L495 454L540 407L585 448L630 402L675 447L720 398L765 401L810 415L855 384L900 438L900 601L855 601L810 601L765 601L720 601L675 601L630 601L585 601L540 601L495 601L450 601L405 601L360 601L315 601L270 601L225 601L180 601L135 601L90 601L45 601L0 601Z" strokeLinecap="square" strokeLinejoin="bevel"></path>
+        </svg>
+        <div id='box' className="h-34 w-full "></div>
       </div>
       {/* footer expert part */}
 
-      <div ref={divRef} className=" bg-white text-zinc-900 border-b  flex justify-center items-center h-[50dvh] w-full  ">
+      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-[50dvh] w-full  ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
           <h2 className='text-4xl font-semibold'>Talk To Experts</h2>
-          <div className="h-[30dvh] max-w-7xl w-full  mt-6">
-
+          <div className="h-[30dvh]  max-w-7xl w-full  mt-6">
+            <TalkToExperts />
           </div>
         </div>
       </div>
 
       {/* footer bottom part */}
-      <div className="w-full flex flex-col justify-center  text-white  relative   pb-4">
+      <div className="w-full flex pt-10 flex-col justify-center  text-[#01283F]  relative   pb-4">
         <div className="relative text-center w-full pt-5  h-fit">
           <div className="w-max mx-auto">
-            <h2 className='text-[12vw] text-amber-500 leading-[90%] tracking-widest font-bold pt-8 '>
-              <span ref={el => {
-                if (textRef.current != null) {
-                  textRef.current[0] = el as HTMLHeadingElement
-                }
-              }} >R</span >
-              <span ref={el => {
-                if (textRef.current != null) {
-                  textRef.current[1] = el as HTMLHeadingElement
-                }
-              }} >E</span>
-              <span ref={el => {
-                if (textRef.current != null) {
-                  textRef.current[2] = el as HTMLHeadingElement
-                }
-              }} >A</span>
-              <span ref={el => {
-                if (textRef.current != null) {
-                  textRef.current[3] = el as HTMLHeadingElement
-                }
-              }} >L</span>
+            <h2
+              ref={textRef}
+
+              className='text-[9vw] text-outline text- leading-[90%] tracking-widest font-bold pt-8 '>
+              <span >R</span ><span >E</span><span >A</span><span >L</span><span >H</span><span >I</span><span >M</span>
+              <span >A</span><span >L</span><span >A</span><span >Y</span><span >A</span>
             </h2>
-            <h2 className='text-right text-4xl max-w-7xl text-amber-500 mx-auto'>HIMALAYA</h2>
           </div>
-          <div className="max-w-7xl border-b b pb-5 mb-5 border-dashed border-zinc-300 mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
+          <div className="max-w-7xl  b pb-5 mb-5  border-zinc-300 mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
             <div className="flex gap-6 items-center">
               <p className='text-xl'>Recommended By : </p>
               <div className="">
-                <ul className="flex gap-6">
-                  <li className='size-10'><img src="/tripadvisor.png" alt="" /></li>
-                  <li className="size-10 bg-white rounded-full flex justify-center items-center"><Icon icon={"flat-color-icons:google"} className='text-4xl' /></li>
-                  <li className='w-32 translate-y-2'><img src="https://www.acethehimalaya.com/wp-content/uploads/2023/10/mrt-logo.png.webp" alt="" /></li>
+                <ul className="flex gap-4">
+                  <li className='size-10'>
+                    <img src="https://uploads-ssl.webflow.com/5ee4030d6fd7285009fe05f5/625835dc5e9a3877c49e9bb7_tripadvisor-logo-5-p-2600.png" alt="" />
+                  </li>
+                  <li className="size-10 bg-gray-200 rounded-full flex justify-center items-center"><Icon icon={"flat-color-icons:google"} className='text-4xl' /></li>
+                  <li className='w-32  translate-y-2'><img src="https://framerusercontent.com/images/ZV0ieMLPHcyWwiRRZTPzNijd0.png" alt="" /></li>
                 </ul>
               </div>
             </div>
@@ -100,7 +94,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="max-w-7xl  text-sm mt-4 w-full flex flex-col justify-between items-center gap-4  flex-wrap mx-auto">
+          <div className="max-w-7xl  border-t border-dashed pt-4 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
             <p>Designed and developed by WebX Nepal</p>
             <div className="">
               <ul className="flex gap-6">
