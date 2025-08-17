@@ -8,9 +8,15 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
       id="major-highlights"
       className="border-b mt-6 border-gray-200 mb-8 pb-10"
     >
-      <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-center sm:text-left" style={{ color: '#3A3A3A' }}>
-        Major Highlights
+      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+        <span className="w-fit text-2xl font-semibold">
+          Major Highlights
+        </span>
       </h2>
+
+      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+        Discover the key attractions and memorable experiences that make this journey extraordinary.
+      </p>
       <div className="grid gap-6">
         {data?.attraction.map((item, index) => (
           <div

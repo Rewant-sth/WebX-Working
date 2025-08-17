@@ -167,9 +167,15 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
             id="itinerary"
             className="border-b border-gray-200 mb-8 pb-10"
         >
-            <h2 className="text-4xl font-bold mb-12 text-center sm:text-left" style={{ color: '#3A3A3A' }}>
-                Itinerary
+            <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+                <span className="w-fit text-2xl font-semibold">
+                    Itinerary
+                </span>
             </h2>
+
+            <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-12">
+                Follow our detailed day-by-day itinerary to understand what each day of your adventure will bring.
+            </p>
 
             <div className="space-y-4">
                 {data?.map((day) => (

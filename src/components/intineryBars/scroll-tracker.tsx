@@ -28,8 +28,32 @@ interface Section {
 const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     const [activeSection, setActiveSection] = useState<string>("major-highlights");
     const [isScrollingToSection, setIsScrollingToSection] = useState(false);
+    const [top, setTop] = useState<number>(0);
+    const [lastScrollY, setLastScrollY] = useState<number>(0);
 
+    // Update top position based on scroll direction
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const scrollDifference = currentScrollY - lastScrollY;
 
+            // If scrolling down, hide navbar (top = 0)
+            if (scrollDifference > 0 && currentScrollY > 100) {
+                setTop(0);
+            }
+            // If scrolling up more than 10 pixels, show navbar (top = 64)
+            else if (scrollDifference < -10) {
+                setTop(64);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
 
     // Define all possible sections with their conditions
     const sections: Section[] = [
@@ -159,8 +183,10 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     }, [visibleSections, isScrollingToSection]);
 
     return (
-        <div className="px-4 sm:px-8 md:px-12 lg:px-16 sticky top-0  z-[99] backdrop-blur-sm border-b border-gray-200">
-            <div className="py-4 flex justify-between items-center">
+        <div
+            className={`px-4 sm:px-8 md:px-12 lg:px-16 sticky w-full z-[99] backdrop-blur-sm border-b border-gray-200 bg-white/90 transition-transform duration-300 top-0 `}
+        >
+            <div className="py-2 flex justify-between items-center">
 
 
                 {/* Scroll Spy Navigation Tabs */}

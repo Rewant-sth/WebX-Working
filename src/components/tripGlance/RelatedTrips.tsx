@@ -24,19 +24,26 @@ const RelatedTrips = ({
   return (
     <div className="border-b border-gray-200 mb-8 pb-10">
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl lg:text-3xl font-semibold" style={{ color: '#3A3A3A' }}>
-          Related Trips
-        </h2>
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+            <span className="w-fit text-2xl font-semibold">
+              Related Trips
+            </span>
+          </h2>
+          <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl">
+            Discover other amazing adventures that might interest you on your next journey.
+          </p>
+        </div>
         <Link
           href={`/package-list/${category}`}
           className="inline-flex items-center font-medium transition-colors duration-200 hover:underline"
-          style={{ color: '#f05e25' }}
+          style={{ color: '#01283F' }}
         >
           View all related trips <ArrowRight className="ml-2 w-5 h-5" />
         </Link>
       </div>
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data?.data?.map((trip, index) => {
           if (trip.id !== packageId) {
             return (
@@ -57,7 +64,7 @@ const RelatedTrips = ({
                     <h3 className="text-xl font-bold text-gray-800 leading-tight flex-1 mr-3" style={{ color: '#3A3A3A' }}>
                       {trip.name}
                     </h3>
-                    <span className="text-sm font-semibold px-3 py-1 rounded-full text-white" style={{ backgroundColor: '#f05e25' }}>
+                    <span className="text-sm font-semibold px-3 py-1 rounded-full text-white" style={{ backgroundColor: '#01283F' }}>
                       {trip.duration} Days
                     </span>
                   </div>
@@ -70,7 +77,7 @@ const RelatedTrips = ({
                   <div className="flex justify-between items-center mb-4">
                     <div>
                       <span className="text-sm text-gray-500 block">Starting From</span>
-                      <span className="text-2xl font-bold" style={{ color: '#f05e25' }}>
+                      <span className="text-2xl font-bold" style={{ color: '#01283F' }}>
                         ${trip.fixedDates[0]?.pricePerPerson || "-"}
                       </span>
                     </div>
@@ -80,7 +87,7 @@ const RelatedTrips = ({
                     <Link href={`/booking/${trip.id}`} className="flex-1">
                       <button
                         className="w-full flex gap-2 items-center justify-center text-white py-3 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
-                        style={{ backgroundColor: '#f05e25' }}
+                        style={{ backgroundColor: '#01283F' }}
                       >
                         <Calendar size={18} /> Book Now
                       </button>

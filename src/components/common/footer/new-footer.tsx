@@ -50,9 +50,8 @@ export default function Footer() {
       </div>
       {/* footer expert part */}
 
-      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-[50dvh] w-full  ">
+      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-[57dvh] w-full  ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
-          <h2 className='text-4xl font-semibold'>Talk To Experts</h2>
           <div className="h-[30dvh]  max-w-7xl w-full  mt-6">
             <TalkToExperts />
           </div>

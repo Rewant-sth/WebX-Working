@@ -107,10 +107,12 @@ export default function TravellerReview({
       className="border-b border-gray-200 mb-8 pb-10"
     >
       <div className="mb-8">
-        <h2 className="text-2xl lg:text-3xl font-semibold mb-6 text-center sm:text-left" style={{ color: '#3A3A3A' }}>
-          Traveller Reviews
+        <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+          <span className="w-fit text-2xl font-semibold">
+            Traveller Reviews
+          </span>
         </h2>
-        <p className="text-gray-600 text-base leading-relaxed">
+        <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl">
           Hear what our travellers have to say. We're proud to maintain a 5-star
           rating across all platforms.
         </p>
@@ -121,28 +123,15 @@ export default function TravellerReview({
       {/* Reviews */}
       <div className="mb-10">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold" style={{ color: '#3A3A3A' }}>Recent Reviews</h3>
+          <h3 className="text-lg font-semibold" style={{ color: '#3A3A3A' }}>Recent Reviews</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {data?.testimonial.length === 0 && (
             <div className="col-span-full flex flex-col items-center justify-center  rounded-sm py-12 px-6 text-center" style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-12 h-12 text-gray-400 mb-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M7.5 8.25h9m-9 3.75h5.25M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"
-                />
-              </svg>
+              <Icon icon={"bx:happy-heart-eyes"} className="text-6xl mb-4 text-zinc-600" />
               <h2 className="text-xl font-semibold" style={{ color: '#3A3A3A' }}>
-                No Reviews Yet
+                You will be the first to leave a review1
               </h2>
               <p className="text-sm text-gray-500 mt-1">
                 Be the first to leave a review and share your experience!
@@ -201,68 +190,88 @@ export default function TravellerReview({
 
       {/* Review Form */}
       <div>
-        <h2 className="text-2xl font-bold mb-2" style={{ color: '#3A3A3A' }}>
+        <h2 className="text-2xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
           Share Your Experience
         </h2>
         <p className="text-gray-600 text-base mb-8">
           We'd love to hear about your journey. Your feedback helps others.
         </p>
 
-        <form onSubmit={handleSubmitReview} className="space-y-6">
-          {/* Rating */}
-          <div className="p-6 rounded-sm bg-gray-50 border-gray-200">
-            <label className="block text-lg font-semibold mb-4" style={{ color: '#3A3A3A' }}>
-              Rate Your Experience
-            </label>
-            <div className="flex items-center">
-              {[...Array(5)].map((_, index) => {
-                const ratingValue = index + 1;
-                return (
-                  <label key={index} className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name="rating"
-                      value={ratingValue}
-                      onClick={() => setRating(ratingValue)}
-                      className="hidden"
-                    />
-                    <FaStar
-                      size={38}
-                      className={`mx-1 transition-all hover:scale-110 ${ratingValue <= (hoverRating || rating)
-                        ? "text-orange-500 fill-current"
-                        : "text-gray-300"
-                        }`}
-                      style={{
-                        color: ratingValue <= (hoverRating || rating) ? '#f05e25' : '#e5e7eb'
-                      }}
-                      onMouseEnter={() => setHoverRating(ratingValue)}
-                      onMouseLeave={() => setHoverRating(0)}
-                    />
-                  </label>
-                );
-              })}
-              <span className="ml-4 text-xl font-semibold" style={{ color: '#3A3A3A' }}>
-                {rating > 0 ? `${rating}.0` : "0"}
-              </span>
+        <form onSubmit={handleSubmitReview} className="gap-8 grid lg:grid-cols-2">
+          <div className="space-y-4">
+            {/* Rating */}
+            <div className="p-6 rounded-sm border npm run dev border-gray-200">
+              <label className="block text-lg font-semibold mb-4" style={{ color: '#3A3A3A' }}>
+                Rate Your Experience
+              </label>
+              <div className="flex items-center">
+                {[...Array(5)].map((_, index) => {
+                  const ratingValue = index + 1;
+                  return (
+                    <label key={index} className="cursor-pointer">
+                      <input
+                        type="radio"
+                        name="rating"
+                        value={ratingValue}
+                        onClick={() => setRating(ratingValue)}
+                        className="hidden"
+                      />
+                      <FaStar
+                        size={38}
+                        className={`mx-1 transition-all hover:scale-110 ${ratingValue <= (hoverRating || rating)
+                          ? "text-orange-500 fill-current"
+                          : "text-gray-300"
+                          }
+                        
+                        `}
+                        style={{
+                          color: ratingValue <= (hoverRating || rating) ? '#f05e25' : '#e5e7eb'
+                        }}
+                        onMouseEnter={() => setHoverRating(ratingValue)}
+                        onMouseLeave={() => setHoverRating(0)}
+                      />
+                    </label>
+                  );
+                })}
+                <span className="ml-4 text-xl font-semibold" style={{ color: '#3A3A3A' }}>
+                  {rating > 0 ? `${rating}.0` : "0"}
+                </span>
+              </div>
+            </div>
+
+            {/* Full Name */}
+            <div>
+              <label className="block text-base font-semibold mb-3" style={{ color: '#3A3A3A' }}>
+                Your Full Name
+              </label>
+              <input
+                type="text"
+                placeholder="Enter your full name"
+                className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
+
+            {/* Image Upload */}
+
+
+            {/* Review Text */}
+            <div>
+              <label className="block text-base font-semibold mb-3" style={{ color: '#3A3A3A' }}>
+                Tell us about your experience
+              </label>
+              <textarea
+                placeholder="What did you enjoy most? What could be improved?"
+                className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none"
+                rows={4}
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+              ></textarea>
             </div>
           </div>
 
-          {/* Full Name */}
-          <div>
-            <label className="block text-base font-semibold mb-3" style={{ color: '#3A3A3A' }}>
-              Your Full Name
-            </label>
-            <input
-              type="text"
-              placeholder="Enter your full name"
-              className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </div>
-
-          {/* Image Upload */}
-          <div>
+          <div className="h-full ">
             <label
               htmlFor="image"
               className="block text-base font-semibold mb-3"
@@ -280,8 +289,8 @@ export default function TravellerReview({
               }
               className="hidden"
             />
-            <div className="relative">
-              <div className="p-4 rounded-sm bg-gray-50 border-2 border-dashed border-gray-300 hover:border-gray-400 transition-all duration-200 cursor-pointer">
+            <div className="relative h-[350px]">
+              <div className="p-4 rounded-sm h-full   bg-gray-50 border-2 border-dashed border-gray-300 hover:border-gray-400 transition-all duration-200 cursor-pointer flex justify-center items-center">
                 <div className="absolute top-3 right-3 z-10">
                   {image ? (
                     <button
@@ -294,12 +303,12 @@ export default function TravellerReview({
                   ) : null}
                 </div>
                 {image ? (
-                  <div className="w-20 h-20 mx-auto relative">
+                  <div className="w-full h-full mx-auto relative">
                     <Image
                       fill
                       src={URL.createObjectURL(image)}
                       alt="preview"
-                      className="object-cover rounded-md"
+                      className="object-contain rounded-md"
                     />
                   </div>
                 ) : (
@@ -322,20 +331,6 @@ export default function TravellerReview({
             </div>
           </div>
 
-          {/* Review Text */}
-          <div>
-            <label className="block text-base font-semibold mb-3" style={{ color: '#3A3A3A' }}>
-              Tell us about your experience
-            </label>
-            <textarea
-              placeholder="What did you enjoy most? What could be improved?"
-              className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none"
-              rows={4}
-              value={reviewText}
-              onChange={(e) => setReviewText(e.target.value)}
-            ></textarea>
-          </div>
-
           <div className="pt-4">
             <button
               type="submit"
@@ -354,6 +349,8 @@ export default function TravellerReview({
               {isPending ? "Submitting..." : "Submit Review"}
             </button>
           </div>
+
+
         </form>
       </div>
     </div>

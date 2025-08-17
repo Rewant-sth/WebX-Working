@@ -135,12 +135,12 @@ const CertificatesPage = () => {
 
           {/* <pre>{JSON.stringify(data?.data, null, 2)}</pre> */}
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 [column-fill:_balance]">
             {isLoading ? (
               Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={`skeleton-${i}`}
-                  className="rounded-2xl flex flex-col items-center border border-blue-100 shadow-sm h-96 overflow-hidden relative"
+                  className=" flex flex-col items-center border border-blue-100 shadow-sm h-96 overflow-hidden relative"
                 >
                   <Skeleton height={"100%"} width={"100%"} />
                 </div>
@@ -161,23 +161,14 @@ const CertificatesPage = () => {
               data?.data?.map((cert: Certificate) => (
                 <div
                   key={cert._id}
-                  className="rounded-2xl flex flex-col items-center border border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 h-96 overflow-hidden relative"
+                  className="rounded-sm break-inside-avoid flex flex-col items-center   hover:shadow-md transition-all duration-300 transform hover:-translate-y-1  overflow-hidden relative"
                 >
-                  <Image
+                  <img
                     src={cert.image}
                     alt={cert.name}
-                    fill
-                    className="object-cover h-full w-full"
-                    priority
+                    className="object-contain h-full w-full"
+                    loading="eager"
                   />
-                  <div className="mt-4 absolute bottom-0 left-0 p-4 h-full w-full flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
-                    <h3 className="font-semibold text-white z-10 mb-1 text-2xl">
-                      {cert.name}
-                    </h3>
-                    <p className="text-white text-base mt-1">
-                      Issuing Authority: Global Standards Org
-                    </p>
-                  </div>
                 </div>
               ))
             )}

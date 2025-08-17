@@ -20,8 +20,10 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
       id="trip-glance"
       className="border-b border-gray-200 pb-10"
     >
-      <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-center sm:text-left" style={{ color: '#3A3A3A' }}>
-        Your Trip at a Glance
+      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left mb-8">
+        <span className="w-fit text-2xl font-semibold">
+          Your Trip at a Glance
+        </span>
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

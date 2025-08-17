@@ -1,405 +1,352 @@
-"use client"
-import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Dot, Menu, X } from 'lucide-react'
-import Image from 'next/image'
-import React, { useState, useRef, useEffect } from 'react'
-import './NavBar.css'
+"use client";
 
-export default function Navbar() {
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [activeSubDropdown, setActiveSubDropdown] = useState<string | null>(null);
-  const [selectedRegion, setSelectedRegion] = useState<any>(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+import React, { useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import gsap from "gsap";
+import { getCategories } from "@/service/categoryService";
+import api from "@/service/api";
+import { Category, SubCategory } from "@/types/Type";
+import { ITravelPackage } from "@/types/IPackages";
+import "./NavBar.css";
+import { NavButton } from "./navbutton";
+import { DropdownMenu } from "./dropdownmenu";
+import { PackageCard } from "./package-card";
 
-  // Close dropdown when clicking outside
+interface NavState {
+  visible: boolean;
+  isTransparent: boolean;
+  isHovered: boolean;
+  activeDropdown: string | null;
+  activeCategory: Category | null;
+  activeSubCategory: SubCategory | null;
+}
+
+// Skeleton Loaders
+const PackageCardSkeleton = () => (
+  <div className=" bg-gray-200 animate-pulse flex border border-black/10 rounded-lg w-full  h-[65dvh] overflow-hidden"></div>
+);
+
+// Main Navbar Component
+const Navbar: React.FC = () => {
+  const navRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const pathname = usePathname();
+
+  const [navState, setNavState] = useState<NavState>({
+    visible: true,
+    isTransparent: true,
+    isHovered: false,
+    activeDropdown: null,
+    activeCategory: null,
+    activeSubCategory: null,
+  });
+
+  // Queries
+  const { data: categories = [] } = useQuery<Category[]>({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const response = await getCategories();
+      return response.data;
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const {
+    data: packages = [],
+    isLoading,
+    isError,
+  } = useQuery<ITravelPackage[]>({
+    queryKey: ["packages", navState.activeSubCategory?._id],
+    queryFn: async () => {
+      const response = await api.get(
+        `package/subcategory/${navState.activeSubCategory?._id}`
+      );
+      return response.data.data;
+    },
+    enabled: !!navState.activeSubCategory,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // Computed values
+  const isHomePage = pathname === "/";
+  const shouldShowTransparent =
+    isHomePage &&
+    navState.isTransparent &&
+    !navState.isHovered &&
+    !navState.activeDropdown;
+
+  const displayOrder = [2, 0, 1];
+  const filteredCategories = categories
+    .filter((cat) => cat.name.toLowerCase() !== "event")
+    .slice(0, 4);
+
+  // Effects
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 100) {
+        setNavState((prev) => ({ ...prev, visible: true }));
+      } else if (currentScrollY > lastScrollY.current) {
+        setNavState((prev) => ({ ...prev, visible: false }));
+      } else {
+        setNavState((prev) => ({ ...prev, visible: true }));
+      }
+
+      setNavState((prev) => ({
+        ...prev,
+        isTransparent: isHomePage ? currentScrollY <= 100 : false,
+      }));
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePage]);
+
+  useEffect(() => {
+    if (!navRef.current) return;
+
+    gsap.to(navRef.current, {
+      y: navState.visible ? 0 : "-100%",
+      duration: 0.3,
+      ease: navState.visible ? "power2.out" : "power2.in",
+    });
+  }, [navState.visible]);
+
+  useEffect(() => {
+    if (navState.activeCategory) {
+      setNavState((prev) => ({
+        ...prev,
+        activeSubCategory: navState.activeCategory!.subCategories[0],
+      }));
+    }
+  }, [navState.activeCategory]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null)
-        setActiveSubDropdown(null)
-        setSelectedRegion(null)
+      const navbarElement = document.getElementById("navbar-container");
+      if (navbarElement && !navbarElement.contains(event.target as Node)) {
+        setNavState((prev) => ({ ...prev, activeDropdown: null }));
       }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  // Add this useEffect after your existing useEffects
+  useEffect(() => {
+    // Close dropdown when pathname changes (navigation occurs)
+    setNavState((prev) => ({
+      ...prev,
+      activeDropdown: null,
+      activeCategory: null,
+      activeSubCategory: null,
+    }));
+  }, [pathname]);
+
+  // Handlers
+  const handleMouseEnter = () => {
+    setNavState((prev) => ({ ...prev, isHovered: true }));
+  };
+
+  const handleMouseLeave = () => {
+    setNavState((prev) => ({ ...prev, isHovered: false }));
+  };
+
+  const handleCategoryMouseEnter = (category: Category) => {
+    if (category.name.toLowerCase() !== "event") {
+      setNavState((prev) => ({
+        ...prev,
+        activeDropdown: category.slug,
+        activeCategory: category,
+        activeSubCategory: category.subCategories[0],
+      }));
     }
+  };
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        if (activeSubDropdown) {
-          setActiveSubDropdown(null)
-          setSelectedRegion(null)
-        } else {
-          setActiveDropdown(null)
-        }
-        setIsMobileMenuOpen(false)
-      }
-    }
+  const handleDropdownClose = () => {
+    setNavState((prev) => ({
+      ...prev,
+      activeDropdown: null,
+      activeCategory: null,
+      activeSubCategory: null,
+    }));
+  };
 
-    document.addEventListener('mousedown', handleClickOutside)
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [activeSubDropdown])
+  const handleAboutDropdown = (show: boolean) => {
+    setNavState((prev) => ({
+      ...prev,
+      activeDropdown: show ? "about" : null,
+    }));
+  };
 
-  const toggleDropdown = (dropdown: string) => {
-    if (activeDropdown === dropdown) {
-      setActiveDropdown(null)
-    } else {
-      setActiveDropdown(dropdown)
-      setActiveSubDropdown(null)
-      setSelectedRegion(null)
-    }
-  }
-
-  const handleRegionClick = (region: any, regionType: string) => {
-    setSelectedRegion({ ...region, type: regionType })
-    setActiveSubDropdown('subcategory')
-  }
-
-  const handleBackToMain = () => {
-    setActiveSubDropdown(null)
-    setSelectedRegion(null)
-  }
-
-  const expeditionData = [
-    {
-      region: 'Mt. Everest Region',
-      image: '/one.jpg',
-      items: ['Mt Everest Expedition', 'Lhotse Expedition', 'Cho Oyu Expedition', 'Ama Dablam Expedition'],
-      subCategory: [
-        {
-          title: 'Trekking',
-          items: ['Everest Base Camp Trek', 'Annapurna Circuit Trek', 'Langtang Valley Trek']
-        },
-        {
-          title: 'Climbing',
-          items: ['Island Peak', 'Mera Peak', 'Lobuche East']
-        }
-      ]
-    },
-    {
-      region: 'Mt. Manaslu Region',
-      image: '/two.jpg',
-      items: ['Mt Manaslu Expedition', 'Himlung Himal Expedition', 'Cheo Himal Expedition'],
-      subCategory: [
-        {
-          title: 'Trekking',
-          items: ['Manaslu Base Camp Trek', 'Tsum Valley Trek', 'Larkya La Trek']
-        },
-        {
-          title: 'Climbing',
-          items: ['Mt Manaslu', 'Pungyen Gompa', 'Sringi Himal']
-        }
-      ]
-    },
-    {
-      region: 'Kanchenjunga Region',
-      image: '/three.jpg',
-      items: ['Mt Kanchenjunga Expedition', 'Yalung Kang Expedition', 'Kabru Expedition'],
-      subCategory: [
-        {
-          title: 'Trekking',
-          items: ['Kanchenjunga Base Camp Trek', 'Goecha La Trek', 'Singalila Ridge Trek']
-        },
-        {
-          title: 'Climbing',
-          items: ['Mt Kanchenjunga', 'Yalung Kang', 'Kabru']
-        }
-      ]
-    },
-    {
-      region: 'Dhaulagiri Region',
-      image: '/four.jpg',
-      items: ['Mt Dhaulagiri Expedition', 'Tukuche Peak Expedition', 'Churen Himal Expedition'],
-      subCategory: [
-        {
-          title: 'Trekking',
-          items: ['Dhaulagiri Base Camp Trek', 'French Pass Trek', 'Hidden Valley Trek']
-        },
-        {
-          title: 'Climbing',
-          items: ['Mt Dhaulagiri', 'Tukuche Peak', 'Churen Himal']
-        }
-      ]
-    }
-  ]
-
-  const peakClimbingData = [
-    {
-      region: 'Popular Peaks',
-      image: '/climb.webp',
-      items: ['Island Peak', 'Mera Peak', 'Lobuche East', 'Pisang Peak']
-    },
-    {
-      region: 'Technical Peaks',
-      image: '/trek.png',
-      items: ['Ama Dablam Base Camp', 'Baruntse', 'Himlung Himal', 'Putha Hiunchuli']
-    },
-    {
-      region: 'Beginner Peaks',
-      image: '/mountain.jpg',
-      items: ['Tent Peak', 'Poon Hill', 'Gokyo Ri', 'Kala Patthar']
-    },
-    {
-      region: 'Advanced Peaks',
-      image: '/Hero.jpg',
-      items: ['Cholatse', 'Pokalde', 'Kyajo Ri', 'Imja Tse']
-    }
-  ]
+  const handleSubCategoryChange = (subCategory: SubCategory) => {
+    setNavState((prev) => ({ ...prev, activeSubCategory: subCategory }));
+  };
 
   return (
-    <>
-      {/* Fixed Navbar */}
-      <nav className="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-[9999999]" ref={dropdownRef}>
-        <div className="max-w-7xl mx-auto ">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <img src="/logo/main.svg" alt="Logo" className="h-10" />
-            </div>
+    <nav
+      ref={navRef}
+      id="navbar-container"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`fixed top-0 h-[4rem] left-0 w-full z-[999] transition-all duration-75 ${shouldShowTransparent
+        ? " bg-transparent"
+        : "bg-white text-black border-b border-black/10"
+        }`}
+    >
+      <div className="py-4 w-full flex items-center justify-between font-medium text-[1rem] px-4 sm:px-8 md:px-8 lg:px-16 mx-auto">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <Image src={"/logo/main.svg"} alt="logo" className="w-30 object-contain" width={100} height={100} priority />
+        </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:block">
-              <ul className="flex gap-8 text-lg font-semibold items-center">
-                <li>
-                  <a href="/" className="text-zinc-700 hover:text-orange-500 transition-colors cursor-pointer">
-                    Home
-                  </a>
-                </li>
-                <li className="relative">
-                  <button
-                    onClick={() => toggleDropdown('expeditions')}
-                    className="flex items-center gap-1 text-zinc-700 hover:text-orange-500 transition-colors"
-                    aria-expanded={activeDropdown === 'expeditions'}
-                    aria-haspopup="true"
-                  >
-                    Expeditions
-                    <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'expeditions' ? 'rotate-180' : ''}`} />
-                  </button>
-                </li>
-                <li className="relative">
-                  <button
-                    onClick={() => toggleDropdown('peak-climbing')}
-                    className="flex items-center gap-1 text-zinc-700 hover:text-orange-500 transition-colors"
-                    aria-expanded={activeDropdown === 'peak-climbing'}
-                    aria-haspopup="true"
-                  >
-                    Peak Climbing
-                    <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'peak-climbing' ? 'rotate-180' : ''}`} />
-                  </button>
-                </li>
-                <li>
-                  <a href="/about-us" className="text-zinc-700 hover:text-orange-500 transition-colors cursor-pointer">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="/contact-us" className="text-zinc-700 hover:text-orange-500 transition-colors cursor-pointer">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
+        <div className="hidden lg:flex items-center justify-center gap-6">
+          <Link href="/">
+            <NavButton>Home</NavButton>
+          </Link>
 
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-zinc-700 hover:text-orange-500 transition-colors"
-                aria-expanded={isMobileMenuOpen}
-                aria-label="Toggle mobile menu"
-              >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
+          {displayOrder.map((idx) => {
+            const category = filteredCategories[idx];
+            if (!category) return null;
+            return (
+              <div key={category._id} className="relative">
+                <Link href={`/package-list/${category.slug}`}>
+                  <NavButton
+                    onMouseEnter={() => handleCategoryMouseEnter(category)}
+                    className="flex w-full shrink-0 items-center gap-1"
+                  >
+                    <span>{category.name}</span>
+                  </NavButton>
+                </Link>
+              </div>
+            );
+          })}
+
+          {/* About Us */}
+          <div className="relative">
+            <NavButton onMouseEnter={() => handleAboutDropdown(true)} onMouseLeave={() => handleAboutDropdown(false)}>
+              <Link href="/about-us">About Us</Link>
+            </NavButton>
+
+            <DropdownMenu isVisible={navState.activeDropdown === "about"} onMouseEnter={() => handleAboutDropdown(true)} onMouseLeave={() => handleAboutDropdown(false)}>
+              <div className="py-1 flex flex-col text-sm">
+                {[
+                  { href: "/ourteam", label: "Our Team" },
+                  { href: "/message", label: "Message from CEO" },
+                  { href: "/certificate", label: "Certificates" },
+                ].map((item) => (
+                  <Link key={item.href} href={item.href}>
+                    <span className="block px-4 py-2 text-gray-700 hover:bg-gray-200 cursor-pointer transition">
+                      {item.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </DropdownMenu>
           </div>
+
+          {/* Blogs */}
+          <Link href="/blogs">
+            <NavButton onMouseEnter={handleDropdownClose}>Blogs</NavButton>
+          </Link>
+
+          {/* Contact Us */}
+          <Link href="/contact-us">
+            <NavButton onMouseEnter={handleDropdownClose}>Contact Us</NavButton>
+          </Link>
         </div>
+      </div>
 
-        {
-          activeDropdown !== null || activeSubDropdown !== null && (
-            <div className="bg-white h-screen absolute top-0 left-0 w-full z-[50]">
-              {/* Dropdown Menus */}
-              {activeDropdown && !activeSubDropdown && (
-                <div
-                  className="absolute top-full left-0 w-full z-[99] h-[95vh] bg-white shadow-lg border-t border-gray-100 animate-fade-in"
-                  role="menu"
-                  aria-label={activeDropdown === 'expeditions' ? 'Expeditions Menu' : 'Peak Climbing Menu'}
-                >
-                  {activeDropdown === 'expeditions' && (
-                    <div className="max-w-7xl sticky top-0 mx-auto px-4 py-8">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
-                        {expeditionData.map((region, index) => (
-                          <div
-                            key={index}
-                            className="group animate-fade-in-delayed cursor-pointer"
-                            style={{ animationDelay: `${index * 100}ms` }}
-                            onClick={() => handleRegionClick(region, 'expedition')}
-                          >
-                            <div className="relative h-[80dvh] rounded-lg overflow-hidden mb-4 hover:shadow-xl transition-shadow duration-300">
-                              <Image
-                                fill
-                                src={region.image}
-                                alt={region.region}
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                              <div className="absolute inset-0 flex justify-center items-center bg-black/20 group-hover:bg-black/30 text-white transition-colors duration-300">
-                                <h3 className="text-4xl text-center mx-auto px-4 font-bold">{region.region}</h3>
-                                <ChevronRight className="absolute bottom-4 right-4 w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                              </div>
+      {/* Main Dropdown */}
+      {navState.activeDropdown &&
+        navState.activeDropdown !== "about" &&
+        navState.activeCategory && (
+          <div
+            className="fixed left-0 top-[4rem] w-full z-[999999] bg-white/95 backdrop-blur-xl border-t border-gray-400/50 shadow-2xl transition-all duration-300"
+            onMouseLeave={handleDropdownClose}
+            onClick={handleDropdownClose} // Add this to close dropdown on any click inside
+            style={{
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            <div className="max-w-7xl mx-auto py-5 ">
+              <div className="">
+                {/* Left Categories Column */}
+                <div className=" border-r border-gray-200/60  flex">
+                  <div className="sticky top-0">
+                    <h3 className="text-3xl uppercase font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      Real {navState.activeCategory.name}
+                    </h3>
+                    <ul className="flex gap-0.5">
+                      {navState.activeCategory.subCategories.map(
+                        (subCategory) => (
+                          <li
+                            key={subCategory._id}
+                            className={`
+                                cursor-pointer transition-all border-b  border-transparent duration-300 p-3 py-2 rounded-sm
+                                ${navState.activeSubCategory?._id === subCategory._id
+                                ? " bg-gradient-to-br from-orange-600 to-orange-400 text-white   "
+                                : ""
+                              }`}
+                            onMouseEnter={() => handleSubCategoryChange(subCategory)} >
+                            <div className="flex items-center capitalize gap-2">
+
+                              {subCategory.name}
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeDropdown === 'peak-climbing' && (
-                    <div className="max-w-7xl mx-auto px-4 py-8">
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
-                        {peakClimbingData.map((region, index) => (
-                          <div
-                            key={index}
-                            className="group animate-fade-in-delayed cursor-pointer"
-                            style={{ animationDelay: `${index * 100}ms` }}
-                            onClick={() => handleRegionClick(region, 'peak-climbing')}
-                          >
-                            <div className="relative h-[80dvh] rounded-lg overflow-hidden mb-4 hover:shadow-xl transition-shadow duration-300">
-                              <Image
-                                fill
-                                src={region.image}
-                                alt={region.region}
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                              <div className="absolute inset-0 flex justify-center items-center bg-black/20 group-hover:bg-black/30 text-white transition-colors duration-300">
-                                <h3 className="text-4xl text-center mx-auto px-4 font-bold">{region.region}</h3>
-                                <ChevronRight className="absolute bottom-4 right-4 w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Subcategory Dropdown */}
-              {activeSubDropdown === 'subcategory' && selectedRegion && (
-                <div
-                  className="absolute top-full left-0 w-full h-[95vh] bg-white shadow-lg border-t border-gray-100 animate-fade-in"
-                  role="menu"
-                  aria-label={`${selectedRegion.region} Subcategories`}
-                >
-                  <div className="max-w-7xl mx-auto px-4 py-8">
-                    {/* Back Button */}
-                    <button
-                      onClick={handleBackToMain}
-                      className="flex items-center gap-2 text-orange-500 hover:text-orange-600 transition-colors mb-6 font-semibold"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                      Back to {activeDropdown === 'expeditions' ? 'Expeditions' : 'Peak Climbing'}
-                    </button>
-
-                    {/* Region Header */}
-                    <div className="mb-8">
-                      <h2 className="text-3xl font-bold text-gray-800 mb-2">{selectedRegion.region}</h2>
-                      <p className="text-gray-600">Choose from our available {selectedRegion.type === 'expedition' ? 'expedition' : 'peak climbing'} packages</p>
-                    </div>
-
-                    {/* Subcategories Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {/* Main Items */}
-                      <div className="space-y-4">
-                        <h3 className="text-xl font-semibold text-gray-800 mb-4">Available {selectedRegion.type === 'expedition' ? 'Expeditions' : 'Peaks'}</h3>
-                        <div className="space-y-2">
-                          {selectedRegion.items.map((item: string, index: number) => (
-                            <a
-                              key={index}
-                              href="#"
-                              className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors py-2 px-3 rounded hover:bg-orange-50"
-                            >
-                              <Dot className="w-4 h-4" />
-                              {item}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Subcategories (if available) */}
-                      {selectedRegion.subCategory && selectedRegion.subCategory.map((subCat: any, index: number) => (
-                        <div key={index} className="space-y-4">
-                          <h3 className="text-xl font-semibold text-gray-800 mb-4">{subCat.title}</h3>
-                          <div className="space-y-2">
-                            {subCat.items.map((item: string, itemIndex: number) => (
-                              <a
-                                key={itemIndex}
-                                href="#"
-                                className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors py-2 px-3 rounded hover:bg-orange-50"
-                              >
-                                <Dot className="w-4 h-4" />
-                                {item}
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                          </li>
+                        )
+                      )}
+                    </ul>
                   </div>
                 </div>
-              )}
-            </div>
-          )
-        }
-      </nav>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-16 bg-white z-[9998] lg:hidden">
-          <div className="px-4 py-6">
-            <ul className="space-y-4">
-              <li>
-                <a href="/" className="block text-lg text-zinc-700 hover:text-orange-500 transition-colors py-2">
-                  Home
-                </a>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    toggleDropdown('expeditions')
-                    setIsMobileMenuOpen(false)
-                  }}
-                  className="flex items-center justify-between w-full text-lg text-zinc-700 hover:text-orange-500 transition-colors py-2"
-                >
-                  Expeditions
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    toggleDropdown('peak-climbing')
-                    setIsMobileMenuOpen(false)
-                  }}
-                  className="flex items-center justify-between w-full text-lg text-zinc-700 hover:text-orange-500 transition-colors py-2"
-                >
-                  Peak Climbing
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </li>
-              <li>
-                <a href="/about-us" className="block text-lg text-zinc-700 hover:text-orange-500 transition-colors py-2">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/contact-us" className="block text-lg text-zinc-700 hover:text-orange-500 transition-colors py-2">
-                  Contact
-                </a>
-              </li>
-            </ul>
+                {/* Right Content Column */}
+                <div className="w-full relative mt-5 animate-fade-in">
+                  <div className="absolute left-0 w-full bottom-0">
+                    <img src="/line.png" alt="" className="w-screen opacity-20" />
+                  </div>
+                  <div className="h-full opacity-0 animate-fade-in">
+
+
+                    {isLoading ? (
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {[...Array(4)].map((_, i) => (
+                          <PackageCardSkeleton key={i} />
+                        ))}
+                      </ul>
+                    ) : isError ? (
+                      <div className="flex items-center justify-center h-40">
+                        <p className="text-gray-500">Failed to load packages</p>
+                      </div>
+                    ) : packages.length === 0 ? (
+                      <div className="flex items-center justify-center h-40">
+                        <p className="text-gray-500">No packages available</p>
+                      </div>
+                    ) : (
+                      <ul className="grid grid-cols-1 h-full sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {packages.slice(0, 4).map((pkg, index) => (
+                          <PackageCard
+                            key={pkg?.id || `pkg-${index}`}
+                            package={pkg}
+                            onClose={handleDropdownClose} // Ensure this prop is passed
+                          />
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
-    </>
-  )
-}
+        )}
+    </nav>
+  );
+};
+
+export default Navbar;

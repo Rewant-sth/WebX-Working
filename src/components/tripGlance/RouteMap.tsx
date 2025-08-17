@@ -26,9 +26,15 @@ const RouteMap = ({ data }: { data: ITravelPackage | undefined }) => {
       id="route-map"
       className="border-b border-gray-200 mb-8 pb-10"
     >
-      <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-center sm:text-left" style={{ color: '#3A3A3A' }}>
-        Route Map
+      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+        <span className="w-fit text-2xl font-semibold">
+          Route Map
+        </span>
       </h2>
+
+      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+        Explore the detailed route map to understand your journey path and key landmarks along the way.
+      </p>
 
       {/* Image with hover-follow text */}
       <div

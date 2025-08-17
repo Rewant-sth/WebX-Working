@@ -84,6 +84,7 @@ export interface IFixedDate {
   createdAt: string,
   updatedAt: string,
   id: string
+  availableSeats: number
 }
 
 

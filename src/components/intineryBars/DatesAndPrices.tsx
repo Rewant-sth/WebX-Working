@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { IFixedDate } from "@/types/IPackages";
 import { useSelectedTrip } from "@/contexts/SelectedDateContext";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 interface CalendarProps {
   month: number;
@@ -417,140 +418,93 @@ const DatesAndPrices = ({
     setCurrentDisplayMonth(null);
   };
 
-  const handleBookNow = () => {
-    if (selectedDate && data) {
-      setSelectedTrip(data);
-      setShowForm(true);
-    }
-  };
+
 
   return (
     <div
       id="date-&-prices"
-      className="mt-6 border-b-2 border-dashed border-zinc-200 mb-8 pb-10"
+      className="mt-6 mb-8 pb-10"
     >
-      <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="w-fit text-2xl lg:text-3xl font-semibold " >
+      <h2 className="text-2xl  font-semibold text-gray-800 text-center sm:text-left ">
+        <span className="w-fit text-2xl  font-semibold " >
           Dates & Prices
         </span>
       </h2>
 
-      <p className="text-zinc-600 mt-4 text-lg leading-relaxed max-w-3xl">
+      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl">
         Choose your preferred travel date from the calendars below. Select any available date and we'll show you the complete trip duration.
       </p>
 
-      {/* Calendar Section */}
-      <div className="mt-8">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-semibold text-gray-800">Select Your Start Date</h3>
+      <div className="mt-6">
+        <table className="w-full">
+          <tr className="bg-[#01283F]/5  rounded-sm">
+            <th className="text-left px-4 py-3 ">
+              <h2 className="uppercase text-zinc-800">Trip Dates</h2>
+              <p className="font-normal text-sm">Arrival - Departure</p>
+            </th>
+            <th className="text-left px-4 py-3">
+              <h2 className="uppercase text-zinc-800">Availability</h2>
+              <p className="font-normal text-sm">Spots</p>
+            </th>
+            <th className="text-left px-4 py-3">
+              <h2 className="uppercase text-zinc-800">Price</h2>
+              <p className="font-normal text-sm">Per Person</p>
+            </th>
+            <th className="text-left px-4 py-3">
+              <h2 className="uppercase text-zinc-800">Enquiry</h2>
+              <p className="font-normal text-sm">Arrival - Departure</p>
+            </th>
+          </tr>
+          {
+            data?.map((trip, index) => {
+              const startDate = new Date(trip.startDate);
+              const endDate = new Date(trip.endDate);
 
-          {/* Navigation arrows */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handlePrevMonth}
-              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-              aria-label="Previous months"
-            >
-              <Icon icon="mdi:chevron-left" width="24" height="24" className="text-gray-600" />
-            </button>
-            <button
-              onClick={handleNextMonth}
-              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-              aria-label="Next months"
-            >
-              <Icon icon="mdi:chevron-right" width="24" height="24" className="text-gray-600" />
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <Calendar
-            month={firstMonth}
-            year={firstYear}
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            highlightedDates={highlightedDates}
-            tripDuration={tripDuration}
-          />
-
-          <Calendar
-            month={secondMonth}
-            year={secondYear}
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            highlightedDates={highlightedDates}
-            tripDuration={tripDuration}
-          />
-        </div>
-
-        {/* Legend */}
-        <div className="flex flex-wrap gap-6 mb-6 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#F05E25] rounded"></div>
-            <span>Selected Start Date</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#F05E25]/20 rounded border border-[#F05E25]/20"></div>
-            <span>Trip Duration ({tripDuration} days)</span>
-          </div>
-          {/* <div className="flex items-center gap-2">
-            <div className="w-4 h-4 border-2 border-blue-400 rounded"></div>
-            <span>Today</span>
-          </div> */}
-        </div>
-
-        {/* Selected Date Info and Book Button */}
-        {selectedDate && (
-          <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
-            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                  Selected Trip Details
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-800 font-medium">Start Date:</span>
-                    <p className="text-gray-800">{selectedDate.toDateString()}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-800 font-medium">End Date:</span>
-                    <p className="text-gray-800">
-                      {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-gray-800 font-medium">Duration:</span>
-                    <p className="text-gray-800">{tripDuration} days</p>
-                  </div>
-                </div>
-              </div>
-
-              <Link href={`/booking/${packageId}`} >
-                <button
-                  className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
-                >
-                  <Icon icon="mdi:calendar-check" width="20" height="20" />
-                  Book This Trip
-                </button>
-              </Link>
-            </div>
-          </div>
-        )}
-
-        {/* Booking Form */}
-        {showForm && selectedDate && (
-          <BookingForm
-            selectedDate={selectedDate}
-            tripDuration={tripDuration}
-            packageId={packageId}
-            onClose={() => setShowForm(false)}
-          />
-        )}
+              return (
+                <tr key={index} className="border-b   border-gray-200 hover:bg-gray-50 transition-colors items-center duration-200">
+                  <td className="px-4 py-4">
+                    <div className="flex items-center gap-2">
+                      <div className="">
+                        <h3 className="font-semibold text-gray-800">{startDate.toDateString().split(" ")[0]}</h3>
+                        <p className="font-normal text-sm">{startDate.toDateString().split(" ")[1]}-{startDate.toDateString().split(" ")[2]}-{startDate.toDateString().split(" ")[3]}</p>
+                      </div>
+                      <Icon icon={"icon-park-outline:arrow-up"} rotate={45} />
+                      <div className="">
+                        <h3 className="font-semibold text-gray-800">{endDate.toDateString().split(" ")[0]}</h3>
+                        <p className="font-normal text-sm">{endDate.toDateString().split(" ")[1]}-{endDate.toDateString().split(" ")[2]}-{endDate.toDateString().split(" ")[3]}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4  h-full py-6 flex gap-4 items-center">
+                    <p className="font-normal text-sm">{trip.availableSeats} spots left</p>
+                    {trip.availableSeats > 0 ? trip.status.toLowerCase() == "open" ? (
+                      <button className="bg-green-100 text-green-500 hover:underline text-sm tracking-wider font-semibold px-3 py-1 rounded-full uppercase">Available</button>
+                    ) : (
+                      <button className="bg-gray-100 text-gray-500 cursor-not-allowed px-3 py-1 rounded-full uppercase text-sm font-semibold" disabled>Not Available</button>
+                    ) : (
+                      <button className="bg-gray-100 text-gray-500 cursor-not-allowed px-3 py-1 rounded-full uppercase text-sm font-semibold" disabled>Not Available</button>
+                    )
+                    }
+                  </td>
+                  <td className="px-4 py-3">
+                    <p className="font-normal font-semibold">US ${trip.pricePerPerson}</p>
+                  </td>
+                  <td className="px-4 py-3">
+                    {trip.status.toLowerCase() == "open" ? (
+                      <button className="bg-orange-100 cursor-pointer hover:bg-orange-500 hover:text-white text-orange-500  tracking-wider font-semibold px-5 py-2 rounded-full uppercase">Book Now</button>
+                    ) : (
+                      <button className="bg-gray-100 text-gray-500 cursor-not-allowed  tracking-wider font-semibold px-5 py-2 rounded-full uppercase">Sold Out</button>
+                    )}
+                  </td>
+                </tr>
+              )
+            })
+          }
+        </table>
       </div>
 
-      {/* Original Fixed Dates Table (for reference) */}
 
-    </div>
+    </div >
   );
 };
 

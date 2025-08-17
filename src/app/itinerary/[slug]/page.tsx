@@ -1,5 +1,5 @@
 "use client";
-import { X } from "lucide-react";
+import { ArrowRight, LocateIcon, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Title from "../../../components/intineryBars/Title";
 import LeftBar from "../../../components/intineryBars/LeftBar";
@@ -69,16 +69,15 @@ const Page = () => {
               )}
             </div>
           </div>
-          <ScrollTracker data={packageData?.data as ITravelPackage} />
 
+          <ScrollTracker data={packageData?.data as ITravelPackage} />
           <div
             className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10 px-4 sm:px-6 lg:px-16 mt-8 ${modalOpen ? "filter blur-2xl" : ""
               }`}
           >
 
-
             {/* Center Content */}
-            <div id="overview" className="w-full xl:w-[70%] rounded-xl">
+            <div id="overview" className="max-w-6xl mx-auto relative  rounded-xl">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData?.data?.attraction.length ? (
@@ -87,9 +86,14 @@ const Page = () => {
 
               {/* Overview Section */}
               <div className="border-b border-gray-200 mb-8 pb-10">
-                <h2 className="text-2xl lg:text-3xl font-semibold mb-8 text-center sm:text-left" style={{ color: '#3A3A3A' }}>
-                  Trip Overview
+                <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+                  <span className="w-fit text-2xl font-semibold">
+                    Trip Overview
+                  </span>
                 </h2>
+                <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+                  Get a comprehensive overview of your upcoming adventure and what makes this trip special.
+                </p>
                 <div
                   className="p-6 rounded-sm bg-gray-25   transition-all duration-200"
                   style={{ backgroundColor: '#fafafa', borderColor: '#f5f5f5' }}
@@ -135,11 +139,38 @@ const Page = () => {
                 category={packageData?.data?.categoryId?.slug as string}
                 subCategory={packageData?.data?.subCategoryId?.slug as string}
               />
+
             </div>
 
+
+
             {/* Right Sidebar */}
-            <div className="xl:w-[30%]">
+            {/* <div className="xl:w-[30%]">
               <RightBar data={packageData?.data} />
+            </div> */}
+          </div>
+
+          <div className="sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900  bg-orange-100 rounded-sm">
+            <div className="w-full flex items-center justify-center gap-4 py-2 border-orange-200 border-r-[2px]">
+              <h2 className=" font-bold  uppercase">Starting at - </h2>
+              <p className="text-lg font-bold text-orange-500">Rs. {packageData?.data?.fixedDates[0] ? packageData.data.fixedDates[0].pricePerPerson : "N/A"}</p>
+            </div>
+            <div className=" flex justify-center border-orange-200 border-r-[2px]">
+              <div className="">
+                <h2 className=" font-semibold">{packageData?.data?.name}</h2>
+                <p className="flex items-center gap-0.5"><LocateIcon size={15} />{packageData?.data?.location}</p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center border-orange-200 border-r-[2px]">
+              <div className="">
+                <h2 className=" font-semibold">Talk to Experts</h2>
+                <p>+977-9803556169</p>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <button className="flex items-center gap-2 border py-2 px-6 uppercase font-semibold text-orange-500 rounded-full">
+                Book Now <ArrowRight />
+              </button>
             </div>
           </div>
 

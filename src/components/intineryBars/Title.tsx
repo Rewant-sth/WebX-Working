@@ -12,7 +12,7 @@ const Title = ({ data }: { data: ITravelPackage | null }) => {
   );
 
   return (
-    <div className="px-4 sm:px-8 md:px-12 lg:px-16 text-white   z-[999]  sm:mt-[20px] relative">
+    <div className="px-4 sm:px-8 md:px-12 lg:px-16 text-white   z-[99]  sm:mt-[20px] relative">
       <div className=" pt-4 border-gray-300">
         {/* Title Row */}
         <div className="flex flex-col md:flex-row justify-between gap-4 md:gap-0">

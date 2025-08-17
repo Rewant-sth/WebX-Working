@@ -1,6 +1,5 @@
-// app/layout.tsx
 
-import LayoutWrapper from "@/components/LayoutWrapper";
+// app/layout.tsx
 import LenisProvider from "@/components/LenisProvider";
 import "./globals.css";
 import Providers from "./react-query-provider";
@@ -9,6 +8,7 @@ import TrackVisitors from "@/components/trackVisitors/TrackVisitors";
 import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
 import Navbar from "@/components/common/navbar/Navbar";
 import { Dancing_Script } from "next/font/google";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -33,14 +33,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dancingScript.variable}`} suppressHydrationWarning>
-        <Navbar />
-        <TrackVisitors />
-        <Providers>
-          <LenisProvider />
-          <SelectedTripProvider>{children}</SelectedTripProvider>
+        <LayoutWrapper>
+          {/* <Navbar /> */}
+          <TrackVisitors />
+          <Providers>
+            <LenisProvider />
+            <SelectedTripProvider>{children}</SelectedTripProvider>
+          </Providers>
           <Toaster position="top-right" reverseOrder={false} />
-        </Providers>
+        </LayoutWrapper>
       </body>
-    </html>
+    </html >
   );
 }

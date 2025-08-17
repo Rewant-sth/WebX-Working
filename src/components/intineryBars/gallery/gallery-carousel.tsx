@@ -76,7 +76,7 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
 
     return (
         <section className=" mx-auto relative translate-z-20 ">
-            <div className="absolute top-full -translate-y-[40%] z-[9999] left-1/2 -translate-x-1/2">
+            <div className="absolute top-full -translate-y-[40%] z-[999] left-1/2 -translate-x-1/2">
                 <img src="/man.png" alt="" className='drop-shadow-2xl drop-shadow-black' />
             </div>
             <div className="overflow-hidden relative" ref={emblaRef}>
