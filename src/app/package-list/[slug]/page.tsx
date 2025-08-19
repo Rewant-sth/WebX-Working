@@ -91,202 +91,229 @@ const ExpeditionCards: React.FC = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-        {/* Hero Section with Enhanced Visuals */}
+      <div className="min-h-screen bg-white">
+        {/* Enhanced Hero Section */}
         <div className="relative">
-          <div className="relative w-full h-[80vh] overflow-hidden">
-            {/* Cover Image with Parallax Effect */}
-            <div className="absolute inset-0 transform scale-105">
+          <div className="relative w-full h-[70vh] overflow-hidden">
+            {/* Cover Image with subtle zoom */}
+            <div className="absolute inset-0">
               <Image
                 src={subcategoryImage}
                 alt="Category Cover"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 fill
                 priority
               />
             </div>
 
-            {/* Enhanced Overlay with Better Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-800/50 to-transparent">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-indigo-900/20"></div>
-            </div>
+            {/* Layered Overlay for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-800/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-indigo-900/20"></div>
 
-            {/* Hero Content with Better Typography */}
+            {/* Hero Content with improved layout */}
             <div className="relative h-full flex flex-col justify-center items-center text-center px-6 md:px-12">
-              <div className="max-w-4xl mx-auto space-y-6">
+              <div className="max-w-5xl mx-auto space-y-6">
+                {/* Enhanced badge */}
                 <div className="inline-block">
-                  <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white/90 text-sm font-medium tracking-wide uppercase">
+                  <span className="inline-flex items-center px-6 py-3 bg-white/95 backdrop-blur-sm text-slate-700 text-sm font-semibold tracking-wider uppercase rounded-full border border-white/20">
+                    <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3l14 9-14 9V3z" />
+                    </svg>
                     Adventure Awaits
                   </span>
                 </div>
 
-                <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                  <span className="">
+                {/* Enhanced title with text shadow */}
+                <h1 className="text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-tight drop-shadow-lg">
+                  <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                     {subcategoryName}
                   </span>
                 </h1>
 
+                {/* Enhanced description */}
                 <div className="max-w-4xl mx-auto">
                   <p
-                    className="text-white/90 text-lg md:text-xl line-clamp-3 leading-relaxed"
+                    className="text-white/90 text-lg md:text-xl line-clamp-3 leading-relaxed drop-shadow-sm"
                     dangerouslySetInnerHTML={{ __html: subcategoryDescription }}
                   />
                 </div>
 
-                <div className="flex justify-center ">
-                  <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full"></div>
+                {/* Enhanced divider */}
+                <div className="flex justify-center items-center space-x-4">
+                  <div className="w-8 h-px bg-white/40"></div>
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <div className="w-16 h-px bg-white"></div>
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                  <div className="w-8 h-px bg-white/40"></div>
+                </div>
+
+                {/* Package count indicator */}
+                <div className="mt-8">
+                  <div className="inline-flex items-center px-4 py-2 bg-black/30 backdrop-blur-sm rounded-full text-white/90 text-sm">
+                    <span className="font-medium">{cardData.length} Packages Available</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Scroll Indicator */}
-
-          </div>
-        </div>
-
-        {/* Enhanced Subcategory Navigation */}
-        <div className="relative -mt-16 z-10">
-          <div className="max-w-7xl mx-auto px-6 md:px-12">
-            <div className="bg-gradient-to-l from-blue-800 to-blue-500 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 p-6">
-              <div className="flex flex-wrap gap-3 justify-center">
-                {subcategories.length === 0 ? (
-                  <div className="text-slate-500 italic py-4">
-                    No subcategories available
-                  </div>
-                ) : (
-                  subcategories.map((subcat) => (
-                    <button
-                      key={subcat._id}
-                      className={`group relative px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all duration-300 transform hover:scale-105 ${selectedSubcategory === subcat.slug
-                        ? "bg-white text-blue-600 border"
-                        : "bg-transparent text-white border"
-                        }`}
-                      onClick={() => setSelectedSubcategory(subcat.slug)}
-                    >
-                      <span className="relative z-10">{subcat.name}</span>
-                      {selectedSubcategory === subcat.slug && (
-                        <div className="absolute inset-0  rounded-xl opacity-100"></div>
-                      )}
-                    </button>
-                  ))
-                )}
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+              <div className="animate-bounce">
+                <svg className="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Enhanced Packages Grid Section */}
+        {/* Enhanced Subcategory Navigation */}
+        <div className="relative -mt-12 z-10">
+          <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <div className="bg-white/95 backdrop-blur-sm rounded-sm border border-slate-200/60 shadow-sm">
+
+              {/* Enhanced tab buttons */}
+              <div className="p-6">
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {subcategories.length === 0 ? (
+                    <div className="text-slate-500 py-8 text-center">
+                      <svg className="w-12 h-12 mx-auto mb-2 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      <p>No subcategories available</p>
+                    </div>
+                  ) : (
+                    subcategories.map((subcat, index) => {
+                      const isActive = selectedSubcategory === subcat.slug;
+                      const packageCount = cardData.filter(pkg => pkg.subCategoryId?.slug === subcat.slug).length;
+
+                      return (
+                        <button
+                          key={subcat._id}
+                          className={`group relative px-6 py-3 rounded-sm font-medium whitespace-nowrap transition-all duration-300 ${isActive
+                            ? "bg-blue-600 text-white shadow-md transform scale-105"
+                            : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm"
+                            }`}
+                          onClick={() => setSelectedSubcategory(subcat.slug)}
+                        >
+                          <div className="flex flex-col items-center space-y-1">
+                            <span className="text-sm font-semibold">{subcat.name}</span>
+                            <span className={`text-xs ${isActive ? 'text-blue-100' : 'text-slate-500'}`}>
+                              {packageCount} packages
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Clean Packages Grid Section */}
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-              Discover Your Perfect Adventure
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Available Packages
             </h2>
             <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-              Choose from our carefully curated collection of expedition packages designed for every adventurer
+              Choose from our curated collection of expedition packages
             </p>
           </div>
 
           {filteredPackages.length === 0 ? (
             <div className="text-center py-16">
               <div className="max-w-md mx-auto">
-                <div className="w-24 h-24 mx-auto mb-6 bg-slate-100 rounded-full flex items-center justify-center">
-                  <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-20 h-20 mx-auto mb-6 bg-slate-100 rounded-full flex items-center justify-center">
+                  <svg className="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2M4 13h2" />
                   </svg>
                 </div>
                 <h3 className="text-xl font-semibold text-slate-700 mb-2">No packages found</h3>
                 <p className="text-slate-500">
-                  No packages found in this subcategory. Try selecting a different category.
+                  No packages available in this category.
                 </p>
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredPackages.map((card, index) => {
-                if (!card) return null;
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{filteredPackages.map((card, index) => {
+              if (!card) return null;
 
-                return (
-                  <div
-                    key={card._id || `card-${index}`}
-                    className="group relative bg-white rounded-xl overflow-hidden  transition-all duration-500 transform  border border-slate-200/50 animate-scale-in"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {/* Location Badge */}
-                    {card.location && (
-                      <div className="absolute top-4 left-4 z-20">
-                        <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-white/90 backdrop-blur-sm text-slate-700 shadow-lg">
-                          <MapPin className="w-3 h-3 mr-1 text-blue-500" />
-                          {card.location}
+              return (
+                <div
+                  key={card._id || `card-${index}`}
+                  className="bg-white border border-slate-200 rounded-sm overflow-hidden hover:border-slate-300 transition-colors duration-200"
+                >
+                  {/* Location Badge */}
+                  {card.location && (
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="inline-flex items-center px-3 py-1 rounded-sm text-xs font-medium bg-white text-slate-700 border border-slate-200">
+                        <MapPin className="w-3 h-3 mr-1 text-blue-600" />
+                        {card.location}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden h-56">
+                    <img
+                      src={card.coverImage || "/placeholder-image.jpg"}
+                      alt={card.name || "Travel Package"}
+                      className="w-full h-full object-cover"
+                    />
+
+                    {/* Price Badge */}
+                    {card.price && (
+                      <div className="absolute bottom-4 right-4">
+                        <span className="bg-green-600 text-white px-3 py-1 rounded-sm text-sm font-medium">
+                          ${card.price}
                         </span>
                       </div>
                     )}
+                  </div>
 
-
-
-                    {/* Image Container */}
-                    <div className="relative overflow-hidden h-60">
-                      <img
-                        src={card.coverImage || "/placeholder-image.jpg"}
-                        alt={card.name || "Travel Package"}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                      {/* Price Badge (if available) */}
-                      {card.price && (
-                        <div className="absolute bottom-4 right-4">
-                          <span className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                            ${card.price}
-                          </span>
-                        </div>
-                      )}
+                  {/* Content */}
+                  <div className="p-4">
+                    <div className="mb-3">
+                      <span className="inline-block px-3 py-1 bg-blue-50 text-zinc-800 text-xs font-medium rounded-md border border-blue-100">
+                        {typeof card.subCategoryId === "object"
+                          ? card.subCategoryId?.name
+                          : "Adventure"}
+                      </span>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-6 flex flex-col h-full">
-                      <div className="flex-grow">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 text-xs font-semibold rounded-full border border-blue-100">
-                            {typeof card.subCategoryId === "object"
-                              ? card.subCategoryId?.name
-                              : "Adventure"}
-                          </span>
-                        </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1 line-clamp-2">
+                      {card.name || "Unnamed Package"}
+                    </h3>
 
-                        <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
-                          {card.name || "Unnamed Package"}
-                        </h3>
+                    <div className="text-slate-600 text-sm leading-relaxed mb-6">
+                      <p
+                        dangerouslySetInnerHTML={{ __html: card?.overview }}
+                        className="line-clamp-2"
+                      />
+                    </div>
 
-                        <div className="text-slate-600 text-sm leading-relaxed mb-4">
-                          <p
-                            dangerouslySetInnerHTML={{ __html: card?.overview }}
-                            className="line-clamp-2"
-                          />
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex gap-3 mt-auto">
-                          <Link
-                            href={`/booking/${card.id}`}
-                            className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 text-center  transform hover:scale-105"
-                          >
-                            Book Now
-                          </Link>
-                          <Link
-                            href={`/itinerary/${card.slug}`}
-                            className="flex-1 border-2 border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-600 font-semibold py-3 px-4 rounded-xl transition-all duration-300 text-center hover:bg-blue-50 transform hover:scale-105"
-                          >
-                            Details
-                          </Link>
-                        </div>
-
-                      </div>
-
-
+                    {/* Action Buttons */}
+                    <div className="flex gap-3">
+                      <Link
+                        href={`/booking/${card.id}`}
+                        className="flex-1 bg-[#F05E25]/80 hover:bg-[#F05E25] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center"
+                      >
+                        Book Now
+                      </Link>
+                      <Link
+                        href={`/itinerary/${card.slug}`}
+                        className="flex-1 border border-[#01283F] hover:border-slate-400 text-[#01283F] hover:text-slate-900 font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center hover:bg-[#01283F]/20"
+                      >
+                        Details
+                      </Link>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
             </div>
           )}
         </div>
