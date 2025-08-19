@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   FaStar,
 } from "react-icons/fa";
@@ -12,6 +12,8 @@ import {
   Loader,
   Pen,
   Trash,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { postTestimonial } from "@/service/testimonial";
@@ -33,43 +35,13 @@ export default function TravellerReview({
   const [reviewText, setReviewText] = useState("");
   const [fullName, setFullName] = useState("");
   const [image, setImage] = useState<File | null>(null);
-
   const [showMoreReviews, setShowMoreReviews] = useState(false);
 
-  const userReviews = [
-    {
-      id: 1,
-      userName: "John Smith",
-      userTitle: "Marketing Director",
-      reviewText: "The trip was well-organized and fun!",
-      date: "1 month ago",
-      rating: 5,
-    },
-    {
-      id: 2,
-      userName: "Priya Sharma",
-      userTitle: "Travel Blogger",
-      reviewText: "Highly recommended for seamless adventures!",
-      date: "1 week ago",
-      rating: 4,
-    },
-    {
-      id: 3,
-      userName: "Daniel Kim",
-      userTitle: "Photographer",
-      reviewText: "Amazing guides and beautiful views. Loved every moment!",
-      date: "2 days ago",
-      rating: 5,
-    },
-    {
-      id: 4,
-      userName: "Maria Lopez",
-      userTitle: "Travel Enthusiast",
-      reviewText: "A perfect mix of guided tours and personal time.",
-      date: "3 weeks ago",
-      rating: 5,
-    },
-  ];
+  // Carousel state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["postTestimonial"],
@@ -80,6 +52,67 @@ export default function TravellerReview({
     onError: (error: any) =>
       toast.error(error?.response?.data?.message || "Something went wrong"),
   });
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (isPlaying && data?.testimonial && data.testimonial.length > 1) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % data.testimonial.length);
+      }, 4000); // Change slide every 4 seconds
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPlaying, data?.testimonial]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
+  // Navigation functions
+  const goToNext = () => {
+    if (data?.testimonial) {
+      setCurrentIndex((prev) => (prev + 1) % data.testimonial.length);
+    }
+  };
+
+  const goToPrev = () => {
+    if (data?.testimonial) {
+      setCurrentIndex((prev) => (prev - 1 + data.testimonial.length) % data.testimonial.length);
+    }
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  // Get testimonials with proper indexing for carousel
+  const getVisibleTestimonials = () => {
+    if (!data?.testimonial || data.testimonial.length === 0) return [];
+
+    const testimonials = data.testimonial;
+    const length = testimonials.length;
+
+    if (length === 1) return [testimonials[0]];
+    if (length === 2) return [testimonials[0], testimonials[1]];
+
+    const prevIndex = (currentIndex - 1 + length) % length;
+    const nextIndex = (currentIndex + 1) % length;
+
+    return [
+      testimonials[prevIndex],
+      testimonials[currentIndex],
+      testimonials[nextIndex]
+    ];
+  };
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,88 +153,163 @@ export default function TravellerReview({
 
       {/* <pre>{JSON.stringify(data?.testimonial, null, 2)}</pre> */}
 
-      {/* Reviews */}
+      {/* Reviews Carousel */}
       <div className="mb-10">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-semibold" style={{ color: '#3A3A3A' }}>Recent Reviews</h3>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {data?.testimonial.length === 0 && (
-            <div className="col-span-full flex flex-col items-center justify-center  rounded-sm py-12 px-6 text-center" style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}>
-              <Icon icon={"bx:happy-heart-eyes"} className="text-6xl mb-4 text-zinc-600" />
-              <h2 className="text-xl font-semibold" style={{ color: '#3A3A3A' }}>
-                You will be the first to leave a review1
-              </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Be the first to leave a review and share your experience!
-              </p>
+          {data?.testimonial && data.testimonial.length > 0 && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                title={isPlaying ? "Pause autoplay" : "Start autoplay"}
+              >
+                <Icon
+                  icon={isPlaying ? "ph:pause-fill" : "ph:play-fill"}
+                  className="w-4 h-4"
+                  style={{ color: '#f05e25' }}
+                />
+              </button>
+
+              <button
+                onClick={goToPrev}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                disabled={data.testimonial.length <= 1}
+              >
+                <ChevronLeft className="w-4 h-4" style={{ color: '#f05e25' }} />
+              </button>
+
+              <button
+                onClick={goToNext}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                disabled={data.testimonial.length <= 1}
+              >
+                <ChevronRight className="w-4 h-4" style={{ color: '#f05e25' }} />
+              </button>
             </div>
           )}
-
-          {data?.testimonial
-            .slice(0, showMoreReviews ? userReviews.length : 4)
-            .map((review) => (
-              <div
-                key={review._id}
-                className="p-6 rounded-sm  hover:border-gray-300 transition-all duration-200"
-                style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
-              >
-                <h2 className="text-lg font-semibold mb-1" style={{ color: '#3A3A3A' }}>
-                  {review.fullName}
-                </h2>
-                <p className="text-sm text-gray-500 mb-3">Traveller</p>
-
-                <div className="flex gap-1 items-center mb-4">
-                  {[...Array(5)].map((_, key) => (
-                    <Star
-                      key={key}
-                      size={16}
-                      style={{
-                        color: key < review.rating ? '#f05e25' : '#e5e7eb',
-                        fill: key < review.rating ? '#f05e25' : '#e5e7eb'
-                      }}
-                    />
-                  ))}
-                </div>
-
-                <p className="text-gray-600 text-sm leading-relaxed">{review.comment}</p>
-              </div>
-            ))}
         </div>
 
-        {!showMoreReviews && userReviews.length > 4 && (
-          <div className="text-center mt-8">
-            <button
-              onClick={() => setShowMoreReviews(true)}
-              className="inline-flex items-center font-medium hover:opacity-80 transition-all duration-200 px-6 py-3 rounded-sm "
-              style={{
-                color: '#f05e25',
-                borderColor: '#f05e25',
-                backgroundColor: '#fff5f0'
-              }}
-            >
-              View all {userReviews.length} reviews
-              <ChevronDown className="ml-2" />
-            </button>
+        {data?.testimonial.length === 0 && (
+          <div className="col-span-full flex flex-col items-center justify-center rounded-sm py-12 px-6 text-center" style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}>
+            <Icon icon={"bx:happy-heart-eyes"} className="text-6xl mb-4 text-zinc-600" />
+            <h2 className="text-xl font-semibold" style={{ color: '#3A3A3A' }}>
+              You will be the first to leave a review
+            </h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Be the first to leave a review and share your experience!
+            </p>
+          </div>
+        )}
+
+        {/* Carousel Container */}
+        {data?.testimonial && data.testimonial.length > 0 && (
+          <div className="relative">
+            <div className="flex items-center bg-black  justify-center gap-4 overflow-hidden">
+              {getVisibleTestimonials().map((review, index) => {
+                const isCenter = data.testimonial.length >= 3 ? index === 1 : index === 0;
+                const isSide = data.testimonial.length >= 3 && index !== 1;
+
+                return (
+                  <div
+                    key={review._id}
+                    className={`transition-all  aspect-video duration-500 ease-in-out ${isCenter}`}
+                  >
+                    <div
+                      className="p-6 rounded-lg border hover:shadow-lg transition-all duration-300 h-full"
+                      style={{
+                        backgroundColor: isCenter ? '#ffffff' : '#fafafa',
+                        borderColor: isCenter ? '#f05e25' : '#f0f0f0',
+                        borderWidth: isCenter ? '2px' : '1px'
+                      }}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-lg">
+                          {review.fullName.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold" style={{ color: '#3A3A3A' }}>
+                            {review.fullName}
+                          </h3>
+                          <p className="text-sm text-gray-500">Traveller</p>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-1 items-center mb-4">
+                        {[...Array(5)].map((_, key) => (
+                          <Star
+                            key={key}
+                            size={16}
+                            style={{
+                              color: key < review.rating ? '#f05e25' : '#e5e7eb',
+                              fill: key < review.rating ? '#f05e25' : '#e5e7eb'
+                            }}
+                          />
+                        ))}
+                        <span className="ml-2 text-sm font-medium" style={{ color: '#f05e25' }}>
+                          {review.rating}.0
+                        </span>
+                      </div>
+
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-4">
+                        {review.comment}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Dots indicator */}
+            {data.testimonial.length > 1 && (
+              <div className="flex justify-center gap-2 mt-6">
+                {data.testimonial.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentIndex
+                      ? 'scale-110'
+                      : 'hover:scale-105'
+                      }`}
+                    style={{
+                      backgroundColor: index === currentIndex ? '#f05e25' : '#e5e7eb'
+                    }}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
 
+      {/* Reviews */}
+      <div className="mb-10">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-lg font-semibold" style={{ color: '#3A3A3A' }}>Video Reviews</h3>
+        </div>
+
+        {/* <div className="grid  grid-cols-2">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/kwGYF2gf6gA?si=Ocd8ygKyvAg15wCP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/kwGYF2gf6gA?si=Ocd8ygKyvAg15wCP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div> */}
+      </div>
+
+
       {/* Review Form */}
       <div>
-        <h2 className="text-2xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+        <h2 className="text-lg font-semibold mb-1" style={{ color: '#3A3A3A' }}>
           Share Your Experience
         </h2>
-        <p className="text-gray-600 text-base mb-8">
+        <p className="text-gray-600 text-base mb-6">
           We'd love to hear about your journey. Your feedback helps others.
         </p>
 
-        <form onSubmit={handleSubmitReview} className="gap-8 grid lg:grid-cols-2">
+        <form onSubmit={handleSubmitReview} className="gap-8 grid lg:grid-cols-2 pt-6 bg-gray-50 p-4 rounded-sm">
           <div className="space-y-4">
             {/* Rating */}
-            <div className="p-6 rounded-sm border npm run dev border-gray-200">
-              <label className="block text-lg font-semibold mb-4" style={{ color: '#3A3A3A' }}>
+            <div className="rounded-sm mb-6">
+              <label className="block  font-semibold mb-4" style={{ color: '#3A3A3A' }}>
                 Rate Your Experience
               </label>
               <div className="flex items-center">
@@ -222,7 +330,7 @@ export default function TravellerReview({
                           ? "text-orange-500 fill-current"
                           : "text-gray-300"
                           }
-                        
+                          
                         `}
                         style={{
                           color: ratingValue <= (hoverRating || rating) ? '#f05e25' : '#e5e7eb'
@@ -247,7 +355,7 @@ export default function TravellerReview({
               <input
                 type="text"
                 placeholder="Enter your full name"
-                className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all duration-200"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
@@ -263,7 +371,7 @@ export default function TravellerReview({
               </label>
               <textarea
                 placeholder="What did you enjoy most? What could be improved?"
-                className="w-full border border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none"
+                className="w-full border outline-none border-gray-300 rounded-sm text-base p-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none"
                 rows={4}
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
@@ -290,7 +398,7 @@ export default function TravellerReview({
               className="hidden"
             />
             <div className="relative h-[350px]">
-              <div className="p-4 rounded-sm h-full   bg-gray-50 border-2 border-dashed border-gray-300 hover:border-gray-400 transition-all duration-200 cursor-pointer flex justify-center items-center">
+              <div className="p-4 rounded-sm h-full    border-2 border-dashed border-gray-300 hover:border-gray-400 transition-all duration-200 cursor-pointer flex justify-center items-center">
                 <div className="absolute top-3 right-3 z-10">
                   {image ? (
                     <button
@@ -331,11 +439,11 @@ export default function TravellerReview({
             </div>
           </div>
 
-          <div className="pt-4">
+          <div className="pt-4 flex justify-end items-center col-span-2">
             <button
               type="submit"
               disabled={!rating || isPending}
-              className={`px-8 py-4 flex justify-center items-center rounded-sm font-semibold text-base transition-all duration-200 ${rating && !isPending
+              className={`px-6 py-2 flex justify-center items-center rounded-sm font-semibold text-base transition-all duration-200 ${rating && !isPending
                 ? "text-white hover:opacity-90 shadow-md"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}

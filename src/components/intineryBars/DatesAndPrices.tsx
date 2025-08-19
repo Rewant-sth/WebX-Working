@@ -5,7 +5,6 @@ import { Icon } from "@iconify/react";
 import { IFixedDate } from "@/types/IPackages";
 import { useSelectedTrip } from "@/contexts/SelectedDateContext";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 interface CalendarProps {
   month: number;
@@ -22,7 +21,6 @@ const Calendar: React.FC<CalendarProps> = ({
   selectedDate,
   onDateSelect,
   highlightedDates,
-  tripDuration,
 }) => {
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
@@ -73,6 +71,7 @@ const Calendar: React.FC<CalendarProps> = ({
         <button
           key={day}
           onClick={() => !isPast && handleDateClick(day)}
+          // onMouseOver={() => !isPast && !isSelected && handleDateClick(day)}
           disabled={isPast}
           className={`
             p-2 border   text-sm font-medium rounded-sm transition-all duration-200
@@ -80,24 +79,10 @@ const Calendar: React.FC<CalendarProps> = ({
               ? 'text-gray-300 cursor-not-allowed'
               : 'hover:cursor-pointer'
             }
-            ${isSelected ? 'text-[#F05E25] border-[#F05E25]  hover:opacity-90' : ''}
-            ${isHighlighted && !isSelected ? 'text-[#F05E25] border border-[#F05E25]' : ''}
+            ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
+            ${isHighlighted && !isSelected ? 'text-white bg-[#F05E25]' : ''}
             ${!isHighlighted && !isSelected ? 'border-white' : ''}
           `}
-          style={{
-
-            // borderColor: isSelected
-            //   ? '#F05E25'
-            //   : isHighlighted && !isSelected
-            //     ? '#F05E25'
-            //     : isPast
-            //       ? 'transparent'
-            //       : '',
-            // borderColor: isToday ? '#F05E25' : 'transparent',
-            // ...((!isPast && !isSelected && !isHighlighted) && {
-            //   ':hover': { backgroundColor: 'rgba(240, 94, 37, 0.1)' }
-            // })
-          }}
         >
           {day}
         </button>
@@ -108,7 +93,7 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
+    <div className="bg-white rounded-sm border border-gray-400 p-4">
       <h3 className="text-lg font-semibold text-center mb-4 text-gray-800">
         {monthNames[month]} {year}
       </h3>
@@ -116,7 +101,7 @@ const Calendar: React.FC<CalendarProps> = ({
       {/* Day headers */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-          <div key={day} className="p-2 text-xs font-medium text-gray-500 text-center">
+          <div key={day} className="p-2 text-xs font-medium text-gray-900 text-center">
             {day}
           </div>
         ))}
@@ -345,18 +330,15 @@ const DatesAndPrices = ({
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  // Calculate which months to display based on selected date or current display month
+  // Calculate which months to display based on current display month or default to current month
   const getDisplayMonths = () => {
     let baseDate: Date;
 
     if (currentDisplayMonth) {
       // Use the manually navigated month
       baseDate = currentDisplayMonth;
-    } else if (selectedDate) {
-      // Use the month containing the selected date
-      baseDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
     } else {
-      // Default: current month
+      // Default: current month (don't jump to selected date's month)
       baseDate = new Date(currentYear, currentMonth, 1);
     }
 
@@ -414,97 +396,143 @@ const DatesAndPrices = ({
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
     setShowForm(false); // Reset form visibility
-    // Reset manual navigation when a date is selected
-    setCurrentDisplayMonth(null);
+    // Don't reset currentDisplayMonth - keep the calendar view stable
   };
 
-
+  const handleBookNow = () => {
+    if (selectedDate && data) {
+      setSelectedTrip(data);
+      setShowForm(true);
+    }
+  };
 
   return (
     <div
       id="date-&-prices"
-      className="mt-6 mb-8 pb-10"
+      className="mt-6 border-b-2 border-dashed border-zinc-200 mb-8 pb-10"
     >
-      <h2 className="text-2xl  font-semibold text-gray-800 text-center sm:text-left ">
-        <span className="w-fit text-2xl  font-semibold " >
+      <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 text-center sm:text-left">
+        <span className="w-fit text-2xl lg:text-3xl font-semibold " >
           Dates & Prices
         </span>
       </h2>
 
-      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl">
+      <p className="text-zinc-600 mt-4 text-lg leading-relaxed max-w-3xl">
         Choose your preferred travel date from the calendars below. Select any available date and we'll show you the complete trip duration.
       </p>
 
-      <div className="mt-6">
-        <table className="w-full">
-          <tr className="bg-[#01283F]/5  rounded-sm">
-            <th className="text-left px-4 py-3 ">
-              <h2 className="uppercase text-zinc-800">Trip Dates</h2>
-              <p className="font-normal text-sm">Arrival - Departure</p>
-            </th>
-            <th className="text-left px-4 py-3">
-              <h2 className="uppercase text-zinc-800">Availability</h2>
-              <p className="font-normal text-sm">Spots</p>
-            </th>
-            <th className="text-left px-4 py-3">
-              <h2 className="uppercase text-zinc-800">Price</h2>
-              <p className="font-normal text-sm">Per Person</p>
-            </th>
-            <th className="text-left px-4 py-3">
-              <h2 className="uppercase text-zinc-800">Enquiry</h2>
-              <p className="font-normal text-sm">Arrival - Departure</p>
-            </th>
-          </tr>
-          {
-            data?.map((trip, index) => {
-              const startDate = new Date(trip.startDate);
-              const endDate = new Date(trip.endDate);
+      {/* Calendar Section */}
+      <div className="mt-8 max-w-4xl">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-xl font-semibold text-gray-800">Select Your Start Date</h3>
 
-              return (
-                <tr key={index} className="border-b   border-gray-200 hover:bg-gray-50 transition-colors items-center duration-200">
-                  <td className="px-4 py-4">
-                    <div className="flex items-center gap-2">
-                      <div className="">
-                        <h3 className="font-semibold text-gray-800">{startDate.toDateString().split(" ")[0]}</h3>
-                        <p className="font-normal text-sm">{startDate.toDateString().split(" ")[1]}-{startDate.toDateString().split(" ")[2]}-{startDate.toDateString().split(" ")[3]}</p>
-                      </div>
-                      <Icon icon={"icon-park-outline:arrow-up"} rotate={45} />
-                      <div className="">
-                        <h3 className="font-semibold text-gray-800">{endDate.toDateString().split(" ")[0]}</h3>
-                        <p className="font-normal text-sm">{endDate.toDateString().split(" ")[1]}-{endDate.toDateString().split(" ")[2]}-{endDate.toDateString().split(" ")[3]}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4  h-full py-6 flex gap-4 items-center">
-                    <p className="font-normal text-sm">{trip.availableSeats} spots left</p>
-                    {trip.availableSeats > 0 ? trip.status.toLowerCase() == "open" ? (
-                      <button className="bg-green-100 text-green-500 hover:underline text-sm tracking-wider font-semibold px-3 py-1 rounded-full uppercase">Available</button>
-                    ) : (
-                      <button className="bg-gray-100 text-gray-500 cursor-not-allowed px-3 py-1 rounded-full uppercase text-sm font-semibold" disabled>Not Available</button>
-                    ) : (
-                      <button className="bg-gray-100 text-gray-500 cursor-not-allowed px-3 py-1 rounded-full uppercase text-sm font-semibold" disabled>Not Available</button>
-                    )
-                    }
-                  </td>
-                  <td className="px-4 py-3">
-                    <p className="font-normal font-semibold">US ${trip.pricePerPerson}</p>
-                  </td>
-                  <td className="px-4 py-3">
-                    {trip.status.toLowerCase() == "open" ? (
-                      <button className="bg-orange-100 cursor-pointer hover:bg-orange-500 hover:text-white text-orange-500  tracking-wider font-semibold px-5 py-2 rounded-full uppercase">Book Now</button>
-                    ) : (
-                      <button className="bg-gray-100 text-gray-500 cursor-not-allowed  tracking-wider font-semibold px-5 py-2 rounded-full uppercase">Sold Out</button>
-                    )}
-                  </td>
-                </tr>
-              )
-            })
-          }
-        </table>
+          {/* Navigation arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePrevMonth}
+              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+              aria-label="Previous months"
+            >
+              <Icon icon="mdi:chevron-left" width="24" height="24" className="text-gray-600" />
+            </button>
+            <button
+              onClick={handleNextMonth}
+              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+              aria-label="Next months"
+            >
+              <Icon icon="mdi:chevron-right" width="24" height="24" className="text-gray-600" />
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 max-w-4xl lg:grid-cols-2 gap-6 mb-8">
+          <Calendar
+            month={firstMonth}
+            year={firstYear}
+            selectedDate={selectedDate}
+            onDateSelect={handleDateSelect}
+            highlightedDates={highlightedDates}
+            tripDuration={tripDuration}
+          />
+
+          <Calendar
+            month={secondMonth}
+            year={secondYear}
+            selectedDate={selectedDate}
+            onDateSelect={handleDateSelect}
+            highlightedDates={highlightedDates}
+            tripDuration={tripDuration}
+          />
+        </div>
+
+        {/* Legend */}
+        <div className="flex flex-wrap gap-6 mb-6 text-sm">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#F05E25] rounded"></div>
+            <span>Selected Start Date</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-[#F05E25]/20 rounded border border-[#F05E25]/20"></div>
+            <span>Trip Duration ({tripDuration} days)</span>
+          </div>
+          {/* <div className="flex items-center gap-2">
+            <div className="w-4 h-4 border-2 border-blue-400 rounded"></div>
+            <span>Today</span>
+          </div> */}
+        </div>
+
+        {/* Selected Date Info and Book Button */}
+        {selectedDate && (
+          <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                  Selected Trip Details
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-800 font-medium">Start Date:</span>
+                    <p className="text-gray-800">{selectedDate.toDateString()}</p>
+                  </div>
+                  <div>
+                    <span className="text-gray-800 font-medium">End Date:</span>
+                    <p className="text-gray-800">
+                      {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-gray-800 font-medium">Duration:</span>
+                    <p className="text-gray-800">{tripDuration} days</p>
+                  </div>
+                </div>
+              </div>
+
+              <Link href={`/booking/${packageId}`} >
+                <button
+                  className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
+                >
+                  <Icon icon="mdi:calendar-check" width="20" height="20" />
+                  Book This Trip
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Booking Form */}
+        {showForm && selectedDate && (
+          <BookingForm
+            selectedDate={selectedDate}
+            tripDuration={tripDuration}
+            packageId={packageId}
+            onClose={() => setShowForm(false)}
+          />
+        )}
       </div>
 
+      {/* Original Fixed Dates Table (for reference) */}
 
-    </div >
+    </div>
   );
 };
 

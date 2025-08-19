@@ -35,14 +35,7 @@ const Blogs = async () => {
                 key={blog._id}
                 className="bg-white overflow-hidden text-left group"
               >
-                <div className="flex gap-2 capitalize items-center pb-2">
-                  <span className="bg-orange-100 text-orange-500 py-1 px-4 rounded-sm text-sm font-semibold">
-                    4 min reading
-                  </span>
-                  <span className="bg-orange-100 text-orange-500 py-1 px-4 rounded-sm text-sm font-semibold">
-                    Expedition
-                  </span>
-                </div>
+
                 <div className="overflow-hidden">
                   <Image
                     src={blog.banner}
@@ -52,6 +45,16 @@ const Blogs = async () => {
                     width={1000}
                   />
                 </div>
+
+                <div className="flex gap-2 capitalize items-center pt-2">
+                  <span className="bg-orange-100 text-orange-500 py-1 px-4 rounded-sm text-sm font-semibold">
+                    4 min reading
+                  </span>
+                  <span className="bg-orange-100 text-orange-500 py-1 px-4 rounded-sm text-sm font-semibold">
+                    Expedition
+                  </span>
+                </div>
+
                 <div className="mt-2">
                   <h2 className="text-xl line-clamp-2 font-bold text-gray-800 mb-2 hover:text-[#155DFC] transition-colors cursor-pointer">
                     {blog.title}
@@ -60,6 +63,8 @@ const Blogs = async () => {
                     {blog.description}
                   </p>
                 </div>
+
+
               </Link>
             ))}
           </Suspense>
