@@ -1,6 +1,22 @@
 "use client";
-import { ArrowRight, LocateIcon, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { 
+  ArrowRight, 
+  Locate as LocateIcon, 
+  Users, 
+  TrendingUp, 
+  Calendar, 
+  X, 
+  Eye, 
+  Compass, 
+  MapPinned, 
+  CalendarRange, 
+  DollarSign, 
+  CalendarDays, 
+  ClipboardCheck, 
+  Star,
+  HelpCircle
+} from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 import Title from "../../../components/intineryBars/Title";
 import LeftBar from "../../../components/intineryBars/LeftBar";
 import TripGlance from "../../../components/tripGlance/TripGlance";
@@ -29,6 +45,31 @@ import Image from "next/image";
 const Page = () => {
   const router = useRouter();
   const params = useParams();
+  const [isStickyVisible, setIsStickyVisible] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroHeight = heroRef.current.offsetHeight;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const heroBottom = heroRef.current.offsetTop + heroHeight;
+        
+        // Show sticky bar when scrolled past 80% of the hero section
+        const showAt = heroRef.current.offsetTop + (heroHeight * 0.8);
+        setIsStickyVisible(window.scrollY > showAt);
+        setIsScrolled(window.scrollY > 0);
+      }
+    };
+
+    // Initial check
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Check for invalid slug immediately and redirect
   useEffect(() => {
     console.log("params", params.slug);
@@ -60,7 +101,7 @@ const Page = () => {
         <SkeletonPackageDetails />
       ) : (
         <>
-          <div className="relative min-h-screen overflow-hidden bg-black">
+          <div ref={heroRef} className="relative min-h-screen overflow-hidden bg-black">
             <Image src={"/ourstory.jpg"} alt="bg" fill className="object-cover z-[20] object-center opacity-70" />
             <Title data={packageData?.data as ITravelPackage} />
             <div className=" px-4 sm:px-6  lg:px-16 mt-8 relative z-[80]">
@@ -87,8 +128,10 @@ const Page = () => {
               {/* Overview Section */}
               <div className="border-b border-gray-200 mb-8 pb-10">
                 <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-                  <span className="w-fit text-2xl font-semibold">
-                    Trip Overview
+                  <span className="flex items-center gap-2">
+                
+                    <Eye className="w-6 h-6 text-orange-500" />
+                    <span>Trip Overview</span>
                   </span>
                 </h2>
                 <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
@@ -150,7 +193,13 @@ const Page = () => {
             </div> */}
           </div>
 
-          <div className="sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900  bg-orange-100 rounded-sm">
+          <div 
+            className={`sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all duration-300 transform ${
+              isStickyVisible ? 'translate-y-0' : 'translate-y-full'
+            } ${
+              isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
             <div className="w-full flex items-center justify-center gap-4 py-2 border-orange-200 border-r-[2px]">
               <h2 className=" font-bold  uppercase">Starting at - </h2>
               <p className="text-lg font-bold text-orange-500">Rs. {packageData?.data?.fixedDates[0] ? packageData.data.fixedDates[0].pricePerPerson : "N/A"}</p>
@@ -170,7 +219,7 @@ const Page = () => {
             <div className="flex justify-center">
               <button className="flex items-center gap-2 border py-2 px-6 uppercase font-semibold text-orange-500 rounded-full">
                 Book Now <ArrowRight />
-              </button>
+               </button>
             </div>
           </div>
 

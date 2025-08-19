@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
     Eye,
     Compass,
@@ -28,32 +28,18 @@ interface Section {
 const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     const [activeSection, setActiveSection] = useState<string>("major-highlights");
     const [isScrollingToSection, setIsScrollingToSection] = useState(false);
-    const [top, setTop] = useState<number>(0);
-    const [lastScrollY, setLastScrollY] = useState<number>(0);
+    const lastScrollY = useRef(0);
 
-    // Update top position based on scroll direction
+    // Handle scroll events for section tracking only
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
-            const scrollDifference = currentScrollY - lastScrollY;
-
-            // If scrolling down, hide navbar (top = 0)
-            if (scrollDifference > 0 && currentScrollY > 100) {
-                setTop(0);
-            }
-            // If scrolling up more than 10 pixels, show navbar (top = 64)
-            else if (scrollDifference < -10) {
-                setTop(64);
-            }
-
-            setLastScrollY(currentScrollY);
+            lastScrollY.current = currentScrollY;
         };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [lastScrollY]);
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     // Define all possible sections with their conditions
     const sections: Section[] = [
@@ -183,71 +169,62 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     }, [visibleSections, isScrollingToSection]);
 
     return (
-        <div
-            className={`px-4 sm:px-8 md:px-12 lg:px-16 sticky w-full z-[99] backdrop-blur-sm border-b border-gray-200 bg-white/90 transition-transform duration-300 top-0 `}
-        >
-            <div className="py-2 flex justify-between items-center">
-
-
-                {/* Scroll Spy Navigation Tabs */}
-                {visibleSections.length > 0 && (
-                    <div className="relative">
-
-                        {/* Scrollable tabs container */}
-                        <div className="flex overflow-x-auto z-[99] scrollbar-hide gap-2 py-2 ">
-                            {visibleSections.map((section) => (
-                                <button
-                                    key={section.id}
-                                    onClick={() => handleScrollToSection(section.id)}
-                                    className={`flex items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
-                                        ? "bg-[#01283F] text-white "
-                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+        <div className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200">
+            <div className="px-4 sm:px-8 md:px-12 lg:px-16">
+                <div className="py-2 flex justify-between items-center">
+                    {/* Scroll Spy Navigation Tabs */}
+                    {visibleSections.length > 0 && (
+                        <div className="relative">
+                            <div className="flex overflow-x-auto z-[99] scrollbar-hide gap-2 py-2">
+                                {visibleSections.map((section) => (
+                                    <button
+                                        key={section.id}
+                                        onClick={() => handleScrollToSection(section.id)}
+                                        className={`flex items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${
+                                            activeSection === section.id
+                                                ? "bg-[#01283F] text-white"
+                                                : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900"
                                         }`}
-                                >
-                                    <span className={`${activeSection === section.id ? "text-white" : "text-gray-500"}`}>
-                                        {section.icon}
-                                    </span>
-                                    {section.label}
-                                </button>
-                            ))}
+                                    >
+                                        <span className={`${activeSection === section.id ? "text-white" : "text-gray-500"}`}>
+                                            {section.icon}
+                                        </span>
+                                        {section.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
 
-                <div className="hidden sm:flex flex-col sm:flex-row  sm:items-center gap-3 sm:gap-6 ">
-                    {/* Star Rating */}
-                    <div
-                        className="flex gap-2 items-center cursor-pointer"
-                    >
-                        <span className="flex items-center gap-1">
+                    <div className="hidden sm:flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                        {/* Star Rating */}
+                        <div className="flex gap-2 items-center cursor-pointer">
+                            <span className="flex items-center gap-1">
+                                <Star size={14} className="" />
+                                <p className="text-sm sm:text-base font-semibold">4.9</p>
+                            </span>
+                            <span className="text-sm">(226 reviews)</span>
+                        </div>
 
-                            <Star size={14} className="" />
-                            <p className="text-sm sm:text-base  font-semibold">
-                                4.9
-                            </p>
+                        {/* Location */}
+                        <span className="flex gap-1 items-center text-sm">
+                            <Locate size={14} className="" />
+                            {data?.location}
                         </span>
-                        <span className="text-sm ">(226 reviews)</span>
                     </div>
-
-                    {/* Location */}
-                    <span className="flex gap-1 items-center text-sm ">
-                        <Locate size={14} className="" />
-                        {data?.location}
-                    </span>
                 </div>
             </div>
 
             {/* Custom scrollbar styles */}
             <style jsx>{`
                 .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
                 }
                 .scrollbar-hide::-webkit-scrollbar {
-                display: none;
+                    display: none;
                 }
-                `}
-            </style>
+            `}</style>
         </div>
     );
 };

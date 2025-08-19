@@ -1,7 +1,12 @@
+import { CalendarDays } from 'lucide-react';
+
 const DatePrice = () => {
   return (
     <div className="mt-10">
-      <h1 className="text-3xl font-semibold mb-6">Date & Price</h1>
+      <h1 className="text-3xl font-semibold mb-6 flex items-center gap-2">
+        <CalendarDays className="w-6 h-6 text-orange-500" />
+        <span>Date & Price</span>
+      </h1>
       <p className="text-gray-700 text-sm">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia nisi
         asperiores reprehenderit labore eaque atque vel quisquam ex, modi animi.

@@ -1,29 +1,95 @@
-import { ArrowRight } from 'lucide-react'
-import Image from 'next/image'
-import React from 'react'
+import { Play } from "lucide-react";
+import Image from "next/image";
+import React from "react";
 
 export default function QuickInfo() {
-    return (
-        <div className='min-h-screen flex-col flex items-center justify-center'>
-            <h2 className='text-4xl pb-4 text-center font-semibold max-w-xl leading-12'>
-                <span className='bg-orange-500 text-white px-4 '>Understand</span>
-                Tales of Reak
-                <span className='bg-orange-500 text-white px-4'>platforms</span>
-            </h2>
-            <p className='max-w-3xl text-center'> Discover insider secrets, survival stories, and expert tips from seasoned mountaineers.
-                Our curated collection of adventure guides will transform your next expedition into an unforgettable journey.</p>
-            <div className="mt-10 grid grid-cols-4 w-full max-w-7xl mx-auto gap-4">
-                {[...Array(4)].map((_, idx) => (
-                    <div key={idx} className="bg-gray-200 group p-4 relative w-full rounded-sm overflow-hidden min-h-[60dvh]">
-                        <Image src={`/three.jpg`} fill alt='one' className='object-cover group-hover:blur-sm transition-all object-center' />
-                        <div className="absolute inset-0 group-hover:bg-[#01283F]/50 transition-all p-3  flex justify-center items-center flex-col text-center text-white   ">
-                            <p className=" text-4xl  max-w-[250px] text-center -rotate-[20deg] hover:font-sans  z-[99] font-semibold" style={{ fontFamily: "var(--font-dancing-script), 'Brush Script MT', cursive" }}>
-                                Mount Everest Via Gokyo Lakes
-                            </p>
-                        </div>
-                    </div>
-                ))}
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 w-full">
+      <div className="w-11/12 mx-auto grid md:grid-cols-3 gap-12 items-center">
+        {/* Left Side Content */}
+        <div className="space-y-6">
+          <h2 className="text-6xl pb-12 text-left font-semibold max-w-xl leading-snug text-gray-900">
+            <span className="bg-orange-500 text-white px-4">Understand</span>{" "}
+            Tales of Real Himalaya{" "}
+             <span className="bg-orange-500 text-white px-4">platforms</span>
+          </h2>
+
+          {/* Play button + text */}
+          <div className="flex items-center gap-3 cursor-pointer">
+            <div className="w-12 h-12 rounded-full border flex items-center justify-center border-gray-900">
+              <Play size={22} className="text-gray-900" />
             </div>
+            <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
+              Watch the video
+            </p>
+          </div>
+
+          {/* Description */}
+          <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+            Discover insider secrets, survival stories, and expert tips from
+            seasoned mountaineers. Our curated collection of adventure guides
+            will transform your next expedition into an unforgettable journey.
+          </p>
         </div>
-    )
+
+        {/* Right Side Custom Layout */}
+        <div className="flex col-span-2 gap-4 w-full">
+          {/* Column 1 → 1 card */}
+          <div className="flex flex-col gap-4 flex-1 justify-end">
+            <div className="relative w-full h-48 overflow-hidden rounded-lg group">
+              <Image
+                src="/three.jpg"
+                alt="Thumbnail"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform"
+              />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                <Play size={28} className="text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Column 2 → 2 cards */}
+          <div className="flex flex-col gap-4 flex-1 justify-end">
+            {[...Array(2)].map((_, idx) => (
+              <div
+                key={idx}
+                className="relative w-full h-48 overflow-hidden rounded-lg group"
+              >
+                <Image
+                  src="/three.jpg"
+                  alt="Thumbnail"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                  <Play size={28} className="text-white" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Column 3 → 3 cards */}
+          <div className="flex flex-col gap-4 flex-1">
+            {[...Array(3)].map((_, idx) => (
+              <div
+                key={idx}
+                className="relative w-full h-32 md:h-40 lg:h-48 overflow-hidden rounded-lg group"
+              >
+                <Image
+                  src="/three.jpg"
+                  alt="Thumbnail"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                  <Play size={28} className="text-white" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

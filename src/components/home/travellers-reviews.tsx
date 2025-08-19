@@ -65,7 +65,11 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
     return (
         <div id='reviews' className={`relative w-full flex flex-col py-24 justify-center items-center   ${className}`}>
 
-            <h2 className='text-4xl pb-10 text-center font-semibold max-w-xl leading-12'><span className='bg-orange-500 text-white px-4 '>Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>platforms</span></h2>
+            <h2 className='text-4xl pb-10 text-center font-semibold max-w-xl leading-12'>
+                <span className='bg-orange-500 text-white px-4 '>
+                    Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>
+                    platforms</span>
+                    </h2>
 
             {/* Embla viewport */}
             <div className="overflow-hidden relative max-w-7xl mx-auto w-full" ref={emblaRef}>

@@ -20,8 +20,6 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
         AutoPlay({ delay: 3000, stopOnInteraction: false })
     ])
 
-
-
     const {
         prevBtnDisabled,
         nextBtnDisabled,
@@ -32,36 +30,31 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
     const [centerIndex, setCenterIndex] = useState<number | null>(null)
     const [slidesPerView, setSlidesPerView] = useState(1)
 
-
     const updateCarouselState = useCallback(() => {
         if (!emblaApi) return;
 
-        // Get visible slides
         const visibleSlides = emblaApi.slidesInView();
         if (visibleSlides.length === 0) return;
 
-        // Determine slides per view
         const newSlidesPerView = visibleSlides.length;
         setSlidesPerView(newSlidesPerView);
 
-        // Calculate center index based on slides per view
         if (newSlidesPerView === 5) {
-            setCenterIndex(visibleSlides[2]); // 3rd slide (index 2) for 5 slides
+            setCenterIndex(visibleSlides[2]);
         } else if (newSlidesPerView === 3) {
-            setCenterIndex(visibleSlides[1]); // 2nd slide (index 1) for 3 slides
+            setCenterIndex(visibleSlides[1]);
+        } else if (newSlidesPerView === 1) {
+            setCenterIndex(visibleSlides[0]);
         } else {
-            setCenterIndex(null); // No scaling for other cases
+            setCenterIndex(null);
         }
     }, [emblaApi]);
 
-    // Initialize and listen to carousel events
     useEffect(() => {
         if (!emblaApi) return;
 
-        // Initialize state
         updateCarouselState();
 
-        // Listen to carousel events
         emblaApi.on('select', updateCarouselState);
         emblaApi.on('reInit', updateCarouselState);
         emblaApi.on('resize', updateCarouselState);
@@ -73,19 +66,21 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
         };
     }, [emblaApi, updateCarouselState]);
 
-
     return (
-        <section className=" mx-auto relative translate-z-20 ">
+        <section className="mx-auto relative">
+            {/* Man image above carousel */}
             <div className="absolute top-full -translate-y-[40%] z-[999] left-1/2 -translate-x-1/2">
-                <img src="/man.png" alt="" className='drop-shadow-2xl drop-shadow-black' />
+                <img src="/man.png" alt="man" className="drop-shadow-2xl drop-shadow-black" />
             </div>
-            <div className="overflow-hidden relative" ref={emblaRef}>
 
+            {/* Carousel */}
+            <div className="overflow-hidden relative" ref={emblaRef}>
                 <div
                     className={`
                         flex touch-pan-y touch-pinch-zoom backface-hidden
                         -ml-4 sm:-ml-6 xl:-ml-8
-                `}
+                        ${slidesPerView === 1 ? 'justify-center' : 'justify-start'}
+                    `}
                 >
                     {slides?.map((slide, index) => (
                         <div
@@ -95,25 +90,32 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
                                 lg:flex-[0_0_calc(100%/3)] sm:pl-6
                                 xl:flex-[0_0_calc(100%/5)] xl:pl-8
                                 min-w-0
-                                `}>
+                            `}
+                        >
                             <div
                                 className={`
-                                     font-semibold flex items-center justify-center 
-                                    h-[18rem] rounded-md shadow-2xl overflow-hidden select-none  bg-white
+                                    font-semibold flex items-center justify-center 
+                                    h-[18rem] rounded-md shadow-2xl overflow-hidden select-none bg-white
                                     transition-transform duration-300 ease-in-out
                                     transform origin-center
                                     ${centerIndex === index ? 'scale-110' : 'scale-100'}
                                 `}
                             >
-                                <Image src={slide.imageUrl} alt={JSON.stringify(slide) || ""} layout="fill" objectFit="cover" className='object-cover object-center' />
+                                <Image
+                                    src={slide.imageUrl}
+                                    alt={JSON.stringify(slide) || ""}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="object-cover object-center"
+                                />
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
+            {/* Buttons */}
             <div className="grid grid-cols-[auto_1fr] justify-between gap-4 mt-6">
-                {/* Prev / Next Buttons */}
                 <div className="grid grid-cols-2 gap-2 items-center">
                     <PrevButton
                         onClick={onPrevButtonClick}
@@ -126,12 +128,9 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
                         className="embla__button"
                     />
                 </div>
-
-                {/* Dots */}
-
             </div>
         </section>
     )
 }
 
-export default GalleryCarousel;
+export default GalleryCarousel

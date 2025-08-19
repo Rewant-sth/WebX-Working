@@ -27,8 +27,9 @@ const RouteMap = ({ data }: { data: ITravelPackage | undefined }) => {
       className="border-b border-gray-200 mb-8 pb-10"
     >
       <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="w-fit text-2xl font-semibold">
-          Route Map
+        <span className="flex items-center gap-2">
+          <MapPinned className="w-5 h-5 text-orange-500" />
+          <span>Route Map</span>
         </span>
       </h2>
 

@@ -7,6 +7,7 @@ import {
   Mountain,
   Bed,
   Utensils,
+  CalendarDays,
 } from "lucide-react";
 import { IItinerary } from "@/types/IPackages";
 import Image from "next/image";
@@ -168,8 +169,9 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
       className="border-b border-gray-200 mb-8 pb-10"
     >
       <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="w-fit text-2xl font-semibold">
-          Itinerary
+        <span className="flex items-center gap-2">
+          <CalendarDays className="w-5 h-5 text-orange-500" />
+          <span>Itinerary</span>
         </span>
       </h2>
       <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
