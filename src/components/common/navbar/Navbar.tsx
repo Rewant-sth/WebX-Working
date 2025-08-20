@@ -3,6 +3,9 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { useState, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link';
+import api from '@/service/api';
+import { ICategoryResponse } from '@/types/ICategory';
+import { IPackageByIdResponse, ITravelPackageResponse } from '@/types/IPackages';
 
 interface Category {
   _id: string;
@@ -26,9 +29,9 @@ interface Package {
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<ICategoryResponse | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [packages, setPackages] = useState<Package[]>([]);
+  const [packages, setPackages] = useState<ITravelPackageResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
@@ -37,11 +40,8 @@ export default function Navbar() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('/api/v1/category');
-        const data = await response.json();
-        if (data.status === 'success') {
-          setCategories(data.data);
-        }
+        const response = await api.get('/category');
+        setCategories(response.data);
       } catch (error) {
         console.error('Failed to fetch categories:', error);
       }
@@ -54,11 +54,9 @@ export default function Navbar() {
   const fetchPackages = async (subcategoryId: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/v1/package/subcategory/${subcategoryId}`);
-      const data = await response.json();
-      if (data.status === 'success') {
-        setPackages(data.data);
-      }
+      const response = await api.get(`/package/subcategory/${subcategoryId}`);
+      setPackages(response.data);
+
     } catch (error) {
       console.error('Failed to fetch packages:', error);
     } finally {
@@ -98,7 +96,7 @@ export default function Navbar() {
         onComplete: () => {
           setShowNav(false);
           setSelectedCategory(null);
-          setPackages([]);
+          setPackages(null);
         }
       });
     }
@@ -106,7 +104,7 @@ export default function Navbar() {
 
   const handleCategorySelect = (category: Category) => {
     setSelectedCategory(category);
-    setPackages([]);
+    setPackages(null);
   }
 
   return (
@@ -158,12 +156,12 @@ export default function Navbar() {
         <div className="flex gap-12 text-white min-h-[calc(100dvh-6rem)]">
           <div className="w-full max-w-[15rem] text-xl space-y-4 col-span-2 p-6">
             <h2 className='text-3xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Categories</h2>
-            {categories.map((category) => (
+            {categories?.data?.map((category) => (
               <h2
                 key={category._id}
                 className={`cursor-pointer transition-all duration-300 hover:text-orange-400 hover:translate-x-2 hover:font-medium py-2 border-l-2 pl-4 ${selectedCategory?._id === category._id
-                    ? 'text-orange-400 translate-x-2 font-medium border-orange-400'
-                    : 'border-transparent'
+                  ? 'text-orange-400 translate-x-2 font-medium border-orange-400'
+                  : 'border-transparent'
                   }`}
                 onClick={() => handleCategorySelect(category)}
               >
@@ -200,7 +198,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="grid grid-cols-2 max-w-3xl gap-5 flex-1 pr-4 overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-orange-500">
-                {packages.map((pkg) => (
+                {packages?.data?.map((pkg) => (
                   <Link
                     key={pkg._id}
                     href={`/packages/${pkg.slug}`}
