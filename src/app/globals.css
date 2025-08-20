@@ -302,3 +302,132 @@ body {
     position: relative;
     overflow: hidden;
 }
+
+
+button {
+    cursor: pointer;
+}
+
+/* Hide main scrollbar for body and html */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html,
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+/* Hide the default checkbox */
+.container input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: 2px solid #f05e25a0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: #F05E25;
+    border-bottom: 1.5px solid #F05E25;
+    /* Bottom stroke */
+    box-shadow: 0 0 1px #F05E25, inset 0 -2.5px 3px #F05E25,
+        inset 0 3px 3px rgba(0, 0, 0, 0.2);
+    /* Inner shadow */
+    transition: transform 0.3s ease-in-out;
+    /* Transition for smooth animation */
+}
+
+/* When the checkbox is checked, modify the checkmark appearance */
+.container input:checked~.checkmark {
+    transform: translateY(-40px);
+    /* Move down */
+    animation: wipeUp 0.6s ease-in-out forwards;
+    /* Apply wipe animation */
+}
+
+/* When the checkbox is not checked, modify the checkmark appearance */
+.container input:not(:checked)~.checkmark {
+    transform: translateY(40px);
+    /* Move up */
+    animation: wipeDown 0.6s ease-in-out forwards;
+    /* Apply wipe animation */
+}
+
+/* Keyframes for wipe animations */
+@keyframes wipeDown {
+    0% {
+        transform: translateY(0);
+        /* Starting position */
+    }
+
+    100% {
+        transform: translateY(40px);
+        /* End position */
+    }
+}
+
+@keyframes wipeUp {
+    0% {
+        transform: translateY(40);
+        /* Starting position */
+    }
+
+    100% {
+        transform: translateY(0px);
+        /* End position */
+    }
+}
+
+/* Create the checkmark/indicator */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    width: 8px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    /* Icon drop shadow */
+}

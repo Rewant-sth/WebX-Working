@@ -31,7 +31,7 @@ const contactMethods = [
     description: "Get in touch via email",
     value: "high5adv@gmail.com",
     link: "mailto:high5adv@gmail.com",
-    gradient: "from-blue-500/20 to-cyan-500/20",
+    gradient: "from-white/20 to-cyan-500/20",
     hoverColor: "blue"
   },
   {
@@ -71,6 +71,11 @@ export default function PremiumContact() {
     company: "",
     budget: ""
   });
+
+  // State for checkboxes
+  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const [selectedBudget, setSelectedBudget] = useState<string>('');
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -81,6 +86,20 @@ export default function PremiumContact() {
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
+  };
+
+  const handleGoalChange = (goal: string) => {
+    setSelectedGoals(prev => {
+      if (prev.includes(goal)) {
+        return prev.filter(g => g !== goal);
+      } else {
+        return [...prev, goal];
+      }
+    });
+  };
+
+  const handleBudgetChange = (budget: string) => {
+    setSelectedBudget(prevBudget => prevBudget === budget ? '' : budget);
   };
 
   const { mutate: fnContact, isPending } = useMutation({
@@ -125,7 +144,13 @@ export default function PremiumContact() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    fnContact(formData)
+    const submitData = {
+      ...formData,
+      goal: selectedGoals.join(', '),
+      budget: selectedBudget
+    };
+
+    fnContact(submitData);
   };
 
 
@@ -134,70 +159,25 @@ export default function PremiumContact() {
 
   return (
     <section className="relative   overflow-hidden">
-      {/* Enhanced Background Effects */}
-      <TitleDesc title='Get in Touch With Us' desc='Ready to explore the world with us? Let’s connect and craft your perfect travel experience – your next adventure starts with a conversation.' />
+      <div className="absolute  inset-0 h-full w-full flex justify-end">
+        <img src="/jhungekoketi.png" alt="img" className='h-full  object-contain' />
+      </div>
 
       <motion.div
         ref={containerRef}
-        className="relative z-10 my-10 sm:my-16 lg:px-20 mx-auto px-6"
-      // variants={staggerContainer}
-      // initial="hidden"
-      // whileInView="visible"
-      // viewport={{ once: true, margin: "-100px" }}
+        className=" z-10 relative my-10 sm:my-24 mx-auto "
+
       >
 
-
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1500px] mx-auto  space-y-12 md:space-y-28 ">
-
-          {/* Contact Methods */}
-          <motion.div
-            className="space-y-8  col-span-4"
-          >
-            <div className='text-center pb-6'>
-              <h3 className="text-3xl lg:text-4xl font-bold  mb-4">You can reach us through</h3>
-              <p className="text-lg">
-                You can choose any method below according to your preference
-              </p>
-            </div>
-
-            <div className=" grid  gap-4 md:gap-6 lg:gap-12 lg:grid-cols-3 ">
-              {contactMethods.map((method, index) => (
-                <Link
-                  key={index}
-                  href={method.link}
-                  target='_blank'
-                  className="block p-6 bg-white/[0.05] backdrop-blur-xl rounded-2xl border border-black/[0.15] hover:bg-white/[0.08] transition-all group"
-
-                >
-                  <div className="flex items-center gap-4 lg:gap-6">
-                    <motion.div
-                      className={`w-14 h-14 rounded-xl bg-gradient-to-br ${method.gradient} border border-white/20 flex items-center justify-center`}
-                      whileHover={{ scale: 1.1, rotateY: 180 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <method.icon className="w-7 h-7 " />
-                    </motion.div>
-                    <div className="flex-1">
-                      <h4 className="text-xl font-semibold  mb-1">{method.title}</h4>
-                      {/* <p className="/60 text-sm mb-2">{method.description}</p> */}
-                      <p className=" font-medium">{method.value}</p>
-                    </div>
-                    <ArrowRight className="w-5 h-5 /40 group-hover: group-hover:translate-x-1 transition-all" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-          </motion.div>
+        <div className="grid grid-cols-3 gap-6  mx-auto  space-y-12 md:space-y-28 ">
 
           {/* Contact Form */}
           <motion.div
-            className="space-y-8 col-span-2 w-full  "
+            className="space-y-8 col-span-2 w-full   rounded-sm text-[#01283F p-6"
           >
-            <div className='text-center pb-6 mx-auto'>
-              <h3 className="text-3xl lg:text-4xl font-bold  mb-4">Send us a message</h3>
-              <p className="/60 text-lg">
+            <div className=' pb-6 '>
+              <h3 className="text-3xl lg:text-4xl font-bold  mb-4"><span className='bg-orange-500 px-3 inline-flex  leading-9 pb-2 w-fit text-white'>Start</span> your himalayan <br />adventure <span className='bg-orange-500 px-3 inline-flex  leading-9 pb-2 w-fit text-white'>today</span> with Real Himalaya</h3>
+              <p className=" text-lg">
                 Tell us about your project and we'll get back to you within 24 hours.
               </p>
             </div>
@@ -214,14 +194,13 @@ export default function PremiumContact() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div className="relative">
-                      <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 /40" />
+                      <div className="relative  rounded-sm overflow-hidden">
                         <input
                           type="text"
                           placeholder="Your Name"
                           value={formData.name}
                           onChange={(e) => handleInputChange('name', e.target.value)}
-                          className={`w-full pl-10 pr-4 py-4  border rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : 'border-black/[0.15]'
+                          className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -237,15 +216,14 @@ export default function PremiumContact() {
                     </div>
 
                     <div className="relative">
-                      <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 /40" />
+                      <div className="relative  rounded-sm overflow-hidden">
 
                         <input
                           type="email"
                           placeholder="Email Address"
                           value={formData.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
-                          className={`w-full pl-10 pr-4 py-4 bg-white/[0.08] border rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all ${errors.email ? 'border-red-400' : 'border-black/[0.15]'
+                          className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -260,14 +238,14 @@ export default function PremiumContact() {
                       )}
                     </div>
                     <div className="relative">
-                      <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 /40" />
+                      <div className="relative  rounded-sm overflow-hidden">
                         <input
                           type="tel"
                           placeholder="Phone number"
                           value={formData.number}
                           onChange={(e) => handleInputChange('number', e.target.value)}
-                          className="w-full pl-10 pr-4 py-4 bg-white/[0.08] border border-black/[0.15] rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all"
+                          className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
+                            }`}
                         />
                       </div>
                       {errors.phone && (
@@ -282,54 +260,124 @@ export default function PremiumContact() {
                     </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                      <Footprints className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 /40" />
-                      <input
-                        type="text"
-                        placeholder="Goal (Peak climbing, etc..)"
-                        value={formData.goal}
-                        onChange={(e) => handleInputChange('goal', e.target.value)}
-                        className="w-full pl-10 pr-4 py-4 bg-white/[0.08] border border-black/[0.15] rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all"
-                      />
-                    </div>
+                  <div className="grid sm:grid-cols-2  gap-6">
+                    <div className="relative  rounded-sm overflow-hidden">
+                      <h2 className='text-xl font-semibold mb-6'>Your Goal</h2>
+                      <div className="flex gap-3 items-center flex-wrap">
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Peak Climbing')}
+                              onChange={() => handleGoalChange('Peak Climbing')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Peak Climbing</label>
+                        </div>
 
-                    <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                      <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 /40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" fillRule="evenodd" d="M9.111 4.663A2 2 0 1 1 6.89 1.337a2 2 0 0 1 2.222 3.326zm-.555-2.494A1 1 0 1 0 7.444 3.83a1 1 0 0 0 1.112-1.66zm2.61.03a1.494 1.494 0 0 1 1.895.188a1.513 1.513 0 0 1-.487 2.46a1.49 1.49 0 0 1-1.635-.326a1.512 1.512 0 0 1 .228-2.321zm.48 1.61a.499.499 0 1 0 .705-.708a.5.5 0 0 0-.351-.15a.5.5 0 0 0-.5.503a.5.5 0 0 0 .146.356zM3.19 12.487H5v1.005H3.19a1.2 1.2 0 0 1-.842-.357a1.2 1.2 0 0 1-.348-.85v-1.81a1 1 0 0 1-.71-.332A1 1 0 0 1 1 9.408V7.226c.003-.472.19-.923.52-1.258c.329-.331.774-.52 1.24-.523H4.6a2.9 2.9 0 0 0-.55 1.006H2.76a.8.8 0 0 0-.54.232a.78.78 0 0 0-.22.543v2.232h1v2.826a.2.2 0 0 0 .05.151a.24.24 0 0 0 .14.05zm7.3-6.518a1.77 1.77 0 0 0-1.25-.523H6.76a1.77 1.77 0 0 0-1.24.523c-.33.335-.517.786-.52 1.258v3.178a1.06 1.06 0 0 0 .29.734a1 1 0 0 0 .71.332v2.323a1.2 1.2 0 0 0 .35.855c.18.168.407.277.65.312h2a1.15 1.15 0 0 0 1-1.167V11.47a1 1 0 0 0 .71-.332a1 1 0 0 0 .29-.734V7.226a1.8 1.8 0 0 0-.51-1.258zM10 10.454H9v3.34a.2.2 0 0 1-.06.14a.17.17 0 0 1-.14.06H7.19a.21.21 0 0 1-.2-.2v-3.34H6V7.226c0-.203.079-.398.22-.543a.8.8 0 0 1 .54-.232h2.48a.78.78 0 0 1 .705.48a.8.8 0 0 1 .055.295zm2.81 3.037H11v-1.005h1.8a.24.24 0 0 0 .14-.05a.2.2 0 0 0 .06-.152V9.458h1V7.226a.78.78 0 0 0-.22-.543a.8.8 0 0 0-.54-.232h-1.29a2.9 2.9 0 0 0-.55-1.006h1.84a1.77 1.77 0 0 1 1.24.523c.33.335.517.786.52 1.258v2.182c0 .273-.103.535-.289.733c-.186.199-.44.318-.711.333v1.81c0 .319-.125.624-.348.85a1.2 1.2 0 0 1-.842.357M4 1.945a1.49 1.49 0 0 0-1.386.932A1.52 1.52 0 0 0 2.94 4.52A1.497 1.497 0 0 0 5.5 3.454c0-.4-.158-.784-.44-1.067A1.5 1.5 0 0 0 4 1.945m0 2.012a.5.5 0 0 1-.5-.503a.504.504 0 0 1 .5-.503a.51.51 0 0 1 .5.503a.504.504 0 0 1-.5.503" clipRule="evenodd" /></svg>
-                      <input
-                        type="text"
-                        placeholder="Organization Name"
-                        value={formData.company}
-                        onChange={(e) => handleInputChange('company', e.target.value)}
-                        className="w-full pl-10 pr-4 py-4 bg-white/[0.08] border border-black/[0.15] rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all"
-                      />
-                    </div>
-                    <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 /40" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" color="currentColor"><path d="M20.943 16.835a15.76 15.76 0 0 0-4.476-8.616c-.517-.503-.775-.754-1.346-.986C14.55 7 14.059 7 13.078 7h-2.156c-.981 0-1.472 0-2.043.233c-.57.232-.83.483-1.346.986a15.76 15.76 0 0 0-4.476 8.616C2.57 19.773 5.28 22 8.308 22h7.384c3.029 0 5.74-2.227 5.25-5.165" /><path d="M7.257 4.443c-.207-.3-.506-.708.112-.8c.635-.096 1.294.338 1.94.33c.583-.009.88-.268 1.2-.638C10.845 2.946 11.365 2 12 2s1.155.946 1.491 1.335c.32.37.617.63 1.2.637c.646.01 1.305-.425 1.94-.33c.618.093.319.5.112.8l-.932 1.359c-.4.58-.599.87-1.017 1.035S13.837 7 12.758 7h-1.516c-1.08 0-1.619 0-2.036-.164S8.589 6.38 8.189 5.8zm6.37 8.476c-.216-.799-1.317-1.519-2.638-.98s-1.53 2.272.467 2.457c.904.083 1.492-.097 2.031.412c.54.508.64 1.923-.739 2.304c-1.377.381-2.742-.214-2.89-1.06m1.984-5.06v.761m0 5.476v.764" /></g></svg>
-                      <input
-                        type="number"
-                        placeholder="Your Budget"
-                        value={formData.budget}
-                        onChange={(e) => handleInputChange('budget', e.target.value)}
-                        className="w-full px-10 pr-12 md:pr-20 py-4 bg-white/[0.08] border border-black/[0.15] rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all"
-                      />
-                      <div className="absolute bg-blue-50 right-0 top-0 h-full flex justify-center items-center px-4 lg:px-6 border rounded-r-xl  border-black/10">
-                        <DollarSign />
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Trekking')}
+                              onChange={() => handleGoalChange('Trekking')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Trekking</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('City Tour')}
+                              onChange={() => handleGoalChange('City Tour')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>City Tour</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Others')}
+                              onChange={() => handleGoalChange('Others')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Others</label>
+                        </div>
                       </div>
                     </div>
 
+                    <div className="relative  rounded-sm overflow-hidden">
+                      <h2 className='text-xl font-semibold mb-6'>Your Budget</h2>
+                      <div className="flex gap-3 items-center flex-wrap">
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedBudget === 'Above $25,000'}
+                              onChange={() => handleBudgetChange('Above $25,000')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Above $25,000</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedBudget === 'Above $50,000'}
+                              onChange={() => handleBudgetChange('Above $50,000')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Above $50,000</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedBudget === 'Above $75,000'}
+                              onChange={() => handleBudgetChange('Above $75,000')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Above $75,000</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container">
+                            <input
+                              type="checkbox"
+                              checked={selectedBudget === 'Above $100,000'}
+                              onChange={() => handleBudgetChange('Above $100,000')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Above $100,000</label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="relative ">
 
-                    <div className="relative bg-blue-50 rounded-xl overflow-hidden">
-                      <MessageSquare className="absolute left-3 top-4 h-5 w-5 /40" />
+                    <div className="relative  rounded-sm overflow-hidden">
                       <textarea
-                        placeholder="Tell us about your project..."
-                        rows={8}
+                        placeholder="Tell us about your enquiry..."
+                        rows={5}
                         value={formData.message}
+                        minLength={20}
                         onChange={(e) => handleInputChange('message', e.target.value)}
-                        className={`w-full pl-10 pr-4 py-4 bg-white/[0.08] border rounded-xl  placeholder-black/50 focus:outline-none focus:border-indigo-400 transition-all resize-none ${errors.message ? 'border-red-400' : 'border-black/[0.15]'
+                        className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
                           }`}
                       />
                     </div>
@@ -344,11 +392,11 @@ export default function PremiumContact() {
                     )}
                   </div>
 
-                  <div className="flex justify-end ">
+                  <div className="flex justify-end text-[#01283F]">
                     <motion.button
                       type="submit"
                       disabled={isPending}
-                      className="w-fit  relative group overflow-hidden bg-gradient-to-r text-white from-blue-500 to-blue-700 hover:from-indigo-600 hover:to-purple-700  font-medium py-4 px-6 rounded-xl transition-all disabled:opacity-50"
+                      className="w-fit  relative group overflow-hidden bg-gradient-to-r  from-white to-white hover:from-white hover:to-white  font-medium py-4 px-6 rounded-sm transition-all disabled:opacity-50"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -361,7 +409,7 @@ export default function PremiumContact() {
                       <span className="relative flex items-center justify-center gap-2">
                         {isPending ? (
                           <motion.div
-                            className="w-5 h-5  border-2 border-white/30 border-t-white rounded-full"
+                            className="w-5 h-5  border-2 /30 border-t-white rounded-full"
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           />
@@ -399,8 +447,10 @@ export default function PremiumContact() {
                     onClick={() => {
                       setIsSubmitted(false);
                       setFormData({ name: '', email: '', number: '', message: '', goal: '', company: '', budget: '' });
+                      setSelectedGoals([]);
+                      setSelectedBudget('');
                     }}
-                    className="px-6 py-3 bg-white/[0.08] border border-black/[0.15] rounded-xl  hover:bg-white/[0.12] transition-all"
+                    className="px-6 py-3 bg-white/[0.08] border border-black/[0.15] rounded-sm  hover:bg-white/[0.12] transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

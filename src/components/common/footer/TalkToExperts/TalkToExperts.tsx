@@ -58,7 +58,7 @@ const TalkToExperts: React.FC = () => {
               return (
                 <div
                   key={expert._id}
-                  className="flex transition-all duration-500 cursor-pointer gap-6 lg:gap-12 items-center p-2 w-full md:max-w-[360px] bg-gradient-to-r from-sky-400 to-blue-500 rounded-2xl"
+                  className="grid grid-cols-2 transition-all duration-500 cursor-pointer gap-6  items-center p-2 w-full md:max-w-[360px] text-[#01283F] border rounded-sm"
                 >
                   <div>
                     <Image
@@ -66,25 +66,25 @@ const TalkToExperts: React.FC = () => {
                       alt={expert.name}
                       width={800}
                       height={800}
-                      className="rounded-full object-cover border-2 border-white shrink-0 size-32"
+                      className="rounded-sm object-cover object-center w-full border border-white shrink-0 size-32"
                     />
                   </div>
                   <div className="flex flex-col">
-                    <div className="text-lg md:text-md lg:text-xl font-medium text-white">
+                    <div className="text-lg md:text-md lg:text-xl font-medium ">
                       {expert.name}
                     </div>
                     <Link
                       href={`tel:${expert.phoneNumber.replace(/-/g, "")}`}
-                      className="text-white font-medium md:text-md text-sm lg:text-md"
+                      className=" font-medium md:text-md text-sm lg:text-md"
                     >
                       {expert.phoneNumber}
                     </Link>
-                    <div className="flex gap-6 mt-4">
+                    <div className="flex gap-4 mt-4">
                       {
                         expert.instagram && (
                           <Link
                             href={expert.instagram}
-                            className="text-white text-lg md:text-xl"
+                            className=" text-lg md:text-xl"
                           >
                             <FaInstagram />
                           </Link>
@@ -92,7 +92,7 @@ const TalkToExperts: React.FC = () => {
                       {expert.facebook && (
                         <Link
                           href={expert.facebook}
-                          className="text-white text-lg md:text-xl"
+                          className=" text-lg md:text-xl"
                         >
                           <FaFacebook />
                         </Link>
@@ -100,7 +100,7 @@ const TalkToExperts: React.FC = () => {
                       {expert.twitter && (
                         <Link
                           href={expert.twitter}
-                          className="text-white text-lg md:text-xl"
+                          className=" text-lg md:text-xl"
                         >
                           <FaTwitter />
                         </Link>

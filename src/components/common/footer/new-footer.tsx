@@ -40,17 +40,17 @@ export default function Footer() {
   });
 
   return (
-    <footer ref={footerRef} className="min-h-screen  text-[#01283F] w-full relative  flex flex-col justify-end items-end   ">
-      <div className="absolute bottom-0 right-0 w-screen overflow-hidden">
-        <svg id="visual" viewBox="0 0 900 600" className='w-full scale-105 drop-shadow-2xl shadow-black-300 fill-none' xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" stroke="#01283F"
-          strokeWidth="2" >
-          <path id='visualpath' d="M0 429L45 411L90 391L135 407L180 392L225 454L270 420L315 412L360 384L405 406L450 448L495 454L540 407L585 448L630 402L675 447L720 398L765 401L810 415L855 384L900 438L900 601L855 601L810 601L765 601L720 601L675 601L630 601L585 601L540 601L495 601L450 601L405 601L360 601L315 601L270 601L225 601L180 601L135 601L90 601L45 601L0 601Z" strokeLinecap="square" strokeLinejoin="bevel"></path>
+    <footer ref={footerRef} className="min-h-screen   w-full relative  flex flex-col justify-end items-end   ">
+      <div className="absolute bottom-4 right-0 w-screen overflow-hidden">
+        <svg id="visual" viewBox="0 0 900 600" className='w-full scale-105 drop-shadow-2xl shadow-black-300 fill-none' xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" stroke="#F05E25"
+          strokeWidth="2"  >
+          <path fill='#01283F' id='visualpath' d="M0 429L45 411L90 391L135 407L180 392L225 454L270 420L315 412L360 384L405 406L450 448L495 454L540 407L585 448L630 402L675 447L720 398L765 401L810 415L855 384L900 438L900 601L855 601L810 601L765 601L720 601L675 601L630 601L585 601L540 601L495 601L450 601L405 601L360 601L315 601L270 601L225 601L180 601L135 601L90 601L45 601L0 601Z" strokeLinecap="square" strokeLinejoin="bevel"></path>
         </svg>
         <div id='box' className="h-34 w-full "></div>
       </div>
       {/* footer expert part */}
 
-      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-[57dvh] w-full  ">
+      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-[57dvh] w-full mb-20 ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
           <div className="h-[30dvh]  max-w-7xl w-full  mt-6">
             <TalkToExperts />
@@ -59,13 +59,13 @@ export default function Footer() {
       </div>
 
       {/* footer bottom part */}
-      <div className="w-full flex pt-10 flex-col justify-center  text-[#01283F]  relative   pb-4">
+      <div className="w-full text-white bg-[#01283F] flex  flex-col justify-center    relative   pb-4">
         <div className="relative text-center w-full pt-5  h-fit">
           <div className="w-max mx-auto">
             <h2
               ref={textRef}
 
-              className='text-[9vw] text-outline text- leading-[90%] tracking-widest font-bold pt-8 '>
+              className='text-[9vw] text-outline text-[#F05E25] leading-[90%] tracking-widest font-bold pt-8 '>
               <span >R</span ><span >E</span><span >A</span><span >L</span><span >H</span><span >I</span><span >M</span>
               <span >A</span><span >L</span><span >A</span><span >Y</span><span >A</span>
             </h2>
@@ -79,7 +79,7 @@ export default function Footer() {
                     <img src="https://uploads-ssl.webflow.com/5ee4030d6fd7285009fe05f5/625835dc5e9a3877c49e9bb7_tripadvisor-logo-5-p-2600.png" alt="" />
                   </li>
                   <li className="size-10 bg-gray-200 rounded-full flex justify-center items-center"><Icon icon={"flat-color-icons:google"} className='text-4xl' /></li>
-                  <li className='w-32  translate-y-2'><img src="https://framerusercontent.com/images/ZV0ieMLPHcyWwiRRZTPzNijd0.png" alt="" /></li>
+                  <li className='w-32  translate-y-2 invert'><img src="https://framerusercontent.com/images/ZV0ieMLPHcyWwiRRZTPzNijd0.png" alt="" /></li>
                 </ul>
               </div>
             </div>
