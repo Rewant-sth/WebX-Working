@@ -1,3 +1,4 @@
+"use client"
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"

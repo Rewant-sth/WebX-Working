@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getBlogsById } from "@/service/blogs";
 import Image from "next/image";
 
-const BlogPage: React.FC = () => {
+export default function BlogPage() {
   const router = useRouter();
   const params = useParams();
   const id = params?.id;
@@ -125,4 +125,4 @@ const BlogPage: React.FC = () => {
   );
 };
 
-export default BlogPage;
+

@@ -4,12 +4,67 @@ import React, { useState, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link';
 
+interface Category {
+  _id: string;
+  name: string;
+  subCategories: SubCategory[];
+}
+
+interface SubCategory {
+  _id: string;
+  name: string;
+  slug: string;
+}
+
+interface Package {
+  _id: string;
+  name: string;
+  coverImage: string;
+  overview: string;
+  slug: string;
+}
+
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [packages, setPackages] = useState<Package[]>([]);
+  const [loading, setLoading] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
 
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/v1/category');
+        const data = await response.json();
+        if (data.status === 'success') {
+          setCategories(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      }
+    };
 
+    fetchCategories();
+  }, []);
+
+  // Fetch packages when a subcategory is selected
+  const fetchPackages = async (subcategoryId: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/v1/package/subcategory/${subcategoryId}`);
+      const data = await response.json();
+      if (data.status === 'success') {
+        setPackages(data.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch packages:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleShow = () => {
     setShowNav(true);
@@ -42,9 +97,16 @@ export default function Navbar() {
         ease: "none",
         onComplete: () => {
           setShowNav(false);
+          setSelectedCategory(null);
+          setPackages([]);
         }
       });
     }
+  }
+
+  const handleCategorySelect = (category: Category) => {
+    setSelectedCategory(category);
+    setPackages([]);
   }
 
   return (
@@ -96,35 +158,69 @@ export default function Navbar() {
         <div className="flex gap-12 text-white min-h-[calc(100dvh-6rem)]">
           <div className="w-full max-w-[15rem] text-xl space-y-4 col-span-2 p-6">
             <h2 className='text-3xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Categories</h2>
-            {['Expedition', 'Peak Climbing', 'Trekking', 'About Us', 'Contact Us'].map((item, idx) => (
-              <h2 key={idx} className='cursor-pointer transition-all duration-300 hover:text-orange-400 hover:translate-x-2 hover:font-medium py-2 border-l-2 border-transparent hover:border-orange-400 pl-4'>{item}</h2>
+            {categories.map((category) => (
+              <h2
+                key={category._id}
+                className={`cursor-pointer transition-all duration-300 hover:text-orange-400 hover:translate-x-2 hover:font-medium py-2 border-l-2 pl-4 ${selectedCategory?._id === category._id
+                    ? 'text-orange-400 translate-x-2 font-medium border-orange-400'
+                    : 'border-transparent'
+                  }`}
+                onClick={() => handleCategorySelect(category)}
+              >
+                {category.name}
+              </h2>
+            ))}
+            {/* Static items */}
+            {['About Us', 'Contact Us'].map((item, idx) => (
+              <h2 key={idx} className='cursor-pointer transition-all duration-300 hover:text-orange-400 hover:translate-x-2 hover:font-medium py-2 border-l-2 border-transparent hover:border-orange-400 pl-4'>
+                {item}
+              </h2>
             ))}
           </div>
 
           <div className="w-full text-xl p-6 space-y-4 col-span-2 max-w-[18rem]">
             <h2 className='text-3xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>SUB Categories</h2>
-            {[
-              'Everest Base Camp', 'Gokyo Lakes', 'Island Peak', 'Makalu Base Camp',
-              'K2 Base Camp', 'Manaslu Base Camp', 'Lhotse Base Camp', 'Cho Oyu Base Camp'
-            ].map((item, idx) => (
-              <h2 key={idx} className='flex gap-2 items-center cursor-pointer transition-all duration-300 hover:text-orange-400 hover:translate-x-2 py-2 border-l-2 border-transparent hover:border-orange-400 pl-4'>
+            {selectedCategory?.subCategories.map((subCategory) => (
+              <h2
+                key={subCategory._id}
+                className='flex gap-2 items-center cursor-pointer transition-all duration-300 hover:text-orange-400 hover:translate-x-2 py-2 border-l-2 border-transparent hover:border-orange-400 pl-4'
+                onClick={() => fetchPackages(subCategory._id)}
+              >
                 <Icon icon="material-symbols:arrow-forward-ios" className="text-sm opacity-60" />
-                {item}
+                {subCategory.name}
               </h2>
             ))}
           </div>
 
           <div className="p-6 w-full flex flex-col h-[calc(100dvh-6rem)] overflow-hidden">
             <h2 className='text-3xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Packages</h2>
-            <div className="grid grid-cols-2 max-w-3xl gap-5 flex-1 pr-4 overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-orange-500">
-              {[...Array(12)].map((data, idx) => (
-                <div key={idx} className="w-full h-[250px] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4 transition-all duration-300 hover:border-orange-400/50 hover:shadow-2xl hover:scale-105 cursor-pointer group">
-                  <div className="w-full h-32 bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg mb-3 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
-                  <h3 className="text-white font-semibold text-sm mb-2 group-hover:text-orange-300 transition-colors duration-300">Package {idx + 1}</h3>
-                  <p className="text-gray-300 text-xs leading-relaxed group-hover:text-gray-200 transition-colors duration-300">Explore amazing destinations with our premium travel packages designed for adventure seekers.</p>
-                </div>
-              ))}
-            </div>
+            {loading ? (
+              <div className="flex justify-center items-center h-full">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 max-w-3xl gap-5 flex-1 pr-4 overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-orange-500">
+                {packages.map((pkg) => (
+                  <Link
+                    key={pkg._id}
+                    href={`/packages/${pkg.slug}`}
+                    className="w-full h-[250px] bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4 transition-all duration-300 hover:border-orange-400/50 hover:shadow-2xl hover:scale-105 cursor-pointer group"
+                  >
+                    <div className="w-full h-32 bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg mb-3 opacity-50 group-hover:opacity-70 transition-opacity duration-300 overflow-hidden">
+                      <img
+                        src={pkg.coverImage}
+                        alt={pkg.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <h3 className="text-white font-semibold text-sm mb-2 group-hover:text-orange-300 transition-colors duration-300">{pkg.name}</h3>
+                    <p className="text-gray-300 text-xs leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                      {pkg.overview.replace(/<[^>]*>/g, '').substring(0, 100)}...
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
