@@ -27,6 +27,7 @@ function TrekPage() {
             whileInView={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -30 }}
             transition={{ duration: 0.3, delay: index * 0.2 }}
+            viewport={{ once: true }}
             key={index}
             className="relative group cursor-pointer rounded-sm overflow-hidden aspect-square"
           >
