@@ -9,6 +9,7 @@ import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
 import Navbar from "@/components/common/navbar/Navbar";
 import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { Suspense } from "react";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -37,7 +38,7 @@ export default function RootLayout({
           {/* <Navbar /> */}
           <TrackVisitors />
           <Providers>
-            <LenisProvider />
+            <Suspense fallback={<div></div>}><LenisProvider /></Suspense>
             <SelectedTripProvider>{children}</SelectedTripProvider>
           </Providers>
           <Toaster position="top-right" reverseOrder={false} />
