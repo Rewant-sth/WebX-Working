@@ -1,106 +1,118 @@
 "use client";
 
-import { MapPinned, X } from "lucide-react";
-import { useState } from "react";
+import { MapPinned, X, Download } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { ITravelPackage } from "@/types/IPackages";
 import Image from "next/image";
 
 const RouteMap = ({ data }: { data: ITravelPackage | undefined }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [hoverTextPosition, setHoverTextPosition] = useState({ x: 0, y: 0 });
-  const [showHoverText, setShowHoverText] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const routeMapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (routeMapRef.current) {
+        const heroHeight = window.innerHeight * 0.8;
+        const scrollPosition = window.scrollY + window.innerHeight;
+        setIsVisible(scrollPosition > heroHeight);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
-    setHoverTextPosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+  const handleDownload = () => {
+    if (!data?.routeMap) return;
+    
+    const link = document.createElement('a');
+    link.href = data.routeMap;
+    link.download = `route-map-${data.name?.toLowerCase().replace(/\s+/g, '-') || 'download'}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
+  if (!data?.routeMap) return null;
+
   return (
-    <div
-      id="route-map"
-      className="border-b border-gray-200 mb-8 pb-10"
-    >
-      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="flex items-center gap-2">
-          <MapPinned className="w-5 h-5 text-orange-500" />
-          <span>Route Map</span>
-        </span>
-      </h2>
-
-      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
-        Explore the detailed route map to understand your journey path and key landmarks along the way.
-      </p>
-
-      {/* Image with hover-follow text */}
-      <div
-        className="relative overflow-hidden rounded-sm border border-gray-200 group"
-        style={{ borderColor: '#e5e7eb' }}
-      // onMouseMove={handleMouseMove}
-      // onMouseEnter={() => setShowHoverText(true)}
-      // onMouseLeave={() => setShowHoverText(false)}
+    <div ref={routeMapRef} className="sticky top-36 self-start">
+      {/* Sticky Map Button - Positioned below hero */}
+      <div className="fixed right-4 z-40 transition-opacity duration-300"
+        style={{
+          top: 'calc(100vh - 200px)', // Adjust this value to position it below the hero
+          opacity: isVisible ? 1 : 0,
+          pointerEvents: isVisible ? 'auto' : 'none'
+        }}
       >
-        <Image
+        <div 
+        
           onClick={openModal}
-          className="w-full h-[60vh] object-cover cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
-          src={data?.routeMap || "/placeholder.png"}
-          alt="Route Map"
-          height={1000}
-          width={1000}
-        />
-        {showHoverText && (
-          <div
-            className="absolute pointer-events-none px-4 py-2 text-sm font-medium bg-white rounded-sm border transition-all duration-200"
-            style={{
-              left: `${hoverTextPosition.x}px`,
-              top: `${hoverTextPosition.y}px`,
-              transform: "translate(-50%, -50%)",
-              color: '#f05e25',
-              borderColor: '#f05e25',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-            }}
-          >
-            Click to View Full Map
-          </div>
-        )}
+          className="w-24 h-24 bg-white rounded-lg overflow-hidden cursor-pointer hover:shadow-none transition-all border border-gray-200 relative"
+        >
+
+          <Image
+            src={data.routeMap}
+            alt="Route Map Thumbnail"
+            fill
+            className="object-cover"
+            sizes="96px"
+          />
+        </div>
       </div>
 
-      {/* Professional Modal */}
+      {/* Modal */}
       {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           onClick={closeModal}
         >
-          <div
-            className="relative max-w-4xl max-h-[90vh] rounded-sm overflow-hidden border border-gray-300"
-            style={{
-              backgroundColor: '#fff',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
-            }}
-            onClick={(e) => e.stopPropagation()}
+          <div 
+            className="relative max-w-6xl w-full bg-white rounded-xl overflow-hidden shadow-2xl"
+            onClick={e => e.stopPropagation()}
           >
-            <Image
-              src={data?.routeMap || "/placeholder.png"}
-              alt="Route Map"
-              className="w-full h-auto object-contain"
-              height={1000}
-              width={1000}
-            />
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 bg-white rounded-full p-3 border border-gray-200 hover:bg-gray-50 transition-all duration-200"
-              style={{
-                color: '#3A3A3A',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-              }}
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <MapPinned className="w-5 h-5 text-orange-500" />
+                <h3 className="text-lg font-semibold text-gray-800">Route Map</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDownload();
+                  }}
+                  className="p-2 text-gray-500 hover:text-orange-500 hover:bg-gray-100 rounded-full transition-colors"
+                  title="Download Route Map"
+                >
+                  <Download className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={closeModal}
+                  className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+                  title="Close"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4">
+              <div className="relative w-full h-[70vh] bg-gray-50 rounded-lg overflow-hidden">
+                <Image
+                  src={data.routeMap}
+                  alt="Route Map"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}

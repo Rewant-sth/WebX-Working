@@ -33,7 +33,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
               >
                 {/* Icon */}
                 <div className="shrink-0 mt-1 flex items-start justify-center text-orange-500">
-                  <Icon icon="lineicons:bulb-4" className="size-8" />
+                  <Icon icon="lineicons:bulb-4" className="size-5" />
                 </div>
 
                 {/* Content */}

@@ -18,95 +18,83 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="trip-glance"
-      className="border-b border-gray-200 pb-10"
+      className="border-b border-gray-200 py-10 bg-orange-100"
     >
-      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left mb-8">
-        <span className="w-fit text-2xl font-semibold">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-bold text-gray-900 text-left mb-12">
           Your Trip at a Glance
-        </span>
-      </h2>
+        </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Grouped card */}
-        {[
-          {
-            icon: <MapPin size={24} style={{ color: '#f05e25' }} />,
-            title: "Destination",
-            value: data?.location,
-          },
-          {
-            icon: <Clock size={24} style={{ color: '#f05e25' }} />,
-            title: "Duration",
-            value: `${data?.duration} days`,
-          },
-          {
-            icon: <TrendingUp size={24} style={{ color: '#f05e25' }} />,
-            title: "Trip Difficulty",
-            value: data?.difficulty || "N/A",
-          },
-          {
-            icon: <Activity size={24} style={{ color: '#f05e25' }} />,
-            title: "Activities",
-            value: data?.activity || "N/A",
-          },
-          {
-            icon: <Icon icon="material-symbols-light:route-outline" width="24" height="24" style={{ color: '#f05e25' }} />,
-            title: "Max Elevation",
-            value:
-              typeof data?.elevation === "number"
-                ? `${data.elevation}m`
-                : "N/A",
-          },
-          {
-            icon: <Icon icon="solar:users-group-two-rounded-outline" width="24" height="24" style={{ color: '#f05e25' }} />,
-            title: "Group Size",
-            value: data?.groupSize || "N/A",
-          },
-          {
-            icon: <Bus size={24} style={{ color: '#f05e25' }} />,
-            title: "Vehicle",
-            value: data?.vehicle || "N/A",
-          },
-          {
-            icon: <Hotel size={24} style={{ color: '#f05e25' }} />,
-            title: "Accommodation",
-            value: data?.accommodation || "N/A",
-          },
-          {
-            icon: <Utensils size={24} style={{ color: '#f05e25' }} />,
-            title: "Meals",
-            value: data?.meal || "N/A",
-          },
-        ].map((item, idx) => (
-          <div
-            key={idx}
-            className="flex items-start gap-4 p-6 rounded-sm  border-gray-100  transition-all duration-200"
-            style={{
-              backgroundColor: '#fafafa',
-              borderColor: '#f0f0f0'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#f05e25';
-              e.currentTarget.style.backgroundColor = '#fcfcfc';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#f0f0f0';
-              e.currentTarget.style.backgroundColor = '#fafafa';
-            }}
-          >
-            <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#fff' }}>
-              {item.icon}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            {
+              icon: <MapPin size={20} className="text-orange-500" />,
+              title: "Destination",
+              value: data?.location,
+            },
+            {
+              icon: <Clock size={20} className="text-orange-500" />,
+              title: "Duration",
+              value: `${data?.duration} days`,
+            },
+            {
+              icon: <TrendingUp size={20} className="text-orange-500" />,
+              title: "Trip Difficulty",
+              value: data?.difficulty || "N/A",
+            },
+            {
+              icon: <Activity size={20} className="text-orange-500" />,
+              title: "Activities",
+              value: data?.activity || "N/A",
+            },
+            {
+              icon: <Icon icon="material-symbols-light:route-outline" width="20" height="20" className="text-orange-500" />,
+              title: "Max Elevation",
+              value:
+                typeof data?.elevation === "number"
+                  ? `${data.elevation}m`
+                  : "N/A",
+            },
+            {
+              icon: <Icon icon="solar:users-group-two-rounded-outline" width="20" height="20" className="text-orange-500" />,
+              title: "Group Size",
+              value: data?.groupSize || "N/A",
+            },
+            {
+              icon: <Bus size={20} className="text-orange-500" />,
+              title: "Vehicle",
+              value: data?.vehicle || "N/A",
+            },
+            {
+              icon: <Hotel size={20} className="text-orange-500" />,
+              title: "Accommodation",
+              value: data?.accommodation || "N/A",
+            },
+            {
+              icon: <Utensils size={20} className="text-orange-500" />,
+              title: "Meals",
+              value: data?.meal || "N/A",
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-xl transition-all duration-300 border border-orange-100"
+              style={{ backgroundColor: '#FFEDD4' }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-white/80 rounded-lg">
+                  {item.icon}
+                </div>
+                <h3 className="font-semibold text-gray-800">{item.title}</h3>
+              </div>
+              <div className="pl-12">
+                <p className="text-gray-800 text-2xl font-medium">
+                  {item.value || "N/A"}
+                </p>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-base font-semibold mb-1" style={{ color: '#3A3A3A' }}>
-                {item.title}
-              </h3>
-              <p className="text-sm font-medium" style={{ color: '#6b7280' }}>
-                {item.value}
-              </p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

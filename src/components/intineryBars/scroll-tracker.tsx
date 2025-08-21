@@ -61,11 +61,11 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             label: "Trip Info",
             icon: <Compass className="w-4 h-4" />,
         },
-        {
-            id: "route-map",
-            label: "Route",
-            icon: <MapPinned className="w-4 h-4" />,
-        },
+        // {
+        //     id: "route-map",
+        //     label: "Route",
+        //     icon: <MapPinned className="w-4 h-4" />,
+        // },
         {
             id: "itinerary",
             label: "Itinerary",

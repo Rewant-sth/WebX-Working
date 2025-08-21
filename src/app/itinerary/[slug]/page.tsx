@@ -194,13 +194,13 @@ const Page = () => {
           </div>
 
           <div 
-            className={`sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all duration-300 transform ${
+            className={`sticky bottom-2 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all duration-300 transform ${
               isStickyVisible ? 'translate-y-0' : 'translate-y-full'
             } ${
               isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <div className="w-full flex items-center justify-center gap-4 py-2 border-orange-200 border-r-[2px]">
+            <div className="w-full flex items-center justify-center gap-2 py-4 border-orange-200 border-r-[2px]">
               <h2 className=" font-bold  uppercase">Starting at - </h2>
               <p className="text-lg font-bold text-orange-500">Rs. {packageData?.data?.fixedDates[0] ? packageData.data.fixedDates[0].pricePerPerson : "N/A"}</p>
             </div>
