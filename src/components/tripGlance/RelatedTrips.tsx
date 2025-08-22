@@ -22,7 +22,7 @@ const RelatedTrips = ({
   });
 
   return (
-    <div className="border-b border-gray-200 mb-8 pb-10">
+    <div className="border-b max-w-6xl mx-auto border-gray-200 mb-8 pb-10">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">

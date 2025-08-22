@@ -409,7 +409,7 @@ const DatesAndPrices = ({
   return (
     <div
       id="date-&-prices"
-      className="mt-6 border-b-2 border-dashed border-zinc-200 mb-8 pb-10"
+      className="mt-6 border-b-2 max-w-6xl mx-auto border-dashed border-zinc-200 mb-8 pb-10"
     >
       <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 text-center sm:text-left">
         <span className="w-fit text-2xl lg:text-3xl font-semibold " >

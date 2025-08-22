@@ -166,11 +166,10 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
   return (
     <div
       id="itinerary"
-      className="border-b border-gray-200 mb-8 pb-10"
+      className="border-b max-w-6xl mx-auto border-gray-200 mb-8 pb-10"
     >
-      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+      <h2 className="text-3xl font-semibold text-gray-800 text-center sm:text-left">
         <span className="flex items-center gap-2">
-          <CalendarDays className="w-5 h-5 text-orange-500" />
           <span>Itinerary</span>
         </span>
       </h2>

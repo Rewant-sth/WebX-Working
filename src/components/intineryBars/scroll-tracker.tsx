@@ -169,8 +169,8 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     }, [visibleSections, isScrollingToSection]);
 
     return (
-        <div className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-sm border-b border-gray-200">
-            <div className="px-4 sm:px-8 md:px-12 lg:px-16">
+        <div className="sticky top-0 z-[99999] pointer-events-none w-full  bg-white border-b border-gray-200 ">
+            <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-5xl pointer-events-auto mx-auto">
                 <div className="py-2 flex justify-between items-center">
                     {/* Scroll Spy Navigation Tabs */}
                     {visibleSections.length > 0 && (
@@ -180,11 +180,10 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                     <button
                                         key={section.id}
                                         onClick={() => handleScrollToSection(section.id)}
-                                        className={`flex items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${
-                                            activeSection === section.id
-                                                ? "bg-[#01283F] text-white"
-                                                : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900"
-                                        }`}
+                                        className={`flex items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
+                                            ? "bg-[#01283F] text-white"
+                                            : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                                            }`}
                                     >
                                         <span className={`${activeSection === section.id ? "text-white" : "text-gray-500"}`}>
                                             {section.icon}
@@ -195,23 +194,6 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                             </div>
                         </div>
                     )}
-
-                    <div className="hidden sm:flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-                        {/* Star Rating */}
-                        <div className="flex gap-2 items-center cursor-pointer">
-                            <span className="flex items-center gap-1">
-                                <Star size={14} className="" />
-                                <p className="text-sm sm:text-base font-semibold">4.9</p>
-                            </span>
-                            <span className="text-sm">(226 reviews)</span>
-                        </div>
-
-                        {/* Location */}
-                        <span className="flex gap-1 items-center text-sm">
-                            <Locate size={14} className="" />
-                            {data?.location}
-                        </span>
-                    </div>
                 </div>
             </div>
 

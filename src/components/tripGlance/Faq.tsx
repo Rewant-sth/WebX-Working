@@ -19,7 +19,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
   return (
     <div
       id="faqs"
-      className=" mb-16 "
+      className=" mb-16 max-w-6xl mx-auto"
     >
       <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
         <span className="w-fit text-2xl font-semibold">

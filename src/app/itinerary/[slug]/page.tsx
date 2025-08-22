@@ -1,18 +1,18 @@
 "use client";
-import { 
-  ArrowRight, 
-  Locate as LocateIcon, 
-  Users, 
-  TrendingUp, 
-  Calendar, 
-  X, 
-  Eye, 
-  Compass, 
-  MapPinned, 
-  CalendarRange, 
-  DollarSign, 
-  CalendarDays, 
-  ClipboardCheck, 
+import {
+  ArrowRight,
+  Locate as LocateIcon,
+  Users,
+  TrendingUp,
+  Calendar,
+  X,
+  Eye,
+  Compass,
+  MapPinned,
+  CalendarRange,
+  DollarSign,
+  CalendarDays,
+  ClipboardCheck,
   Star,
   HelpCircle
 } from "lucide-react";
@@ -55,7 +55,7 @@ const Page = () => {
         const heroHeight = heroRef.current.offsetHeight;
         const scrollPosition = window.scrollY + window.innerHeight;
         const heroBottom = heroRef.current.offsetTop + heroHeight;
-        
+
         // Show sticky bar when scrolled past 80% of the hero section
         const showAt = heroRef.current.offsetTop + (heroHeight * 0.8);
         setIsStickyVisible(window.scrollY > showAt);
@@ -65,7 +65,7 @@ const Page = () => {
 
     // Initial check
     handleScroll();
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -101,8 +101,12 @@ const Page = () => {
         <SkeletonPackageDetails />
       ) : (
         <>
-          <div ref={heroRef} className="relative min-h-screen overflow-hidden bg-black">
+          <div ref={heroRef} className="relative min-h-screen overflow-hidden  bg-black">
             <Image src={"/ourstory.jpg"} alt="bg" fill className="object-cover z-[20] object-center opacity-70" />
+            <div className="absolute bottom-0  z-[999] left-1/2 -translate-x-1/2">
+              <img src="/man.png" alt="man" className="drop-shadow-2xl scale-75 drop-shadow-black" />
+            </div>
+
             <Title data={packageData?.data as ITravelPackage} />
             <div className=" px-4 sm:px-6  lg:px-16 mt-8 relative z-[80]">
               {packageData?.data?.gallery?.length !== 0 && (
@@ -113,12 +117,12 @@ const Page = () => {
 
           <ScrollTracker data={packageData?.data as ITravelPackage} />
           <div
-            className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10 px-4 sm:px-6 lg:px-16 mt-8 ${modalOpen ? "filter blur-2xl" : ""
+            className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10  mt-8 ${modalOpen ? "filter blur-2xl" : ""
               }`}
           >
 
             {/* Center Content */}
-            <div id="overview" className="max-w-6xl mx-auto relative  rounded-xl">
+            <div id="overview" className=" mx-auto relative  rounded-xl">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData?.data?.attraction.length ? (
@@ -126,28 +130,30 @@ const Page = () => {
               ) : null}
 
               {/* Overview Section */}
-              <div className="border-b border-gray-200 mb-8 pb-10">
-                <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-                  <span className="flex items-center gap-2">
-                
-                    <Eye className="w-6 h-6 text-orange-500" />
-                    <span>Trip Overview</span>
-                  </span>
-                </h2>
-                <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
-                  Get a comprehensive overview of your upcoming adventure and what makes this trip special.
-                </p>
-                <div
-                  className="p-6 rounded-sm bg-gray-25   transition-all duration-200"
-                  style={{ backgroundColor: '#fafafa', borderColor: '#f5f5f5' }}
-                >
+              <div
+
+                style={{
+                  backgroundImage: "linear-gradient(rgb(0,0,0,0.7), rgb(0,0,0,0.7)),url('/EVEREST REGION/NIKON D50003007.JPG')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundAttachment: "fixed"
+                }}
+                className="relative min-h-[70dvh]  py-16 mb-14 bg-[#0d1117] text-white w-screen flex justify-center items-center">
+
+                <div className=" relative max-w-7xl mx-auto  mb-8 pb-10">
+                  <h2 className="text-5xl mb-8 font-semibold  text-center sm:text-left">
+                    Trip Overview
+                  </h2>
                   <div
-                    className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
-                    style={{ color: '#4b5563' }}
-                    dangerouslySetInnerHTML={{
-                      __html: packageData?.data?.overview as string,
-                    }}
-                  />
+                    className=" rounded-sm bg-gray-25   transition-all duration-200"
+                  >
+                    <div
+                      className="prose prose-lg max-w-none text-3xl  leading-relaxed"
+                      dangerouslySetInnerHTML={{
+                        __html: packageData?.data?.overview.slice(0, 400) as string,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -193,12 +199,10 @@ const Page = () => {
             </div> */}
           </div>
 
-          <div 
-            className={`sticky bottom-2 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all duration-300 transform ${
-              isStickyVisible ? 'translate-y-0' : 'translate-y-full'
-            } ${
-              isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
+          <div
+            className={`sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all duration-300 transform ${isStickyVisible ? 'translate-y-0' : 'translate-y-full'
+              } ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
           >
             <div className="w-full flex items-center justify-center gap-2 py-4 border-orange-200 border-r-[2px]">
               <h2 className=" font-bold  uppercase">Starting at - </h2>
@@ -219,7 +223,7 @@ const Page = () => {
             <div className="flex justify-center">
               <button className="flex items-center gap-2 border py-2 px-6 uppercase font-semibold text-orange-500 rounded-full">
                 Book Now <ArrowRight />
-               </button>
+              </button>
             </div>
           </div>
 
@@ -250,8 +254,9 @@ const Page = () => {
             </div>
           )}
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

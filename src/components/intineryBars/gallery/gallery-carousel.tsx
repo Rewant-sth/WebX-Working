@@ -69,10 +69,7 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
     return (
         <section className="mx-auto relative">
             {/* Man image above carousel */}
-            <div className="absolute top-full -translate-y-[40%] z-[999] left-1/2 -translate-x-1/2">
-                <img src="/man.png" alt="man" className="drop-shadow-2xl drop-shadow-black" />
-            </div>
-
+           
             {/* Carousel */}
             <div className="overflow-hidden relative" ref={emblaRef}>
                 <div
@@ -87,15 +84,15 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
                             key={index}
                             className={`
                                 flex-[0_0_100%] pl-4
-                                lg:flex-[0_0_calc(100%/3)] sm:pl-6
-                                xl:flex-[0_0_calc(100%/5)] xl:pl-8
+                                lg:flex-[0_0_calc(100%/2.5)] sm:pl-6
+                                xl:flex-[0_0_calc(100%/2.5)] xl:pl-8
                                 min-w-0
                             `}
                         >
                             <div
                                 className={`
                                     font-semibold flex items-center justify-center 
-                                    h-[18rem] rounded-md shadow-2xl overflow-hidden select-none bg-white
+                                    h-[30rem] rounded-md shadow-2xl overflow-hidden select-none bg-white
                                     transition-transform duration-300 ease-in-out
                                     transform origin-center
                                     ${centerIndex === index ? 'scale-110' : 'scale-100'}

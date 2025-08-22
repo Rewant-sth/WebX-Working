@@ -2,103 +2,131 @@
 
 import { ITravelPackage } from "@/types/IPackages";
 import { CheckCircle, XCircle, ClipboardList, ListChecks } from "lucide-react";
+import { useState } from "react";
 
 const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
+  const [activeTab, setActiveTab] = useState<'inclusion' | 'exclusion'>('inclusion');
+
   return (
-    <div
-      id="inclusion-&-exclusion"
-      className="border-b border-gray-200 mb-8 pb-10"
-    >
-      {/* Cost Includes */}
-      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="flex items-center gap-2">
-          <CheckCircle className="w-5 h-5 text-orange-500" />
-          <span>Cost Includes</span>
-        </span>
-      </h2>
-      <p className="text-zinc-600 mt-2 leading-relaxed max-w-2xl mb-4">
-        Everything that's included in your trip package to ensure a seamless travel experience.
-      </p>
-      <div className="space-y-2 mb-10">
-        {data?.inclusion.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-start gap-2 p-2 rounded-sm  hover:border-gray-300 transition-all duration-200"
-            style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
-          >
-            <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#f0fdf4', border: '1px solid #22c55e' }}>
-              <CheckCircle size={20} style={{ color: '#22c55e' }} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
-            </div>
+    <div className="py-10">
+      <div
+        id="inclusion-&-exclusion"
+        className="border-b border-gray-200 mb-8 pb-10 max-w-6xl mx-auto"
+      >
+        {/* Tab Navigation */}
+        <div className="mb-8">
+          <div className="flex flex-wrap gap-2 border-b border-gray-200">
+            <button
+              onClick={() => setActiveTab('inclusion')}
+              className={`px-6 py-3 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'inclusion'
+                ? 'border-[#FACB2B] text-[#c99a00] bg-[#FACB2B]/10'
+                : 'border-transparent text-gray-600 hover:text-green-600 hover:bg-green-50'
+                }`}
+            >
+              <span className="flex items-center gap-2">
+                <span>What's Included ?</span>
+              </span>
+            </button>
+            <button
+              onClick={() => setActiveTab('exclusion')}
+              className={`px-6 py-3 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'exclusion'
+                ? 'border-[#0F40B0] text-[#0F40B0] bg-[#0F40B0]/20'
+                : 'border-transparent text-gray-600 hover:text-red-600 hover:bg-red-50'
+                }`}
+            >
+              <span className="flex items-center gap-2">
+                <span>What's Excludes ?</span>
+              </span>
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* Cost Excludes */}
-      <h2 className="text-2xl font-semibold text-gray-800 mt-12 text-center sm:text-left">
-        <span className="flex items-center gap-2">
-          <XCircle className="w-5 h-5 text-red-500" />
-          <span>Cost Excludes</span>
-        </span>
-      </h2>
-      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-6">
-        Items and services not included in the package that you'll need to arrange separately.
-      </p>
-      <div className="space-y-4">
-        {data?.exclusion.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-start gap-4 p-6 rounded-sm  hover:border-gray-300 transition-all duration-200"
-            style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
-          >
-            <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#fef2f2', border: '1px solid #ef4444' }}>
-              <XCircle size={20} style={{ color: '#ef4444' }} />
+        {/* Tab Content */}
+        <div className="mb-10">
+          {activeTab === 'inclusion' && (
+            <div>
+              <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
+                Everything that's included in your trip package to ensure a seamless travel experience.
+              </p>
+              <div className="grid grid-cols-2">
+                {data?.inclusion.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-4 p-2 rounded-sm hover:border-gray-300 transition-all duration-200"
+                  >
+                    <div className="shrink-0 size-10 rounded-md" >
+                      <img src="/icons/check.png" alt="check" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                        {item.title}
+                      </h3>
+                      <p className=" leading-relaxed text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          )}
 
-      {/* Requirements */}
-      <h2 className="text-2xl font-semibold text-gray-800 mt-12 text-center sm:text-left">
-        <span className="flex items-center gap-2">
-          <ClipboardList className="w-5 h-5 text-blue-500" />
-          <span>Requirements</span>
-        </span>
-      </h2>
-      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-6">
-        Essential items and documents you'll need to bring for your trip.
-      </p>
-      <div className="space-y-4">
-        {data?.requirements?.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-start gap-4 p-6 rounded-sm hover:border-gray-300 transition-all duration-200"
-            style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
-          >
-            <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#eff6ff', border: '1px solid #3b82f6' }}>
-              <ListChecks size={20} style={{ color: '#3b82f6' }} />
+          {activeTab === 'exclusion' && (
+            <div>
+              <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
+                Items and services not included in the package that you'll need to arrange separately.
+              </p>
+              <div className="grid grid-cols-2">
+                {data?.exclusion.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-4 p-2 rounded-sm hover:border-gray-300 transition-all duration-200"
+                  >
+                    <div className="shrink-0 size-10 rounded-md" >
+                      <img src="/icons/delete.png" alt="exclusion" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+          )}
+        </div>
+
+        {/* Requirements */}
+        <h2 className="text-2xl font-semibold text-gray-800 mt-12 text-center sm:text-left">
+          <span className="flex items-center gap-2">
+            <ClipboardList className="w-5 h-5 text-blue-500" />
+            <span>Requirements</span>
+          </span>
+        </h2>
+        <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-6">
+          Essential items and documents you'll need to bring for your trip.
+        </p>
+        <div className="space-y-4">
+          {data?.requirements?.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-start gap-4 p-6 rounded-sm hover:border-gray-300 transition-all duration-200"
+              style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
+            >
+              <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#eff6ff', border: '1px solid #3b82f6' }}>
+                <ListChecks size={20} style={{ color: '#3b82f6' }} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+              </div>
             </div>
-          </div>
-        )) || (
-          <div className="text-gray-500 italic">No specific requirements listed.</div>
-        )}
+          )) || (
+              <div className="text-gray-500 italic">No specific requirements listed.</div>
+            )}
+        </div>
       </div>
     </div>
   );

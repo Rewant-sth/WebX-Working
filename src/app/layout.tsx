@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dancingScript.variable}`} suppressHydrationWarning>
         <LayoutWrapper>
-          {/* <Navbar /> */}
+          <Navbar />
           <TrackVisitors />
           <Providers>
             <Suspense fallback={<div></div>}><LenisProvider /></Suspense>
