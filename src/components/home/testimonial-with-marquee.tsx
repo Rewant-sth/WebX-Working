@@ -5,9 +5,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { EmblaOptionsType } from "embla-carousel";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Testimonial } from "@/types/ITestimonial";
 import "./embla.css";
 
-export interface Testimonial {
+// Legacy testimonial interface for backward compatibility
+export interface LegacyTestimonial {
   name: string;
   role: string;
   image: string;
@@ -16,7 +18,7 @@ export interface Testimonial {
 }
 
 type PropType = {
-  slides: Testimonial[];
+  slides: LegacyTestimonial[];
   options?: EmblaOptionsType;
 };
 
@@ -55,7 +57,7 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
         <div className="relative z-50">
           {/* Left gradient overlay */}
           <div className="hidden md:block absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
-          
+
           {/* Right gradient overlay */}
           <div className="hidden md:block absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
 
@@ -72,10 +74,10 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                     bg-gradient-to-br from-white to-blue-50
                     before:absolute before:inset-0 before:bg-gradient-to-r before:from-blue-500/5 before:to-transparent before:rounded-3xl
                     overflow-hidden transform-gpu">
-                    
+
                     {/* Blue accent bar */}
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-                    
+
                     {/* Decorative quote corner */}
                     <div className="absolute top-4 right-4 text-blue-200">
                       <svg
@@ -91,7 +93,7 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                         />
                       </svg>
                     </div>
-                    
+
                     <div className="flex items-start gap-6">
                       <div className="relative">
                         <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-blue-300 shadow-md">
@@ -104,20 +106,20 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                         <div className="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-1 shadow-md">
                           <div className="bg-white rounded-full p-1">
                             <div className="bg-blue-500 w-5 h-5 rounded-full flex items-center justify-center">
-                              <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                width="14" 
-                                height="14" 
-                                viewBox="0 0 24 24" 
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
                                 fill="white"
                               >
-                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706z"/>
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706z" />
                               </svg>
                             </div>
                           </div>
                         </div>
                       </div>
-                      
+
                       <div>
                         <h3 className="text-2xl font-bold text-blue-900">
                           {data.name}
@@ -127,11 +129,10 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`w-6 h-6 ${
-                                i < data.rating
+                              className={`w-6 h-6 ${i < data.rating
                                   ? "fill-yellow-400 stroke-yellow-400"
                                   : "stroke-slate-200 fill-slate-100"
-                              }`}
+                                }`}
                             />
                           ))}
                           <span className="ml-2 text-base font-semibold text-blue-800 bg-blue-100 px-3 py-1 rounded-full">
@@ -140,7 +141,7 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="mt-8 relative">
                       <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-indigo-500 rounded-full"></div>
                       <p className="ml-5 text-gray-700 text-lg leading-relaxed italic">

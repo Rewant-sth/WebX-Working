@@ -97,7 +97,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
         </div>
 
         {/* Requirements */}
-        <h2 className="text-2xl font-semibold text-gray-800 mt-12 text-center sm:text-left">
+        {/* <h2 className="text-2xl font-semibold text-gray-800 mt-12 text-center sm:text-left">
           <span className="flex items-center gap-2">
             <ClipboardList className="w-5 h-5 text-blue-500" />
             <span>Requirements</span>
@@ -126,7 +126,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
           )) || (
               <div className="text-gray-500 italic">No specific requirements listed.</div>
             )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

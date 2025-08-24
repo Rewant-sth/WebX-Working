@@ -2,46 +2,47 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ChevronRight, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { Testimonial } from '@/types/ITestimonial';
+import { useTestimonials } from '@/hooks/useTestimonials';
 
-
-const reviews = [
-    {
-        name: "Anisha Thapa",
-        role: "Trekking Enthusiast",
-        review: "The Real Himalaya team made my Everest Base Camp trek unforgettable. Every detail was planned perfectly, and I felt safe the entire time."
-    },
-    {
-        name: "Bikash Shrestha",
-        role: "Adventure Photographer",
-        review: "Spectacular routes, friendly guides, and breathtaking landscapes! I captured some of my best shots during this journey and enjoyed every moment."
-    },
-    {
-        name: "Maya Gurung",
-        role: "Travel Blogger",
-        review: "The cultural immersion on this trip was beyond my expectations. From traditional dances to local cuisine, every experience felt truly authentic and memorable."
-    },
-    {
-        name: "Kiran Adhikari",
-        role: "Mountaineer",
-        review: "Excellent logistics for high-altitude climbs. The team ensured we had the right equipment, acclimatization, and guidance for a safe and successful summit."
-    },
-    {
-        name: "Suman Koirala",
-        role: "Nature Lover",
-        review: "Breathtaking scenery combined with well-paced itineraries made this journey unforgettable. Every day brought a new landscape that left me inspired and humbled."
-    }
-];
-
-
-
-// EmblaCarousel-2_5Slides.jsx
-// Tailwind + Embla carousel component that shows 2.5 slides per view by default.
-// - Install: npm i embla-carousel-react
-// - TailwindCSS must be configured in your project
-// - Usage: <EmblaCarousel slides={arrayOfJSXOrImageUrls} />
 
 export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' }) {
+    // Fetch testimonials using custom hook
+    const { data: testimonialsData, isLoading, error } = useTestimonials();
+
+    // Filter active testimonials and sort by sortOrder
+    const activeTestimonials = testimonialsData?.data
+        ?.filter((testimonial: Testimonial) => testimonial.isActive)
+        ?.sort((a: Testimonial, b: Testimonial) => a.sortOrder - b.sortOrder) || [];
+
+    console.log('Active testimonials:', activeTestimonials);
+    console.log('Testimonials data:', testimonialsData);
+
+    // Fallback reviews for loading or error states
+    const fallbackReviews: Partial<Testimonial>[] = [
+        {
+            fullName: "Anisha Thapa",
+            rating: 5,
+            comment: "The Real Himalaya team made my Everest Base Camp trek unforgettable. Every detail was planned perfectly, and I felt safe the entire time.",
+            image: "/1.jpeg"
+        },
+        {
+            fullName: "Bikash Shrestha",
+            rating: 5,
+            comment: "Spectacular routes, friendly guides, and breathtaking landscapes! I captured some of my best shots during this journey and enjoyed every moment.",
+            image: "/2.jpeg"
+        },
+        {
+            fullName: "Maya Gurung",
+            rating: 5,
+            comment: "The cultural immersion on this trip was beyond my expectations. From traditional dances to local cuisine, every experience felt truly authentic and memorable.",
+            image: "/3.jpeg"
+        }
+    ];
+
+    // Use API data if available, otherwise fallback
+    const reviews = activeTestimonials.length > 0 ? activeTestimonials : fallbackReviews;
     // Embla hook
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
         Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }),
@@ -69,41 +70,31 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
                 <span className='bg-orange-500 text-white px-4 '>
                     Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>
                     platforms</span>
-                    </h2>
+            </h2>
+
+            {/* Loading State */}
+            {isLoading && (
+                <div className="flex justify-center items-center min-h-96">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+                </div>
+            )}
+
+            {/* Error State */}
+            {error && !isLoading && (
+                <div className="text-center py-8">
+                    <p className="text-red-500 mb-4">Failed to load testimonials</p>
+                    <p className="text-gray-600">Showing sample reviews instead</p>
+                </div>
+            )}
 
             {/* Embla viewport */}
             <div className="overflow-hidden relative max-w-7xl mx-auto w-full" ref={emblaRef}>
-                {/* <div className="absolute h-full top-0 left-0 w-80 lg:w-96 bg-gradient-to-r z-[99] from-white to-transparent"></div>
-                <div className="absolute h-full top-0 right-0 w-80 lg:w-96 bg-gradient-to-l z-[99] from-white to-transparent"></div> */}
-
-
-                {/* Controls */}
-                {/* <div className="absolute inset-y-1/2 left-2 transform -translate-y-1/2 z-[999]">
-                    <button
-                        onClick={scrollPrev}
-                        className="size-16 text-4xl flex justify-center items-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none"
-                        aria-label="Previous"
-                    >
-                        <ChevronRight className='rotate-180' />
-                    </button>
-                </div>
-
-                <div className="absolute inset-y-1/2 right-2 transform -translate-y-1/2 z-[999]">
-                    <button
-                        onClick={scrollNext}
-                        className="size-16 text-4xl flex justify-center items-center rounded-full bg-white/90 shadow hover:bg-white focus:outline-none"
-                        aria-label="Next"
-                    >
-                        <ChevronRight className='' />
-
-                    </button>
-                </div> */}
 
                 {/* Embla container */}
                 <div className="flex ">
-                    {reviews.map((slide, idx) => (
+                    {reviews.map((slide: Testimonial | Partial<Testimonial>, idx: number) => (
                         <div
-                            key={idx}
+                            key={slide._id || idx}
                             className="embla__slide flex-none px-3"
                             style={{
                                 minWidth: '38%',
@@ -113,16 +104,27 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
                             <div className="min-h-96  border py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
                                 {/* Signature */}
                                 <p className="absolute text-4xl  max-w-[150px] text-center -rotate-[20deg] top-10 left-20 z-[99] font-semibold" style={{ fontFamily: "var(--font-dancing-script), 'Brush Script MT', cursive" }}>
-                                    {slide.name}
+                                    {slide.fullName}
                                 </p>
-                                <img src={`/${idx + 1}.jpeg`} alt="" className='w-50 h-64 overflow-hidden object-cover grayscale-100 relative z-[50]' />
-                                <h2 className='text-2xl font-semibold mt-6'>{slide.name}</h2>
+                                <img
+                                    src={slide.image || `/placeholder.webp`}
+                                    alt={slide.fullName || `Testimonial ${idx + 1}`}
+                                    className='w-50 h-64 overflow-hidden object-cover grayscale-100 relative z-[50]'
+                                    onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = `/placeholder.webp`;
+                                    }}
+                                />
+                                <h2 className='text-2xl font-semibold mt-6'>{slide.fullName}</h2>
                                 <div className="flex gap-1 items-center justify-center">
                                     {[...Array(5)].map((_, i) => {
-                                        return <Star key={i} className='fill-yellow-500 stroke-0 text-yellow-500' />;
+                                        return <Star
+                                            key={i}
+                                            className={`${i < (slide.rating || 5) ? 'fill-yellow-500' : 'fill-gray-300'} stroke-0 text-yellow-500`}
+                                        />;
                                     })}
                                 </div>
-                                <p className='mt-4 px-4 text-lg line-clamp-3 text-center'>{slide.review}</p>
+                                <p className='mt-4 px-4 text-lg line-clamp-3 text-center'>{slide.comment}</p>
                             </div>
                         </div>
                     ))}
@@ -132,7 +134,7 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
 
             {/* Pagination (optional small dots) */}
             <div className="flex items-center justify-center gap-2 mt-4">
-                {Array.from({ length: Math.max(1, slides.length) }).map((_, i) => (
+                {Array.from({ length: Math.max(1, reviews.length) }).map((_, i) => (
                     <button
                         key={i}
                         onClick={() => emblaApi && emblaApi.scrollTo(i)}

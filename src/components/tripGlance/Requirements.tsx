@@ -25,9 +25,9 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
                         className="flex items-start gap-4 p-6 rounded-sm border hover:border-gray-300 transition-all duration-200"
                         style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
                     >
-                        <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#fff5f0', border: '1px solid #f05e25' }}>
+                        {/* <div className="shrink-0 mt-1 p-2 rounded-md" style={{ backgroundColor: '#fff5f0', border: '1px solid #f05e25' }}>
                             <ClipboardCheck size={20} style={{ color: '#f05e25' }} />
-                        </div>
+                        </div> */}
                         <div className="flex-1 min-w-0">
                             <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                                 {item.title}

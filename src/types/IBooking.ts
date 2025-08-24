@@ -9,12 +9,15 @@ export interface IBookingData {
         passportNumber: string,
         passportExpiryDate: string
     }],
+    adults: number,
+    totalAmount: number,
+    fixedDateId: string,
     arrivalDate: string,
     departureDate: string,
-    numberOfTravelers: 1,
+    numberOfTravelers: number,
     package: string, // Replace with a valid package ID
     message: string,
     specialRequirements: string,
-    termsAccepted: true
+    termsAccepted: boolean
     createdBy?: string // Optional: User ID if user is logged in
 }

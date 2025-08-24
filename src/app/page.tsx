@@ -23,7 +23,6 @@ const Page = () => {
       <CTA />
       <QuickInfo />
       <TravellerReview />
-      <Footer />
     </main>
   );
 };

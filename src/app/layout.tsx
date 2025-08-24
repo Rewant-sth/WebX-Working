@@ -10,6 +10,7 @@ import Navbar from "@/components/common/navbar/Navbar";
 import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
+import Footer from "@/components/common/footer/new-footer";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
             <SelectedTripProvider>{children}</SelectedTripProvider>
           </Providers>
           <Toaster position="top-right" reverseOrder={false} />
+          <Footer />
         </LayoutWrapper>
       </body>
     </html >

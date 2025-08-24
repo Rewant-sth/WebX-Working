@@ -7,5 +7,6 @@ export interface IBlog {
   comments: number;
   content: string;
   banner: string;
-  createdAt: string
+  createdAt: string;
+  slug: string;
 }

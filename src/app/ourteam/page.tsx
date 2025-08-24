@@ -22,7 +22,7 @@ const OurTeam: React.FC = () => {
   };
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 mt-[4rem]">
       <div className="min-h-[90dvh] p-6 gap-3 w-full  grid grid-cols-2">
         <div className="grid grid-rows-2">
           <div className="h-full flex flex-col justify-between pb-10 w-full ">

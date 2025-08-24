@@ -6,7 +6,7 @@ import { gsap } from 'gsap'
 import Link from 'next/link';
 import api from '@/service/api';
 import { ICategoryResponse } from '@/types/ICategory';
-import {  ITravelPackageResponse } from '@/types/IPackages';
+import { ITravelPackageResponse } from '@/types/IPackages';
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
@@ -29,6 +29,27 @@ interface Package {
   overview: string;
   slug: string;
 }
+
+const navs = [{
+  name: "About Us",
+  href: "/about-us"
+}, {
+  name: "Contact Us",
+  href: "/contact-us"
+},
+{
+  name: "Our Teams",
+  href: "/ourteam"
+},
+{
+  name: "Message From CEO",
+  href: "/message"
+},
+{
+  name: "Blogs",
+  href: "/blogs"
+}
+]
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
@@ -111,7 +132,11 @@ export default function Navbar() {
 
       <div className="flex gap-10 items-center">
         <ul>
-          <li className='text-lg text-white'>Customize Trip</li>
+          <li className='text-lg text-white'>
+            <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
+              Customize Trip
+            </Link>
+          </li>
         </ul>
         <button
           onClick={handleShow}
@@ -135,7 +160,11 @@ export default function Navbar() {
 
           <div className="flex gap-10 items-center">
             <ul>
-              <li className='text-lg text-white'>Customize Trip</li>
+              <li className='text-lg text-white'>
+                <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
+                  Customize Trip
+                </Link>
+              </li>
             </ul>
             <button
               onClick={handleClose}
@@ -152,27 +181,31 @@ export default function Navbar() {
         <div className="flex  text-white min-h-[calc(100dvh-4rem)]">
           <div className="w-full max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-6">
             <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Categories</h2>
-            {categories?.data?.map((category) => (
-              <h2
-                key={category._id}
-                onMouseEnter={() => {
-                  setSelectedCategory(category);
-                  if (category.subCategories.length > 0) {
-                    setSelectedSubcategoryId(category.subCategories[0]._id);
-                  }
-                }}
-                className={`cursor-pointer transition-all flex justify-between items-center duration-300 hover:text-orange-300 py-1 ${selectedCategory?._id === category._id ? 'text-orange-300' : ''}`}
-              >
+            <div className="grid gap-5">
+              {categories?.data?.map((category) => (
+                <Link className='' href={`/package-list/${category.slug}`} key={category._id} onClick={handleClose}>
+                  <h2
+                    onMouseEnter={() => {
+                      setSelectedCategory(category);
+                      if (category.subCategories.length > 0) {
+                        setSelectedSubcategoryId(category.subCategories[0]._id);
+                      }
+                    }}
+                    className={`cursor-pointer transition-all flex justify-between items-center duration-300 hover:text-orange-300 py-1 ${selectedCategory?._id === category._id ? 'text-orange-300' : ''}`}
+                  >
 
-                {category.name}
-                <Icon icon="fluent:arrow-right-20-filled" className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'}`} />
-              </h2>
-            ))}
-            {['About Us', 'Contact Us'].map((item, idx) => (
-              <h2 key={idx} className='cursor-pointer transition-all duration-300 hover:text-orange-300  py-2  hover:border-orange-400 '>
-                {item}
-              </h2>
-            ))}
+                    {category.name}
+                    <Icon icon="fluent:arrow-right-20-filled" className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'}`} />
+                  </h2>
+                </Link>
+              ))}
+              {navs.map((item, idx) => (
+                <Link href={item.href} onClick={handleClose} key={idx} className='cursor-pointer transition-all duration-300 hover:text-orange-300  py-1 flex  hover:border-orange-400 '>
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
           </div>
 
           <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem]">
