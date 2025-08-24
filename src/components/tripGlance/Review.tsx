@@ -192,14 +192,41 @@ export default function TravellerReview({
         </div>
 
         {data?.testimonial.length === 0 && (
-          <div className="col-span-full flex flex-col items-center justify-center rounded-sm py-12 px-6 text-center" style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}>
-            <Icon icon={"bx:happy-heart-eyes"} className="text-6xl mb-4 text-zinc-600" />
-            <h2 className="text-xl font-semibold" style={{ color: '#3A3A3A' }}>
-              You will be the first to leave a review
-            </h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Be the first to leave a review and share your experience!
-            </p>
+          <div className="relative overflow-hidden rounded-sm bg-gradient-to-br from-slate-50 to-gray-50  p-8 text-center group  transition-all duration-500 ease-out">
+            {/* Background decorative elements */}
+            <div className="absolute inset-0">
+              <div className="absolute top-4 left-4 w-12 h-12 bg-orange-100 rounded-full opacity-20 group-hover:scale-110 transition-transform duration-700"></div>
+              <div className="absolute bottom-6 right-8 w-8 h-8 bg-blue-100 rounded-full opacity-30 group-hover:scale-105 transition-transform duration-500"></div>
+              <div className="absolute top-1/2 right-4 w-6 h-6 bg-green-100 rounded-full opacity-25 group-hover:scale-125 transition-transform duration-600"></div>
+            </div>
+
+            {/* Main content */}
+            <div className="relative z-10">
+              <div className="mb-6 transform group-hover:scale-105 transition-transform duration-500">
+                <div className="relative inline-block">
+                  <div className="w-50 flex items-center justify-center mb-4 mx-auto">
+                    <img src="/icons/stars.png" alt="stars" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                  Be the First Reviewer!
+                </h3>
+                <p className="text-gray-600 leading-relaxed max-w-md mx-auto">
+                  Share your amazing journey and help future travellers discover this incredible experience
+                </p>
+              </div>
+
+
+              {/* Subtle encouragement text */}
+              <div className="mt-6 p-4 bg-white w-fit mx-auto rounded-lg border border-white/50 backdrop-blur-sm">
+                <p className="text-xs text-gray-500 italic">
+                  💡 Your review helps others make informed decisions and supports local communities
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
@@ -289,10 +316,11 @@ export default function TravellerReview({
           <h3 className="text-lg font-semibold" style={{ color: '#3A3A3A' }}>Video Reviews</h3>
         </div>
 
-        {/* <div className="grid  grid-cols-2">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/kwGYF2gf6gA?si=Ocd8ygKyvAg15wCP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/kwGYF2gf6gA?si=Ocd8ygKyvAg15wCP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div> */}
+        <div className="grid grid-cols-2 gap-4">
+          <iframe className="w-full" height="315" src="https://www.youtube-nocookie.com/embed/hWp06RX_5pw?si=M-8SNKmsGTzQ45nv" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          <iframe className="w-full" height="315" src="https://www.youtube-nocookie.com/embed/hWp06RX_5pw?si=M-8SNKmsGTzQ45nv" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          <iframe className="w-full" height="315" src="https://www.youtube-nocookie.com/embed/hWp06RX_5pw?si=M-8SNKmsGTzQ45nv" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+        </div>
       </div>
 
     </div>

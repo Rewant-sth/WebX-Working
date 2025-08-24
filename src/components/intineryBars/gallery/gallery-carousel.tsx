@@ -15,7 +15,7 @@ type PropType = {
     options?: EmblaOptionsType
 }
 
-const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } }) => {
+const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, align: 'center' } }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(options, [
         AutoPlay({ delay: 3000, stopOnInteraction: false })
     ])
@@ -28,26 +28,12 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
     } = usePrevNextButtons(emblaApi);
 
     const [centerIndex, setCenterIndex] = useState<number | null>(null)
-    const [slidesPerView, setSlidesPerView] = useState(1)
 
     const updateCarouselState = useCallback(() => {
         if (!emblaApi) return;
 
-        const visibleSlides = emblaApi.slidesInView();
-        if (visibleSlides.length === 0) return;
-
-        const newSlidesPerView = visibleSlides.length;
-        setSlidesPerView(newSlidesPerView);
-
-        if (newSlidesPerView === 5) {
-            setCenterIndex(visibleSlides[2]);
-        } else if (newSlidesPerView === 3) {
-            setCenterIndex(visibleSlides[1]);
-        } else if (newSlidesPerView === 1) {
-            setCenterIndex(visibleSlides[0]);
-        } else {
-            setCenterIndex(null);
-        }
+        const scrollSnapIndex = emblaApi.selectedScrollSnap();
+        setCenterIndex(scrollSnapIndex);
     }, [emblaApi]);
 
     useEffect(() => {
@@ -67,62 +53,59 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true } 
     }, [emblaApi, updateCarouselState]);
 
     return (
-        <section className="mx-auto relative">
-            {/* Man image above carousel */}
-           
+        <section className="absolute inset-0 w-dvw h-dvh z-10">
             {/* Carousel */}
-            <div className="overflow-hidden relative" ref={emblaRef}>
-                <div
-                    className={`
-                        flex touch-pan-y touch-pinch-zoom backface-hidden
-                        -ml-4 sm:-ml-6 xl:-ml-8
-                        ${slidesPerView === 1 ? 'justify-center' : 'justify-start'}
-                    `}
-                >
+            <div className="overflow-hidden relative w-full h-full" ref={emblaRef}>
+                <div className="flex touch-pan-y touch-pinch-zoom backface-hidden w-full h-full">
                     {slides?.map((slide, index) => (
                         <div
                             key={index}
-                            className={`
-                                flex-[0_0_100%] pl-4
-                                lg:flex-[0_0_calc(100%/2.5)] sm:pl-6
-                                xl:flex-[0_0_calc(100%/2.5)] xl:pl-8
-                                min-w-0
-                            `}
+                            className="min-w-0 flex-[0_0_100%] w-dvw h-dvh relative"
                         >
-                            <div
-                                className={`
-                                    font-semibold flex items-center justify-center 
-                                    h-[30rem] rounded-md shadow-2xl overflow-hidden select-none bg-white
-                                    transition-transform duration-300 ease-in-out
-                                    transform origin-center
-                                    ${centerIndex === index ? 'scale-110' : 'scale-100'}
-                                `}
-                            >
+                            <div className="w-full h-full relative">
                                 <Image
                                     src={slide.imageUrl}
-                                    alt={JSON.stringify(slide) || ""}
-                                    layout="fill"
-                                    objectFit="cover"
+                                    alt={slide.caption || `Gallery image ${index + 1}`}
+                                    fill
                                     className="object-cover object-center"
+                                    priority={index === 0}
+                                    sizes="100vw"
                                 />
+                                {/* Optional overlay for better text readability */}
+                                <div className="absolute inset-0 bg-black/20" />
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Buttons */}
-            <div className="grid grid-cols-[auto_1fr] justify-between gap-4 mt-6">
-                <div className="grid grid-cols-2 gap-2 items-center">
+            {/* Navigation Buttons */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+                <div className="flex items-center gap-4 bg-black/20 backdrop-blur-sm rounded-full px-6 py-3">
                     <PrevButton
                         onClick={onPrevButtonClick}
                         disabled={prevBtnDisabled}
-                        className="embla__button"
+                        className="embla__button text-white hover:text-orange-400 transition-colors"
                     />
+
+                    {/* Slide indicators */}
+                    <div className="flex gap-2">
+                        {slides?.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => emblaApi?.scrollTo(index)}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === centerIndex
+                                    ? 'bg-orange-400 scale-125'
+                                    : 'bg-white/50 hover:bg-white/75'
+                                    }`}
+                            />
+                        ))}
+                    </div>
+
                     <NextButton
                         onClick={onNextButtonClick}
                         disabled={nextBtnDisabled}
-                        className="embla__button"
+                        className="embla__button text-white hover:text-orange-400 transition-colors"
                     />
                 </div>
             </div>

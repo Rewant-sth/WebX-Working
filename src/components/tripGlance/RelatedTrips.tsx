@@ -44,7 +44,7 @@ const RelatedTrips = ({
       </div>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data?.data?.map((trip, index) => {
+        {data?.data?.slice(0, 7).map((trip, index) => {
           if (trip.id !== packageId) {
             return (
               <div

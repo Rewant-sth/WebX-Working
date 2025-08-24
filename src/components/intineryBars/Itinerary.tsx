@@ -30,6 +30,7 @@ type ItineraryDayProps = {
   description: string;
   expanded?: boolean;
   data: IItinerary;
+  isFirst?: boolean;
 };
 
 // Itinerary Day Component
@@ -38,12 +39,13 @@ const ItineraryDay = ({
   title,
   description,
   expanded: initialExpanded = true,
-  data
+  data,
+  isFirst = false
 }: ItineraryDayProps) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(isFirst);
 
   return (
-    <div className=" hover:border-gray-300 transition-all duration-300 rounded-sm bg-gray-50 mb-4 overflow-hidden">
+    <div className=" hover:border-gray-300 transition-all duration-300 rounded-sm bg-gray-50/80 border border-gray-100 mb-4 overflow-hidden">
       <div
         className="flex items-center justify-between py-5 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-200 rounded-t-lg"
         onClick={() => setExpanded(!expanded)}
@@ -81,18 +83,18 @@ const ItineraryDay = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {
               data?.duration && (
-                <div className="flex items-start gap-3">
+                <div className="flex  gap-4">
                   <div
-                    className="rounded-sm p-2 flex items-center justify-center w-10 h-10 shrink-0"
-                    style={{ backgroundColor: '#fff5f0', border: '1px solid #f05e25' }}
+                    className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0"
                   >
-                    <Icon icon="akar-icons:alarm" width="24" height="24" style={{ color: '#f05e25' }} />
+                    <img src="/icons/time.png" alt="time" />
+
                   </div>
                   <div className="flex flex-col">
-                    <p className="font-semibold text-sm mb-1" style={{ color: '#3A3A3A' }}>
+                    <h3 className="font-semibold leading-4 text-lg mb-1">
                       Duration
-                    </p>
-                    <p className="text-sm text-gray-600">{data.duration}</p>
+                    </h3>
+                    <p className=" text-gray-600">{data.duration}</p>
                   </div>
                 </div>
               )
@@ -100,18 +102,18 @@ const ItineraryDay = ({
 
             {
               data?.maxAltitude && (
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-4">
                   <div
-                    className="rounded-sm p-2 flex items-center justify-center w-10 h-10 shrink-0"
-                    style={{ backgroundColor: '#fff5f0', border: '1px solid #f05e25' }}
+                    className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0"
                   >
-                    <Icon icon="material-symbols-light:altitude-outline" width="28" height="28" style={{ color: '#f05e25' }} />
+                    <img src="/icons/mountain.png" alt="mountain" />
+
                   </div>
                   <div className="flex flex-col">
-                    <p className="font-semibold text-sm mb-1" style={{ color: '#3A3A3A' }}>
+                    <h3 className="font-semibold leading-4  mb-1" >
                       Max Altitude
-                    </p>
-                    <p className="text-sm text-gray-600">{data.maxAltitude} m</p>
+                    </h3>
+                    <p className="t text-gray-600">{data.maxAltitude} m</p>
                   </div>
                 </div>
               )
@@ -121,16 +123,16 @@ const ItineraryDay = ({
               data?.accommodation && (
                 <div className="flex items-start gap-3">
                   <div
-                    className="rounded-full p-2 flex items-center justify-center w-10 h-10 shrink-0"
-                    style={{ backgroundColor: '#fff5f0', border: '1px solid #f05e25' }}
+                    className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0"
                   >
-                    <Bed className="w-5 h-5" style={{ color: '#f05e25' }} />
+                    <img src="/icons/mansion.png" alt="time" />
+
                   </div>
                   <div className="flex flex-col">
-                    <p className="font-semibold text-sm mb-1" style={{ color: '#3A3A3A' }}>
+                    <h3 className="font-semibold leading-4 mb-1" >
                       Accommodation
-                    </p>
-                    <p className="text-sm text-gray-600">{data.accommodation}</p>
+                    </h3>
+                    <p className=" text-gray-600">{data.accommodation}</p>
                   </div>
                 </div>
               )
@@ -163,6 +165,11 @@ const ItineraryDay = ({
 
 // Itinerary Preview Component
 const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
+  const [showAll, setShowAll] = useState(false);
+
+  const displayedData = showAll ? data : data?.slice(0, 5);
+  const hasMoreItems = data && data.length > 5;
+
   return (
     <div
       id="itinerary"
@@ -178,7 +185,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
       </p>
 
       <div className="space-y-4">
-        {data?.map((day) => (
+        {displayedData?.map((day, index) => (
           <ItineraryDay
             key={day._id}
             day={day.days}
@@ -186,9 +193,38 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
             description={day.description}
             expanded={true}
             data={day}
+            isFirst={index === 0}
           />
         ))}
       </div>
+
+      {hasMoreItems && (
+        <div className="text-center mt-6">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-sm hover:opacity-90 transition-all duration-200"
+            style={{ backgroundColor: '#f05e25' }}
+          >
+            {showAll ? (
+              <>
+                Show Less
+                <ChevronRight
+                  size={16}
+                  className="transform rotate-[-90deg] transition-transform duration-200"
+                />
+              </>
+            ) : (
+              <>
+                Read More ({data!.length - 5} more days)
+                <ChevronRight
+                  size={16}
+                  className="transform rotate-90 transition-transform duration-200"
+                />
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       <div
         className="p-6 mt-8 rounded-sm border transition-all duration-200"

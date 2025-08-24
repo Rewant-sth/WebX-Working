@@ -19,7 +19,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
             <button
               onClick={() => setActiveTab('inclusion')}
               className={`px-6 py-3 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'inclusion'
-                ? 'border-[#FACB2B] text-[#c99a00] bg-[#FACB2B]/10'
+                ? 'border-green-600 text-green-600 bg-green-50'
                 : 'border-transparent text-gray-600 hover:text-green-600 hover:bg-green-50'
                 }`}
             >
@@ -31,7 +31,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               onClick={() => setActiveTab('exclusion')}
               className={`px-6 py-3 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'exclusion'
                 ? 'border-[#0F40B0] text-[#0F40B0] bg-[#0F40B0]/20'
-                : 'border-transparent text-gray-600 hover:text-red-600 hover:bg-red-50'
+                : 'border-transparent text-gray-600 hover:bg-[#0F40B0]/20 hover:text-[#0F40B0] '
                 }`}
             >
               <span className="flex items-center gap-2">
@@ -48,14 +48,14 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
                 Everything that's included in your trip package to ensure a seamless travel experience.
               </p>
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 gap-y-4">
                 {data?.inclusion.map((item, index) => (
                   <div
                     key={index}
                     className="flex items-start gap-4 p-2 rounded-sm hover:border-gray-300 transition-all duration-200"
                   >
                     <div className="shrink-0 size-10 rounded-md" >
-                      <img src="/icons/check.png" alt="check" />
+                      <img src="/icons/check-green.png" alt="check" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
@@ -74,7 +74,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
                 Items and services not included in the package that you'll need to arrange separately.
               </p>
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 gap-y-4">
                 {data?.exclusion.map((item, index) => (
                   <div
                     key={index}
@@ -84,10 +84,10 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                       <img src="/icons/delete.png" alt="exclusion" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                      <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                         {item.title}
                       </h3>
-                      <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                      <p className=" leading-relaxed text-gray-600">{item.description}</p>
                     </div>
                   </div>
                 ))}

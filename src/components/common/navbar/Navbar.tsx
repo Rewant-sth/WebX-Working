@@ -6,7 +6,7 @@ import { gsap } from 'gsap'
 import Link from 'next/link';
 import api from '@/service/api';
 import { ICategoryResponse } from '@/types/ICategory';
-import { IPackageByIdResponse, ITravelPackageResponse } from '@/types/IPackages';
+import {  ITravelPackageResponse } from '@/types/IPackages';
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
@@ -45,15 +45,6 @@ export default function Navbar() {
       return response.data;
     },
     staleTime: 5 * 60 * 1000,
-    onSuccess: (data) => {
-      if (data.data && data.data.length > 0) {
-        const firstCategory = data.data[0];
-        setSelectedCategory(firstCategory);
-        if (firstCategory.subCategories.length > 0) {
-          setSelectedSubcategoryId(firstCategory.subCategories[0]._id);
-        }
-      }
-    }
   });
 
   // Fetch packages when subcategory is selected

@@ -2,29 +2,15 @@
 import {
   ArrowRight,
   Locate as LocateIcon,
-  Users,
-  TrendingUp,
-  Calendar,
   X,
-  Eye,
-  Compass,
-  MapPinned,
-  CalendarRange,
-  DollarSign,
-  CalendarDays,
-  ClipboardCheck,
-  Star,
-  HelpCircle
 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import Title from "../../../components/intineryBars/Title";
-import LeftBar from "../../../components/intineryBars/LeftBar";
 import TripGlance from "../../../components/tripGlance/TripGlance";
 import MajorHighlight from "../../../components/tripGlance/MajorHighlight";
 import RouteMap from "../../../components/tripGlance/RouteMap";
 import Cost from "../../../components/tripGlance/Cost";
 import Faq from "../../../components/tripGlance/Faq";
-import RightBar from "../../../components/intineryBars/RightBar";
 import TravellerReview from "../../../components/tripGlance/Review";
 import Itinerary from "../../../components/intineryBars/Itinerary";
 import DatesAndPrices from "../../../components/intineryBars/DatesAndPrices";
@@ -32,15 +18,14 @@ import RelatedTrips from "../../../components/tripGlance/RelatedTrips";
 import Requirements from "../../../components/tripGlance/Requirements";
 import { useParams } from "next/navigation";
 import { getPackagesById } from "@/service/packages";
-import GallerySection from "./_components/Gallery";
 import { useQuery } from "@tanstack/react-query";
 import { ITravelPackage } from "@/types/IPackages";
 import SkeletonPackageDetails from "./_components/SkeletonLoader";
-import { IGallery } from "@/types/IGallery";
 import { useRouter } from "next/navigation";
 import ScrollTracker from "@/components/intineryBars/scroll-tracker";
 import GalleryCarousel from "@/components/intineryBars/gallery/gallery-carousel";
 import Image from "next/image";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Page = () => {
   const router = useRouter();
@@ -48,32 +33,24 @@ const Page = () => {
   const [isStickyVisible, setIsStickyVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       if (heroRef.current) {
         const heroHeight = heroRef.current.offsetHeight;
-        const scrollPosition = window.scrollY + window.innerHeight;
-        const heroBottom = heroRef.current.offsetTop + heroHeight;
-
-        // Show sticky bar when scrolled past 80% of the hero section
         const showAt = heroRef.current.offsetTop + (heroHeight * 0.8);
         setIsStickyVisible(window.scrollY > showAt);
         setIsScrolled(window.scrollY > 0);
       }
     };
-
-    // Initial check
     handleScroll();
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Check for invalid slug immediately and redirect
   useEffect(() => {
     console.log("params", params.slug);
-
     if (typeof window === "undefined") return;
     if (
       params.slug === undefined ||
@@ -81,7 +58,6 @@ const Page = () => {
       params.slug === "" ||
       params.slug === "undefined"
     ) {
-      // Use replace for 301-like behavior (no back button entry)
       router.replace("/");
       return;
     }
@@ -101,14 +77,13 @@ const Page = () => {
         <SkeletonPackageDetails />
       ) : (
         <>
-          <div ref={heroRef} className="relative min-h-screen overflow-hidden  bg-black">
-            <Image src={"/ourstory.jpg"} alt="bg" fill className="object-cover z-[20] object-center opacity-70" />
-            <div className="absolute bottom-0  z-[999] left-1/2 -translate-x-1/2">
-              <img src="/man.png" alt="man" className="drop-shadow-2xl scale-75 drop-shadow-black" />
+          <div ref={heroRef} className="relative min-h-screen overflow-hidden  ">
+            <div className="absolute bottom-0  z-[999]  ">
+              <img src="/man2.png" alt="man" className="w-full max-w-7xl translate-y-16 object-cover drop-shadow-black" />
             </div>
 
             <Title data={packageData?.data as ITravelPackage} />
-            <div className=" px-4 sm:px-6  lg:px-16 mt-8 relative z-[80]">
+            <div className=" px-4 sm:px-6  lg:px-16 mt-8  z-[80]">
               {packageData?.data?.gallery?.length !== 0 && (
                 <GalleryCarousel slides={packageData?.data?.gallery} />
               )}
@@ -116,10 +91,7 @@ const Page = () => {
           </div>
 
           <ScrollTracker data={packageData?.data as ITravelPackage} />
-          <div
-            className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10  mt-8 ${modalOpen ? "filter blur-2xl" : ""
-              }`}
-          >
+          <div className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10  mt-8 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
             {/* Center Content */}
             <div id="overview" className=" mx-auto relative  rounded-xl">
@@ -140,6 +112,19 @@ const Page = () => {
                 }}
                 className="relative min-h-[70dvh]  py-16 mb-14 bg-[#0d1117] text-white w-screen flex justify-center items-center">
 
+                {
+                  isVisible && (
+                    <div className="fixed inset-0 flex justify-center items-center  z-[99999] bg-black/70 backdrop-blur-md ">
+                      <button onClick={() => setIsVisible(false)} className="absolute top-5 right-5 text-orange-500 text-3xl flex justify-center items-center rounded-full size-14 bg-white">
+                        <Icon icon="gridicons:cross" />
+                      </button>
+                      <div className=" ">
+                        <img src={packageData?.data?.routeMap} alt="route map" />
+                      </div>
+                    </div>
+                  )
+                }
+
                 <div className=" relative max-w-7xl mx-auto  mb-8 pb-10">
                   <h2 className="text-5xl mb-8 font-semibold  text-center sm:text-left">
                     Trip Overview
@@ -158,7 +143,7 @@ const Page = () => {
               </div>
 
               {/* <Places data={packageData} /> */}
-              <RouteMap data={packageData?.data} />
+              <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} />
               {packageData?.data?.itinerary.length ? (
                 <Itinerary data={packageData?.data.itinerary} />
               ) : null}
