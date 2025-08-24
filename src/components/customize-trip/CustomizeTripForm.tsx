@@ -7,12 +7,12 @@ import api from '@/service/api';
 import { ITravelPackageResponse } from '@/types/IPackages';
 import PersonalInfoSection from './PersonalInfoSection';
 import TripDetailsSection from './TripDetailsSection';
-import PackageSelectionSections from './PackageSelectionSection';
 import AdditionalInfoSection from './AdditionalInfoSection';
 import StepIndicator from './StepIndicator';
 import FormNavigation from './FormNavigation';
 import { CustomizeTripFormData } from './types';
 import { useFormValidation } from './useFormValidation';
+import PackagesSelect from './PackagesSelect';
 
 const initialFormData: CustomizeTripFormData = {
     personalInfo: [{
@@ -76,6 +76,13 @@ export default function CustomizeTripForm() {
         }
     }, []);
 
+    const handleStepClick = useCallback((step: number) => {
+        // Only allow navigation to completed steps or current step
+        if (step <= currentStep) {
+            setCurrentStep(step);
+        }
+    }, [currentStep]);
+
     const handleNextStep = useCallback(() => {
         if (isStepValid && currentStep < FORM_STEPS.length) {
             setCurrentStep(currentStep + 1);
@@ -132,7 +139,7 @@ export default function CustomizeTripForm() {
         setIsSubmitting(true);
 
         try {
-            const response = await api.post('/booking/customize-trip', formData);
+            const response = await api.post('/booking/customize', formData);
 
             if (response.data.status === 'success') {
                 toast.success('Your customize trip request has been submitted successfully!');
@@ -169,7 +176,7 @@ export default function CustomizeTripForm() {
                 );
             case 3:
                 return (
-                    <PackageSelectionSections
+                    <PackagesSelect
                         packages={packagesData?.data || []}
                         selectedPackage={formData.package}
                         isLoading={packagesLoading}
@@ -192,31 +199,35 @@ export default function CustomizeTripForm() {
 
     return (
         <div className="min-h-screen relative z-50 bg-gradient-to-br from-blue-50 via-white to-orange-50 py-12 px-4">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        Customize Your <span className="text-orange-500">Dream Trip</span>
+
+                    <h1 className="text-4xl  uppercase font-bold text-gray-900 mb-2 leading-tight">
+                        Customize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">Dream Trip</span>
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         Create your perfect adventure in the Himalayas. Tell us about your preferences,
                         and we'll craft an unforgettable journey just for you.
                     </p>
                 </div>
 
                 {/* Form */}
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div className="p-8">
+                <div className="rounded-sm  overflow-hidden border border-gray-100 backdrop-blur-sm bg-white/95">
+                    <div className="p-8 lg:p-12">
                         {/* Step Indicator */}
                         <StepIndicator
                             currentStep={currentStep}
                             totalSteps={FORM_STEPS.length}
                             steps={FORM_STEPS}
+                            onStepClick={handleStepClick}
                         />
 
                         {/* Form Content */}
-                        <div className="min-h-[500px]">
-                            {renderCurrentStep()}
+                        <div className="min-h-[600px]  rounded-sm p-8 border border-gray-100 shadow-inner">
+                            <div className="bg-white rounded-sm p-6  border border-gray-100 min-h-[500px]">
+                                {renderCurrentStep()}
+                            </div>
                         </div>
 
                         {/* Navigation */}

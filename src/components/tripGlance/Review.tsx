@@ -221,7 +221,7 @@ export default function TravellerReview({
 
 
               {/* Subtle encouragement text */}
-              <div className="mt-6 p-4 bg-white w-fit mx-auto rounded-lg border border-white/50 backdrop-blur-sm">
+              <div className="mt-6 p-4 bg-white w-fit mx-auto rounded-sm border border-white/50 backdrop-blur-sm">
                 <p className="text-xs text-gray-500 italic">
                   💡 Your review helps others make informed decisions and supports local communities
                 </p>
@@ -244,7 +244,7 @@ export default function TravellerReview({
                     className={`transition-all  aspect-video duration-500 ease-in-out ${isCenter}`}
                   >
                     <div
-                      className="p-6 rounded-lg border hover:shadow-lg transition-all duration-300 h-full"
+                      className="p-6 rounded-sm border hover:shadow-lg transition-all duration-300 h-full"
                       style={{
                         backgroundColor: isCenter ? '#ffffff' : '#fafafa',
                         borderColor: isCenter ? '#f05e25' : '#f0f0f0',

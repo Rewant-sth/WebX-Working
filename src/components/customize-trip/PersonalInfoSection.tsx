@@ -29,7 +29,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.fullName}
                         onChange={(e) => onChange('fullName', e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
                         placeholder="Enter your full name"
                     />
                     {errors.fullName && (
@@ -48,7 +48,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.email}
                         onChange={(e) => onChange('email', e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                         placeholder="your.email@example.com"
                     />
                     {errors.email && (
@@ -66,7 +66,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.country}
                         onChange={(e) => onChange('country', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     >
                         <option value="">Select your country</option>
                         {countries.map((country) => (
@@ -88,7 +88,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.phoneNumber}
                         onChange={(e) => onChange('phoneNumber', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder="+977 98xxxxxxxx"
                     />
                 </div>
@@ -102,7 +102,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         id="gender"
                         value={personalInfo.gender}
                         onChange={(e) => onChange('gender', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     >
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -120,7 +120,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         id="dateOfBirth"
                         value={personalInfo.dateOfBirth}
                         onChange={(e) => onChange('dateOfBirth', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     />
                 </div>
 
@@ -134,7 +134,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         id="passportNumber"
                         value={personalInfo.passportNumber}
                         onChange={(e) => onChange('passportNumber', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder="A12345678"
                     />
                 </div>
@@ -149,7 +149,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         id="passportExpiryDate"
                         value={personalInfo.passportExpiryDate}
                         onChange={(e) => onChange('passportExpiryDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     />
                 </div>
             </div>

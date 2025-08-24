@@ -144,7 +144,7 @@ const BookingForm: React.FC<{
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 mt-6">
+    <div className="bg-white rounded-sm border border-gray-200 p-6 mt-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-bold text-gray-800">Complete Your Booking</h3>
         <button
@@ -155,7 +155,7 @@ const BookingForm: React.FC<{
         </button>
       </div>
 
-      <div className="mb-6 p-4 bg-gray-100 rounded-lg text-gray-800">
+      <div className="mb-6 p-4 bg-gray-100 rounded-sm text-gray-800">
         <h4 className="font-semibold  mb-2">Selected Trip Details</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
@@ -184,7 +184,7 @@ const BookingForm: React.FC<{
               required
               value={formData.fullName}
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg transition-colors duration-200 focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
               onFocus={(e) => {
                 e.target.style.borderColor = '#F05E25';
                 e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
@@ -205,7 +205,7 @@ const BookingForm: React.FC<{
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg transition-colors duration-200 focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
               onFocus={(e) => {
                 e.target.style.borderColor = '#F05E25';
                 e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
@@ -228,7 +228,7 @@ const BookingForm: React.FC<{
               required
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg transition-colors duration-200 focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
               onFocus={(e) => {
                 e.target.style.borderColor = '#F05E25';
                 e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
@@ -247,7 +247,7 @@ const BookingForm: React.FC<{
             <select
               value={formData.numberOfTravelers}
               onChange={(e) => setFormData({ ...formData, numberOfTravelers: parseInt(e.target.value) })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg transition-colors duration-200 focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
               onFocus={(e) => {
                 e.target.style.borderColor = '#F05E25';
                 e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
@@ -272,7 +272,7 @@ const BookingForm: React.FC<{
             rows={4}
             value={formData.specialRequests}
             onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg transition-colors duration-200 focus:outline-none"
+            className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
             placeholder="Any dietary restrictions, accessibility needs, or special requests..."
             onFocus={(e) => {
               e.target.style.borderColor = '#F05E25';
@@ -289,13 +289,13 @@ const BookingForm: React.FC<{
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 py-3 w-fit px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+            className="shrink-0 py-3 w-fit px-4 border border-gray-300 rounded-sm text-gray-700 font-medium hover:bg-gray-50 transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="shrink-0 w-fit py-3 px-4 text-white rounded-lg font-medium transition-colors"
+            className="shrink-0 w-fit py-3 px-4 text-white rounded-sm font-medium transition-colors"
             style={{
               backgroundColor: '#F05E25'
             }}
@@ -430,14 +430,14 @@ const DatesAndPrices = ({
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrevMonth}
-              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+              className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
               aria-label="Previous months"
             >
               <Icon icon="mdi:chevron-left" width="24" height="24" className="text-gray-600" />
             </button>
             <button
               onClick={handleNextMonth}
-              className="p-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+              className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
               aria-label="Next months"
             >
               <Icon icon="mdi:chevron-right" width="24" height="24" className="text-gray-600" />

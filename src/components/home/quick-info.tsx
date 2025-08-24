@@ -94,7 +94,7 @@ export default function QuickInfo() {
         <div className="flex col-span-2 gap-4 w-full">
           {/* Column 1 → 1 card */}
           <div className="flex flex-col gap-4 flex-1 justify-end">
-            <div className="relative w-full h-48 overflow-hidden rounded-lg group">
+            <div className="relative w-full h-48 overflow-hidden rounded-sm group">
               {getBlogSlug(0) ? (
                 <Link href={`/blogs/${getBlogSlug(0)}`}>
                   <Image
@@ -132,7 +132,7 @@ export default function QuickInfo() {
               return (
                 <div
                   key={idx}
-                  className="relative w-full h-48 overflow-hidden rounded-lg group"
+                  className="relative w-full h-48 overflow-hidden rounded-sm group"
                 >
                   {getBlogSlug(blogIndex) ? (
                     <Link href={`/blogs/${getBlogSlug(blogIndex)}`}>
@@ -173,7 +173,7 @@ export default function QuickInfo() {
               return (
                 <div
                   key={idx}
-                  className="relative w-full h-32 md:h-40 lg:h-48 overflow-hidden rounded-lg group"
+                  className="relative w-full h-32 md:h-40 lg:h-48 overflow-hidden rounded-sm group"
                 >
                   {getBlogSlug(blogIndex) ? (
                     <Link href={`/blogs/${getBlogSlug(blogIndex)}`}>

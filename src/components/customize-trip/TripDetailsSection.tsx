@@ -27,7 +27,7 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
                         min={today}
                         value={formData.arrivalDate}
                         onChange={(e) => onChange('arrivalDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     />
                 </div>
 
@@ -43,7 +43,7 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
                         min={formData.arrivalDate || today}
                         value={formData.departureDate}
                         onChange={(e) => onChange('departureDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     />
                 </div>
 
@@ -57,7 +57,7 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
                         required
                         value={formData.numberOfTravelers}
                         onChange={(e) => onChange('numberOfTravelers', parseInt(e.target.value))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     >
                         <option value="">Select number of travelers</option>
                         {travelerOptions.map((num) => (
@@ -77,7 +77,7 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
                         id="adults"
                         value={formData.adults}
                         onChange={(e) => onChange('adults', parseInt(e.target.value))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     >
                         {travelerOptions.map((num) => (
                             <option key={num} value={num}>
@@ -99,7 +99,7 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
                         step="100"
                         value={formData.totalAmount}
                         onChange={(e) => onChange('totalAmount', parseInt(e.target.value) || 0)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter your budget in USD"
                     />
                     <p className="text-sm text-gray-500 mt-1">
@@ -119,7 +119,7 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
 
             {/* Trip Duration Display */}
             {formData.arrivalDate && formData.departureDate && (
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                <div className="bg-orange-50 border border-orange-200 rounded-sm p-4">
                     <div className="flex items-center">
                         <div className="flex-shrink-0">
                             <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">

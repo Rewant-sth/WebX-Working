@@ -197,7 +197,7 @@ const ExpeditionCards: React.FC = () => {
                       <div className="space-y-1">
                         {/* All Categories Tab */}
                         <button
-                          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${!selectedSubcategory
+                          className={`w-full text-left px-4 py-3 rounded-sm transition-all duration-200 ${!selectedSubcategory
                             ? "bg-[#01283F]/10 text-[#01283F] border border-[#01283F]"
                             : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                             }`}
@@ -276,7 +276,7 @@ const ExpeditionCards: React.FC = () => {
 
                 {/* Category Description (if selected) */}
                 {selectedSubcategory && activeSubcategory?.description && (
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mb-6">
+                  <div className="bg-slate-50 border border-slate-200 rounded-sm p-6 mb-6">
                     <div
                       className="text-slate-700 leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: activeSubcategory.description }}
@@ -311,7 +311,7 @@ const ExpeditionCards: React.FC = () => {
                     return (
                       <div
                         key={card._id || `card-${index}`}
-                        className="bg-white border relative border-slate-200 rounded-lg overflow-hidden hover:border-slate-300 hover:shadow-md transition-all duration-200"
+                        className="bg-white border relative border-slate-200 rounded-sm overflow-hidden hover:border-slate-300 hover:shadow-md transition-all duration-200"
                       >
                         {/* Location Badge */}
                         {card.location && (

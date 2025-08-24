@@ -8,52 +8,70 @@ export interface StepIndicatorProps {
         title: string;
         description: string;
     }>;
+    onStepClick?: (step: number) => void;
 }
 
-export default function StepIndicator({ currentStep, totalSteps, steps }: StepIndicatorProps) {
-    return (
-        <div className="w-full mb-8">
-            {/* Progress Bar */}
-            <div className="flex items-center justify-between mb-6">
-                <div className="flex-1 relative">
-                    <div className="absolute top-1/2 transform -translate-y-1/2 w-full h-1 bg-gray-200 rounded-full">
-                        <div
-                            className="h-full bg-gradient-to-r from-orange-500 to-orange-600 rounded-full transition-all duration-500 ease-out"
-                            style={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
-                        />
-                    </div>
-                    <div className="flex justify-between relative">
-                        {steps.map((step) => (
-                            <div
-                                key={step.id}
-                                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 ${step.id < currentStep
-                                        ? 'bg-orange-500 border-orange-500 text-white'
-                                        : step.id === currentStep
-                                            ? 'bg-orange-500 border-orange-500 text-white ring-4 ring-orange-100'
-                                            : 'bg-white border-gray-300 text-gray-500'
-                                    }`}
-                            >
-                                {step.id < currentStep ? (
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                ) : (
-                                    <span className="text-sm font-semibold">{step.id}</span>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+const stepIcons = {
+    1: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+    ),
+    2: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+    ),
+    3: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+    ),
+    4: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+    )
+};
 
-            {/* Step Information */}
-            <div className="text-center">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                    {steps[currentStep - 1]?.title}
-                </h2>
-                <p className="text-gray-600">
+export default function StepIndicator({ currentStep, totalSteps, steps, onStepClick }: StepIndicatorProps) {
+    const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+
+    const getStepStatus = (stepId: number) => {
+        if (stepId < currentStep) return 'completed';
+        if (stepId === currentStep) return 'current';
+        return 'pending';
+    };
+
+    const canClickStep = (stepId: number) => {
+        // Allow clicking on completed steps and current step
+        return stepId <= currentStep;
+    };
+
+    return (
+        <div className="w-full mb-10">
+
+
+            {/* Current Step Header */}
+            <div className="text-center bg-gradient-to-r from-orange-50 to-orange-100 rounded-sm p-6 border border-orange-200 ">
+                <div className="flex items-center justify-center mb-3">
+                    <div className="bg-orange-500 text-white rounded-full p-2 mr-3">
+                        {stepIcons[currentStep as keyof typeof stepIcons]}
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                        {steps[currentStep - 1]?.title}
+                    </h2>
+                </div>
+                <p className="text-gray-700 text-lg">
                     {steps[currentStep - 1]?.description}
                 </p>
+
+                {/* Progress Text */}
+                <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-600">
+                    <span>Step {currentStep} of {totalSteps}</span>
+                    <span>•</span>
+                    <span>{Math.round((currentStep / totalSteps) * 100)}% Complete</span>
+                </div>
             </div>
         </div>
     );

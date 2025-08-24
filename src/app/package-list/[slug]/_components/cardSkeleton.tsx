@@ -26,7 +26,7 @@ const ExpeditionCardsSkeleton = () => {
       {/* Navigation Skeleton */}
       <div className="relative -mt-8 z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="bg-white border border-slate-200 rounded-lg p-6 animate-pulse">
+          <div className="bg-white border border-slate-200 rounded-sm p-6 animate-pulse">
             <div className="flex flex-wrap gap-2 justify-center">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="w-20 h-9 bg-slate-200 rounded-sm" />
@@ -48,7 +48,7 @@ const ExpeditionCardsSkeleton = () => {
           {skeletonCards.map((_, index) => (
             <div
               key={index}
-              className="bg-white border border-slate-200 rounded-lg overflow-hidden animate-pulse"
+              className="bg-white border border-slate-200 rounded-sm overflow-hidden animate-pulse"
             >
               {/* Image */}
               <div className="relative overflow-hidden h-56 bg-slate-200">
