@@ -139,7 +139,7 @@ export default function CustomizeTripForm() {
         setIsSubmitting(true);
 
         try {
-            const response = await api.post('/booking/customize', formData);
+            const response = await api.post('/custom-booking', formData);
 
             if (response.data.status === 'success') {
                 toast.success('Your customize trip request has been submitted successfully!');

@@ -9,6 +9,7 @@ import { ICategoryResponse } from '@/types/ICategory';
 import { ITravelPackageResponse } from '@/types/IPackages';
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import { StarBorder } from '@/components/ui/moving-border'
 
 interface Category {
   _id: string;
@@ -134,7 +135,9 @@ export default function Navbar() {
         <ul>
           <li className='text-lg text-white'>
             <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
-              Customize Trip
+              <StarBorder color='#fff'>
+                Customize Trip
+              </StarBorder>
             </Link>
           </li>
         </ul>

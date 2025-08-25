@@ -55,10 +55,7 @@ export default function StepIndicator({ currentStep, totalSteps, steps, onStepCl
             {/* Current Step Header */}
             <div className="text-center bg-gradient-to-r from-orange-50 to-orange-100 rounded-sm p-6 border border-orange-200 ">
                 <div className="flex items-center justify-center mb-3">
-                    <div className="bg-orange-500 text-white rounded-full p-2 mr-3">
-                        {stepIcons[currentStep as keyof typeof stepIcons]}
-                    </div>
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-2xl uppercase font-bold text-gray-900">
                         {steps[currentStep - 1]?.title}
                     </h2>
                 </div>

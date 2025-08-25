@@ -1,5 +1,4 @@
 "use client";
-import Footer from "@/components/common/footer/new-footer";
 import ExpeditionPage from "@/components/expedition/ExpeditionPage";
 import Hero from "@/components/hero/Hero";
 import AboutUs from "@/components/home/aboutus";
@@ -14,6 +13,7 @@ const Page = () => {
 
   return (
     <main className="relative font-montserrat">
+     
       <Hero />
       <Intro />
       <AboutUs />

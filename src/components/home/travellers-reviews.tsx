@@ -60,8 +60,6 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
         onSelect();
     }, [emblaApi, onSelect]);
 
-    const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-    const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
     return (
         <div id='reviews' className={`relative w-full flex flex-col py-24 justify-center items-center   ${className}`}>
@@ -88,7 +86,7 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
             )}
 
             {/* Embla viewport */}
-            <div className="overflow-hidden relative max-w-7xl mx-auto w-full" ref={emblaRef}>
+            <div className="overflow-hidden  py-2 relative px-4 mx-auto w-full" ref={emblaRef}>
 
                 {/* Embla container */}
                 <div className="flex ">
@@ -129,19 +127,6 @@ export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' })
                         </div>
                     ))}
                 </div>
-            </div>
-
-
-            {/* Pagination (optional small dots) */}
-            <div className="flex items-center justify-center gap-2 mt-4">
-                {Array.from({ length: Math.max(1, reviews.length) }).map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => emblaApi && emblaApi.scrollTo(i)}
-                        className={`w-2 h-2 rounded-full ${i === selectedIndex ? 'bg-gray-800' : 'bg-gray-300'}`}
-                        aria-label={`Go to slide ${i + 1}`}
-                    />
-                ))}
             </div>
 
 

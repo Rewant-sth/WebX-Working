@@ -1,5 +1,4 @@
-import { ISubCategory } from "./ICategory";
-import { ICategory } from "./ICategory";
+import { ISubCategory, ICategory } from "./ICategory";
 import { IGallery } from "./IGallery";
 
 

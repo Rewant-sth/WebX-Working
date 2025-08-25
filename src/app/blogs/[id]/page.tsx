@@ -1,3 +1,4 @@
+
 import React from "react";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -11,9 +12,9 @@ import { Metadata } from "next/types";
 export const revalidate = 3600; // Revalidate every hour
 
 interface BlogPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 async function getBlogData(id: string) {
@@ -27,7 +28,8 @@ async function getBlogData(id: string) {
 }
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
-  const data = await getBlogData(params.id);
+  const { id } = await params;
+  const data = await getBlogData(id);
 
   if (!data?.data) {
     return {
@@ -42,7 +44,8 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
-  const data = await getBlogData(params.id);
+  const { id } = await params;
+  const data = await getBlogData(id);
 
   if (!data?.data) {
     notFound();

@@ -58,11 +58,11 @@ export default function QuickInfo() {
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-4 w-full">
-      <div className="w-11/12 relative mx-auto grid md:grid-cols-3 gap-12 items-center">
+      <div className="w-11/12 relative mx-auto grid md:grid-cols-3 gap-6 items-center">
         <div className="absolute top-0 left-0">
-          <h2 className="text-6xl pb-12 text-left font-semibold max-w-3xl leading-snug text-gray-900">
-            <span className="bg-orange-500 text-white px-4">Understand</span>{" "}
-            Tales of Real Himalaya{" "}
+          <h2 className="text-4xl pb-12 text-left font-semibold max-w-3xl leading-snug text-gray-900">
+            <span className="bg-orange-500 text-white px-4">Understanding</span>{" "}
+            Tales of Mountains with Real Himalaya{" "}
             <span className="bg-orange-500 text-white px-4">platforms</span>
           </h2>
         </div>
@@ -82,10 +82,11 @@ export default function QuickInfo() {
             </div>
 
             {/* Description */}
-            <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+            <p className="text-gray-600 text-justify leading-relaxed max-w-xl">
               Discover insider secrets, survival stories, and expert tips from
               seasoned mountaineers. Our curated collection of adventure guides
               will transform your next expedition into an unforgettable journey.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur est amet tempore culpa incidunt? Tempora itaque alias ipsa. Perspiciatis, optio molestias aperiam architecto ullam repudiandae.
             </p>
           </div>
         </div>
