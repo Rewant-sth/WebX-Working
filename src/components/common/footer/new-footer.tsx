@@ -51,9 +51,9 @@ export default function Footer() {
       </div>
       {/* footer expert part */}
 
-      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-[57dvh] w-full mb-20 ">
+      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center h-full md:h-[57dvh] w-full mb-20 ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
-          <div className="h-[30dvh]  max-w-7xl w-full  mt-6">
+          <div className="md:h-[30dvh]  max-w-7xl w-full  mt-6">
             <TalkToExperts />
           </div>
         </div>
@@ -95,14 +95,18 @@ export default function Footer() {
             </div>
           </div>
           <div className="max-w-7xl  border-t border-dashed pt-4 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
-            <p>Designed and developed by WebX Nepal</p>
-            <div className="">
+            <div className="flex w-full justify-between items-center gap-6 flex-wrap">
+              <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya</p>
               <ul className="flex gap-6">
                 <li><Icon className='size-7' icon="mdi:facebook" /></li>
                 <li><Icon className='size-7' icon="mdi:instagram" /></li>
                 <li><Icon className='size-7' icon="mdi:linkedin" /></li>
                 <li><Icon className='size-7' icon="mdi:twitter" /></li>
               </ul>
+              <p>Designed and developed by WebX Nepal</p>
+            </div>
+            <div className="">
+
             </div>
           </div>
         </div>

@@ -1,19 +1,30 @@
 import { CustomizeTripFormData } from './types';
+import FormSummary from './FormSummary';
+import { ITravelPackage } from '@/types/IPackages';
 
 interface TripDetailsSectionProps {
     formData: CustomizeTripFormData;
+    packages: ITravelPackage[];
     onChange: (field: keyof CustomizeTripFormData, value: any) => void;
 }
 
-export default function TripDetailsSection({ formData, onChange }: TripDetailsSectionProps) {
-    // Generate traveler options (1-20 people)
-    const travelerOptions = Array.from({ length: 20 }, (_, i) => i + 1);
-
+export default function TripDetailsSection({ formData, packages, onChange }: TripDetailsSectionProps) {
     // Get today's date for minimum date selection
     const today = new Date().toISOString().split('T')[0];
 
     return (
         <div className="space-y-6">
+            {/* Form Summary */}
+            <FormSummary formData={formData} packages={packages} />
+
+            {/* Header */}
+            <div className="border-b pb-4 border-gray-200">
+                <h2 className="text-2xl font-semibold">Trip Details</h2>
+                <p className="mt-2 max-w-2xl text-gray-600">
+                    When would you like to travel? Please select your preferred dates.
+                </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Arrival Date */}
                 <div>
@@ -44,75 +55,6 @@ export default function TripDetailsSection({ formData, onChange }: TripDetailsSe
                         value={formData.departureDate}
                         onChange={(e) => onChange('departureDate', e.target.value)}
                         className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    />
-                </div>
-
-                {/* Number of Travelers */}
-                <div>
-                    <label htmlFor="numberOfTravelers" className="block text-sm font-medium text-gray-700 mb-2">
-                        Number of Travelers <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                        id="numberOfTravelers"
-                        required
-                        value={formData.numberOfTravelers}
-                        onChange={(e) => onChange('numberOfTravelers', parseInt(e.target.value))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    >
-                        <option value="">Select number of travelers</option>
-                        {travelerOptions.map((num) => (
-                            <option key={num} value={num}>
-                                {num} {num === 1 ? 'Person' : 'People'}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                {/* Adults (same as number of travelers for now) */}
-                <div>
-                    <label htmlFor="adults" className="block text-sm font-medium text-gray-700 mb-2">
-                        Number of Adults
-                    </label>
-                    <select
-                        id="adults"
-                        value={formData.adults}
-                        onChange={(e) => onChange('adults', parseInt(e.target.value))}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    >
-                        {travelerOptions.map((num) => (
-                            <option key={num} value={num}>
-                                {num} Adult{num !== 1 ? 's' : ''}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                {/* Total Amount */}
-                <div>
-                    <label htmlFor="totalAmount" className="block text-sm font-medium text-gray-700 mb-2">
-                        Estimated Budget (USD)
-                    </label>
-                    <input
-                        type="number"
-                        id="totalAmount"
-                        min="0"
-                        step="100"
-                        value={formData.totalAmount}
-                        onChange={(e) => onChange('totalAmount', parseInt(e.target.value) || 0)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                        placeholder="Enter your budget in USD"
-                    />
-                    <p className="text-sm text-gray-500 mt-1">
-                        Optional: This helps us recommend suitable packages
-                    </p>
-                </div>
-
-                {/* Fixed Date ID (hidden field for now, can be used for specific date packages) */}
-                <div className="hidden">
-                    <input
-                        type="text"
-                        value={formData.fixedDateId}
-                        onChange={(e) => onChange('fixedDateId', e.target.value)}
                     />
                 </div>
             </div>

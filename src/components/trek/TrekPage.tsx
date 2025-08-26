@@ -85,7 +85,7 @@ function TrekPage() {
 
   return (
     <section
-      className=" h-full space-y-3 py-24 p-6 mx-auto snap-start relative"
+      className=" h-full space-y-3 py-24 p-4 sm:p-6 mx-auto snap-start relative"
     >
       <h2 className="text-4xl text-center font-semibold">
         <span className="bg-orange-500 px-2 text-white">Timeless</span>  Expedition
@@ -94,9 +94,9 @@ function TrekPage() {
         Journeys that transcend time — crafted to create memories that last forever.
       </p>
 
-      <div className="mt-10 grid grid-cols-4 gap-3">
+      <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-3">
         {expeditionPackages.length > 0 ? (
-          expeditionPackages.reverse().map((pkg, index) => (
+          expeditionPackages.map((pkg, index) => (
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}

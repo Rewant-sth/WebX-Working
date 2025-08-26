@@ -459,3 +459,7 @@ body {
 
     /* Add other Tailwind colors you want */
 }
+
+button:disabled {
+    cursor: not-allowed !important;
+}

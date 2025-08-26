@@ -58,8 +58,8 @@ export default function QuickInfo() {
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-4 w-full">
-      <div className="w-11/12 relative mx-auto grid md:grid-cols-3 gap-6 items-center">
-        <div className="absolute top-0 left-0">
+      <div className="w-11/12 relative mx-auto lg:grid md:grid-cols-3 gap-6 items-center">
+        <div className="lg:*:absolute top-0 left-0">
           <h2 className="text-4xl pb-12 text-left font-semibold max-w-3xl leading-snug text-gray-900">
             <span className="bg-orange-500 text-white px-4">Understanding</span>{" "}
             Tales of Mountains with Real Himalaya{" "}

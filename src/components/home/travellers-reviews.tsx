@@ -7,7 +7,7 @@ import { Testimonial } from '@/types/ITestimonial';
 import { useTestimonials } from '@/hooks/useTestimonials';
 
 
-export default function EmblaCarousel({ slides = [1, 2, 3, 4], className = '' }) {
+export default function EmblaCarousel({ className = '' }: { className?: string }) {
     // Fetch testimonials using custom hook
     const { data: testimonialsData, isLoading, error } = useTestimonials();
 

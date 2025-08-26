@@ -8,11 +8,13 @@ import { ITravelPackageResponse } from '@/types/IPackages';
 import PersonalInfoSection from './PersonalInfoSection';
 import TripDetailsSection from './TripDetailsSection';
 import AdditionalInfoSection from './AdditionalInfoSection';
-import StepIndicator from './StepIndicator';
 import FormNavigation from './FormNavigation';
 import { CustomizeTripFormData } from './types';
 import { useFormValidation } from './useFormValidation';
 import PackagesSelect from './PackagesSelect';
+import GroupSizeSelect from './GroupSizeSelect';
+import BudgetSelect from './BudgetSelect';
+import Image from 'next/image';
 
 const initialFormData: CustomizeTripFormData = {
     personalInfo: [{
@@ -32,16 +34,19 @@ const initialFormData: CustomizeTripFormData = {
     departureDate: '',
     numberOfTravelers: 1,
     package: '',
+    groupSize: '',
+    budget: '',
+    customBudget: 0,
     message: '',
     specialRequirements: '',
     termsAccepted: false
 };
 
 const FORM_STEPS = [
-    { id: 1, title: 'Personal Information', description: 'Tell us about yourself' },
-    { id: 2, title: 'Trip Details', description: 'When and how many travelers' },
-    { id: 3, title: 'Package Selection', description: 'Choose your adventure' },
-    { id: 4, title: 'Additional Info', description: 'Special requirements and preferences' }
+    { id: 1, title: 'Package Selection', description: 'Choose your adventure' },
+    { id: 2, title: 'Group Size', description: 'Solo, duo, or group?' },
+    { id: 3, title: 'Budget', description: 'Set your budget range' },
+    { id: 4, title: 'Trip Details & Personal Info', description: 'Travel dates, personal info & requirements' }
 ];
 
 export default function CustomizeTripForm() {
@@ -161,21 +166,6 @@ export default function CustomizeTripForm() {
         switch (currentStep) {
             case 1:
                 return (
-                    <PersonalInfoSection
-                        personalInfo={formData.personalInfo[0]}
-                        onChange={(field, value) => handleInputChange(`personalInfo.${field}`, value, 0)}
-                        errors={validationErrors}
-                    />
-                );
-            case 2:
-                return (
-                    <TripDetailsSection
-                        formData={formData}
-                        onChange={handleInputChange}
-                    />
-                );
-            case 3:
-                return (
                     <PackagesSelect
                         packages={packagesData?.data || []}
                         selectedPackage={formData.package}
@@ -183,14 +173,49 @@ export default function CustomizeTripForm() {
                         onChange={(packageId) => handleInputChange('package', packageId)}
                     />
                 );
-            case 4:
+            case 2:
                 return (
-                    <AdditionalInfoSection
-                        message={formData.message}
-                        specialRequirements={formData.specialRequirements}
-                        termsAccepted={formData.termsAccepted}
+                    <GroupSizeSelect
+                        selectedGroupSize={formData.groupSize}
+                        numberOfTravelers={formData.numberOfTravelers}
                         onChange={handleInputChange}
                     />
+                );
+            case 3:
+                return (
+                    <BudgetSelect
+                        selectedBudget={formData.budget}
+                        customBudget={formData.customBudget}
+                        numberOfTravelers={formData.numberOfTravelers}
+                        onChange={handleInputChange}
+                    />
+                );
+            case 4:
+                return (
+                    <div className="space-y-8">
+                        <PersonalInfoSection
+                            personalInfo={formData.personalInfo[0]}
+                            onChange={(field, value) => handleInputChange(`personalInfo.${field}`, value, 0)}
+                            errors={validationErrors}
+                        />
+                        <div className="border-t pt-8 border-gray-200">
+                            <TripDetailsSection
+                                formData={formData}
+                                packages={packagesData?.data || []}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="border-t pt-8 border-gray-200">
+                            <AdditionalInfoSection
+                                message={formData.message}
+                                specialRequirements={formData.specialRequirements}
+                                termsAccepted={formData.termsAccepted}
+                                formData={formData}
+                                packages={packagesData?.data || []}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                    </div>
                 );
             default:
                 return null;
@@ -198,34 +223,41 @@ export default function CustomizeTripForm() {
     };
 
     return (
-        <div className="min-h-screen relative z-50 bg-gradient-to-br from-blue-50 via-white to-orange-50 py-12 px-4">
-            <div className="max-w-6xl mx-auto">
+        <div className=" relative z-50 scroll-smooth bg-gradient-to-br from-blue-50 via-white to-orange-50 ">
+            <div className=" ">
                 {/* Header */}
-                <div className="text-center mb-12">
+                <div
+                    className=" mb-12 relative h-[70dvh] ">
+                    <div className="absolute inset-0 z-40 w-full h-full">
+                        <div className="h-full w-full relative ">
+                            <Image fill src={"/EXPEDITION/kailash.jpg"} alt='customize trip image' className='object-cover' />
+                        </div>
+                    </div>
+                    <div
+                        style={{
+                            textShadow: '2px 2px 15px rgba(0, 0, 0, 0.3)'
+                        }}
+                        className="relative z-50 bg-black/25 w-full h-full flex justify-center items-center flex-col">
+                        <h1
 
-                    <h1 className="text-4xl  uppercase font-bold text-gray-900 mb-2 leading-tight">
-                        Customize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">Dream Trip</span>
-                    </h1>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                        Create your perfect adventure in the Himalayas. Tell us about your preferences,
-                        and we'll craft an unforgettable journey just for you.
-                    </p>
+                            className="text-4xl  uppercase font-bold text-gray-100 mb-2 leading-tight">
+                            Customize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">Dream Trip</span>
+                        </h1>
+                        <p className="text-xl text-gray-100 text-center max-w-3xl  leading-relaxed">
+                            Create your perfect adventure in the Himalayas. Tell us about your preferences,
+                            and we'll craft an unforgettable journey just for you.
+                        </p>
+                    </div>
                 </div>
 
                 {/* Form */}
-                <div className="rounded-sm  overflow-hidden border border-gray-100 backdrop-blur-sm bg-white/95">
-                    <div className="p-8 lg:p-12">
-                        {/* Step Indicator */}
-                        <StepIndicator
-                            currentStep={currentStep}
-                            totalSteps={FORM_STEPS.length}
-                            steps={FORM_STEPS}
-                            onStepClick={handleStepClick}
-                        />
+                <div id='customize-trip-form' className="rounded-sm max-w-7xl mx-auto  px-6  overflow-hidden ">
+                    <div className="">
+
 
                         {/* Form Content */}
-                        <div className="min-h-[600px]  rounded-sm p-8 border border-gray-100 shadow-inner">
-                            <div className="bg-white rounded-sm p-6  border border-gray-100 min-h-[500px]">
+                        <div className="  rounded-sm p-8 ">
+                            <div className="bg- rounded-sm">
                                 {renderCurrentStep()}
                             </div>
                         </div>

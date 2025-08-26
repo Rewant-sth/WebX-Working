@@ -132,7 +132,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex gap-10 items-center">
-        <ul>
+        <ul className='hidden  sm:block'>
           <li className='text-lg text-white'>
             <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
               <StarBorder color='#fff'>
@@ -162,13 +162,6 @@ export default function Navbar() {
           </Link>
 
           <div className="flex gap-10 items-center">
-            <ul>
-              <li className='text-lg text-white'>
-                <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
-                  Customize Trip
-                </Link>
-              </li>
-            </ul>
             <button
               onClick={handleClose}
               className='w-fit px-6 pr-1 py-1 rounded-sm flex gap-4 items-center bg-white hover:bg-gray-100 shrink-0 text-[#0d1117] transition-all duration-300 hover:shadow-lg hover:scale- active:scale-95'

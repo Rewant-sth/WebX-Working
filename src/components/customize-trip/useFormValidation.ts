@@ -8,6 +8,44 @@ export interface ValidationErrors {
 export function useFormValidation(formData: CustomizeTripFormData, currentStep: number) {
     const validateStep1 = (): ValidationErrors => {
         const errors: ValidationErrors = {};
+
+        if (!formData.package) {
+            errors.package = 'Please select a package';
+        }
+
+        return errors;
+    };
+
+    const validateStep2 = (): ValidationErrors => {
+        const errors: ValidationErrors = {};
+
+        if (!formData.groupSize) {
+            errors.groupSize = 'Please select a group size';
+        }
+
+        if (!formData.numberOfTravelers || formData.numberOfTravelers < 1) {
+            errors.numberOfTravelers = 'Please specify number of travelers';
+        }
+
+        return errors;
+    };
+
+    const validateStep3 = (): ValidationErrors => {
+        const errors: ValidationErrors = {};
+
+        if (!formData.budget) {
+            errors.budget = 'Please select a budget range';
+        }
+
+        if (formData.budget === 'custom' && (!formData.customBudget || formData.customBudget <= 0)) {
+            errors.customBudget = 'Please enter a valid budget amount';
+        }
+
+        return errors;
+    };
+
+    const validateStep4 = (): ValidationErrors => {
+        const errors: ValidationErrors = {};
         const person = formData.personalInfo[0];
 
         if (!person.fullName.trim()) {
@@ -31,7 +69,7 @@ export function useFormValidation(formData: CustomizeTripFormData, currentStep: 
         return errors;
     };
 
-    const validateStep2 = (): ValidationErrors => {
+    const validateStep5 = (): ValidationErrors => {
         const errors: ValidationErrors = {};
 
         if (!formData.arrivalDate) {
@@ -48,24 +86,10 @@ export function useFormValidation(formData: CustomizeTripFormData, currentStep: 
             }
         }
 
-        if (!formData.numberOfTravelers || formData.numberOfTravelers < 1) {
-            errors.numberOfTravelers = 'Please select number of travelers';
-        }
-
         return errors;
     };
 
-    const validateStep3 = (): ValidationErrors => {
-        const errors: ValidationErrors = {};
-
-        if (!formData.package) {
-            errors.package = 'Please select a package or choose custom package';
-        }
-
-        return errors;
-    };
-
-    const validateStep4 = (): ValidationErrors => {
+    const validateStep6 = (): ValidationErrors => {
         const errors: ValidationErrors = {};
 
         if (!formData.termsAccepted) {
@@ -78,13 +102,17 @@ export function useFormValidation(formData: CustomizeTripFormData, currentStep: 
     const validationErrors = useMemo(() => {
         switch (currentStep) {
             case 1:
-                return validateStep1();
+                return validateStep1(); // Package Selection
             case 2:
-                return validateStep2();
+                return validateStep2(); // Group Size
             case 3:
-                return validateStep3();
+                return validateStep3(); // Budget
             case 4:
-                return validateStep4();
+                return validateStep4(); // Personal Information
+            case 5:
+                return validateStep5(); // Trip Details
+            case 6:
+                return validateStep6(); // Additional Info
             default:
                 return {};
         }
@@ -99,7 +127,9 @@ export function useFormValidation(formData: CustomizeTripFormData, currentStep: 
             ...validateStep1(),
             ...validateStep2(),
             ...validateStep3(),
-            ...validateStep4()
+            ...validateStep4(),
+            ...validateStep5(),
+            ...validateStep6()
         };
     };
 

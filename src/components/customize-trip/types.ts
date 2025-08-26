@@ -18,6 +18,9 @@ export interface CustomizeTripFormData {
     departureDate: string;
     numberOfTravelers: number;
     package: string;
+    groupSize: string;
+    budget: string;
+    customBudget: number;
     message: string;
     specialRequirements: string;
     termsAccepted: boolean;
