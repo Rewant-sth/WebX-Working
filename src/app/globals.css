@@ -294,8 +294,26 @@ body {
     src: url('/public/fonts/montserrat.ttf');
 }
 
+@font-face {
+    font-family: "Amanojaku";
+    src: url('/fonts/Amanojaku.otf');
+}
+
+@font-face {
+    font-family: "Ocean Brush Demo";
+    src: url('/fonts/OceanBrushDEMO-Solid.otf');
+}
+
 .font-montserrat {
     font-family: "Montserrat", sans-serif;
+}
+
+.font-amanojaku {
+    font-family: "Amanojaku", serif;
+}
+
+.font-ocean-brush {
+    font-family: "Ocean Brush Demo", cursive;
 }
 
 .image-card {
