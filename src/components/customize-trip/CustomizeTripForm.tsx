@@ -256,7 +256,7 @@ export default function CustomizeTripForm() {
 
 
                         {/* Form Content */}
-                        <div className="  rounded-sm p-8 ">
+                        <div className="  rounded-sm p-6">
                             <div className="bg- rounded-sm">
                                 {renderCurrentStep()}
                             </div>

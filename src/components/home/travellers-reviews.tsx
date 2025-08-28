@@ -45,7 +45,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
     const reviews = activeTestimonials.length > 0 ? activeTestimonials : fallbackReviews;
     // Embla hook
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
-        Autoplay({ delay: 3000, stopOnInteraction: false, stopOnMouseEnter: true }),
+        Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true }),
     ]);
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -64,7 +64,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
     return (
         <div id='reviews' className={`relative w-full flex flex-col py-24 justify-center items-center   ${className}`}>
 
-            <h2 className='text-4xl pb-10 text-center font-semibold max-w-xl leading-12'>
+            <h2 className='text-xl md:text-4xl pb-10 text-center font-semibold max-w-xl leading-6 mx-4 md:leading-12'>
                 <span className='bg-orange-500 text-white px-4 '>
                     Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>
                     platforms</span>
@@ -86,18 +86,14 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
             )}
 
             {/* Embla viewport */}
-            <div className="overflow-hidden  py-2 relative px-4 mx-auto w-full" ref={emblaRef}>
+            <div className="overflow-hidden  py-2 relative md:px-4 mx-auto w-full" ref={emblaRef}>
 
                 {/* Embla container */}
                 <div className="flex ">
                     {reviews.map((slide: Testimonial | Partial<Testimonial>, idx: number) => (
                         <div
                             key={slide._id || idx}
-                            className="embla__slide flex-none px-3"
-                            style={{
-                                minWidth: '38%',
-                                maxWidth: '38%',
-                            }}
+                            className="embla__slide flex-none px-3 w-full md:w-1/2 lg:w-1/3"
                         >
                             <div className="min-h-96  border py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
                                 {/* Signature */}

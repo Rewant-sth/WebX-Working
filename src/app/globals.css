@@ -296,7 +296,7 @@ body {
 
 @font-face {
     font-family: "Amanojaku";
-    src: url('/fonts/Amanojaku.otf');
+    src: url('/fonts/Crosshatcher D.otf');
 }
 
 @font-face {
@@ -309,7 +309,7 @@ body {
 }
 
 .font-amanojaku {
-    font-family: "Amanojaku", serif;
+    font-family: "Amanojaku", sans-serif;
 }
 
 .font-ocean-brush {
@@ -480,4 +480,18 @@ body {
 
 button:disabled {
     cursor: not-allowed !important;
+}
+
+/* Embla Carousel Styles */
+.embla {
+    overflow: hidden;
+}
+
+.embla__container {
+    display: flex;
+}
+
+.embla__slide {
+    flex: 0 0 auto;
+    min-width: 0;
 }

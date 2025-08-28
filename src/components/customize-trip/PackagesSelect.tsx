@@ -63,7 +63,6 @@ export default function PackagesSelect({
             ">
                 <div className="">
                     <h2 className='text-2xl  font-semibold'>Select Your Package</h2>
-                    <p className='mt-2 max-w-2xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo voluptas modi, enim non fugit reprehenderit velit quasi totam magni quibusdam.</p>
                 </div>
                 <div className="relative h-fit">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

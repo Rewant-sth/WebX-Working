@@ -185,7 +185,7 @@ const Page = () => {
           </div>
 
           <div
-            className={`sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all duration-300 transform ${isStickyVisible ? 'translate-y-0' : 'translate-y-full'
+            className={`sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all z-[99] duration-300 transform ${isStickyVisible ? 'translate-y-0' : 'translate-y-full'
               } ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
               }`}
           >

@@ -126,9 +126,9 @@ export default function Navbar() {
   }, [categories, selectedCategory]);
 
   return (
-    <nav className='fixed left-0 w-full top-0 z-[99999]  bg-transparent p-6 py-3 flex justify-between items-center '>
+    <nav className='fixed left-0 w-full top-0 z-[99999]   p-6 py-3 flex justify-between items-center '>
       <Link href={"/"} className="w-40 transition-transform duration-300 hover:scale-105">
-        <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto" />
+        <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
       </Link>
 
       <div className="flex gap-10 items-center">

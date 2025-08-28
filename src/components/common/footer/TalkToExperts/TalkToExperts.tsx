@@ -44,7 +44,7 @@ const TalkToExperts: React.FC = () => {
 
   return (
     <section className=" z-[99] relative mx-auto max-w-6xl">
-      <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-800 text-center">
+      <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-800 text-center">
         Talk to Our Experts
       </h1>
       <div className="flex mt-8 justify-center items-center flex-wrap gap-4 ">
@@ -58,7 +58,7 @@ const TalkToExperts: React.FC = () => {
               return (
                 <div
                   key={expert._id}
-                  className="grid grid-cols-2 transition-all duration-500 cursor-pointer gap-6  items-center p-2 w-full md:max-w-[360px] text-[#01283F] border rounded-sm"
+                  className="grid grid-cols-2 transition-all duration-500 cursor-pointer gap-6  items-center p-1 md:p-2 w-full md:max-w-[360px] text-[#01283F] border rounded-sm"
                 >
                   <div>
                     <Image
