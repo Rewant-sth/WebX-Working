@@ -40,7 +40,7 @@ const ItineraryDay = ({
   description,
   expanded: initialExpanded = true,
   data,
-  isFirst = false
+  isFirst = false,
 }: ItineraryDayProps) => {
   const [expanded, setExpanded] = useState(isFirst);
 
@@ -51,20 +51,18 @@ const ItineraryDay = ({
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center gap-4">
-          <span
-            className="rounded-sm px-4 bg-[#F05E25] py-2 text-sm font-semibold text-white"
-          >
-            Day {day.toString().padStart(2, "0")}
+          <span className="rounded-sm px-4 bg-[#F05E25] py-2 text-sm font-semibold text-white">
+            Day {day?.toString()?.padStart(2, "0")}
           </span>
-          <h3 className="font-semibold text-lg" style={{ color: '#3A3A3A' }}>
+          <h3 className="font-semibold text-lg" style={{ color: "#3A3A3A" }}>
             {title}
           </h3>
         </div>
         <div
           className="transition-transform duration-300 ease-in-out"
           style={{
-            color: '#f05e25',
-            transform: expanded ? "rotate(90deg)" : "rotate(0deg)"
+            color: "#f05e25",
+            transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
           }}
         >
           <ChevronRight size={20} />
@@ -72,8 +70,9 @@ const ItineraryDay = ({
       </div>
 
       <div
-        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          }`}
+        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${
+          expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
       >
         <div className="px-6 pb-6">
           <p className="text-gray-600 text-base leading-relaxed pt-4 mb-6">
@@ -81,81 +80,70 @@ const ItineraryDay = ({
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {
-              data?.duration && (
-                <div className="flex  gap-4">
-                  <div
-                    className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0"
-                  >
-                    <img src="/icons/time.png" alt="time" />
-
-                  </div>
-                  <div className="flex flex-col">
-                    <h3 className="font-semibold leading-4 text-lg mb-1">
-                      Duration
-                    </h3>
-                    <p className=" text-gray-600">{data.duration}</p>
-                  </div>
+            {data?.duration && (
+              <div className="flex  gap-4">
+                <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
+                  <img src="/icons/time.png" alt="time" />
                 </div>
-              )
-            }
-
-            {
-              data?.maxAltitude && (
-                <div className="flex items-start gap-4">
-                  <div
-                    className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0"
-                  >
-                    <img src="/icons/mountain.png" alt="mountain" />
-
-                  </div>
-                  <div className="flex flex-col">
-                    <h3 className="font-semibold leading-4  mb-1" >
-                      Max Altitude
-                    </h3>
-                    <p className="t text-gray-600">{data.maxAltitude} m</p>
-                  </div>
+                <div className="flex flex-col">
+                  <h3 className="font-semibold leading-4 text-lg mb-1">
+                    Duration
+                  </h3>
+                  <p className=" text-gray-600">{data.duration}</p>
                 </div>
-              )
-            }
+              </div>
+            )}
 
-            {
-              data?.accommodation && (
-                <div className="flex items-start gap-3">
-                  <div
-                    className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0"
-                  >
-                    <img src="/icons/mansion.png" alt="time" />
-
-                  </div>
-                  <div className="flex flex-col">
-                    <h3 className="font-semibold leading-4 mb-1" >
-                      Accommodation
-                    </h3>
-                    <p className=" text-gray-600">{data.accommodation}</p>
-                  </div>
+            {data?.maxAltitude && (
+              <div className="flex items-start gap-4">
+                <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
+                  <img src="/icons/mountain.png" alt="mountain" />
                 </div>
-              )
-            }
-
-            {
-              data?.meals && (
-                <div className="flex items-start gap-3">
-                  <div
-                    className="rounded-full p-2 flex items-center justify-center w-10 h-10 shrink-0"
-                    style={{ backgroundColor: '#fff5f0', border: '1px solid #f05e25' }}
-                  >
-                    <Utensils className="w-5 h-5" style={{ color: '#f05e25' }} />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="font-semibold text-sm mb-1" style={{ color: '#3A3A3A' }}>
-                      Meals
-                    </p>
-                    <p className="text-sm text-gray-600">{data.meals}</p>
-                  </div>
+                <div className="flex flex-col">
+                  <h3 className="font-semibold leading-4  mb-1">
+                    Max Altitude
+                  </h3>
+                  <p className="t text-gray-600">{data.maxAltitude} m</p>
                 </div>
-              )
-            }
+              </div>
+            )}
+
+            {data?.accommodation && (
+              <div className="flex items-start gap-3">
+                <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
+                  <img src="/icons/mansion.png" alt="time" />
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="font-semibold leading-4 mb-1">
+                    Accommodation
+                  </h3>
+                  <p className=" text-gray-600">{data.accommodation}</p>
+                </div>
+              </div>
+            )}
+
+            {data?.meals && (
+              <div className="flex items-start gap-3">
+                <div
+                  className="rounded-full p-2 flex items-center justify-center w-10 h-10 shrink-0"
+                  style={{
+                    backgroundColor: "#fff5f0",
+                    border: "1px solid #f05e25",
+                  }}
+                >
+                  <Utensils className="w-5 h-5" style={{ color: "#f05e25" }} />
+                </div>
+                <div className="flex flex-col">
+                  <p
+                    className="font-semibold text-sm mb-1"
+                    style={{ color: "#3A3A3A" }}
+                  >
+                    Meals
+                  </p>
+                  <p className="text-sm text-gray-600">{data.meals}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -181,13 +169,14 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
         </span>
       </h2>
       <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
-        Follow our detailed day-by-day itinerary to understand what each day of your adventure will bring.
+        Follow our detailed day-by-day itinerary to understand what each day of
+        your adventure will bring.
       </p>
 
       <div className="space-y-4">
         {displayedData?.map((day, index) => (
           <ItineraryDay
-            key={day._id}
+            key={day._id || index}
             day={day.days}
             title={day.title}
             description={day.description}
@@ -203,7 +192,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
           <button
             onClick={() => setShowAll(!showAll)}
             className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-sm hover:opacity-90 transition-all duration-200"
-            style={{ backgroundColor: '#f05e25' }}
+            style={{ backgroundColor: "#f05e25" }}
           >
             {showAll ? (
               <>
@@ -229,16 +218,14 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
       <div
         className="p-6 mt-8 rounded-sm border transition-all duration-200"
         style={{
-          backgroundColor: '#fff5f0',
-          borderColor: '#f05e25'
+          backgroundColor: "#fff5f0",
+          borderColor: "#f05e25",
         }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center" style={{ color: '#f05e25' }}>
+          <div className="flex items-center" style={{ color: "#f05e25" }}>
             <Info size={20} className="mr-3" />
-            <p className="text-lg font-semibold">
-              Need Help Planning?
-            </p>
+            <p className="text-lg font-semibold">Need Help Planning?</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -269,7 +256,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
             <Link
               href="/contact-us"
               className="ml-2 rounded-full w-10 h-10 flex items-center justify-center text-white hover:opacity-90 transition-all duration-200"
-              style={{ backgroundColor: '#3A3A3A' }}
+              style={{ backgroundColor: "#3A3A3A" }}
             >
               <PhoneCall size={16} />
             </Link>
