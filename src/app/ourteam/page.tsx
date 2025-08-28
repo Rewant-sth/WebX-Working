@@ -23,10 +23,10 @@ const OurTeam: React.FC = () => {
 
   return (
     <div className="space-y-16 mt-[4rem]">
-      <div className="min-h-[90dvh] p-6 gap-3 w-full  grid grid-cols-2">
+      <div className="min-h-[90dvh] p-6 gap-3 w-full  grid lg:grid-cols-2">
         <div className="grid grid-rows-2">
           <div className="h-full flex flex-col justify-between pb-10 w-full ">
-            <h2 className="text-6xl font-semibold">
+            <h2 className="text-4xl lg:text-6xl font-semibold">
               <span className="flex gap-2 items-center">Meet our <Icon icon={"mynaui:arrow-long-right"} className="pt-4" /></span>
               Reason for excellence
             </h2>
@@ -59,7 +59,7 @@ const OurTeam: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="h-full w-full  relative rounded-sm group overflow-hidden">
+        <div className="h-[45dvh] lg:h-full w-full   relative rounded-sm group overflow-hidden">
           <Image src={"/teams/ceo.jpg"} fill alt="ceo" className="object-cover grayscale-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300" />
           <div className="absolute flex w-full items-end inset-0 bg-black/10">
             <div className="p-6 text-white flex w-full justify-between gap-6  items-end">
@@ -76,9 +76,9 @@ const OurTeam: React.FC = () => {
       </div>
 
       <div className="p-6">
-        <h2 className="text-6xl font-semibold  ">Our Heroes <br /> Who Made it  Possible</h2>
+        <h2 className="text-4xl lg:text-6xl font-semibold  ">Our Heroes <br /> Who Made it  Possible</h2>
         <p className="max-w-2xl mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum at velit ex quibusdam corporis consequatur veniam delectus illum voluptatibus voluptate. Lorem ipsum dolor sit.</p>
-        <div className="grid mt-10 grid-cols-3 gap-4">
+        <div className="grid mt-10 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data?.data?.map((member) => (
             <div key={member._id} className="bg-white aspect-square p-4 rounded-sm group overflow-hidden  relative">
               <Image fill src={member.image} alt={member.name} className="object-cover grayscale-100 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300" />

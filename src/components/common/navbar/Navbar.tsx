@@ -126,13 +126,13 @@ export default function Navbar() {
   }, [categories, selectedCategory]);
 
   return (
-    <nav className='fixed left-0 w-full top-0 z-[99999]  bg-transparent p-6 py-3 flex justify-between items-center '>
+    <nav className='fixed left-0 w-full top-0 z-[99999]   p-6 py-3 flex justify-between items-center '>
       <Link href={"/"} className="w-40 transition-transform duration-300 hover:scale-105">
-        <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto" />
+        <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
       </Link>
 
       <div className="flex gap-10 items-center">
-        <ul>
+        <ul className='hidden  sm:block'>
           <li className='text-lg text-white'>
             <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
               <StarBorder color='#fff'>
@@ -162,13 +162,6 @@ export default function Navbar() {
           </Link>
 
           <div className="flex gap-10 items-center">
-            <ul>
-              <li className='text-lg text-white'>
-                <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
-                  Customize Trip
-                </Link>
-              </li>
-            </ul>
             <button
               onClick={handleClose}
               className='w-fit px-6 pr-1 py-1 rounded-sm flex gap-4 items-center bg-white hover:bg-gray-100 shrink-0 text-[#0d1117] transition-all duration-300 hover:shadow-lg hover:scale- active:scale-95'

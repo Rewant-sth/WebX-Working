@@ -105,7 +105,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               />
 
               {/* Author & Meta Info */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-6 border-y border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-6  border-gray-200">
                 <div className="flex items-center space-x-4 mb-4 sm:mb-0">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm flex items-center justify-center">
                     <img src="/logo/logo.svg" alt="" />
@@ -127,7 +127,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
             </article>
 
             {/* Share Section */}
-            <div className="mt-16 pt-8 border-t border-gray-200">
+            <div className="mt-6 pt-8 border-t border-gray-200">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 sm:mb-0">
                   Share this article
@@ -155,20 +155,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               </div>
             </div>
 
-            {/* Related Articles CTA */}
-            <div className="mt-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-sm p-8 text-center text-white">
-              <h3 className="text-2xl font-bold mb-4">Explore More Adventures</h3>
-              <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
-                Discover more inspiring stories, expert tips, and breathtaking journeys from the Himalayas.
-              </p>
-              <Link
-                href="/blogs"
-                className="inline-flex items-center px-6 py-3 bg-white text-orange-600 font-semibold rounded-sm hover:bg-orange-50 transition-colors"
-              >
-                View All Articles
-                <ArrowLeft className="w-5 h-5 ml-2 rotate-180" />
-              </Link>
-            </div>
+
           </div>
         </div>
       </main>

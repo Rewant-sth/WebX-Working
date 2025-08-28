@@ -68,7 +68,7 @@ export default function AboutUs() {
       style={{
         backgroundImage: "url('/DSC00722.JPG')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "bottom",
         backgroundAttachment: "fixed"
       }}
       className="h-screen overflow-hidden relative snap-start flex justify-end items-center bg-fixed-fallback">

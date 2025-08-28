@@ -294,8 +294,26 @@ body {
     src: url('/public/fonts/montserrat.ttf');
 }
 
+@font-face {
+    font-family: "Amanojaku";
+    src: url('/fonts/Crosshatcher D.otf');
+}
+
+@font-face {
+    font-family: "Ocean Brush Demo";
+    src: url('/fonts/OceanBrushDEMO-Solid.otf');
+}
+
 .font-montserrat {
     font-family: "Montserrat", sans-serif;
+}
+
+.font-amanojaku {
+    font-family: "Amanojaku", sans-serif;
+}
+
+.font-ocean-brush {
+    font-family: "Ocean Brush Demo", cursive;
 }
 
 .image-card {
@@ -458,4 +476,22 @@ body {
     --sky-900: #0c4a6e;
 
     /* Add other Tailwind colors you want */
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+}
+
+/* Embla Carousel Styles */
+.embla {
+    overflow: hidden;
+}
+
+.embla__container {
+    display: flex;
+}
+
+.embla__slide {
+    flex: 0 0 auto;
+    min-width: 0;
 }

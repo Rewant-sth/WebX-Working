@@ -1,16 +1,37 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
-import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
 import { ITravelPackage, ITravelPackageResponse } from "@/types/IPackages";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import useEmblaCarousel from 'embla-carousel-react';
 
 function TrekPage() {
   const [expeditionPackages, setExpeditionPackages] = useState<ITravelPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Embla carousel setup
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    slidesToScroll: 1,
+    containScroll: 'trimSnaps',
+    breakpoints: {
+      '(min-width: 768px)': { slidesToScroll: 1 },
+      '(min-width: 1024px)': { slidesToScroll: 1 },
+      '(min-width: 1280px)': { slidesToScroll: 1 }
+    },
+  });
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
 
   // Direct fetch API implementation
   const fetchExpeditionPackages = async () => {
@@ -51,15 +72,15 @@ function TrekPage() {
 
   if (loading) {
     return (
-      <section className="h-full space-y-3 py-24 max-w-7xl mx-auto snap-start relative">
-        <h2 className="text-4xl text-center font-semibold">
+      <section className="h-full space-y-3 py-24  mx-auto snap-start relative">
+        <h2 className="text-xl md:text-4xl text-center font-semibold">
           <span className="bg-orange-500 px-2 text-white">Beyond</span> The Summit
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto">
           Loading expedition packages...
         </p>
-        <div className="mt-10 grid grid-cols-3 gap-3">
-          {[...Array(6)].map((_, index) => (
+        <div className="mt-10 grid grid-cols-4 gap-3">
+          {[...Array(4)].map((_, index) => (
             <div
               key={index}
               className="relative aspect-square rounded-sm overflow-hidden bg-gray-200 animate-pulse"
@@ -85,54 +106,86 @@ function TrekPage() {
 
   return (
     <section
-      className=" h-full space-y-3 py-24 p-6 mx-auto snap-start relative"
+      className=" h-full space-y-3 py-24 p-4 sm:p-6 mx-auto snap-start relative"
     >
-      <h2 className="text-4xl text-center font-semibold">
-        <span className="bg-orange-500 px-2 text-white">Timeless</span>  Expedition
-      </h2>
-      <p className="text-lg max-w-xl text-center mx-auto">
-        Journeys that transcend time — crafted to create memories that last forever.
-      </p>
+      <div className="md:flex justify-between  items-center mb-6">
+        <div className="text-center flex-1">
+          <h2 className="text-2xl md:text-4xl font-semibold">
+            <span className="bg-orange-500 px-2 text-white">Beyond</span> The Summit
+          </h2>
+          <p className="text-lg max-w-xl mx-auto mt-2">
+            Journeys that transcend time — crafted to create memories that last forever.
+          </p>
+        </div>
 
-      <div className="mt-10 grid grid-cols-4 gap-3">
-        {expeditionPackages.length > 0 ? (
-          expeditionPackages.reverse().map((pkg, index) => (
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.3, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              key={pkg._id || index}
-              className="relative group cursor-pointer rounded-sm overflow-hidden aspect-square"
-            >
-              <Image
-                src={pkg.coverImage || "/placeholder.webp"}
-                alt={pkg.name}
-                fill
-                className="object-cover group-hover:blur-xs transition-all duration-500"
-              />
-              <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
-                <div className="flex justify-end items-center">
-                  <span className="flex size-10 transition-all duration-300 text-white group-hover:rotate-45 justify-center items-center rounded-full">
-                    <ArrowUpRight />
-                  </span>
-                </div>
-                <div className="text-white">
-                  <h2 className="text-2xl font-semibold">{pkg.name}</h2>
-                  <div className="mt-2 flex gap-4 text-sm opacity-90">
-                    <span className="flex gap-2 items-center"><Icon icon={"material-symbols-light:distance-rounded"} className="text-lg" /> {pkg.distance} KM</span>
-                    <span className="flex gap-2 items-center"><Icon icon={"famicons:timer"} className="text-lg" /> {pkg.duration}</span>
+        {/* Navigation buttons */}
+        <div className="flex justify-end mt-4 md:mt-0 gap-2 md:ml-4">
+          <button
+            onClick={scrollPrev}
+            className="p-2 rounded-full border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="p-2 rounded-full border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Embla carousel */}
+      <div className="embla" ref={emblaRef}>
+        <div className="embla__container flex">
+          {expeditionPackages.length > 0 ? (
+            expeditionPackages.map((pkg, index) => (
+              <div
+                key={pkg._id || index}
+                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
+                style={{ paddingRight: '0.5rem' }}
+              >
+                <div className="relative group cursor-pointer rounded-sm overflow-hidden h-[60dvh]">
+                  <div className="absolute inset-0 group-hover:translate-y-0 transition-all translate-y-full bg-[#01283F]/40 z-40"></div>
+                  <Image
+                    src={pkg.coverImage || "/placeholder.webp"}
+                    alt={pkg.name}
+                    fill
+                    className="object-cover group-hover:blur-xs transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
+                    <div className="flex justify-end items-center">
+                      <span className="flex size-10 transition-all duration-300 text-white group-hover:rotate-45 justify-center items-center rounded-full">
+                        <ArrowUpRight />
+                      </span>
+                    </div>
+                    <div className="text-white relative z-50">
+                      <h2 className="text-2xl font-semibold">{pkg.name}</h2>
+                      <div className="mt-2 flex gap-4 text-sm opacity-90">
+                        <span className="flex gap-2 items-center">
+                          <Icon icon={"material-symbols-light:distance-rounded"} className="text-lg" />
+                          {pkg.distance} KM
+                        </span>
+                        <span className="flex gap-2 items-center">
+                          <Icon icon={"famicons:timer"} className="text-lg" />
+                          {pkg.duration}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          ))
-        ) : (
-          <div className="col-span-3 text-center py-12">
-            <p className="text-lg text-gray-600">No expedition packages available at the moment.</p>
-          </div>
-        )}
+            ))
+          ) : (
+            <div className="embla__slide flex-none w-full" style={{ paddingRight: '0.5rem' }}>
+              <div className="text-center py-12">
+                <p className="text-lg text-gray-600">No expedition packages available at the moment.</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

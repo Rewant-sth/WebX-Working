@@ -92,66 +92,6 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         placeholder="+977 98xxxxxxxx"
                     />
                 </div>
-
-                {/* Gender */}
-                <div>
-                    <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
-                        Gender
-                    </label>
-                    <select
-                        id="gender"
-                        value={personalInfo.gender}
-                        onChange={(e) => onChange('gender', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    >
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                {/* Date of Birth */}
-                <div>
-                    <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-2">
-                        Date of Birth
-                    </label>
-                    <input
-                        type="date"
-                        id="dateOfBirth"
-                        value={personalInfo.dateOfBirth}
-                        onChange={(e) => onChange('dateOfBirth', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    />
-                </div>
-
-                {/* Passport Number */}
-                <div>
-                    <label htmlFor="passportNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                        Passport Number
-                    </label>
-                    <input
-                        type="text"
-                        id="passportNumber"
-                        value={personalInfo.passportNumber}
-                        onChange={(e) => onChange('passportNumber', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                        placeholder="A12345678"
-                    />
-                </div>
-
-                {/* Passport Expiry Date */}
-                <div>
-                    <label htmlFor="passportExpiryDate" className="block text-sm font-medium text-gray-700 mb-2">
-                        Passport Expiry Date
-                    </label>
-                    <input
-                        type="date"
-                        id="passportExpiryDate"
-                        value={personalInfo.passportExpiryDate}
-                        onChange={(e) => onChange('passportExpiryDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                    />
-                </div>
             </div>
         </div>
     );

@@ -55,7 +55,7 @@ export default function Hero() {
 
       {/* hero first */}
       <div ref={sectionRef} className="h-screen max-w-7xl mx-auto sticky top-50 flex ">
-        <div className="w-full grid grid-cols-2 ">
+        <div className="w-full grid md:grid-cols-2 ">
           <div className="flex gap-8 lg:gap-16 font-semibold items-start justify-evenly">
             <button className='flex w-fit h-fit gap-2 items-center'>
               <span className='bg-amber-600 flex justify-center items-center text-white size-16 rounded-full'>
@@ -63,7 +63,7 @@ export default function Hero() {
               </span>
               <span className='text-left leading-4 uppercase'>view <br /> more</span>
             </button>
-            <h2 className='text-gray-800 text-7xl font-semibold'>Mountain <br /> World</h2>
+            <h2 className='text-gray-800 text-3xl md:text-7xl font-semibold'>Mountain <br /> World</h2>
           </div>
         </div>
         <div ref={rightTextRef} className="w-full max-w-xl line-clamp-3 text-lg">

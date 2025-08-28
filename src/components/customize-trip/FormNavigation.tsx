@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ReactNode } from 'react';
 
 interface FormNavigationProps {
@@ -27,9 +28,9 @@ export default function FormNavigation({
     const isLastStep = currentStep === totalSteps;
 
     return (
-        <div className="mt-8 bg-[#01283F]/5 rounded-sm p-6 border border-gray-200">
+        <div className="m-6  rounded-sm   ">
             <div className="flex justify-between items-center">
-                <div>
+                <Link href="#customize-trip-form">
                     {!isFirstStep ? (
                         <button
                             type="button"
@@ -46,31 +47,9 @@ export default function FormNavigation({
                     ) : (
                         <div></div>
                     )}
-                </div>
+                </Link>
 
-                <div className="flex items-center space-x-6">
-                    {/* Progress Indicator */}
-                    <div className="flex items-center space-x-3">
-                        <div className="text-sm font-medium text-gray-600">
-                            Step {currentStep} of {totalSteps}
-                        </div>
-                        <div className="flex space-x-1">
-                            {Array.from({ length: totalSteps }, (_, index) => (
-                                <div
-                                    key={index}
-                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index < currentStep
-                                        ? 'bg-green-500 scale-110'
-                                        : index === currentStep - 1
-                                            ? 'bg-orange-500 scale-125 animate-pulse'
-                                            : 'bg-gray-300'
-                                        }`}
-                                />
-                            ))}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                            {Math.round((currentStep / totalSteps) * 100)}% Complete
-                        </div>
-                    </div>
+                <Link href={'#customize-trip-form'} className="flex items-center space-x-6">
 
                     {/* Next/Submit Button */}
                     {isLastStep ? (
@@ -107,34 +86,17 @@ export default function FormNavigation({
                             type="button"
                             onClick={onNext}
                             disabled={isNextDisabled}
-                            className="group relative flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold rounded-sm transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:hover:scale-100 disabled:cursor-not-allowed min-w-[140px] justify-center"
+                            className="group relative flex items-center disabled:cursor-not-allowed px-8 py-4 bg-orange-500 disabled:bg-orange-300 text-white font-bold rounded-sm transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl disabled:hover:scale-100   min-w-[140px] justify-center"
                         >
-                            <span className="flex items-center">
+                            <span className="flex uppercase items-center">
                                 {nextLabel}
-                                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 ml-3 group-hover:bg-white/30 transition-colors duration-300">
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </div>
                             </span>
 
                             {/* Hover shine effect */}
                             <div className="absolute inset-0 rounded-sm bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                         </button>
                     )}
-                </div>
-            </div>
-
-            {/* Helper Text */}
-            <div className="mt-4 text-center">
-                <p className="text-xs text-gray-500">
-                    {isLastStep
-                        ? "Review your information and submit your customization request"
-                        : isNextDisabled
-                            ? "Please complete all required fields to continue"
-                            : "Click next to continue or use the step indicators above to navigate"
-                    }
-                </p>
+                </Link>
             </div>
         </div>
     );
