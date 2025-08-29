@@ -1,34 +1,20 @@
-"use client";
-
 import Link from "next/link";
 import React from "react";
 
 export default function NotFound() {
-
   return (
-    <section className="w-full h-screen bg-white font-serif flex items-center justify-center">
-      <div className="w-full max-w-4xl px-4 text-center">
-        <h1 className="text-8xl mb-5 text-[#231F20]">404</h1>
-
-        <div
-          className="h-[400px] bg-center bg-no-repeat bg-cover flex items-center justify-center"
-          style={{
-            backgroundImage: "url('/404_error.gif')",
-          }}
-        ></div>
-        <div className="text-[#231F20]">
-          <h3 className="text-2xl md:text-3xl font-bold mb-2">
-            Look like you're lost
-          </h3>
-          <p className="mb-4">The page you are looking for is not available!</p>
-          <Link
-            href="/"
-            className="inline-block px-6 py-2 bg-[#025FE0] text-white rounded hover:bg-[#025ee0b6] transition"
-          >
-            Go to Home
-          </Link>
-        </div>
-      </div>
-    </section>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-gray-800">
+      <h1 className="text-5xl font-bold mb-4 text-orange-500">404</h1>
+      <h2 className="text-2xl font-semibold mb-2">Page Not Found</h2>
+      <p className="mb-6 text-center max-w-md text-gray-600">
+        Oops! The page you are looking for does not exist or has been moved.
+        Let us guide you back to the adventure!
+      </p>
+      <Link href="/">
+        <span className="inline-block px-6 py-3 bg-orange-500 text-white rounded shadow hover:bg-orange-600 transition">
+          Go Home
+        </span>
+      </Link>
+    </div>
   );
 }

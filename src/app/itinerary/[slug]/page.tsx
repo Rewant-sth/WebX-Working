@@ -16,6 +16,10 @@ import Itinerary from "../../../components/intineryBars/Itinerary";
 import DatesAndPrices from "../../../components/intineryBars/DatesAndPrices";
 import RelatedTrips from "../../../components/tripGlance/RelatedTrips";
 import Requirements from "../../../components/tripGlance/Requirements";
+import Insurance from "../../../components/tripGlance/Insurance";
+import Gear from "../../../components/tripGlance/Gear";
+import WhyLoveThis from "../../../components/tripGlance/WhyLoveThis";
+import ImportantNotice from "../../../components/tripGlance/ImportantNotice";
 import { useParams } from "next/navigation";
 import { getPackagesById } from "@/service/packages";
 import { useQuery } from "@tanstack/react-query";
@@ -26,6 +30,8 @@ import ScrollTracker from "@/components/intineryBars/scroll-tracker";
 import GalleryCarousel from "@/components/intineryBars/gallery/gallery-carousel";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Divider from "./_components/divider";
+import { IGallery } from "@/types/IGallery";
 
 const Page = () => {
   const router = useRouter();
@@ -78,7 +84,7 @@ const Page = () => {
       ) : (
         <>
           <div ref={heroRef} className="relative min-h-screen overflow-hidden  ">
-            <div className="absolute bottom-0  z-[999]  ">
+            <div className="absolute bottom-0  z-[99]  ">
               <img src="/man2.png" alt="man" className="w-full max-w-7xl translate-y-16 object-cover drop-shadow-black" />
             </div>
 
@@ -94,7 +100,7 @@ const Page = () => {
           <div className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10  mt-8 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
             {/* Center Content */}
-            <div id="overview" className=" mx-auto relative  rounded-xl">
+            <div className=" mx-auto relative  rounded-xl">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData?.data?.attraction.length ? (
@@ -103,7 +109,7 @@ const Page = () => {
 
               {/* Overview Section */}
               <div
-
+                id="overview"
                 style={{
                   backgroundImage: "linear-gradient(rgb(0,0,0,0.7), rgb(0,0,0,0.7)),url('/EVEREST REGION/NIKON D50003007.JPG')",
                   backgroundSize: "cover",
@@ -126,7 +132,7 @@ const Page = () => {
                 }
 
                 <div className=" relative max-w-7xl mx-auto  mb-8 pb-10">
-                  <h2 className="text-5xl mb-8 font-semibold  text-center sm:text-left">
+                  <h2 className="text-5xl uppercase  mb-8 font-semibold  text-center sm:text-left">
                     Trip Overview
                   </h2>
                   <div
@@ -134,7 +140,7 @@ const Page = () => {
                   >
                     <div
                       className="prose prose-lg max-w-none text-3xl  leading-relaxed"
-                      dangerouslySetInnerHTML={{
+                      id="editor" dangerouslySetInnerHTML={{
                         __html: packageData?.data?.overview.slice(0, 400) as string,
                       }}
                     />
@@ -153,10 +159,28 @@ const Page = () => {
               {packageData?.data?.requirements.length ? (
                 <Requirements data={packageData?.data} />
               ) : null}
+
+
+              {packageData?.data?.insurance.length ? (
+                <Insurance data={packageData?.data} />
+              ) : null}
+
+              <Divider images={packageData?.data?.gallery as IGallery[]} />
+
+              {packageData?.data?.gearInfo.length ? (
+                <Gear data={packageData?.data} />
+              ) : null}
+              {packageData?.data?.whyLoveThisTrek.length ? (
+                <WhyLoveThis data={packageData?.data} />
+              ) : null}
+              {packageData?.data?.importantNotice.length ? (
+                <ImportantNotice data={packageData?.data} />
+              ) : null}
               {packageData?.data.fixedDates?.length ? (
                 <DatesAndPrices
+                  pkg={packageData.data}
                   data={packageData?.data?.fixedDates}
-                  packageId={packageData?.data.id}
+                  packageId={packageData?.data._id}
                 />
               ) : null}
               {packageData?.data?.faq.length ? (
@@ -165,7 +189,7 @@ const Page = () => {
               {packageData?.data?.testimonial && (
                 <TravellerReview
                   data={packageData.data}
-                  packageId={packageData?.data?.id as string}
+                  packageId={packageData?.data?._id as string}
                 />
               )}
               <RelatedTrips
@@ -183,7 +207,7 @@ const Page = () => {
               <RightBar data={packageData?.data} />
             </div> */}
           </div>
-
+          {/* 
           <div
             className={`sticky bottom-0 w-full shadow-3xl items-center grid grid-cols-4 py-2 text-zinc-900 bg-orange-100 rounded-sm transition-all z-[99] duration-300 transform ${isStickyVisible ? 'translate-y-0' : 'translate-y-full'
               } ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -210,7 +234,7 @@ const Page = () => {
                 Book Now <ArrowRight />
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Modal */}
           {modalOpen && (

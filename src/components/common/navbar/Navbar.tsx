@@ -43,8 +43,12 @@ const navs = [{
   href: "/ourteam"
 },
 {
-  name: "Message From CEO",
-  href: "/message"
+  name: "Useful Info",
+  href: "/useful-info"
+},
+{
+  name: "Certificates",
+  href: "/certificate"
 },
 {
   name: "Blogs",
@@ -126,14 +130,14 @@ export default function Navbar() {
   }, [categories, selectedCategory]);
 
   return (
-    <nav className='fixed left-0 w-full top-0 z-[99999]   p-6 py-3 flex justify-between items-center '>
-      <Link href={"/"} className="w-40 transition-transform duration-300 hover:scale-105">
+    <nav className='fixed left-0 w-full top-0 z-[99999] p-4  md:px-6 py-4 flex justify-between items-center '>
+      <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
         <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
       </Link>
 
       <div className="flex gap-10 items-center">
         <ul className='hidden  sm:block'>
-          <li className='text-lg text-white'>
+          <li className='md:text-lg text-white'>
             <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
               <StarBorder color='#fff'>
                 Customize Trip
@@ -143,11 +147,11 @@ export default function Navbar() {
         </ul>
         <button
           onClick={handleShow}
-          className='w-fit px-6 pr-1 py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'
+          className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'
         >
-          <span className="font-medium">Menu</span>
+          <span className="font-medium text-sm md:text-base">Menu</span>
           <span className='bg-white size-9 flex justify-center items-center text-orange-500 rounded-sm transition-transform duration-300 group-hover:rotate-180'>
-            <Icon icon={"fa6-solid:bars"} className='text-lg' />
+            <Icon icon={"fa6-solid:bars"} className='md:text-lg' />
           </span>
         </button>
       </div>
@@ -156,17 +160,17 @@ export default function Navbar() {
         ref={menuRef}
         className={`absolute hidden top-0 left-0 min-h-[100dvh] overflow-auto w-[100vw] bg-[#0d1117] ${showNav ? 'block' : 'hidden'}`}
       >
-        <div ref={popupNavref} className="flex border-b border-white/10 backdrop-blur-sm bg-black/10 p-6 py-3 justify-between items-center">
-          <Link href={"/"} className="w-40 transition-transform duration-300 hover:scale-105">
+        <div ref={popupNavref} className="flex border-b border-white/10 backdrop-blur-sm bg-black/10 p-4 md:p-6 py-3 justify-between items-center">
+          <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
             <img src="/logo/white.svg" alt="Real Himalaya Logo" className="w-full h-auto" />
           </Link>
 
           <div className="flex gap-10 items-center">
             <button
               onClick={handleClose}
-              className='w-fit px-6 pr-1 py-1 rounded-sm flex gap-4 items-center bg-white hover:bg-gray-100 shrink-0 text-[#0d1117] transition-all duration-300 hover:shadow-lg hover:scale- active:scale-95'
+              className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'
             >
-              <span className="font-medium">Close</span>
+              <span className="font-medium text-sm md:text-base">Close</span>
               <span className='bg-[#0d1117] size-9 flex justify-center items-center text-white rounded-sm  duration-300 '>
                 <Icon icon={"bitcoin-icons:cross-filled"} className='text-lg' />
               </span>
@@ -175,7 +179,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex  text-white min-h-[calc(100dvh-4rem)]">
-          <div className="w-full max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-6">
+          <div className="w-full max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
             <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Categories</h2>
             <div className="grid gap-5">
               {categories?.data?.map((category) => (
@@ -204,7 +208,7 @@ export default function Navbar() {
 
           </div>
 
-          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem]">
+          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem] hidden md:block">
             <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>SUB Categories</h2>
             {selectedCategory?.subCategories.map((subCategory) => (
               <h2
@@ -219,7 +223,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="p-6 w-full flex flex-col h-[calc(100dvh-8rem)] ">
+          <div className="p-6 w-full hidden lg:flex flex-col h-[calc(100dvh-8rem)] ">
             <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Packages</h2>
             {packagesLoading ? (
               <div className="flex justify-center items-center h-full">

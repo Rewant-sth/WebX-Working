@@ -13,6 +13,10 @@ import {
     ClipboardCheck,
     Locate,
     Star,
+    Shield,
+    Backpack,
+    Heart,
+    AlertTriangle,
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
@@ -56,11 +60,11 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             label: "Overview",
             icon: <Eye className="w-4 h-4" />,
         },
-        {
-            id: "trip-glance",
-            label: "Trip Info",
-            icon: <Compass className="w-4 h-4" />,
-        },
+        // {
+        //     id: "trip-glance",
+        //     label: "Trip Info",
+        //     icon: <Compass className="w-4 h-4" />,
+        // },
         // {
         //     id: "route-map",
         //     label: "Route",
@@ -78,11 +82,35 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             icon: <DollarSign className="w-4 h-4" />,
             condition: (data) => data?.inclusion?.length > 0,
         },
+        // {
+        //     id: "requirements",
+        //     label: "Requirements",
+        //     icon: <ClipboardCheck className="w-4 h-4" />,
+        //     condition: (data) => data?.requirements?.length > 0,
+        // },
         {
-            id: "requirements",
-            label: "Requirements",
-            icon: <ClipboardCheck className="w-4 h-4" />,
-            condition: (data) => data?.requirements?.length > 0,
+            id: "insurance",
+            label: "Insurance",
+            icon: <Shield className="w-4 h-4" />,
+            condition: (data) => data?.insurance?.length > 0,
+        },
+        {
+            id: "gear",
+            label: "Gear",
+            icon: <Backpack className="w-4 h-4" />,
+            condition: (data) => data?.gearInfo?.length > 0,
+        },
+        {
+            id: "why-love-this",
+            label: "Why Love This",
+            icon: <Heart className="w-4 h-4" />,
+            condition: (data) => data?.whyLoveThisTrek?.length > 0,
+        },
+        {
+            id: "important-notice",
+            label: "Important Notice",
+            icon: <AlertTriangle className="w-4 h-4" />,
+            condition: (data) => data?.importantNotice?.length > 0,
         },
         {
             id: "date-&-prices",
@@ -169,9 +197,9 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     }, [visibleSections, isScrollingToSection]);
 
     return (
-        <div className="sticky top-0 z-[99999] pointer-events-none w-full  bg-white border-b border-gray-200 ">
-            <div className="px-4 sm:px-8 md:px-12 lg:px-16 max-w-5xl pointer-events-auto mx-auto">
-                <div className="py-2 flex justify-between items-center">
+        <div className="sticky top-0 z-[99999]  w-full  bg-white border-b border-gray-200 ">
+            <div className="px-4 sm:px-8  mx-auto">
+                <div className="py-2 flex justify-center items-center overflow-auto">
                     {/* Scroll Spy Navigation Tabs */}
                     {visibleSections.length > 0 && (
                         <div className="relative">

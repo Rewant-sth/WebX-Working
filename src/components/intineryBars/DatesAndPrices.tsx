@@ -2,9 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { Icon } from "@iconify/react";
-import { IFixedDate } from "@/types/IPackages";
+import { IFixedDate, ITravelPackage } from "@/types/IPackages";
 import { useSelectedTrip } from "@/contexts/SelectedDateContext";
 import Link from "next/link";
+import { setPackage, useBookingStore } from "@/store/booking-store";
 
 interface CalendarProps {
   month: number;
@@ -74,9 +75,9 @@ const Calendar: React.FC<CalendarProps> = ({
           // onMouseOver={() => !isPast && !isSelected && handleDateClick(day)}
           disabled={isPast}
           className={`
-            p-2 border   text-sm font-medium rounded-sm transition-all duration-200
+            p-2 border relative  text-sm font-medium rounded-sm transition-all duration-200
             ${isPast
-              ? 'text-gray-300 cursor-not-allowed'
+              ? ' cursor-not-allowed'
               : 'hover:cursor-pointer'
             }
             ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
@@ -84,6 +85,16 @@ const Calendar: React.FC<CalendarProps> = ({
             ${!isHighlighted && !isSelected ? 'border-white' : ''}
           `}
         >
+          {
+            isPast && (
+              <>
+                <div className="absolute -rotate-45 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-red-500 flex justify-center items-center w-[60%] h-[2px] ">
+                </div>
+                {/* <div className="absolute rotate-45 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-red-500 flex justify-center items-center w-[60%] h-[2px] ">
+                </div> */}
+              </>
+            )
+          }
           {day}
         </button>
       );
@@ -317,9 +328,11 @@ const BookingForm: React.FC<{
 const DatesAndPrices = ({
   data,
   packageId,
+  pkg
 }: {
   data: IFixedDate[] | null;
   packageId: string;
+  pkg: ITravelPackage | null;
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -329,6 +342,8 @@ const DatesAndPrices = ({
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
+
+
 
   // Calculate which months to display based on current display month or default to current month
   const getDisplayMonths = () => {
@@ -411,13 +426,13 @@ const DatesAndPrices = ({
       id="date-&-prices"
       className="mt-6 border-b-2 max-w-6xl mx-auto border-dashed border-zinc-200 mb-8 pb-10"
     >
-      <h2 className="text-2xl lg:text-3xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="w-fit text-2xl lg:text-3xl font-semibold " >
+      <h2 className="text-2xl  font-semibold text-gray-800 text-center sm:text-left">
+        <span className="w-fit text-2xl  font-semibold " >
           Dates & Prices
         </span>
       </h2>
 
-      <p className="text-zinc-600 mt-4 text-lg leading-relaxed max-w-3xl">
+      <p className="text-zinc-600 mt-4  leading-relaxed max-w-3xl">
         Choose your preferred travel date from the calendars below. Select any available date and we'll show you the complete trip duration.
       </p>
 
@@ -507,7 +522,7 @@ const DatesAndPrices = ({
                 </div>
               </div>
 
-              <Link href={`/booking/${packageId}`} >
+              <Link onClick={() => setPackage(pkg as ITravelPackage)} href={`/booking/${pkg?.slug}`} >
                 <button
                   className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
                 >

@@ -118,7 +118,7 @@ export function Features({
         <div className="text-center mb-16">
           <AnimatedSection>
             <h2 className="text-4xl sm:text-6xl text-[#1F2937] font-bold text-center mb-4">
-              Why Choose Highfive?
+              Why Choose RealHimalaya?
             </h2>
           </AnimatedSection>
         </div>

@@ -1,4 +1,4 @@
-name: Deploy Highfive Next.js App
+name: Deploy RealHimalaya Next.js App
 
 on:
   push:
@@ -22,10 +22,10 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd /var/www/highfive-web
+            cd /var/www/RealHimalaya-web
             git checkout production
             git pull origin production
             npm install
             npm run build
-            sudo pm2 restart  highfive-frontend
+            sudo pm2 restart  RealHimalaya-frontend
           EOF

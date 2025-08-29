@@ -495,3 +495,12 @@ button:disabled {
     flex: 0 0 auto;
     min-width: 0;
 }
+
+
+#editor img {
+    max-width: 47%;
+    display: inline;
+    aspect-ratio: 16/9;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

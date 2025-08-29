@@ -31,7 +31,7 @@ export const EventCard: React.FC<{
             <h3 className="text-2xl font-bold mb-2">{event.name}</h3>
             <p
               className="text-gray-600 mb-4 line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: event.overview }}
+              id="editor" dangerouslySetInnerHTML={{ __html: event.overview }}
             />
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">

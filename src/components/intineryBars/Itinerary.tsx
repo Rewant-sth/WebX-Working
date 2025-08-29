@@ -70,14 +70,13 @@ const ItineraryDay = ({
       </div>
 
       <div
-        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${
-          expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
       >
         <div className="px-6 pb-6">
-          <p className="text-gray-600 text-base leading-relaxed pt-4 mb-6">
-            {description}
-          </p>
+          <div id="editor" dangerouslySetInnerHTML={{ __html: description }} className="text-gray-600 text-base leading-relaxed pt-4 mb-6">
+
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {data?.duration && (

@@ -54,14 +54,14 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                     key={index}
                     className="flex items-start gap-4 p-2 rounded-sm hover:border-gray-300 transition-all duration-200"
                   >
-                    <div className="shrink-0 size-10 rounded-md" >
+                    <div className="shrink-0 size-7 rounded-md" >
                       <img src="/icons/check-green.png" alt="check" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                         {item.title}
                       </h3>
-                      <p className=" leading-relaxed text-gray-600">{item.description}</p>
+                      <p className=" leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                     </div>
                   </div>
                 ))}
@@ -87,7 +87,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                       <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                         {item.title}
                       </h3>
-                      <p className=" leading-relaxed text-gray-600">{item.description}</p>
+                      <p className=" leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                     </div>
                   </div>
                 ))}

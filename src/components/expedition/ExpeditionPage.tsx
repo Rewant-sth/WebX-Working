@@ -43,7 +43,7 @@ function TrekPage() {
         throw new Error("Backend URL is not configured");
       }
 
-      const response = await fetch(`${baseURL}/package/category/expedition`, {
+      const response = await fetch(`${baseURL}/package/category/trekking`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

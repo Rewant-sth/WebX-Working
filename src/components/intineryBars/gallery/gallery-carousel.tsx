@@ -80,27 +80,15 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
             </div>
 
             {/* Navigation Buttons */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-                <div className="flex items-center gap-4 bg-black/20 backdrop-blur-sm rounded-full px-6 py-3">
+            <div className="absolute top-1/2 w-full -translate-y-1/2 left-1/2 -translate-x-1/2 z-[999]">
+                <div className="flex w-full justify-between items-center gap-4   rounded-full px-6 py-3">
                     <PrevButton
                         onClick={onPrevButtonClick}
                         disabled={prevBtnDisabled}
                         className="embla__button text-white hover:text-orange-400 transition-colors"
                     />
 
-                    {/* Slide indicators */}
-                    <div className="flex gap-2">
-                        {slides?.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => emblaApi?.scrollTo(index)}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${index === centerIndex
-                                    ? 'bg-orange-400 scale-125'
-                                    : 'bg-white/50 hover:bg-white/75'
-                                    }`}
-                            />
-                        ))}
-                    </div>
+
 
                     <NextButton
                         onClick={onNextButtonClick}

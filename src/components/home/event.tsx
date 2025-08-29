@@ -151,7 +151,7 @@ const EventCard = React.memo(function EventCard({
               {event?.name}
             </h2>
             <p
-              dangerouslySetInnerHTML={{ __html: event?.overview }}
+              id="editor" dangerouslySetInnerHTML={{ __html: event?.overview }}
               className="max-w-4xl text-sm sm:text-xl md:text-2xl lg:text-3xl line-clamp-2"
             />
           </div>

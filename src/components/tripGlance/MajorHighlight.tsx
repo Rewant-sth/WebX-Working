@@ -26,23 +26,22 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
             {data?.attraction.map((item, index) => (
               <div
                 key={index}
-                className="flex gap-4 p-6 rounded-sm border border-gray-200 bg-white 
-                           hover:border-orange-500 hover:shadow-lg hover:-translate-y-1 
+                className="flex gap-4  border-gray-200 bg-white  
                            transition-all duration-300"
               >
                 {/* Icon */}
-                <div className="shrink-0 mt-1  size-10 flex items-start justify-center text-orange-500">
+                {/* <div className="shrink-0 mt-1  size-10 flex items-start justify-center text-orange-500">
                   <img src="/icons/idea-bulb.png" alt="" />
-                </div>
+                </div> */}
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {item.title}
                   </h3>
-                  <p className=" leading-relaxed text-gray-600">
-                    {item.description}
-                  </p>
+                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className=" leading-relaxed text-gray-600">
+
+                  </div>
                 </div>
               </div>
             ))}
@@ -53,13 +52,13 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
         <div className="flex-1 hidden lg:block">
           <div className="sticky top-24">
             <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+              src="/EXPEDITION/DSC00695.jpg"
               alt="Travel destination highlight"
-              className="w-full h-auto rounded-sm object-cover shadow-sm"
+              className="w-full h-auto rounded-sm backdrop-brightness- object-cover shadow-sm"
             />
-            <div className="mt-6 p-4 bg-orange-50 rounded-sm border border-orange-100">
-              <h3 className="font-semibold text-orange-800 mb-2">Pro Tip</h3>
-              <p className="text-sm text-orange-700">
+            <div className="mt-6 p-4 bg-[#01283F]/10 rounded-sm border border-[#01283F]/20">
+              <h3 className="font-semibold text-[#01283F] mb-2">Pro Tip</h3>
+              <p className="text-sm text-[#01283F">
                 Visit these locations during sunrise or sunset for the most
                 breathtaking views and optimal photography conditions.
               </p>

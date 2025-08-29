@@ -74,7 +74,7 @@ const ExpeditionCards = ({
               <div className="">
                 <h2 className="text-xl font-semibold py-2 pt-4">{data.name}</h2>
                 <p
-                  dangerouslySetInnerHTML={{ __html: data.overview }}
+                  id="editor" dangerouslySetInnerHTML={{ __html: data.overview }}
                   className="line-clamp-2"
                 ></p>
                 <div className="flex mt-4 gap-4 lg:gap-6 items-center">

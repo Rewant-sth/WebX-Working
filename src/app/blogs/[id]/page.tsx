@@ -100,7 +100,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
               {/* Description */}
               <div
-                dangerouslySetInnerHTML={{ __html: data?.data?.description }}
+                id="editor" dangerouslySetInnerHTML={{ __html: data?.data?.description }}
                 className="text-xl text-gray-600 leading-relaxed mb-8 space-y-3"
               />
 

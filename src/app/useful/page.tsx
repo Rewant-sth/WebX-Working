@@ -183,7 +183,7 @@ export default function TrekkingGear() {
                 </h2>
                 <div className="prose prose-blue max-w-none text-blue-800">
                   <div
-                    dangerouslySetInnerHTML={{
+                    id="editor" dangerouslySetInnerHTML={{
                       __html:
                         item.description || "<p>No information available.</p>",
                     }}

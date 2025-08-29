@@ -1,8 +1,7 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Play } from 'lucide-react';
-import React, { use, useLayoutEffect, useRef } from 'react'
-import { motion } from "motion/react";
+import React, { useLayoutEffect, useRef } from 'react'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +14,7 @@ export default function Hero() {
 
 
   useLayoutEffect(() => {
+    ScrollTrigger.refresh()
     const ctx = gsap.context(() => {
 
       const timeline = gsap.timeline({
@@ -67,17 +67,28 @@ export default function Hero() {
           </div>
         </div>
         <div ref={rightTextRef} className="w-full max-w-xl line-clamp-3 text-lg">
-          <p>Lorem ipsum dolor sit <b>amet consectetur</b> adipisicing elit. Repellat voluptas <u>molestiae Lorem ipsum dolor sit</u>, amet consectetur adipisicing elit. Beatae, porro. suscipit nihil cumque ipsum velit, ex optio commod</p>
+          <p>Discover the <b>majestic beauty of Nepal</b> through our expertly crafted trekking adventures. From the <u>towering peaks of Everest</u> to the serene trails of Annapurna, we guide you through breathtaking landscapes and rich cultural experiences that will create memories to last a lifetime.</p>
         </div>
       </div>
 
       {/* hero second */}
       <section ref={rightSectionRef} className="h-screen overflow-hidden  absolute top-0 left-0 w-full translate-y-full text-white  gap-14 z-[60] flex flex-col justify-center items-center">
-        <img src="logo/white.svg" alt="" className="w-96" />
-        <h2 className="text- text-5xl text-center">
-          Active travel, as contribution to the bank <br />
-          of pleasant <u>memories for a lifetimes.</u>
-        </h2>
+        <div className="h-full relative w-full space-y-4 flex flex-col justify-center items-center">
+          <img src="logo/white.svg" alt="" className="w-96" />
+          <h2 className="text- text-5xl text-center">
+            Embark on extraordinary journeys through the <br />
+            world's highest peaks and create <u>unforgettable memories.</u>
+          </h2>
+
+          <div className="absolute bottom-1 left-20">
+            <img src="/cloud_1.webp" alt="cloud" />
+          </div>
+          <div className="absolute bottom-1 right-20">
+            <img src="/cloud_2.webp" alt="cloud" />
+          </div>
+        </div>
+
+
       </section>
 
       <div
@@ -88,6 +99,9 @@ export default function Hero() {
           <img src="/hero.png" alt="hero" className="w-full h-full object-cover" />
         </div>
       </div>
+
+
+      {/* carousel here */}
 
     </div>
   )

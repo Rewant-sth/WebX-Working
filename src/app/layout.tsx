@@ -11,7 +11,6 @@ import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
 import Footer from "@/components/common/footer/new-footer";
-import RotatingButton from "@/components/awesome-btn";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -37,14 +36,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${dancingScript.variable}`} suppressHydrationWarning>
         <LayoutWrapper>
-          <Navbar />
           {/* <RotatingButton /> */}
           <TrackVisitors />
           <Providers>
             <Suspense fallback={<div></div>}><LenisProvider /></Suspense>
             <SelectedTripProvider>{children}</SelectedTripProvider>
           </Providers>
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster position="top-center" reverseOrder={false} />
           <Footer />
         </LayoutWrapper>
       </body>

@@ -95,7 +95,7 @@ export default function Gallery({ slides }: { slides: IGallery[] }) {
               onClick={() => openModal(showAll ? index : slides.findIndex(img => img._id === image._id))}
             >
               <Image
-                alt={image.caption || "highfive trip attractions"}
+                alt={image.caption || "RealHimalaya trip attractions"}
                 src={image.imageUrl}
                 height={1000}
                 width={1000}

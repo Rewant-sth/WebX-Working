@@ -70,7 +70,7 @@ const RelatedTrips = ({
                   </div>
 
                   <p
-                    dangerouslySetInnerHTML={{ __html: trip.overview }}
+                    id="editor" dangerouslySetInnerHTML={{ __html: trip.overview }}
                     className="text-gray-600 mb-4 line-clamp-2 leading-relaxed"
                   />
 

@@ -133,7 +133,7 @@ const ExpeditionCards: React.FC = () => {
                 <div className="max-w-4xl mx-auto">
                   <p
                     className="text-white/90 text-lg md:text-xl line-clamp-3 leading-relaxed drop-shadow-sm"
-                    dangerouslySetInnerHTML={{ __html: subcategoryDescription }}
+                    id="editor" dangerouslySetInnerHTML={{ __html: subcategoryDescription }}
                   />
                 </div>
 
@@ -279,7 +279,7 @@ const ExpeditionCards: React.FC = () => {
                   <div className="bg-slate-50 border border-slate-200 rounded-sm p-6 mb-6">
                     <div
                       className="text-slate-700 leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: activeSubcategory.description }}
+                      id="editor" dangerouslySetInnerHTML={{ __html: activeSubcategory.description }}
                     />
                   </div>
                 )}
@@ -357,7 +357,7 @@ const ExpeditionCards: React.FC = () => {
 
                           <div className="text-slate-600 text-sm leading-relaxed mb-5">
                             <p
-                              dangerouslySetInnerHTML={{ __html: card?.overview }}
+                              id="editor" dangerouslySetInnerHTML={{ __html: card?.overview }}
                               className="line-clamp-2"
                             />
                           </div>

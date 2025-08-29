@@ -72,31 +72,31 @@ export default function QuickInfo() {
         <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div className="col-span-3 bg-orange-100 h-[26rem] p-2 rounded-sm overflow-hidden gap- grid md:grid-cols-2  w-full">
+              <div className="col-span-3 border border-gray-300 h-[26rem] p-2 rounded-sm overflow-hidden gap-6 grid md:grid-cols-2  w-full">
                 <div className="w-full h-full relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
                 </div>
-                <div className="flex flex-col justify-between p-4">
+                <div className="flex flex-col justify-center p-4">
                   <div className="">
                     <h2 className="text-3xl font-semibold">{data?.title}</h2>
-                    <p className="text-xl  mt-3 line-clamp-2" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
+                    <p className="text-xl  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
                   </div>
 
-                  <div className="flex justify-between">
+                  <div className="flex pt-10 justify-between">
                     <div className="">
                       <h2 className="uppercase font-semibold">Author</h2>
                       <p className="text-sm  mt-1">{data?.author}</p>
                     </div>
 
                     <div className="">
-                      <div className="flex items-center gap-3 cursor-pointer">
+                      <Link href={`/blogs/${data?.slug}`} className="flex items-center gap-3 cursor-pointer">
                         <div className="w-12 h-12 rounded-full border flex items-center justify-center border-gray-900">
                           <Play size={22} className="text-gray-900" />
                         </div>
                         <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
                           READ MORE
                         </p>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -104,11 +104,22 @@ export default function QuickInfo() {
             )
 
             return (
-              <div className="w-full ">
+              <div className="w-full p-2 border border-gray-300 rounded-sm overflow-hidden" key={idx}>
                 <div className="w-full aspect-video relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
                 </div>
                 <h2 className="text-xl font-semibold mt-2">{data?.title}</h2>
+
+                <div className="py-3 p-2 flex w-full  justify-end items-center">
+                  <Link href={"/blogs/" + data?.slug} className="flex w-fit  items-center gap-3 cursor-pointer">
+                    <div className="w-7 h-7 rounded-full border flex items-center justify-center border-gray-900">
+                      <Play size={11} className="text-gray-900" />
+                    </div>
+                    <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
+                      READ MORE
+                    </p>
+                  </Link>
+                </div>
               </div>
             )
           })}

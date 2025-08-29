@@ -32,6 +32,10 @@ export interface ITravelPackage {
   exclusion: IExclusion[];
   inclusion: IInclusion[];
   requirements: IRequirement[];
+  insurance: IInsurance[];
+  gearInfo: IGear[];
+  whyLoveThisTrek: IWhyLoveThis[];
+  importantNotice: IImportantNotice[];
   routeMap: string;
   pax: IPax[];
   gallery: IGallery[];
@@ -155,6 +159,50 @@ export interface IInclusion {
 }
 
 export interface IRequirement {
+  title: string;
+  description: string;
+  sortOrder: number;
+  package: string;
+  createdAt: string;
+  updatedAt: string;
+  _id: string;
+  image?: string;
+}
+
+export interface IInsurance {
+  title: string;
+  description: string;
+  sortOrder: number;
+  package: string;
+  createdAt: string;
+  updatedAt: string;
+  _id: string;
+  image?: string;
+}
+
+export interface IGear {
+  title: string;
+  description: string;
+  sortOrder: number;
+  package: string;
+  createdAt: string;
+  updatedAt: string;
+  _id: string;
+  image?: string;
+}
+
+export interface IWhyLoveThis {
+  title: string;
+  description: string;
+  sortOrder: number;
+  package: string;
+  createdAt: string;
+  updatedAt: string;
+  _id: string;
+  image?: string;
+}
+
+export interface IImportantNotice {
   title: string;
   description: string;
   sortOrder: number;
