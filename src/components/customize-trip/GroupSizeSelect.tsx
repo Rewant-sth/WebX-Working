@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState } from 'react';
 
 interface GroupSizeSelectProps {
@@ -11,7 +12,7 @@ const groupSizeOptions = [
         id: 'solo',
         name: 'Solo',
         description: 'Traveling alone',
-        icon: '👤',
+        icon: '/icons/solo.png',
         travelers: 1,
         benefits: ['Personalized experience', 'Flexible schedule', 'Budget-friendly']
     },
@@ -19,7 +20,7 @@ const groupSizeOptions = [
         id: 'duo',
         name: 'Duo',
         description: 'Two travelers',
-        icon: '👥',
+        icon: '/icons/duo.png',
         travelers: 2,
         benefits: ['Share memories', 'Split costs', 'Better safety']
     },
@@ -27,7 +28,7 @@ const groupSizeOptions = [
         id: 'group',
         name: 'Group',
         description: '3+ travelers',
-        icon: '👨‍👩‍👧‍👦',
+        icon: '/icons/group.png',
         travelers: 3,
         benefits: ['Group discounts', 'Social experience', 'More fun']
     }
@@ -86,7 +87,9 @@ export default function GroupSizeSelect({
 
                         {/* Icon */}
                         <div className="text-center mb-4">
-                            <div className="text-4xl mb-2">{option.icon}</div>
+                            <div className="mx-auto mb-2 size-14 relative">
+                                <Image src={option.icon} alt={option.name} fill className='object-cover mx-auto' />
+                            </div>
                             <h3 className="text-xl font-semibold text-gray-900">{option.name}</h3>
                             <p className="text-gray-600">{option.description}</p>
                         </div>
@@ -101,14 +104,14 @@ export default function GroupSizeSelect({
                     <h4 className="text-lg font-medium mb-4">Number of Travelers</h4>
                     <div className="flex items-center space-x-4">
                         <label className="text-gray-700">How many people will be traveling?</label>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center ">
                             <button
                                 type="button"
                                 onClick={() => {
                                     const newValue = Math.max(3, numberOfTravelers - 1);
                                     handleTravelersChange(newValue.toString());
                                 }}
-                                className="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center hover:bg-orange-600 transition-colors"
+                                className="size-10 rounded-l-sm bg-orange-500 text-white flex items-center justify-center hover:bg-orange-600 transition-colors"
                                 disabled={numberOfTravelers <= 3}
                             >
                                 -
@@ -119,7 +122,7 @@ export default function GroupSizeSelect({
                                 max="20"
                                 value={customTravelers}
                                 onChange={(e) => handleTravelersChange(e.target.value)}
-                                className="w-16 text-center border border-gray-300 rounded px-2 py-1 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                className="w-16 h-10  text-center border border-gray-300  px-2 py-1 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                             />
                             <button
                                 type="button"
@@ -127,7 +130,7 @@ export default function GroupSizeSelect({
                                     const newValue = Math.min(20, numberOfTravelers + 1);
                                     handleTravelersChange(newValue.toString());
                                 }}
-                                className="w-8 h-8 rounded-full bg-orange-500 text-white flex items-center justify-center hover:bg-orange-600 transition-colors"
+                                className="size-10 rounded-r-sm bg-orange-500 text-white flex items-center justify-center hover:bg-orange-600 transition-colors"
                                 disabled={numberOfTravelers >= 20}
                             >
                                 +
@@ -140,21 +143,6 @@ export default function GroupSizeSelect({
                 </div>
             )}
 
-            {/* Selected Summary */}
-            {selectedGroupSize && (
-                <div className="bg-blue-50 rounded-lg p-4">
-                    <h4 className="font-medium text-blue-900 mb-2">Your Selection</h4>
-                    <p className="text-blue-800">
-                        <span className="font-medium">
-                            {groupSizeOptions.find(opt => opt.id === selectedGroupSize)?.name}
-                        </span>
-                        {' - '}
-                        <span>
-                            {numberOfTravelers} {numberOfTravelers === 1 ? 'traveler' : 'travelers'}
-                        </span>
-                    </p>
-                </div>
-            )}
         </div>
     );
 }

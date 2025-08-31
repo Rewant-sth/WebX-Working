@@ -21,7 +21,7 @@ const TestimonialsSections = () => {
       </div>
       <div className="flex flex-col gap-6 justify-center md:-translate-y-44 items-center">
         <span className="bg-gray-100 px-4 text-gray-800 rounded-full">Testimonials</span>
-        <h2 className="text-xl md:text-4xl text-center font-semibold max-w-[70%] sm:max-w-lg"><span className="bg-orange-500 text-white px-2">Preferred</span> by  thousands  around the <span className="bg-orange-500 text-white px-2">world</span></h2>
+        <h2 className="text-xl md:text-4xl text-center font-semibold max-w-[80%] sm:max-w-xl uppercase"><span className="bg-orange-500 text-white px-2">Preferred</span> by  thousands  around the <span className="bg-orange-500 text-white px-2">world</span></h2>
         <p className="max-w-xl text-center">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente earum dolor, hic quisquam iste est. Lorem, ipsum dollar</p>
         <button className='flex w-fit h-fit gap-2 items-center'>
           <span className='bg-amber-600 flex justify-center items-center text-white size-12 rounded-full'>

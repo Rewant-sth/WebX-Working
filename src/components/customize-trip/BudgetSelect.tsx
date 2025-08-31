@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState } from 'react';
 
 interface BudgetSelectProps {
@@ -12,7 +13,7 @@ const budgetRanges = [
         id: 'budget',
         name: 'Budget',
         description: 'Essential experience',
-        icon: '💰',
+        icon: '/icons/budget.png',
         range: '$500 - $1,000',
         perPerson: 'per person',
         features: ['Basic accommodation', 'Standard meals', 'Group transport', 'Essential activities']
@@ -21,7 +22,7 @@ const budgetRanges = [
         id: 'standard',
         name: 'Standard',
         description: 'Comfortable journey',
-        icon: '⭐',
+        icon: '/icons/standard.png',
         range: '$1,000 - $2,500',
         perPerson: 'per person',
         features: ['Quality accommodation', 'Good meals', 'Private transport', 'Popular activities', 'Tour guide']
@@ -30,7 +31,7 @@ const budgetRanges = [
         id: 'luxury',
         name: 'Luxury',
         description: 'Premium experience',
-        icon: '💎',
+        icon: '/icons/luxury.png',
         range: '$2,500 - $5,000+',
         perPerson: 'per person',
         features: ['Luxury accommodation', 'Gourmet meals', 'Private transport', 'Exclusive activities', 'Personal guide', 'VIP services']
@@ -39,7 +40,7 @@ const budgetRanges = [
         id: 'custom',
         name: 'Custom',
         description: 'Set your own budget',
-        icon: '🎯',
+        icon: '/icons/custom.png',
         range: 'Your choice',
         perPerson: 'per person',
         features: ['Tailored to budget', 'Flexible options', 'Best value planning']
@@ -111,12 +112,14 @@ export default function BudgetSelect({
 
                         {/* Header */}
                         <div className="flex items-start mb-4">
-                            <div className="text-3xl mr-3">{budget.icon}</div>
+                            <div className="size-10 mr-3">
+                                <Image src={budget.icon} alt={budget.name} width={40} height={40} />
+                            </div>
                             <div>
                                 <h3 className="text-xl font-semibold text-gray-900">{budget.name}</h3>
                                 <p className="text-gray-600">{budget.description}</p>
                                 <div className="mt-2">
-                                    <span className="text-lg font-bold text-orange-600">{budget.range}</span>
+                                    <span className="text-lg font-bold text-gray-800">{budget.range}/</span>
                                     <span className="text-sm text-gray-500 ml-1">{budget.perPerson}</span>
                                 </div>
                             </div>
@@ -157,29 +160,6 @@ export default function BudgetSelect({
                                     For {numberOfTravelers} {numberOfTravelers === 1 ? 'traveler' : 'travelers'}
                                 </p>
                             </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {/* Budget Recommendations */}
-            {selectedBudget && selectedBudget !== 'custom' && (
-                <div className="bg-blue-50 rounded-lg p-4">
-                    <h4 className="font-medium text-blue-900 mb-2">What to Expect</h4>
-                    <div className="text-blue-800">
-                        <p className="mb-2">
-                            <span className="font-medium">
-                                {budgetRanges.find(b => b.id === selectedBudget)?.name} Experience
-                            </span>
-                        </p>
-                        {numberOfTravelers > 1 && (
-                            <p className="text-sm">
-                                Estimated total for your group: <span className="font-medium">
-                                    {selectedBudget === 'budget' && '$1,500 - $3,000'}
-                                    {selectedBudget === 'standard' && '$3,000 - $7,500'}
-                                    {selectedBudget === 'luxury' && '$7,500+'}
-                                </span>
-                            </p>
                         )}
                     </div>
                 </div>

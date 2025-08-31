@@ -5,10 +5,6 @@ import { useRef } from "react";
 
 const RouteMap = ({ data, onShow }: { data: ITravelPackage | undefined, onShow: () => void }) => {
   const routeMapRef = useRef<HTMLDivElement>(null);
-
-
-
-
   if (!data?.routeMap) return null;
 
   return (
@@ -21,14 +17,13 @@ const RouteMap = ({ data, onShow }: { data: ITravelPackage | undefined, onShow: 
         <div
 
           onClick={onShow}
-          className="w-24 h-24  bg-black rounded-sm overflow-hidden cursor-pointer hover:shadow-none transition-all border border-gray-200 relative"
+          className="w-24 h-24  bg-white  rounded-sm overflow-hidden cursor-pointer hover:shadow-none transition-all border border-orange-200 hover:border-orange-500 relative"
         >
-          <div className="size-4 bg-orange-500 animate-pulse absolute top-2 right-2 z-50 rounded-full"></div>
           <Image
             src={data.routeMap}
             alt="Route Map Thumbnail"
             fill
-            className="object-cover opacity-50"
+            className="object-contain"
             sizes="96px"
           />
         </div>

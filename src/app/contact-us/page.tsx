@@ -176,7 +176,7 @@ export default function PremiumContact() {
             className="space-y-8 col-span-2 w-full   rounded-sm text-[#01283F p-6"
           >
             <div className=' pb-6 '>
-              <h3 className="text-3xl lg:text-4xl font-bold  mb-4"><span className='bg-orange-500 px-3 inline-flex  leading-9 pb-2 w-fit text-white'>Start</span> your himalayan <br />adventure <span className='bg-orange-500 px-3 inline-flex  leading-9 pb-2 w-fit text-white'>today</span> with Real Himalaya</h3>
+              <h3 className="text-3xl lg:text-4xl font-bold  mb-4 uppercase"><span className='bg-orange-500 px-3 inline-flex  leading-9 pb-1 w-fit text-white'>Start</span> your himalayan <br />adventure <span className='bg-orange-500 px-3 inline-flex  leading-9 pb-1 w-fit text-white'>today</span> with Real Himalaya</h3>
               <p className=" text-lg">
                 Tell us about your project and we'll get back to you within 24 hours.
               </p>
@@ -396,7 +396,7 @@ export default function PremiumContact() {
                     <motion.button
                       type="submit"
                       disabled={isPending}
-                      className="w-fit  relative group overflow-hidden bg-gradient-to-r  from-white to-white hover:from-white hover:to-white  font-medium py-4 px-6 rounded-sm transition-all disabled:opacity-50"
+                      className="w-fit  relative group border overflow-hidden bg-gradient-to-r  from-white to-white hover:from-white hover:to-white  font-medium py-4 px-6 rounded-sm transition-all disabled:opacity-50"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >

@@ -7,7 +7,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="gear"
-            className="border-b max-w-6xl mx-auto border-gray-200 mb-8 pb-10"
+            className="border-b max-w-6xl mx-auto border-gray-200 mb-8 py-10"
         >
             {/* Gear */}
             <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
@@ -15,7 +15,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
                     Essential Gear
                 </span>
             </h2>
-            <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+            <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl mb-8">
                 Complete gear list and equipment recommendations for your adventure.
             </p>
             <div className="space-y-4">

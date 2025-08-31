@@ -72,10 +72,6 @@ export default function AboutUs() {
         backgroundAttachment: "fixed"
       }}
       className="h-screen overflow-hidden relative snap-start flex justify-end items-center bg-fixed-fallback">
-
-
-
-      {/* <div className="absolute top-0 left-0 w-full h-dvh z-[99] bg-gradient-to-b from-white to-transparent"></div> */}
       <motion.div
 
         className="absolute inset-0 z-[9999]   w-full flex justify-end items-end">
@@ -90,10 +86,10 @@ export default function AboutUs() {
         className='flex  pl-40 relative  z-[99]  items-center w-full justify-start '
       >
         <div className="w-full relative  max-w-2xl flex gap-2 items-start ">
-          <div className="size-28 -translate-y-[4px] relative rounded-sm overflow-hidden ">
+          <div className="size-[8rem]  relative rounded-sm overflow-hidden ">
             <Image src={"/logo/logo.svg"} alt='bg' fill />
           </div>
-          <div className="max-w-2xl w-full space-y-1.5 text-5xl font-semibold">
+          <div className="max-w-2xl w-full space-y-1.5 text-4xl uppercase font-semibold">
             <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >We are maniacs</h2>
             <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >of travelling</h2>
           </div>

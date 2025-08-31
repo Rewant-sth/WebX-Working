@@ -43,7 +43,7 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
                             Selected Package
                         </h4>
                         <div className="flex items-start space-x-3">
-                            <div className="relative w-16 h-16 rounded-sm overflow-hidden bg-gray-200">
+                            <div className="relative w-16 h-16 shrink-0 rounded-sm overflow-hidden bg-gray-200">
                                 <Image
                                     src={selectedPackage.coverImage || '/placeholder.webp'}
                                     alt={selectedPackage.name}

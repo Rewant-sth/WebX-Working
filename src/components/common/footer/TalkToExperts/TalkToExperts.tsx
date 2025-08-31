@@ -44,7 +44,7 @@ const TalkToExperts: React.FC = () => {
 
   return (
     <section className=" z-[99] relative mx-auto max-w-6xl">
-      <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-800 text-center">
+      <h1 className="text-2xl sm:text-4xl uppercase lg:text-4xl font-bold mb-6 text-gray-800 text-center">
         Talk to Our Experts
       </h1>
       <div className="flex mt-8 justify-center items-center flex-wrap gap-4 ">

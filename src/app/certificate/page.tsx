@@ -211,7 +211,7 @@ const CertificatesPage = () => {
             className="mb-20"
           >
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl uppercase md:text-4xl font-bold text-gray-900 mb-4">
                 Our Official Certifications
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -256,20 +256,20 @@ const CertificatesPage = () => {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols- gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols- gap-8 ">
                 {certificates.map((cert: Certificate, index: number) => (
                   <motion.div
                     key={cert._id}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="group bg-white rounded-sm overflow-hidden  transition-all duration-500 transform "
+                    className="group bg-white rounded-sm  border border-gray-400 overflow-hidden  transition-all duration-500 transform "
                   >
-                    <div className="relative overflow-hidden">
+                    <div className="relative w-full h-[30rem] lg:h-[40rem] overflow-hidden">
                       <img
                         src={cert.image}
                         alt={cert.name}
-                        className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                       />
 
                       <div className=" absolute backdrop-blur-sm z-30 flex justify-center items-center opacity-0 hover:opacity-100 transition-all duration-300 inset-0">

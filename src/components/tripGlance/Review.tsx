@@ -234,10 +234,10 @@ export default function TravellerReview({
 
             {/* Main content */}
             <div className="relative z-10">
-              <div className="mb-6 transform group-hover:scale-105 transition-transform duration-500">
+              <div className="mb-6 transform  transition-transform duration-500">
                 <div className="relative inline-block">
                   <div className="w-50 flex items-center justify-center mb-4 mx-auto">
-                    <img src="/icons/stars.png" alt="stars" />
+                    <img src="/icons/stars.png" alt="stars" className="opacity-30 " />
                   </div>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function TravellerReview({
 
 
               {/* Subtle encouragement text */}
-              <div className="mt-6 p-4 bg-white w-fit mx-auto rounded-sm border border-white/50 backdrop-blur-sm">
+              <div className="mt-6 p-4  w-fit mx-auto rounded-sm border border-white/50 backdrop-blur-sm">
                 <p className="text-xs text-gray-500 italic">
                   💡 Your review helps others make informed decisions and supports local communities
                 </p>
@@ -342,7 +342,7 @@ export default function TravellerReview({
       </div>
 
       {/* Reviews */}
-      <div className="mb-10">
+      {/* <div className="mb-10">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-lg font-semibold" style={{ color: '#3A3A3A' }}>Video Reviews</h3>
         </div>
@@ -352,7 +352,7 @@ export default function TravellerReview({
           <iframe className="w-full" height="315" src="https://www.youtube-nocookie.com/embed/hWp06RX_5pw?si=M-8SNKmsGTzQ45nv" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           <iframe className="w-full" height="315" src="https://www.youtube-nocookie.com/embed/hWp06RX_5pw?si=M-8SNKmsGTzQ45nv" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
         </div>
-      </div>
+      </div> */}
 
       {/* Add Review Form Section */}
       <div className="mt-12 border-t border-gray-200 pt-10">

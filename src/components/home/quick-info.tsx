@@ -60,10 +60,10 @@ export default function QuickInfo() {
     <div className="min-h-screen py-20 flex items-center justify-center bg-white px-4 w-full">
       <div className="max-w-7xl w-full relative mx-auto  gap-6 items-center">
         <div className="">
-          <h2 className="text-xl md:text-4xl pb-4 mx-auto font-semibold max-w-2xl text-center leading-snug text-gray-900">
-            <span className="bg-orange-500 text-white px-4">Explore </span>{" "}
-            our latest insights and healing{" "}
-            <span className="bg-orange-500 text-white px-4">Journey</span>
+          <h2 className="text-xl md:text-4xl space-x-1 pb-4 mx-auto font-semibold uppercase max-w-2xl text-center leading-snug text-gray-900">
+            <span className="bg-orange-500 text-white px-2">Explore</span>
+            <span>our latest insights and healing</span>
+            <span className="bg-orange-500 text-white  px-2">Journey</span>
           </h2>
           <p className="max-w-3xl mx-auto text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius ducimus fugiat ut consequatur repellendus? Asperiores, soluta mollitia voluptate assumenda voluptatibus harum sed molestiae fugiat nemo.</p>
         </div>
@@ -110,15 +110,18 @@ export default function QuickInfo() {
                 </div>
                 <h2 className="text-xl font-semibold mt-2">{data?.title}</h2>
 
-                <div className="py-3 p-2 flex w-full  justify-end items-center">
-                  <Link href={"/blogs/" + data?.slug} className="flex w-fit  items-center gap-3 cursor-pointer">
-                    <div className="w-7 h-7 rounded-full border flex items-center justify-center border-gray-900">
-                      <Play size={11} className="text-gray-900" />
-                    </div>
-                    <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
-                      READ MORE
-                    </p>
-                  </Link>
+                <div className="flex w-full py-3 p-2 justify-between items-center">
+                  <h2 className="shrink-0">By: {data?.author}</h2>
+                  <div className=" flex w-full  justify-end items-center">
+                    <Link href={"/blogs/" + data?.slug} className="flex w-fit  items-center gap-3 cursor-pointer">
+                      <div className="w-7 h-7 rounded-full border flex items-center justify-center border-gray-900">
+                        <Play size={11} className="text-gray-900" />
+                      </div>
+                      <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
+                        READ MORE
+                      </p>
+                    </Link>
+                  </div>
                 </div>
               </div>
             )

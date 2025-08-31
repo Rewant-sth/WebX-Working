@@ -33,7 +33,7 @@ export default function Page() {
             <section className="py-16">
                 <div className="max-w-7xl mx-auto px-4 lg:px-8">
 
-                    <button onClick={() => router.back()} className=" mb-6 text-blue-600 hover:underline flex gap-2 items-center">
+                    <button onClick={() => router.back()} className=" mb-6  flex gap-2 items-center">
                         <ArrowLeft />   Go Back
                     </button>
 

@@ -498,9 +498,21 @@ button:disabled {
 
 
 #editor img {
-    max-width: 47%;
+    max-width: 45%;
     display: inline;
     aspect-ratio: 16/9;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+/* For Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }

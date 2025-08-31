@@ -53,7 +53,7 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
     }, [emblaApi, updateCarouselState]);
 
     return (
-        <section className="absolute inset-0 w-dvw h-dvh z-10">
+        <section className="absolute inset-0 w-dvw h-dvh">
             {/* Carousel */}
             <div className="overflow-hidden relative w-full h-full" ref={emblaRef}>
                 <div className="flex touch-pan-y touch-pinch-zoom backface-hidden w-full h-full">
