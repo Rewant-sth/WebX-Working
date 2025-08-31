@@ -13,8 +13,8 @@ const VisitTracker = () => {
 
 
 
-  const getUserId = () => {
-    let userId = localStorage.getItem('userId');
+  const getUserId = ():string => {
+    let userId = localStorage.getItem('userId') as string
     console.log("userId before",userId);
     
     if (!userId) {
