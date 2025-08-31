@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
+import { setPackage } from "@/store/booking-store";
+import { useRouter } from "next/navigation";
 
 // Define section interfaces for better type safety
 interface Section {
@@ -33,6 +35,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     const [activeSection, setActiveSection] = useState<string>("major-highlights");
     const [isScrollingToSection, setIsScrollingToSection] = useState(false);
     const lastScrollY = useRef(0);
+    const router = useRouter();
 
     // Handle scroll events for section tracking only
     useEffect(() => {
@@ -219,9 +222,21 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                         {section.label}
                                     </button>
                                 ))}
+
+                                {data?.fixedDates && data.fixedDates.length > 0 && (
+                                    <button onClick={() => {
+                                        setPackage(data);
+                                        router.push('/booking/' + data.slug);
+                                    }} className="bg-orange-500 text-white px-4  flex gap-2 items-center rounded-sm">
+                                        <Icon icon="hugeicons:calendar-03" className="w-4 h-4 inline-block mr-2" />
+                                        Book Now
+                                    </button>
+                                )}
                             </div>
                         </div>
                     )}
+
+
                 </div>
             </div>
 

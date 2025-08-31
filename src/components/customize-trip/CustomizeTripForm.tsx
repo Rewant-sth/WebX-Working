@@ -15,6 +15,7 @@ import PackagesSelect from './PackagesSelect';
 import GroupSizeSelect from './GroupSizeSelect';
 import BudgetSelect from './BudgetSelect';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const initialFormData: CustomizeTripFormData = {
     personalInfo: [{
@@ -27,7 +28,7 @@ const initialFormData: CustomizeTripFormData = {
         passportNumber: '',
         passportExpiryDate: ''
     }],
-    adults: 1,
+    totalPeople: 1,
     totalAmount: 1,
     fixedDateId: '',
     arrivalDate: '',
@@ -53,6 +54,7 @@ export default function CustomizeTripForm() {
     const [formData, setFormData] = useState<CustomizeTripFormData>(initialFormData);
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter()
 
     // Form validation
     const { validationErrors, isStepValid, validateAllSteps } = useFormValidation(formData, currentStep);
@@ -77,16 +79,16 @@ export default function CustomizeTripForm() {
                 )
             }));
         } else {
-            setFormData(prev => ({ ...prev, [field]: value }));
+            // Ensure numeric fields remain as numbers
+            let processedValue = value;
+            if (field === 'totalPeople' || field === 'numberOfTravelers' || field === 'totalAmount' || field === 'customBudget') {
+                processedValue = typeof value === 'string' ? Number(value) || 0 : value;
+            }
+            setFormData(prev => ({ ...prev, [field]: processedValue }));
         }
     }, []);
 
-    const handleStepClick = useCallback((step: number) => {
-        // Only allow navigation to completed steps or current step
-        if (step <= currentStep) {
-            setCurrentStep(step);
-        }
-    }, [currentStep]);
+
 
     const handleNextStep = useCallback(() => {
         if (isStepValid && currentStep < FORM_STEPS.length) {
@@ -144,13 +146,23 @@ export default function CustomizeTripForm() {
         setIsSubmitting(true);
 
         try {
-            const response = await api.post('/custom-booking', formData);
+            // Ensure totalPeople is sent as a number
+            const submitData = {
+                ...formData,
+                totalPeople: Number(formData.totalPeople),
+                numberOfTravelers: Number(formData.numberOfTravelers),
+                totalAmount: Number(formData.totalAmount),
+                customBudget: Number(formData.customBudget)
+            };
+
+            const response = await api.post('/custom-booking', submitData);
 
             if (response.data.status === 'success') {
                 toast.success('Your customize trip request has been submitted successfully!');
                 // Reset form
                 setFormData(initialFormData);
                 setCurrentStep(1);
+                router.push('booking/success')
             } else {
                 throw new Error(response.data.message || 'Failed to submit request');
             }
@@ -177,7 +189,7 @@ export default function CustomizeTripForm() {
                 return (
                     <GroupSizeSelect
                         selectedGroupSize={formData.groupSize}
-                        numberOfTravelers={formData.numberOfTravelers}
+                        numberOfTravelers={formData.totalPeople}
                         onChange={handleInputChange}
                     />
                 );

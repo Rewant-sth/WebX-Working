@@ -77,22 +77,22 @@ export default function Hero() {
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
 
       {/* hero first */}
-      <div ref={sectionRef} className="h-screen max-w-7xl mx-auto sticky top-50 flex ">
-        <div className="w-full grid md:grid-cols-2 ">
-          <div className="flex gap-8 lg:gap-16 font-semibold items-start justify-evenly">
+      <div ref={sectionRef} className="h-screen  mx-auto sticky top-50 lg:flex gap-6 lg:gap-16 p-6 ">
+        <div className="w-full  ">
+          <div className="flex w-full gap-8 lg:gap-16 font-semibold items-start ">
             <Link href={"/package-list/trekking"}>
               <button className='flex w-fit h-fit gap-2 items-center'>
-                <span className='bg-amber-600 flex justify-center items-center text-white size-16 rounded-full'>
+                <span className='bg-amber-600 flex justify-center items-center text-white size-14 rounded-full'>
                   <Play className='fill-white' />
                 </span>
                 <span className='text-left leading-4 uppercase'>view <br /> more</span>
               </button>
             </Link>
-            <h2 className='text-gray-800 text-3xl md:text-7xl font-semibold'>Mountain <br /> World</h2>
+            <h2 className='text-gray-800 text-3xl  md:text-6xl font-semibold'>Explore the <br /> Real Himalaya</h2>
           </div>
         </div>
-        <div ref={rightTextRef} className="w-full max-w-xl line-clamp-3 text-lg">
-          <p>Discover the <b>majestic beauty of Nepal</b> through our expertly crafted trekking adventures. From the <u>towering peaks of Everest</u> to the serene trails of Annapurna, we guide you through breathtaking landscapes and rich cultural experiences that will create memories to last a lifetime.</p>
+        <div ref={rightTextRef} className="w-full max-w-2xl line-clamp-3 text-lg">
+          <p>Step into a world where the mountains whisper stories of adventure. From thrilling treks and serene landscapes to cultural experiences in remote villages, Real Himalaya brings you closer to nature, tradition, and unforgettable memories.</p>
         </div>
       </div>
 
@@ -105,10 +105,10 @@ export default function Hero() {
             <span className='text-orange-500'>world's highest peaks</span> and create <u>unforgettable memories.</u>
           </h2>
 
-          <div className="absolute bottom-1 left-0 ">
+          <div className="absolute bottom-1 left-0 -translate-x-1/2 ">
             <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20' />
           </div>
-          <div className="absolute bottom-1 right-0 ">
+          <div className="absolute bottom-1 right-0  translate-x-1/2">
             <img src="/cloud_2.webp" alt="cloud" className='translate-x-16' />
           </div>
         </div>

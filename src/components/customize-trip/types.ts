@@ -11,7 +11,7 @@ export interface PersonalInfo {
 
 export interface CustomizeTripFormData {
     personalInfo: PersonalInfo[];
-    adults: number;
+    totalPeople: number;
     totalAmount: number;
     fixedDateId: string;
     arrivalDate: string;

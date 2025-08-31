@@ -191,7 +191,7 @@ export default function Navbar() {
                         setSelectedSubcategoryId(category.subCategories[0]._id);
                       }
                     }}
-                    className={`cursor-pointer transition-all flex justify-between items-center duration-300 hover:text-orange-300 py-1 ${selectedCategory?._id === category._id ? 'text-orange-300' : ''}`}
+                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-orange-300 py-1 ${selectedCategory?._id === category._id ? 'text-orange-300 bg-orange-500/5 ' : ''}`}
                   >
 
                     {category.name}
@@ -214,7 +214,7 @@ export default function Navbar() {
               <h2
                 key={subCategory._id}
                 onMouseEnter={() => setSelectedSubcategoryId(subCategory._id)}
-                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-orange-300 hover:translate-x-2 py-2 ${selectedSubcategoryId === subCategory._id ? 'text-orange-300' : ''}`}
+                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-orange-300 hover:translate-x-2 p-2 ${selectedSubcategoryId === subCategory._id ? 'text-orange-300 bg-orange-500/5' : ''}`}
               >
                 {subCategory.name}
                 <Icon icon="fluent:arrow-right-20-filled" className={`ml-2 inline-block transition-all duration-500 ${selectedSubcategoryId === subCategory._id ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'}`} />

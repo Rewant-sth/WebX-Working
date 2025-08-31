@@ -119,7 +119,7 @@ const Blogs = async () => {
                 </div>
 
                 <div className="mt-2">
-                  <h2 className="text-xl line-clamp-2 font-bold text-gray-800 mb-2 hover:text-[#155DFC] transition-colors cursor-pointer">
+                  <h2 className="text-xl line-clamp-2 font-bold text-gray-800 mb-2 hover:text-orange-500 transition-colors cursor-pointer">
                     {blog.title}
                   </h2>
                   <p id="editor" dangerouslySetInnerHTML={{ __html: blog.description }} className="text-gray-600 text-sm mb-4 line-clamp-2">

@@ -72,7 +72,7 @@ const FormInput = ({
         {...register(name)}
         type={type}
         placeholder={placeholder}
-        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
+        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm"
       />
     </div>
     {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
@@ -90,7 +90,7 @@ const FormSelect = ({ register, name, label, error, icon, options, required = tr
       </div>
       <select
         {...register(name)}
-        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md appearance-none bg-white"
+        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm appearance-none bg-white"
       >
         <option value="">Select {label}</option>
         {options.map((option: any) => (
@@ -154,7 +154,7 @@ const FormDatePicker = ({
           yearDropdownItemNumber={100} // 👈 Optional: number of years to show
           dateFormat="yyyy-MM-dd"
           wrapperClassName="w-full"
-          className={`w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+          className={`w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
           disabled={disabled}
         />
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
@@ -375,7 +375,7 @@ export default function BookingForm() {
     <>
       <Banner />
       <div className="w-full lg:p-20 mx-auto p-4 md:p-6 bg-white">
-        <button onClick={() => router.back()} className="flex items-center text-gray-600 hover:text-blue-500 transition mb-4">
+        <button onClick={() => router.back()} className="flex items-center text-gray-600 hover:text-orange-500 transition mb-4">
           <ArrowLeft className="w-5 h-5 mr-2" />
           Go Back
         </button>
@@ -403,7 +403,7 @@ export default function BookingForm() {
               {fields.map((traveler, index) => (
                 <div key={traveler.id} className="bg-white p-6 rounded-sm shadow-sm mb-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-blue-600 text-lg font-medium">Traveler #{index + 1}</h3>
+                    <h3 className="text-orange-600 text-lg font-medium">Traveler #{index + 1}</h3>
                     {index > 0 && (
                       <button
                         type="button"
@@ -420,7 +420,7 @@ export default function BookingForm() {
                       type="checkbox"
                       id={`isChild-${index}`}
                       {...register(`personalInfo.${index}.isChild`)}
-                      className="w-5 h-5 mr-2 accent-blue-600"
+                      className="w-5 h-5 mr-2 accent-orange-600"
                     />
                     <label htmlFor={`isChild-${index}`} className="text-md font-medium">
                       Is this traveler a child?
@@ -542,11 +542,9 @@ export default function BookingForm() {
                 <button
                   type="button"
                   onClick={addTraveler}
-                  className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md flex items-center gap-2 transition"
+                  className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-sm flex items-center gap-2 transition"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-                  </svg>
+
                   Add Traveler
                 </button>
               </div>
@@ -576,7 +574,7 @@ export default function BookingForm() {
                     <label className="block text-gray-700 mb-1">Select Package Date *</label>
                     <select
                       {...register("fixedDateId")}
-                      className="w-full p-3 border border-gray-300 rounded-md"
+                      className="w-full p-3 border border-gray-300 rounded-sm"
                     >
                       {packageData?.data?.fixedDates?.map((dateOption: any) => {
                         const startDate = new Date(dateOption.startDate).toLocaleDateString();
@@ -604,7 +602,7 @@ export default function BookingForm() {
                   <textarea
                     {...register("specialRequirements")}
                     placeholder="Dietary needs, accessibility requirements, etc."
-                    className="w-full p-3 border border-gray-300 rounded-md min-h-[120px]"
+                    className="w-full p-3 border border-gray-300 rounded-sm min-h-[120px]"
                   />
                 </div>
 
@@ -613,7 +611,7 @@ export default function BookingForm() {
                   <textarea
                     {...register("message")}
                     placeholder="Additional information or questions..."
-                    className="w-full p-3 border border-gray-300 rounded-md min-h-[120px]"
+                    className="w-full p-3 border border-gray-300 rounded-sm min-h-[120px]"
                   />
                 </div>
               </div>
@@ -625,11 +623,11 @@ export default function BookingForm() {
                     type="checkbox"
                     id="termsAccepted"
                     {...register("termsAccepted")}
-                    className="mt-1 w-5 h-5 accent-blue-600"
+                    className="mt-1 w-5 h-5 accent-orange-600"
                   />
                   <label htmlFor="termsAccepted" className="ml-2 text-gray-700">
                     I accept the{" "}
-                    <Link target="_blank" href="/terms-and-conditions" className="text-blue-600 hover:underline">
+                    <Link target="_blank" href="/terms-and-conditions" className="text-orange-600 hover:underline">
                       Terms and Conditions
                     </Link>
                   </label>
@@ -642,7 +640,7 @@ export default function BookingForm() {
 
             {/* Right Column - Booking Summary */}
             <div className="lg:w-96">
-              <div className="sticky top-6 bg-white p-6 rounded-sm shadow border border-blue-100">
+              <div className="sticky top-6 bg-white p-6 rounded-sm shadow border border-orange-100">
                 <h2 className="text-xl font-bold text-gray-800 mb-6">Booking Summary</h2>
 
                 <div className="space-y-3 mb-6">
@@ -668,16 +666,16 @@ export default function BookingForm() {
 
                   <div className="flex justify-between text-lg font-bold pt-3 border-t border-gray-200">
                     <span>Total:</span>
-                    <span className="text-blue-600">${totalAmount}</span>
+                    <span className="text-orange-600">${totalAmount}</span>
                   </div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className={`w-full py-3 px-4 rounded-md font-medium transition flex items-center justify-center ${isLoading
+                  className={`w-full py-3 px-4 rounded-sm font-medium transition flex items-center justify-center ${isLoading
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700 text-white"
+                    : "bg-orange-600 hover:bg-orange-700 text-white"
                     }`}
                 >
                   {isLoading ? (

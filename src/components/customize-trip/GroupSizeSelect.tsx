@@ -43,6 +43,7 @@ export default function GroupSizeSelect({
 
     const handleGroupSizeChange = (groupSizeId: string, defaultTravelers: number) => {
         onChange('groupSize', groupSizeId);
+        onChange('totalPeople', defaultTravelers);
         if (groupSizeId !== 'group') {
             onChange('numberOfTravelers', defaultTravelers);
             setCustomTravelers(defaultTravelers.toString());
@@ -53,6 +54,7 @@ export default function GroupSizeSelect({
         setCustomTravelers(value);
         const numValue = parseInt(value) || 1;
         onChange('numberOfTravelers', numValue);
+        onChange('totalPeople', numValue);
     };
 
     return (

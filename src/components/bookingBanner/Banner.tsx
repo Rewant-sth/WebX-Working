@@ -8,9 +8,9 @@ const Banner = () => {
     <div className="relative w-full h-[44vh] ">
       {/* Background Image */}
       <Image
-        src="/TrekImages/manaslu.png"
+        src="/EVEREST REGION/NIKON D50001965.jpg"
         alt="himal"
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover object-center"
         priority
         width={1920}
         height={1080}
@@ -21,11 +21,11 @@ const Banner = () => {
 
       {/* Content Container */}
       <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
-        <div className="w-full max-w-6xl bg-blue-500 backdrop-blur-md text-white rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+        <div className="w-full max-w-6xl bg-orange-500 backdrop-blur-md text-white rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 px-4 sm:px-6 md:px-8 py-4 sm:py-6">
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
             <img
-              src="/TrekImages/logo.png"
+              src="/logo/white.svg"
               alt="treak logo images"
               className="h-6 sm:h-7 md:h-8"
               height={200}
@@ -44,7 +44,7 @@ const Banner = () => {
           {/* Right: CTA */}
           <div className="flex items-center space-x-2">
             <p className="text-xs sm:text-sm">Secure your booking now</p>
-            <ShieldCheck className="text-green-400 w-4 h-4 sm:w-5 sm:h-5" />
+            <ShieldCheck className="text-white w-4 h-4 sm:w-5 sm:h-5" />
           </div>
         </div>
       </div>

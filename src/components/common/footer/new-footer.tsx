@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React, { useLayoutEffect } from 'react'
 import TalkToExperts from './TalkToExperts/TalkToExperts';
+import Link from 'next/link';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -73,7 +74,7 @@ export default function Footer() {
                   <li><Icon className='size-7' icon="mdi:linkedin" /></li>
                   <li><Icon className='size-7' icon="mdi:twitter" /></li>
                 </ul>
-                <p>Designed and developed by WebX Nepal</p>
+                <Link target='parent' href="https://www.webxnep.com" className='flex gap-2 items-center'>Designed and developed by <img src="/logo/black-logo-png.png" alt="webx nepal" width={62} /></Link>
               </div>
             </div>
           </div>
