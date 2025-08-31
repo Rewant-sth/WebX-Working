@@ -132,7 +132,10 @@ export default function Navbar() {
   return (
     <nav
       style={{
-        zIndex: showNav ? 999999999 : 99999
+        zIndex: showNav ? 999999999 : 99999,
+        position:"fixed",
+        top:0,
+        left:0
       }}
       className='fixed left-0 w-full top-0  p-4  md:px-6 py-4 flex justify-between items-center '>
       <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
