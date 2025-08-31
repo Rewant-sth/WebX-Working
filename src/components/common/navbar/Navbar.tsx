@@ -130,7 +130,11 @@ export default function Navbar() {
   }, [categories, selectedCategory]);
 
   return (
-    <nav className='fixed left-0 w-full top-0 z-[99999] p-4  md:px-6 py-4 flex justify-between items-center '>
+    <nav
+      style={{
+        zIndex: showNav ? 999999999 : 99999
+      }}
+      className='fixed left-0 w-full top-0  p-4  md:px-6 py-4 flex justify-between items-center '>
       <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
         <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
       </Link>
@@ -160,7 +164,7 @@ export default function Navbar() {
         ref={menuRef}
         className={`absolute hidden top-0 left-0 min-h-[100dvh] overflow-auto w-[100vw] bg-[#0d1117] ${showNav ? 'block' : 'hidden'}`}
       >
-        <div ref={popupNavref} className="flex border-b border-white/10 backdrop-blur-sm bg-black/10 p-4 md:p-6 py-3 justify-between items-center">
+        <div ref={popupNavref} className="flex border-b border-white/10 backdrop-blur-sm bg-black/10 p-4 md:p-4 py-3 justify-between items-center">
           <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
             <img src="/logo/white.svg" alt="Real Himalaya Logo" className="w-full h-auto" />
           </Link>
@@ -171,7 +175,7 @@ export default function Navbar() {
               className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'
             >
               <span className="font-medium text-sm md:text-base">Close</span>
-              <span className='bg-[#0d1117] size-9 flex justify-center items-center text-white rounded-sm  duration-300 '>
+              <span className='bg-white text-orange-500 size-9 flex justify-center items-center  rounded-sm  duration-300 '>
                 <Icon icon={"bitcoin-icons:cross-filled"} className='text-lg' />
               </span>
             </button>
