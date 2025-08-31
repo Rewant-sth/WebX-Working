@@ -9,35 +9,69 @@ const VisitTracker = () => {
   const pathname = usePathname();
   const hasTrackedRef = useRef(false);
 
-  useEffect(() => {
-    // Socket connection handlers
-    socket.on("connect", () => {
-      // Emit initial page view on connect
-      if (pathname) {
+  // useEffect(() => {
+  //   // Socket connection handlers
+  //   socket.on("connect", () => {
+  //     // Emit initial page view on connect
+  //     if (pathname) {
+  //       socket.emit("page_view", pathname);
+  //     }
+  //   });
+
+  //   socket.on("connect_error", (err) => {
+  //     console.log("Connection error:", err.message);
+  //   });
+
+  //   socket.on("activeUsers", (count: number) => {
+  //     setActiveUsers(count);
+  //   });
+
+  //   // Track page view when pathname changes
+  //   if (socket.connected) {
+  //     socket.emit("page_view", pathname);
+  //   }
+
+  //   // Cleanup on unmount
+  //   return () => {
+  //     socket.off("connect");
+  //     socket.off("connect_error");
+  //     socket.off("activeUsers");
+  //   };
+  // }, [pathname]);
+
+
+  useEffect(()=>{
+      // Socket connection handlers
+      socket.on("connect", () => {
+        // Emit initial page view on connect
+        if (pathname) {
+          socket.emit("page_view", pathname);
+        }
+      });
+  
+      socket.on("connect_error", (err) => {
+        console.log("Connection error:", err.message);
+      });
+  
+      // Update to listen for user_statistics instead of activeUsers
+      socket.on("user_statistics", (stats: { totalUsers: number }) => {
+        setActiveUsers(stats.totalUsers);
+      });
+  
+      // Track page view when pathname changes
+      if (socket.connected) {
         socket.emit("page_view", pathname);
       }
-    });
+  
+      // Cleanup on unmount
+      return () => {
+        socket.off("connect");
+        socket.off("connect_error");
+        socket.off("user_statistics");
+      };
+  },[pathname])
+  
 
-    socket.on("connect_error", (err) => {
-      console.log("Connection error:", err.message);
-    });
-
-    socket.on("activeUsers", (count: number) => {
-      setActiveUsers(count);
-    });
-
-    // Track page view when pathname changes
-    if (socket.connected) {
-      socket.emit("page_view", pathname);
-    }
-
-    // Cleanup on unmount
-    return () => {
-      socket.off("connect");
-      socket.off("connect_error");
-      socket.off("activeUsers");
-    };
-  }, [pathname]);
 
   useEffect(() => {
     const trackVisit = async () => {
