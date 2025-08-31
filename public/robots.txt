@@ -1,0 +1,30 @@
+#robots.txt for high-five
+
+User-agent: *
+Allow: /
+Allow: /contact-us
+Allow: /itinerary
+Allow: /terms-and-conditions
+Allow: /blogs
+Allow: /ourteam
+Allow: /certificate
+Allow: /event
+Allow: /message
+
+# allow access to dynamic routes
+
+Allow: /blogs/
+
+# disallow others
+Disallow: /admin
+
+# Prevent crawling of search results
+Disallow: /*?s=
+Disallow: /*?p=
+Disallow: /search
+
+# Crawl-delay directive (in seconds) for bots that respect it
+Crawl-delay: 10
+
+# Sitemap location
+Sitemap: https://highfiveadventure.com/sitemap.xml

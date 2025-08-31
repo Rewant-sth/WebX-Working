@@ -1,0 +1,519 @@
+@import "tailwindcss";
+
+/* Optimize scroll performance and prevent flickering */
+html {
+    scroll-behavior: auto !important;
+    /* Let Lenis handle smooth scrolling */
+}
+
+* {
+    /* Hardware acceleration for better performance */
+    backface-visibility: hidden;
+    perspective: 1000;
+    will-change: auto;
+}
+
+/* Apply transform only to specific elements that need it */
+.motion-safe,
+img:not(.bg-fixed),
+video:not(.bg-fixed) {
+    transform: translateZ(0);
+}
+
+/* Optimize animations */
+.motion-safe {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Prevent layout shifts */
+img,
+video {
+    transform: translateZ(0);
+}
+
+/* Optimize for smooth scrolling */
+body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Add padding for fixed navbar */
+}
+
+
+
+/* Minimal ring pulse for professional look */
+@keyframes ringPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+/* Remove hover pulse animation */
+.group:hover .hover-pulse {
+    animation: none;
+}
+
+.font-playfair {
+    font-family: Playfair !important;
+}
+
+.font-inter {
+    font-family: Inter !important;
+}
+
+:root {
+    --duration: 20s;
+    --gap: 2rem;
+    --event-primary: #2563eb;
+    --event-primary-dark: #1d4ed8;
+    --event-primary-light: #3b82f6;
+
+    /* Secondary Indigo - Premium Feel */
+    --event-secondary: #4f46e5;
+    --event-secondary-dark: #4338ca;
+    --event-secondary-light: #6366f1;
+
+    /* Accent Colors */
+    --event-success: #10b981;
+    --event-warning: #f59e0b;
+    --event-danger: #ef4444;
+
+    /* Neutral Palette */
+    --event-gray-50: #f8fafc;
+    --event-gray-100: #f1f5f9;
+    --event-gray-600: #475569;
+    --event-gray-900: #0f172a;
+
+    /* Background Gradients */
+    --event-bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+    --event-bg-card: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.8) 100%);
+}
+
+/* Accessibility-compliant color combinations */
+.event-high-contrast {
+    --text-primary: #0f172a;
+    --text-secondary: #374151;
+    --bg-primary: #ffffff;
+    --accent-primary: #1d4ed8;
+}
+
+.marquee-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-track {
+    display: flex;
+    gap: var(--gap);
+    width: max-content;
+    animation: marquee var(--duration) linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+.infinite-scroll-x::-webkit-scrollbar {
+    display: none;
+}
+
+.infinite-scroll-x {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.bg {
+    background-image: linear-gradient(rgba(0, 0, 255, 0.7), rgba(0, 0, 255, 0.7)), url('../../public/mountain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Enhanced Modern UI Classes */
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Simplified glass effect without heavy blur */
+.glass {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Fixed background classes */
+.bg-fixed {
+    background-attachment: fixed !important;
+    /* Prevent transforms on fixed backgrounds */
+    transform: none !important;
+    will-change: auto !important;
+}
+
+.bg-fixed-fallback {
+    /* Ensure no conflicting transforms */
+    transform: none !important;
+}
+
+/* Responsive fixed background - disable on mobile for better performance */
+@media (max-width: 768px) {
+    .bg-fixed {
+        background-attachment: scroll !important;
+    }
+}
+
+/* Enhanced animations for hero and tabs */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-8px);
+    }
+
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+    animation: slideUp 0.8s ease-out;
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+/* Enhanced scale animation with fade */
+.animate-scale-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Enhanced gradient text */
+.gradient-text-animated {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Tab hover effects */
+.tab-hover-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-hover-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.tab-hover-effect:hover::before {
+    left: 100%;
+}
+
+/* Enhanced backdrop blur support */
+.backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Remove fade-in-up animation */
+.fade-in-up {
+    animation: none;
+}
+
+
+@font-face {
+    font-family: "Montserrat";
+    src: url('/public/fonts/montserrat.ttf');
+}
+
+@font-face {
+    font-family: "Amanojaku";
+    src: url('/fonts/Crosshatcher D.otf');
+}
+
+@font-face {
+    font-family: "Ocean Brush Demo";
+    src: url('/fonts/OceanBrushDEMO-Solid.otf');
+}
+
+.font-montserrat {
+    font-family: "Montserrat", sans-serif;
+}
+
+.font-amanojaku {
+    font-family: "Amanojaku", sans-serif;
+}
+
+.font-ocean-brush {
+    font-family: "Ocean Brush Demo", cursive;
+}
+
+.image-card {
+    position: relative;
+    overflow: hidden;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+/* Hide main scrollbar for body and html */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html,
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+/* Hide the default checkbox */
+.container input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: 2px solid #f05e25a0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: #F05E25;
+    border-bottom: 1.5px solid #F05E25;
+    /* Bottom stroke */
+    box-shadow: 0 0 1px #F05E25, inset 0 -2.5px 3px #F05E25,
+        inset 0 3px 3px rgba(0, 0, 0, 0.2);
+    /* Inner shadow */
+    transition: transform 0.3s ease-in-out;
+    /* Transition for smooth animation */
+}
+
+/* When the checkbox is checked, modify the checkmark appearance */
+.container input:checked~.checkmark {
+    transform: translateY(-40px);
+    /* Move down */
+    animation: wipeUp 0.6s ease-in-out forwards;
+    /* Apply wipe animation */
+}
+
+/* When the checkbox is not checked, modify the checkmark appearance */
+.container input:not(:checked)~.checkmark {
+    transform: translateY(40px);
+    /* Move up */
+    animation: wipeDown 0.6s ease-in-out forwards;
+    /* Apply wipe animation */
+}
+
+/* Keyframes for wipe animations */
+@keyframes wipeDown {
+    0% {
+        transform: translateY(0);
+        /* Starting position */
+    }
+
+    100% {
+        transform: translateY(40px);
+        /* End position */
+    }
+}
+
+@keyframes wipeUp {
+    0% {
+        transform: translateY(40);
+        /* Starting position */
+    }
+
+    100% {
+        transform: translateY(0px);
+        /* End position */
+    }
+}
+
+/* Create the checkmark/indicator */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 4px;
+    width: 8px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    /* Icon drop shadow */
+}
+
+
+/* tailwind-variables.css */
+:root {
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+
+    --sky-50: #f0f9ff;
+    --sky-100: #e0f2fe;
+    --sky-200: #bae6fd;
+    --sky-300: #7dd3fc;
+    --sky-400: #38bdf8;
+    --sky-500: #0ea5e9;
+    --sky-600: #0284c7;
+    --sky-700: #0369a1;
+    --sky-800: #075985;
+    --sky-900: #0c4a6e;
+
+    /* Add other Tailwind colors you want */
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+}
+
+/* Embla Carousel Styles */
+.embla {
+    overflow: hidden;
+}
+
+.embla__container {
+    display: flex;
+}
+
+.embla__slide {
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+
+#editor img {
+    max-width: 45%;
+    display: flex;
+    aspect-ratio: 16/9;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+/* For Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
