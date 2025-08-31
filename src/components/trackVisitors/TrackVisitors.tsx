@@ -2,12 +2,30 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import socket from "../lib/socket";
 
+
+
+import { initializeSocket } from "../lib/socket";
 const VisitTracker = () => {
   const [activeUsers, setActiveUsers] = useState(0);
   const pathname = usePathname();
   const hasTrackedRef = useRef(false);
+
+
+
+  const getUserId = () => {
+    let userId = localStorage.getItem('userId');
+    console.log("userId before",userId);
+    
+    if (!userId) {
+      userId = Math.random().toString(36).substring(2) + Date.now().toString(36);
+      localStorage.setItem('userId', userId);
+      console.log("userId after set",userId);
+    }
+    console.log("userId after",userId);
+    
+    return userId;
+  };
 
   // useEffect(() => {
   //   // Socket connection handlers
@@ -42,6 +60,9 @@ const VisitTracker = () => {
 
   useEffect(()=>{
       // Socket connection handlers
+
+      const userId = getUserId();
+      const socket = initializeSocket(userId)
       socket.on("connect", () => {
         // Emit initial page view on connect
         if (pathname) {

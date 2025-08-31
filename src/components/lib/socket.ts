@@ -8,27 +8,29 @@
 
 // export default socket;
 
-"use client";
-
 import { io, Socket } from "socket.io-client";
 
-// Generate or retrieve a unique user ID
-const getUserId = () => {
-  let userId = localStorage.getItem('userId');
-  if (!userId) {
-    userId = Math.random().toString(36).substring(2) + Date.now().toString(36);
-    localStorage.setItem('userId', userId);
+let socket: Socket | null = null;
+
+export const initializeSocket = (userId: string): Socket => {
+  if (socket && socket.connected) {
+    return socket;
   }
-  return userId;
+
+  socket = io(process.env.NEXT_PUBLIC_SOCKET_URL!, {
+    autoConnect: true,
+    withCredentials: true,
+    transports: ["websocket"],
+    auth: {
+      userId: userId
+    }
+  });
+
+  return socket;
 };
 
-const socket: Socket = io(process.env.NEXT_PUBLIC_SOCKET_URL, {
-  autoConnect: false,
-  withCredentials: true,
-  transports: ["websocket"],
-  auth: {
-    userId: getUserId() // Send user ID during connection
-  }
-});
+export const getSocket = (): Socket | null => {
+  return socket;
+};
 
 export default socket;
