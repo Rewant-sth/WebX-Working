@@ -6,12 +6,7 @@ html {
     /* Let Lenis handle smooth scrolling */
 }
 
-* {
-    /* Hardware acceleration for better performance */
-    backface-visibility: hidden;
-    perspective: 1000;
-    will-change: auto;
-}
+
 
 /* Apply transform only to specific elements that need it */
 .motion-safe,
