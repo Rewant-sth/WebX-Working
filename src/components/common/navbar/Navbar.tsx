@@ -32,35 +32,47 @@ interface Package {
   slug: string;
 }
 
-const navs = [{
+interface StaticNavItem {
+  name: string;
+  href?: string;
+  subItems?: StaticNavItem[];
+}
+
+const navs: StaticNavItem[] = [{
   name: "About Us",
-  href: "/about-us"
+  href: "/about-us",
+  subItems: [
+    {
+      name: "About Us",
+      href: "/about-us"
+    },
+    {
+      name: "Our Teams",
+      href: "/ourteam"
+    },
+    {
+      name: "Useful Info",
+      href: "/useful-info"
+    },
+    {
+      name: "Certificates",
+      href: "/certificate"
+    }
+  ]
 }, {
   name: "Contact Us",
   href: "/contact-us"
-},
-{
-  name: "Our Teams",
-  href: "/ourteam"
-},
-{
-  name: "Useful Info",
-  href: "/useful-info"
-},
-{
-  name: "Certificates",
-  href: "/certificate"
-},
-{
+}, {
   name: "Blogs",
   href: "/blogs"
-}
-]
+}]
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<string | null>(null);
+  const [selectedStaticNav, setSelectedStaticNav] = useState<StaticNavItem | null>(null);
+  const [selectedStaticSubItem, setSelectedStaticSubItem] = useState<StaticNavItem | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
@@ -116,20 +128,22 @@ export default function Navbar() {
           setShowNav(false);
           setSelectedCategory(null);
           setSelectedSubcategoryId(null);
+          setSelectedStaticNav(null);
+          setSelectedStaticSubItem(null);
         }
       });
     }
   }
 
   useEffect(() => {
-    if (categories?.data && categories.data.length > 0 && !selectedCategory) {
+    if (categories?.data && categories.data.length > 0 && !selectedCategory && !selectedStaticNav) {
       const firstCategory = categories.data[0];
       setSelectedCategory(firstCategory);
       if (firstCategory.subCategories.length > 0) {
         setSelectedSubcategoryId(firstCategory.subCategories[0]._id);
       }
     }
-  }, [categories, selectedCategory]);
+  }, [categories, selectedCategory, selectedStaticNav]);
 
   // Fix for SSR hydration issues with fixed positioning
   useEffect(() => {
@@ -172,7 +186,7 @@ export default function Navbar() {
         zIndex: showNav ? 999999999 : 99999,
       }}
     >
-      <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
+      <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 ">
         <img
           src={"/logo/main.svg"}
           alt="Real Himalaya Logo"
@@ -185,24 +199,24 @@ export default function Navbar() {
           <li className={`md:text-lg transition-colors duration-300 ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
             <Link
               href="/customize-trip"
-              className="group relative px-4 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium text-sm md:text-base rounded-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 hover:scale-105 active:scale-95 flex items-center gap-2"
+              className="group relative px-4 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium text-sm md:text-base rounded-sm transition-all duration-300  hover:shadow-green-500/25  active:scale-95 flex items-center gap-2"
             >
               <span className="relative z-10 flex items-center gap-2">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse group-hover:animate-ping"></div>
                 Live Chat
                 <Icon icon="logos:whatsapp-icon" className="text-lg" />
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
           </li>
         </ul>
         <button
           onClick={handleShow}
-          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 ${isScrolled ? 'shadow-md' : ''
+          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? 'shadow-md' : ''
             }`}
         >
           <span className="font-medium text-sm md:text-base">Menu</span>
-          <span className='bg-white size-9 flex justify-center items-center text-orange-500 rounded-sm transition-transform duration-300 group-hover:rotate-180'>
+          <span className='bg-white size-9 flex justify-center items-center text-amber-500 rounded-sm transition-transform duration-300 group-hover:rotate-180'>
             <Icon icon={"fa6-solid:bars"} className='md:text-lg' />
           </span>
         </button>
@@ -213,17 +227,17 @@ export default function Navbar() {
         className={`absolute hidden top-0 left-0 min-h-[100dvh] overflow-auto w-[100vw] bg-[#0d1117] ${showNav ? 'block' : 'hidden'}`}
       >
         <div ref={popupNavref} className="flex border-b border-white/10 backdrop-blur-sm bg-black/10 p-4 md:p-4 py-3 justify-between items-center">
-          <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
+          <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 ">
             <img src="/logo/white.svg" alt="Real Himalaya Logo" className="w-full h-auto" />
           </Link>
 
           <div className="flex gap-10 items-center">
             <button
               onClick={handleClose}
-              className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'
+              className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95'
             >
               <span className="font-medium text-sm md:text-base">Close</span>
-              <span className='bg-white text-orange-500 size-9 flex justify-center items-center  rounded-sm  duration-300 '>
+              <span className='bg-white text-amber-500 size-9 flex justify-center items-center  rounded-sm  duration-300 '>
                 <Icon icon={"bitcoin-icons:cross-filled"} className='text-lg' />
               </span>
             </button>
@@ -239,11 +253,12 @@ export default function Navbar() {
                   <h2
                     onMouseEnter={() => {
                       setSelectedCategory(category);
+                      setSelectedStaticNav(null); // Clear static nav selection
                       if (category.subCategories.length > 0) {
                         setSelectedSubcategoryId(category.subCategories[0]._id);
                       }
                     }}
-                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-orange-300 py-1 ${selectedCategory?._id === category._id ? 'text-orange-300 bg-orange-500/5 ' : ''}`}
+                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1 ${selectedCategory?._id === category._id ? 'text-amber-300 bg-amber-500/5 ' : ''}`}
                   >
 
                     {category.name}
@@ -252,9 +267,32 @@ export default function Navbar() {
                 </Link>
               ))}
               {navs.map((item, idx) => (
-                <Link href={item.href} onClick={handleClose} key={idx} className='cursor-pointer transition-all duration-300 hover:text-orange-300  py-1 flex  hover:border-orange-400 '>
-                  {item.name}
-                </Link>
+                <div key={idx}>
+                  {item.subItems ? (
+                    <h2
+                      onMouseEnter={() => {
+                        setSelectedStaticNav(item);
+                        setSelectedCategory(null); // Clear category selection
+                        setSelectedSubcategoryId(null); // Clear subcategory selection
+                        // Set first sub-item as selected by default
+                        if (item.subItems && item.subItems.length > 0) {
+                          setSelectedStaticSubItem(item.subItems[0]);
+                        }
+                      }}
+                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1 ${selectedStaticNav?.name === item.name ? 'text-amber-300 bg-amber-500/5 ' : ''
+                        }`}
+                    >
+                      {item.name}
+                      <Icon icon="fluent:arrow-right-20-filled" className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
+                        }`} />
+                    </h2>
+                  ) : (
+                    <Link href={item.href!} onClick={handleClose} className='cursor-pointer px-2 flex gap-2 justify-between items-center group transition-all duration-300 hover:text-amber-300  py-2  hover:bg-amber-500/5  hover:border-amber-400 '>
+                      {item.name}
+                      <Icon icon="fluent:arrow-right-20-filled" className="-translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all" />
+                    </Link>
+                  )}
+                </div>
               ))}
             </div>
 
@@ -266,29 +304,84 @@ export default function Navbar() {
               <h2
                 key={subCategory._id}
                 onMouseEnter={() => setSelectedSubcategoryId(subCategory._id)}
-                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-orange-300 hover:translate-x-2 p-2 ${selectedSubcategoryId === subCategory._id ? 'text-orange-300 bg-orange-500/5' : ''}`}
+                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${selectedSubcategoryId === subCategory._id ? 'text-amber-300 bg-amber-500/5' : ''}`}
               >
                 {subCategory.name}
                 <Icon icon="fluent:arrow-right-20-filled" className={`ml-2 inline-block transition-all duration-500 ${selectedSubcategoryId === subCategory._id ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'}`} />
-
               </h2>
+            ))}
+            {selectedStaticNav?.subItems?.map((subItem, idx) => (
+              <Link
+                key={idx}
+                href={subItem.href!}
+                onClick={handleClose}
+                title='click to view more'
+                onMouseEnter={() => setSelectedStaticSubItem(subItem)}
+                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${selectedStaticSubItem?.name === subItem.name ? 'text-amber-300 bg-amber-500/5' : ''
+                  }`}
+              >
+                {subItem.name}
+                <Icon icon="fluent:arrow-right-20-filled" className={`ml-2 inline-block transition-all duration-500 ${selectedStaticSubItem?.name === subItem.name ? 'translate-x-0 opacity-100' : '-translate-x-3 opacity-0'
+                  }`} />
+              </Link>
             ))}
           </div>
 
           <div className="p-6 w-full hidden lg:flex flex-col h-[calc(100dvh-8rem)] ">
-            <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Packages</h2>
-            {packagesLoading ? (
+            <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>
+              {selectedStaticNav ? 'Information' : 'Packages'}
+            </h2>
+            {selectedStaticNav ? (
+              <div className="flex-1 text-base text-gray-300">
+                {selectedStaticNav.name === "About Us" && (
+                  <div className="space-y-4">
+                    {selectedStaticSubItem?.name === "About Us" && (
+                      <>
+                        <p>Learn more about Real Himalaya and our commitment to providing exceptional trekking and expedition experiences in Nepal.</p>
+                        <Link href="/about-us#mission" onClick={handleClose} className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600  upp text-white transition-all duration-300 hover:shadow-md  active:scale-95">
+                          Learn More <Icon icon="fluent:arrow-right-20-filled" className="text-sm" />
+                        </Link>
+                      </>
+                    )}
+                    {selectedStaticSubItem?.name === "Our Teams" && (
+                      <>
+                        <p>Meet our experienced team of guides, porters, and support staff who make your adventure possible.</p>
+                        <Link href="/ourteam#guides" onClick={handleClose} className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600  text-white transition-all duration-300 hover:shadow-md  active:scale-95">
+                          Meet Guides <Icon icon="fluent:arrow-right-20-filled" className="text-sm" />
+                        </Link>
+                      </>
+                    )}
+                    {selectedStaticSubItem?.name === "Useful Info" && (
+                      <>
+                        <p>Essential information for your trekking adventure in Nepal.</p>
+                        <Link href="/useful-info#seasons" onClick={handleClose} className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600  text-white transition-all duration-300 hover:shadow-md  active:scale-95">
+                          Learn More <Icon icon="fluent:arrow-right-20-filled" className="text-sm" />
+                        </Link>
+                      </>
+                    )}
+                    {selectedStaticSubItem?.name === "Certificates" && (
+                      <>
+                        <p>Our official certifications and credentials that ensure your safety and trust.</p>
+                        <Link href="/certificate#tourism" onClick={handleClose} className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white transition-all duration-300 hover:shadow-md  active:scale-95">
+                          View License <Icon icon="fluent:arrow-right-20-filled" className="text-sm" />
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : packagesLoading ? (
               <div className="flex justify-center items-center h-full">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 grid-rows-2 max-w-3xl max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-orange-500">
+              <div className="grid grid-cols-2 grid-rows-2 max-w-3xl max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
                 {packages?.data?.slice(0, 4).map((pkg) => (
                   <Link
                     key={pkg._id}
                     href={`/itinerary/${pkg.slug}`}
                     onClick={handleClose}
-                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-orange-400/50 hover:shadow-2xl hover:scale-[1.02] cursor-pointer group"
+                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 hover:shadow-2xl hover:scale-[1.02] cursor-pointer group"
                   >
                     <div className="w-full h-full group relative rounded-sm   group-hover:opacity-70 transition-opacity duration-300 overflow-hidden">
                       <div className="absolute inset-0 z-10 p-4 flex items-end">
@@ -313,9 +406,9 @@ export default function Navbar() {
               </div>
             )}
             {
-              packages?.data && packages.data.length > 4 && (
+              !selectedStaticNav && packages?.data && packages.data.length > 4 && (
                 <div className="w-full max-w-3xl  flex justify-end items-center">
-                  <Link href={`/package-list/${selectedSubcategoryId}`} className='flex items-center gap-2 text-white hover:text-orange-400 transition-colors duration-300 uppercase'>
+                  <Link href={`/package-list/${selectedSubcategoryId}`} className='flex items-center gap-2 text-white hover:text-amber-400 transition-colors duration-300 uppercase'>
                     View All <ArrowRight />
                   </Link>
                 </div>

@@ -15,14 +15,14 @@ const RouteMap = ({ data, onShow }: { data: ITravelPackage | undefined, onShow: 
         <div
 
           onClick={onShow}
-          className="w-full h-[500px] overflow-auto  bg-white  rounded-sm  cursor-pointer hover:shadow-none transition-all border border-orange-100  relative"
+          className="w-full  overflow-auto  bg-white  rounded-sm  cursor-pointer hover:shadow-none transition-all border border-orange-100  relative"
         >
           <Image
             src={data.routeMap}
             alt="Route Map Thumbnail"
             height={1200}
             width={1200}
-            className="object-cover"
+            className="object-cover w-full h-auto"
           />
         </div>
       </div>
