@@ -465,7 +465,7 @@ export default function TravellerReview({
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:border-transparent transition-all duration-200 placeholder-gray-400 ${formErrors.fullName
+                  className={`w-full px-4 py-3 border rounded-sm focus:ring-2 outline-none focus:border-transparent transition-all duration-200 placeholder-gray-400 ${formErrors.fullName
                     ? 'border-red-500 focus:ring-red-500'
                     : 'border-gray-300 focus:ring-orange-500'
                     }`}
@@ -497,7 +497,7 @@ export default function TravellerReview({
                     onChange={(e) => setReviewText(e.target.value)}
                     rows={5}
                     maxLength={1000}
-                    className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:border-transparent transition-all duration-200 placeholder-gray-400 resize-none ${formErrors.reviewText
+                    className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400 resize-none ${formErrors.reviewText
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-gray-300 focus:ring-orange-500'
                       }`}
@@ -580,7 +580,7 @@ export default function TravellerReview({
             <button
               type="submit"
               disabled={isPending || !isFormValid}
-              className="group relative w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-gray-200 disabled:to-gray-200 text-white font-semibold rounded-sm transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg disabled:hover:scale-100 disabled:cursor-not-allowed min-w-[200px] justify-center flex items-center"
+              className="group relative w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-orange-200 disabled:to-orange-200 text-white font-semibold rounded-sm transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg disabled:hover:scale-100 disabled:cursor-not-allowed min-w-[200px] justify-center flex items-center"
             >
               {isPending ? (
                 <>

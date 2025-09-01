@@ -61,6 +61,7 @@ export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
 
@@ -142,28 +143,63 @@ export default function Navbar() {
     }
   }, []);
 
+  // Handle scroll detection for navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 250);
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Check initial scroll position
+    handleScroll();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <nav
-      className={` w-full p-4 md:px-6 py-4 flex justify-between items-center`}
+      className={`fixed top-0 left-0 right-0 w-full p-4 md:px-6 py-3 flex justify-between items-center transition-all duration-300 ${isScrolled
+        ? 'backdrop-blur-sm '
+        : 'bg-transparent'
+        }`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
       }}
     >
       <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
-        <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
+        <img
+          src={"/logo/main.svg"}
+          alt="Real Himalaya Logo"
+          className="w-full h-auto transition-opacity duration-300"
+        />
       </Link>
 
       <div className="flex gap-10 items-center">
         <ul className='hidden  sm:block'>
-          <li className='md:text-lg text-white'>
-            <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
-              Live Chat
+          <li className={`md:text-lg transition-colors duration-300 ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
+            <Link
+              href="/customize-trip"
+              className="group relative px-4 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium text-sm md:text-base rounded-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 hover:scale-105 active:scale-95 flex items-center gap-2"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                Live Chat
+                <Icon icon="logos:whatsapp-icon" className="text-lg" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
           </li>
         </ul>
         <button
           onClick={handleShow}
-          className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'
+          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95 ${isScrolled ? 'shadow-md' : ''
+            }`}
         >
           <span className="font-medium text-sm md:text-base">Menu</span>
           <span className='bg-white size-9 flex justify-center items-center text-orange-500 rounded-sm transition-transform duration-300 group-hover:rotate-180'>
@@ -247,7 +283,7 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="grid grid-cols-2 grid-rows-2 max-w-3xl max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-orange-500">
-                {packages?.data?.slice(0, 3).map((pkg) => (
+                {packages?.data?.slice(0, 4).map((pkg) => (
                   <Link
                     key={pkg._id}
                     href={`/itinerary/${pkg.slug}`}
