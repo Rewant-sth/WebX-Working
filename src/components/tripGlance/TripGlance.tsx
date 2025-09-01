@@ -4,10 +4,10 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="trip-glance"
-      className="border-b max-w-6xl mx-auto border-gray-200 py-10 "
+      className="border-b  border-gray-200 pb-10 "
     >
-      <div className="max-w-7xl mx-auto ">
-        <h2 className="text-3xl font-bold text-gray-900 text-left mb-12">
+      <div className=" mx-auto ">
+        <h2 className="text-2xl font-bold text-gray-900 text-left mb-6">
           Your Trip at a Glance
         </h2>
 
@@ -66,12 +66,12 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
               key={idx}
               className="p-4 flex gap-6 rounded-sm transition-all duration-300 border border-orange-100"
             >
-              <div className="p-2 size-24  shrink-0 bg-white/80 rounded-sm">
+              <div className="p-2 size-20  shrink-0 bg-white/80 rounded-sm">
                 <img src={item.icon} alt="" />
               </div>
               <div className="flex flex-col  gap-1">
                 <h3 className="font-semibold text-xl uppercase text-gray-800">{item.title}</h3>
-                <p className="text-gray-700 text-lg font-medium">
+                <p className="text-gray-700  font-medium">
                   {item.value || "N/A"}
                 </p>
               </div>

@@ -5,9 +5,9 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="major-highlights"
-      className=" max-w-6xl mx-auto mt-12 border-gray-200 mb-12 pb-12"
+      className=" mt-10 border-gray-200 mb-12 pb-12"
     >
-      <div className="flex flex-col lg:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Content */}
         <div className="flex-1">
           {/* Section Title */}
@@ -39,7 +39,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {item.title}
                   </h3>
-                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className=" leading-relaxed text-gray-600">
+                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className=" leading-relaxed text-gray-600 text-justify">
 
                   </div>
                 </div>
@@ -50,7 +50,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
 
         {/* Right Image */}
         <div className="flex-1 hidden lg:block">
-          <div className="sticky top-24">
+          <div className="sticky top-20">
             <img
               src="/EXPEDITION/DSC00695.jpg"
               alt="Travel destination highlight"

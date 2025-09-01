@@ -80,23 +80,27 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
             </div>
 
             {/* Navigation Buttons */}
-            <div className="absolute top-1/2 w-full -translate-y-1/2 left-1/2 -translate-x-1/2 z-[999]">
-                <div className="flex w-full justify-between items-center gap-4   rounded-full px-6 py-3">
-                    <PrevButton
-                        onClick={onPrevButtonClick}
-                        disabled={prevBtnDisabled}
-                        className="embla__button text-white hover:text-orange-400 transition-colors"
-                    />
+            {
+                slides && slides.length > 1 && (
+                    <div className="absolute top-1/2 w-full -translate-y-1/2 left-1/2 -translate-x-1/2 z-[999]">
+                        <div className="flex w-full justify-between items-center gap-4   rounded-full px-6 py-3">
+                            <PrevButton
+                                onClick={onPrevButtonClick}
+                                disabled={prevBtnDisabled}
+                                className="embla__button text-white hover:text-orange-400 transition-colors"
+                            />
 
 
 
-                    <NextButton
-                        onClick={onNextButtonClick}
-                        disabled={nextBtnDisabled}
-                        className="embla__button text-white hover:text-orange-400 transition-colors"
-                    />
-                </div>
-            </div>
+                            <NextButton
+                                onClick={onNextButtonClick}
+                                disabled={nextBtnDisabled}
+                                className="embla__button text-white hover:text-orange-400 transition-colors"
+                            />
+                        </div>
+                    </div>
+                )
+            }
         </section>
     )
 }

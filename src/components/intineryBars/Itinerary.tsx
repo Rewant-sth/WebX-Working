@@ -160,14 +160,14 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
   return (
     <div
       id="itinerary"
-      className="border-b max-w-6xl mx-auto border-gray-200 mb-8 pb-10"
+      className="border-b  border-gray-200 mb-8 pb-10"
     >
       <h2 className="text-3xl font-semibold text-gray-800 text-center sm:text-left">
         <span className="flex items-center gap-2">
           <span>Itinerary</span>
         </span>
       </h2>
-      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+      <p className="text-zinc-600 mt-1 leading-relaxed  mb-8">
         Follow our detailed day-by-day itinerary to understand what each day of
         your adventure will bring.
       </p>

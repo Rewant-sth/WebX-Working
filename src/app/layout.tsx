@@ -6,7 +6,6 @@ import Providers from "./react-query-provider";
 import { Toaster } from "react-hot-toast";
 import TrackVisitors from "@/components/trackVisitors/TrackVisitors";
 import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
-import Navbar from "@/components/common/navbar/Navbar";
 import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
@@ -35,15 +34,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dancingScript.variable}`} suppressHydrationWarning>
-        <LayoutWrapper>
-          <TrackVisitors />
-          <Providers>
+        <TrackVisitors />
+        <Providers>
+          <LayoutWrapper>
             <Suspense fallback={<div></div>}><LenisProvider /></Suspense>
             <SelectedTripProvider>{children}</SelectedTripProvider>
-          </Providers>
-          <Toaster position="top-center" reverseOrder={false} />
-          <Footer />
-        </LayoutWrapper>
+            <Toaster position="top-center" reverseOrder={false} />
+            <Footer />
+          </LayoutWrapper>
+        </Providers>
       </body>
     </html >
   );

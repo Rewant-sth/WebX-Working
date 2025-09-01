@@ -7,7 +7,7 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="why-love-this"
-            className="border-b mt-10 max-w-6xl mx-auto border-gray-200 mb-8 pb-10"
+            className="border-b mt-10  border-gray-200 mb-8 pb-10"
         >
             {/* Why Love This */}
             <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
