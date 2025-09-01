@@ -85,12 +85,12 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             icon: <DollarSign className="w-4 h-4" />,
             condition: (data) => data?.inclusion?.length > 0,
         },
-        // {
-        //     id: "requirements",
-        //     label: "Requirements",
-        //     icon: <ClipboardCheck className="w-4 h-4" />,
-        //     condition: (data) => data?.requirements?.length > 0,
-        // },
+        {
+            id: "requirements",
+            label: "Requirements",
+            icon: <ClipboardCheck className="w-4 h-4" />,
+            condition: (data) => data?.requirements?.length > 0,
+        },
         {
             id: "insurance",
             label: "Insurance",
@@ -201,8 +201,8 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
 
     return (
         <div className="sticky top-0 z-[99999]  w-full  bg-white border-b border-gray-200 ">
-            <div className="px-4 sm:px-8  mx-auto">
-                <div className="py-2 flex justify-center items-center overflow-auto">
+            <div className="px-4 sm:px-6 lg:px-10 flex justify-between items-center gap-10 ">
+                <div className="py-2 flex justify-start items-center overflow-auto">
                     {/* Scroll Spy Navigation Tabs */}
                     {visibleSections.length > 0 && (
                         <div className="relative">
@@ -223,21 +223,17 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                     </button>
                                 ))}
 
-                                {data?.fixedDates && data.fixedDates.length > 0 && (
-                                    <button onClick={() => {
-                                        setPackage(data);
-                                        router.push('/booking/' + data.slug);
-                                    }} className="bg-orange-500 text-white px-4  flex gap-2 items-center rounded-sm">
-                                        <Icon icon="hugeicons:calendar-03" className="w-4 h-4 inline-block mr-2" />
-                                        Book Now
-                                    </button>
-                                )}
                             </div>
                         </div>
                     )}
 
 
                 </div>
+
+                <button onClick={() => {
+                    setPackage(data as ITravelPackage)
+                    router.push('/booking/' + data?.slug)
+                }} className="px-4 py-2 border border-[#01283F] text-[#01283F] rounded-sm">Customize Trip</button>
             </div>
 
             {/* Custom scrollbar styles */}

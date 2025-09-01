@@ -80,6 +80,17 @@
   animation: slideInLeft 0.3s ease-out forwards;
 }
 
+/* Enhanced fixed navbar positioning */
+.navbar-fixed {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
 /* Ensure body has proper top padding when navbar is fixed */
 .navbar-fixed-body {
   padding-top: 4rem;
@@ -105,4 +116,23 @@
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 300ms, transform 300ms;
+}
+
+/* Fix for server-side rendering issues */
+.navbar-ssr-fix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+/* Mobile specific fixes */
+@media (max-width: 768px) {
+  .navbar-fixed {
+    position: fixed !important;
+    transform: translate3d(0, 0, 0);
+  }
 }

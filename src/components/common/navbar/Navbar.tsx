@@ -10,6 +10,7 @@ import { ITravelPackageResponse } from '@/types/IPackages';
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { StarBorder } from '@/components/ui/moving-border'
+import './NavBar.css'
 
 interface Category {
   _id: string;
@@ -129,29 +130,43 @@ export default function Navbar() {
     }
   }, [categories, selectedCategory]);
 
+  // Fix for SSR hydration issues with fixed positioning
+  useEffect(() => {
+    // Force reflow to ensure fixed positioning is applied correctly
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+      navbar.style.position = 'fixed';
+      navbar.style.top = '0';
+      navbar.style.left = '0';
+      navbar.style.right = '0';
+    }
+  }, []);
+
   return (
     <nav
+      className={`navbar-fixed navbar-ssr-fix w-full p-4 md:px-6 py-4 flex justify-between items-center`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
-        position: "fixed",
-        top: 0,
-        left: 0
       }}
-      className='fixed left-0 w-full top-0  p-4  md:px-6 py-4 flex justify-between items-center '>
+    >
       <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
         <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
       </Link>
 
-      <div className="flex gap-10 items-center">
-        <ul className='hidden  sm:block'>
-          <li className='md:text-lg text-white'>
-            <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
-              <StarBorder color='#fff'>
-                Customize Trip
-              </StarBorder>
-            </Link>
-          </li>
-        </ul>
+      <div className="flex gap-3 md:gap-6 items-center">
+        <div className='hidden sm:block'>
+          <Link
+            href="/customize-trip"
+            className="group relative px-4 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium text-sm md:text-base rounded-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 hover:scale-105 active:scale-95 flex items-center gap-2"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              Live Chat
+              <Icon icon="logos:whatsapp-icon" className="text-lg" />
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </Link>
+        </div>
         <button
           onClick={handleShow}
           className='w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95'

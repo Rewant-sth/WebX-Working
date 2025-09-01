@@ -90,7 +90,7 @@ const OurStory = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="px-4 sm:px-8 max-w-6xl mx-auto pt-25 text-center relative z-30"
+        className="px-4 sm:px-8  pt-25 text-center relative z-30"
       >
         <motion.div style={{ y: y2 }} className="max-w-4xl mx-auto mb-96">
           <motion.h3

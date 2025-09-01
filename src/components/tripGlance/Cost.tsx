@@ -11,10 +11,10 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
     <div className="py-10">
       <div
         id="inclusion-&-exclusion"
-        className="border-b border-gray-200 mb-8 pb-10 max-w-6xl mx-auto"
+        className="border-b border-gray-200 mb-8 pb-10 "
       >
         {/* Tab Navigation */}
-        <div className="mb-8">
+        <div className="mb-4">
           <div className="flex flex-wrap gap-2 border-b border-gray-200">
             <button
               onClick={() => setActiveTab('inclusion')}

@@ -1,5 +1,4 @@
 "use client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import Navbar from "./common/navbar/Navbar";
 
@@ -8,7 +7,6 @@ export default function LayoutWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
   const pathname = usePathname();
 
   // Hide navbar on pages that start with /booking
@@ -16,11 +14,8 @@ export default function LayoutWrapper({
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        {!shouldHideNavbar && <Navbar />}
-
-        {children}
-      </QueryClientProvider>
+      {!shouldHideNavbar && <Navbar />}
+      {children}
     </>
   );
 }

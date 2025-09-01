@@ -36,7 +36,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   };
 
   return (
-    <div className="w-full bg-[#F05E25]/5 hidden xl:block rounded-sm border border-gray-200 sticky top-[100px] overflow-hidden">
+    <div className=" bg-[#F05E25]/5 hidden xl:block rounded-sm border border-gray-200 sticky top-[80px] overflow-hidden">
       {/* Header */}
       <div className="px-6 py-5 border-b border-gray-200" >
         <h2 className="text-2xl font-bold text-center" style={{ color: '#3A3A3A' }}>

@@ -19,7 +19,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
   return (
     <div
       id="faqs"
-      className=" mb-16 max-w-6xl mx-auto"
+      className=" mb-16  "
     >
       <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
         <span className="w-fit text-2xl font-semibold">
@@ -52,9 +52,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                     ? "transform rotate-180"
                     : ""
                     }`}
-                  style={{
-                    color: '#f05e25'
-                  }}
+
                 />
               </button>
 
@@ -64,7 +62,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                   }`}
               >
                 <div className="pb-2">
-                  <p className="text-gray-600 text-base leading-relaxed">{item.description}</p>
+                  <p className="text-gray-600 text-base leading-relaxed" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                 </div>
               </div>
             </div>

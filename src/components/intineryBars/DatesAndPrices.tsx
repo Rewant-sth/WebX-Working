@@ -424,7 +424,7 @@ const DatesAndPrices = ({
   return (
     <div
       id="date-&-prices"
-      className="mt-6 border-b-2 max-w-6xl mx-auto border-dashed border-zinc-200 mb-8 pb-10"
+      className="mt-6 border-b-2  border-dashed border-zinc-200 mb-8 pb-10"
     >
       <h2 className="text-2xl  font-semibold text-gray-800 text-center sm:text-left">
         <span className="w-fit text-2xl  font-semibold " >
@@ -432,7 +432,7 @@ const DatesAndPrices = ({
         </span>
       </h2>
 
-      <p className="text-zinc-600 mt-4  leading-relaxed max-w-3xl">
+      <p className="text-zinc-600 mt-  leading-relaxed ">
         Choose your preferred travel date from the calendars below. Select any available date and we'll show you the complete trip duration.
       </p>
 
