@@ -10,6 +10,7 @@ import { ITravelPackageResponse } from '@/types/IPackages';
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { StarBorder } from '@/components/ui/moving-border'
+import './NavBar.css'
 
 interface Category {
   _id: string;
@@ -129,15 +130,25 @@ export default function Navbar() {
     }
   }, [categories, selectedCategory]);
 
+  // Fix for SSR hydration issues with fixed positioning
+  useEffect(() => {
+    // Force reflow to ensure fixed positioning is applied correctly
+    const navbar = document.querySelector('nav');
+    if (navbar) {
+      navbar.style.position = 'fixed';
+      navbar.style.top = '0';
+      navbar.style.left = '0';
+      navbar.style.right = '0';
+    }
+  }, []);
+
   return (
     <nav
+      className={`navbar-fixed navbar-ssr-fix w-full p-4 md:px-6 py-4 flex justify-between items-center`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
-        position:"fixed",
-        top:0,
-        left:0
       }}
-      className='fixed left-0 w-full top-0  p-4  md:px-6 py-4 flex justify-between items-center '>
+    >
       <Link href={"/"} className="w-28 md:w-40 transition-transform duration-300 hover:scale-105">
         <img src="/logo/main.svg" alt="Real Himalaya Logo" className="w-full h-auto " />
       </Link>
@@ -146,9 +157,7 @@ export default function Navbar() {
         <ul className='hidden  sm:block'>
           <li className='md:text-lg text-white'>
             <Link href="/customize-trip" className="hover:text-orange-300 transition-colors duration-300">
-              <StarBorder color='#fff'>
-                Customize Trip
-              </StarBorder>
+              Live Chat
             </Link>
           </li>
         </ul>

@@ -32,6 +32,7 @@ import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Divider from "./_components/divider";
 import { IGallery } from "@/types/IGallery";
+import RightBar from "@/components/intineryBars/RightBar";
 
 const Page = () => {
   const router = useRouter();
@@ -97,10 +98,10 @@ const Page = () => {
           </div>
 
           <ScrollTracker data={packageData?.data as ITravelPackage} />
-          <div className={`w-full relative h-auto flex flex-col xl:flex-row gap-8 pb-10  mt-8 ${modalOpen ? "filter blur-2xl" : ""}`}>
+          <div className={`w-full relative px-10 h-auto flex flex-col xl:flex-row gap-8 lg:gap-10 pb-10  mt-8 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
             {/* Center Content */}
-            <div className=" mx-auto relative  rounded-xl">
+            <div className=" w-full relative  rounded-xl">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData?.data?.attraction.length ? (
@@ -203,9 +204,9 @@ const Page = () => {
 
 
             {/* Right Sidebar */}
-            {/* <div className="xl:w-[30%]">
+            <div className="xl:w-[25%]">
               <RightBar data={packageData?.data} />
-            </div> */}
+            </div>
           </div>
           {/* 
           <div

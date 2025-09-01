@@ -496,6 +496,9 @@ button:disabled {
     min-width: 0;
 }
 
+#editor {
+    text-align: justify
+}
 
 #editor img {
     max-width: 45%;
