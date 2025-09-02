@@ -17,7 +17,7 @@ const OverviewSection = ({ packageData }: OverviewSectionProps) => {
                 </h2>
                 <div className="rounded-sm bg-gray-25 transition-all duration-200">
                     <div
-                        className="prose space-y-4  prose-lg max-w-none text- leading-relaxed"
+                        className="prose space-y-4   "
                         id="editor"
                         dangerouslySetInnerHTML={{
                             __html: packageData?.overview as string,

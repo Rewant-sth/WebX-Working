@@ -381,9 +381,9 @@ export default function Navbar() {
                     key={pkg._id}
                     href={`/itinerary/${pkg.slug}`}
                     onClick={handleClose}
-                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 hover:shadow-2xl hover:scale-[1.02] cursor-pointer group"
-                  >
-                    <div className="w-full h-full group relative rounded-sm   group-hover:opacity-70 transition-opacity duration-300 overflow-hidden">
+                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 hover:shadow-2xl hover:scale-[1.02] relative cursor-pointer group"
+                >
+                    <div className="w-full h-full group  rounded-sm   group-hover:opacity-70 transition-opacity duration-300 ">
                       <div className="absolute inset-0 z-10 p-4 flex items-end">
                         <h2
                           style={{
@@ -392,8 +392,7 @@ export default function Navbar() {
                           className='text-xl font-bold text-white'>{pkg.name}</h2>
                       </div>
                       <Image
-                        height={400}
-                        width={400}
+                        fill
                         quality={80}
                         src={pkg.coverImage}
                         alt={pkg.name}

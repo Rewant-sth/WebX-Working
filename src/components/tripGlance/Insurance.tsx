@@ -7,7 +7,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
         <>
             <div
                 id="insurance"
-                className="border-b  border-gray-200 mb-8 pb-10"
+                className=" pb-6"
             >
                 {/* Insurance */}
                 <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
@@ -22,7 +22,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                     {data?.insurance.map((item, index) => (
                         <div
                             key={index}
-                            className="flex items-start gap-4 p-6 rounded-sm border border-gray-300 transition-all duration-200"
+                            className="flex items-start gap-4  border-b border-gray-300 pb-6 mb-6 transition-all duration-200"
                         >
                             <div className="size-7">
                                 <img src="/icons/insurance.png" alt="insurance icon" />

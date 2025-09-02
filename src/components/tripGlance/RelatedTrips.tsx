@@ -45,7 +45,7 @@ const RelatedTrips = ({
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {data?.data?.slice(0, 7).map((trip, index) => {
-          if (trip.id !== packageId) {
+          if (trip._id !== packageId) {
             return (
               <div
                 key={index}
@@ -59,14 +59,14 @@ const RelatedTrips = ({
                     fill
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-3">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-bold text-gray-800 leading-tight flex-1 mr-3" style={{ color: '#3A3A3A' }}>
+                    <h3 className="text-xl truncate font-bold text-gray-800 leading-tight flex-1 mr-3" style={{ color: '#3A3A3A' }}>
                       {trip.name}
                     </h3>
-                    <span className="text-sm font-semibold px-3 py-1 rounded-full text-white" style={{ backgroundColor: '#01283F' }}>
+                    {/* <span className="text-sm font-semibold px-3 py-1 rounded-full text-white" style={{ backgroundColor: '#01283F' }}>
                       {trip.duration} Days
-                    </span>
+                    </span> */}
                   </div>
 
                   <p
@@ -74,19 +74,23 @@ const RelatedTrips = ({
                     className="text-gray-600 mb-4 line-clamp-2 leading-relaxed"
                   />
 
-                  <div className="flex justify-between items-center mb-4">
-                    <div>
-                      <span className="text-sm text-gray-500 block">Starting From</span>
-                      <span className="text-2xl font-bold" style={{ color: '#01283F' }}>
-                        ${trip.fixedDates[0]?.pricePerPerson || "-"}
-                      </span>
-                    </div>
-                  </div>
+                  {
+                    trip.fixedDates.length != 0 && (
+                      <div className="flex justify-between items-center mb-4">
+                        <div>
+                          <span className="text-sm text-gray-500 block">Starting From</span>
+                          <span className="text-2xl font-bold" style={{ color: '#01283F' }}>
+                            ${trip.fixedDates[0]?.pricePerPerson || "-"}
+                          </span>
+                        </div>
+                      </div>
+                    )
+                  }
 
                   <div className="flex gap-3">
                     <Link href={`/booking/${trip.id}`} className="flex-1">
                       <button
-                        className="w-full flex gap-2 items-center justify-center text-white py-3 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
+                        className="w-full flex gap-2 items-center text-sm justify-center text-white py-3 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
                         style={{ backgroundColor: '#01283F' }}
                       >
                         <Calendar size={18} /> Book Now
@@ -95,7 +99,7 @@ const RelatedTrips = ({
 
                     <Link href={`/itinerary/${trip.slug}`} className="flex-1">
                       <button
-                        className="w-full flex gap-2 items-center justify-center py-3 px-4 rounded-sm font-semibold border-2 transition-all duration-300 hover:text-white"
+                        className="w-full flex gap-2 text-sm items-center justify-center py-3 px-4 rounded-sm font-semibold border-2 transition-all duration-300 hover:text-white"
                         style={{
                           borderColor: '#3A3A3A',
                           color: '#3A3A3A'
@@ -109,7 +113,7 @@ const RelatedTrips = ({
                           e.currentTarget.style.color = '#3A3A3A';
                         }}
                       >
-                        View Details <ArrowRight size={18} />
+                        Itienary <ArrowRight size={18} />
                       </button>
                     </Link>
                   </div>

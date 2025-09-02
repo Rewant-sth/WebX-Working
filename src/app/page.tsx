@@ -19,7 +19,7 @@ const Page = () => {
       <Intro />
       <AboutUs />
       <ExpeditionPage />
-      <Divider />
+      {/* <Divider /> */}
       <TrekPage />
       <TestimonialsSections />
       <CTA />

@@ -7,7 +7,7 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="important-notice"
-            className="border-b  border-gray-200 mb-8 pb-10"
+            className="  border-gray-200  pb-10"
         >
             {/* Important Notice */}
             <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
@@ -22,7 +22,7 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
                 {data?.importantNotice.map((item, index) => (
                     <div
                         key={index}
-                        className="flex items-start gap-4 p-6 rounded-sm border bg-green-50 border-green-500 hover:border-gray-300 transition-all duration-200"
+                        className="flex items-start gap-4 pb-6 mb-6 border-b border-gray-300 transition-all duration-200"
                     >
                         <div className="shrink-0 size-10 flex justify-center items-center mt-1 p-2 rounded-sm bg-green-500 text-white" >
                             <AlertTriangle className="text-3xl" />

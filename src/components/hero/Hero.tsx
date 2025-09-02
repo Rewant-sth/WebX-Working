@@ -1,16 +1,13 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Play } from 'lucide-react';
 import React, { useLayoutEffect, useRef } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll'
-import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const sectionRef = React.useRef<HTMLDivElement>(null);
-  const rightTextRef = React.useRef<HTMLDivElement>(null);
   const rightSectionRef = React.useRef<HTMLDivElement>(null);
   const mainRef = React.useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -75,10 +72,12 @@ export default function Hero() {
 
   return (
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
-
+      <div className="absolute top-0 left-0 inset-0">
+        <img src="/hero-back.png" alt="hero-1" />
+      </div>
       {/* hero first */}
       <div ref={sectionRef} className="h-screen  mx-auto sticky top-50 lg:flex gap-6 lg:gap-16 p-6 ">
-        <h2></h2>
+        <h2 className='text-[6dvw] font-bold uppercase'>Explore the Real Himalaya</h2>
       </div>
 
       {/* hero second */}
@@ -103,10 +102,10 @@ export default function Hero() {
 
       <div
         ref={imageRef}
-        className="absolute top-[30%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
+        className="absolute top-[20%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
       >
         <div className="relative h-full max-w-screen  ">
-          <img src="/hero.png" alt="hero" className="w-full h-full object-cover" />
+          <img src="/hero-front2.png" alt="hero" className="w-full h-full object-cover object-top" />
         </div>
       </div>
 

@@ -32,7 +32,7 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
                             <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                                 {item.title}
                             </h3>
-                            <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                            <p className=" leading-relaxed text-gray-600" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                         </div>
                     </div>
                 ))}

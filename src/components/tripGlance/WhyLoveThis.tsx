@@ -7,7 +7,7 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="why-love-this"
-            className="border-b mt-10  border-gray-200 mb-8 pb-10"
+            className=" mt-10  border-gray-200  pb-10"
         >
             {/* Why Love This */}
             <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
@@ -22,12 +22,11 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
                 {data?.whyLoveThisTrek.map((item, index) => (
                     <div
                         key={index}
-                        className="flex items-start gap-4 p-6 rounded-sm border hover:border-gray-300 transition-all duration-200"
-                        style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
+                        className="flex items-start gap-4 lg:gap-8 pb-8 border-b border-gray-200 transition-all duration-200"
                     >
-                        {/* <div className="size-10">
-                            <img src="/icons/attraction.png" alt="attraction icon" />
-                        </div> */}
+                        <div className="size-10">
+                            <img src="/icons/heart.png" alt="attraction icon" />
+                        </div>
                         <div className="flex-1 min-w-0">
                             <h3 className="text-lg font-semibold " style={{ color: '#3A3A3A' }}>
                                 {item.title}
