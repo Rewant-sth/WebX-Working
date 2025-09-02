@@ -78,19 +78,21 @@ const UsefulInfoPage = () => {
     };
 
     return (
-        <div className="min-h-screen pt-[5rem] max-w-[1300px] mx-auto  ">
+        <div className="min-h-screen pt-[6rem] p-6 mx-auto">
 
-            <h2 className="text-2xl md:text-3xl font-semibold uppercase max-w-lg mx-auto text-center">some information that might help you</h2>
 
-            <div className=" gap-p  mt-4 px-4 lg:px-0 ">
+            <h2 className="text-2xl text-center md:text-3xl  font-semibold uppercase  ">some <span className="bg-orange-500 text-white px-2">information</span> that might help you</h2>
+            <p className="pb-8 mt-2 max-w-3xl text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, necessitatibus dolorum consectetur obcaecati odio quaerat accusamus. Dolore quas accusantium excepturi?</p>
+
+            <div className=" gap-8  grid lg:grid-cols-2  mt-4 px-4 lg:px-0 ">
                 {usefulInfoData?.data?.map((data, idx) => (
-                    <div className="relative border-b flex flex-col md:flex-row gap-4 border-zinc-300 py-6       ">
-                        <div className="w-22 text-3xl font-semibold shrink-0">
+                    <div className="relative  flex flex-col md:flex-row gap-4 border-zinc-300 py-6">
+                        <div className="w-20 text-4xl font-semibold shrink-0">
                             {idx < 9 ? `0${idx + 1}` : idx + 1}
                         </div>
-                        <div className="">
-                            <h3 className="text-xl mb-2 font-semibold">{data.name}</h3>
-                            <div className="editor" id="editor" dangerouslySetInnerHTML={{ __html: data.description }}></div>
+                        <div className="flex flex-col w-full">
+                            <h3 className="text-2xl mb-2 uppercase lg:pr-6 max-w-xl w-full  font-semibold">{data.name}</h3>
+                            <div className="editor max-w-4xl w-full text-justify " id="editor" dangerouslySetInnerHTML={{ __html: data.description }}></div>
                         </div>
 
                     </div>

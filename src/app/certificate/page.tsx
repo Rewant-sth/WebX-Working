@@ -152,57 +152,10 @@ const CertificatesPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-        {/* Hero Section */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-[#01283F] via-[#01283F] to-[#01283F] text-white">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="absolute inset-0">
-            <div className="absolute top-10 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-            <div className="max-w-7xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="mb-8"
-              >
-
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent">
-                  Certifications & Achievements
-                </h1>
-                <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                  Discover our prestigious certifications and achievements that showcase our commitment to excellence, safety, and sustainable tourism practices.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="flex flex-wrap justify-center gap-6 text-sm"
-              >
-                <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
-                  <Shield className="w-4 h-4" />
-                  <span>Safety Certified</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
-                  <Globe className="w-4 h-4" />
-                  <span>Internationally Recognized</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
-                  <Trophy className="w-4 h-4" />
-                  <span>Award Winning</span>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
+      <div className="min-h-screen ">
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:pt-[5rem]">
           {/* Certificates Grid */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -214,7 +167,7 @@ const CertificatesPage = () => {
               <h2 className="text-3xl uppercase md:text-4xl font-bold text-gray-900 mb-4">
                 Our Official Certifications
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto">
                 These certifications validate our expertise and commitment to providing world-class adventure tourism services.
               </p>
             </div>
@@ -256,20 +209,18 @@ const CertificatesPage = () => {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols- gap-8 ">
+              <div className="flex  gap-4 ">
                 {certificates.map((cert: Certificate, index: number) => (
-                  <motion.div
+                  <div
+
                     key={cert._id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="group bg-white rounded-sm  border border-gray-400 overflow-hidden  transition-all duration-500 transform "
+                    className="group   inset-shadow-black  transition-all duration-500 transform "
                   >
-                    <div className="relative w-full h-[30rem] lg:h-[40rem] overflow-hidden">
+                    <div className="relative w-full h-full overflow-hidden">
                       <img
                         src={cert.image}
                         alt={cert.name}
-                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full   transition-transform duration-500"
                       />
 
                       <div className=" absolute backdrop-blur-sm z-30 flex justify-center items-center opacity-0 hover:opacity-100 transition-all duration-300 inset-0">
@@ -281,17 +232,10 @@ const CertificatesPage = () => {
                           View Details
                         </button>
                       </div>
-                      <div className="absolute p-4 flex flex-col justify-end text-white inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent  transition-opacity duration-300">
-
-
-                        <div className="py-4">
-                          <h2 className="text-xl font-semibold">{cert.name}</h2>
-                        </div>
-                      </div>
                     </div>
 
 
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             )}
@@ -299,48 +243,42 @@ const CertificatesPage = () => {
 
 
           {/* Achievements Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="bg-gradient-to-r from-[#01283F] via-[#01283F] to-[#01283F] rounded-sm p-8 lg:p-12 text-white relative overflow-hidden"
+          <div
+            className=" relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-64 h-64  rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96  rounded-full blur-3xl"></div>
 
             <div className="relative">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Our Proud Achievements
                 </h2>
-                <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+                <p className="text-xl  max-w-3xl mx-auto">
                   These milestones represent years of dedication, expertise, and commitment to excellence in adventure tourism.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {milestonesData.map((milestone, index) => (
-                  <motion.div
+                  <div
                     key={milestone.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                    className="bg-white/10 backdrop-blur-lg rounded-sm p-6 hover:bg-white/20 transition-all duration-300 group"
+                    className=" rounded-sm p-6 border border-gray-300 transition-all duration-300 group"
                   >
                     <div className="flex items-center mb-4">
                       <div className={`flex items-center justify-center w-12 h-12 rounded-full ${milestone.color} mr-4 group-hover:scale-110 transition-transform`}>
-                        <milestone.icon className="w-6 h-6 text-white" />
+                        <milestone.icon className="w-6 h-6 " />
                       </div>
                       <h3 className="text-xl font-bold">{milestone.title}</h3>
                     </div>
-                    <p className="text-blue-100 leading-relaxed">
+                    <p className=" leading-relaxed">
                       {milestone.description}
                     </p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
