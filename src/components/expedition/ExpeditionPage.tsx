@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ITravelPackage, ITravelPackageResponse } from "@/types/IPackages";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useEmblaCarousel from 'embla-carousel-react';
+import Link from "next/link";
 
 function TrekPage() {
   const [expeditionPackages, setExpeditionPackages] = useState<ITravelPackage[]>([]);
@@ -147,35 +148,39 @@ function TrekPage() {
                 className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
                 style={{ paddingRight: '0.5rem' }}
               >
-                <div className="relative group cursor-pointer rounded-sm overflow-hidden h-[60dvh]">
-                  <div className="absolute inset-0 group-hover:translate-y-0 transition-all translate-y-full bg-[#01283F]/40 z-40"></div>
-                  <Image
-                    src={pkg.coverImage || "/placeholder.webp"}
-                    alt={pkg.name}
-                    fill
-                    className="object-cover group-hover:blur-xs transition-all duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
-                    <div className="flex justify-end items-center">
-                      <span className="flex size-10 transition-all duration-300 text-white group-hover:rotate-45 justify-center items-center rounded-full">
-                        <ArrowUpRight />
-                      </span>
-                    </div>
-                    <div className="text-white relative z-50">
-                      <h2 className="text-2xl font-semibold">{pkg.name}</h2>
-                      <div className="mt-2 flex gap-4 text-sm opacity-90">
-                        <span className="flex gap-2 items-center">
-                          <Icon icon={"material-symbols-light:distance-rounded"} className="text-lg" />
-                          {pkg.distance} KM
+                <Link key={pkg._id || index} href={`/itinerary/${pkg.slug}`}>
+
+                  <div className="relative group cursor-pointer rounded-sm overflow-hidden h-[60dvh]">
+                    <div className="absolute inset-0 group-hover:translate-y-0 transition-all translate-y-full bg-[#01283F]/40 z-40"></div>
+                    <Image
+                      src={pkg.coverImage || "/placeholder.webp"}
+                      alt={pkg.name}
+                      fill
+                      className="object-cover group-hover:blur-xs transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
+                      <div className="flex justify-end items-center">
+                        <span className="flex size-10 transition-all duration-300 text-white group-hover:rotate-45 justify-center items-center rounded-full">
+                          <ArrowUpRight />
                         </span>
-                        <span className="flex gap-2 items-center">
-                          <Icon icon={"famicons:timer"} className="text-lg" />
-                          {pkg.duration} Days
-                        </span>
+                      </div>
+                      <div className="text-white relative z-50">
+                        <h2 className="text-2xl font-semibold">{pkg.name}</h2>
+                        <div className="mt-2 flex gap-4 text-sm opacity-90">
+                          <span className="flex gap-2 items-center">
+                            <Icon icon={"material-symbols-light:distance-rounded"} className="text-lg" />
+                            {pkg.distance} KM
+                          </span>
+                          <span className="flex gap-2 items-center">
+                            <Icon icon={"famicons:timer"} className="text-lg" />
+                            {pkg.duration} Days
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+
+                </Link>
               </div>
             ))
           ) : (

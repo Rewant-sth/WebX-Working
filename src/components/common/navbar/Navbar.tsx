@@ -247,7 +247,7 @@ export default function Navbar() {
         <div className="flex  text-white min-h-[calc(100dvh-4rem)]">
           <div className="w-full max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
             <h2 className='text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6'>Categories</h2>
-            <div className="grid gap-5">
+            <div className="grid gap-3">
               {categories?.data?.map((category) => (
                 <Link className='' href={`/package-list/${category.slug}`} key={category._id} onClick={handleClose}>
                   <h2
@@ -258,7 +258,7 @@ export default function Navbar() {
                         setSelectedSubcategoryId(category.subCategories[0]._id);
                       }
                     }}
-                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1 ${selectedCategory?._id === category._id ? 'text-amber-300 bg-amber-500/5 ' : ''}`}
+                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id ? 'text-amber-300 bg-amber-500/5 ' : ''}`}
                   >
 
                     {category.name}
@@ -279,7 +279,7 @@ export default function Navbar() {
                           setSelectedStaticSubItem(item.subItems[0]);
                         }
                       }}
-                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1 ${selectedStaticNav?.name === item.name ? 'text-amber-300 bg-amber-500/5 ' : ''
+                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name ? 'text-amber-300 bg-amber-500/5 ' : ''
                         }`}
                     >
                       {item.name}
@@ -382,7 +382,7 @@ export default function Navbar() {
                     href={`/itinerary/${pkg.slug}`}
                     onClick={handleClose}
                     className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 hover:shadow-2xl hover:scale-[1.02] relative cursor-pointer group"
-                >
+                  >
                     <div className="w-full h-full group  rounded-sm   group-hover:opacity-70 transition-opacity duration-300 ">
                       <div className="absolute inset-0 z-10 p-4 flex items-end">
                         <h2

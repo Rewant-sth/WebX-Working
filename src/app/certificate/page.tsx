@@ -298,7 +298,7 @@ const CertificatesPage = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="bg-white rounded-sm w-full max-w-6xl max-h-[90vh] overflow-hidden shadow-2xl"
+                className="bg-white rounded-sm w-full max-w-6xl shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Modal Header */}
@@ -315,7 +315,7 @@ const CertificatesPage = () => {
                 </div>
 
                 {/* Modal Body - Two Column Layout */}
-                <div className="flex flex-col lg:flex-row h-full max-h-[calc(90vh-80px)]">
+                <div className="flex flex-col lg:flex-row h-full">
                   {/* Left Side - Certificate Image */}
                   <div className="lg:w-1/2   p-6">
                     <div className="w-full ">
@@ -326,28 +326,7 @@ const CertificatesPage = () => {
                       />
                     </div>
 
-                    {/* Additional Info */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-gray-200">
-                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Shield className="w-5 h-5 text-blue-600" />
-                          <span className="font-medium text-blue-900">Verification</span>
-                        </div>
-                        <p className="text-sm text-blue-700">
-                          This certificate has been verified and is authentic.
-                        </p>
-                      </div>
 
-                      <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
-                        <div className="flex items-center gap-2 mb-2">
-                          <CheckCircle className="w-5 h-5 text-green-600" />
-                          <span className="font-medium text-green-900">Accredited</span>
-                        </div>
-                        <p className="text-sm text-green-700">
-                          Recognized by international standards.
-                        </p>
-                      </div>
-                    </div>
                   </div>
 
                   {/* Right Side - Certificate Content */}
@@ -359,6 +338,30 @@ const CertificatesPage = () => {
                           <h2 className="text-2xl font-bold text-gray-900 mb-4">
                             {selectedCertificate.name}
                           </h2>
+                        </div>
+
+
+                        {/* Additional Info */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4  border-gray-200">
+                          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Shield className="w-5 h-5 text-blue-600" />
+                              <span className="font-medium text-blue-900">Verification</span>
+                            </div>
+                            <p className="text-sm text-blue-700">
+                              This certificate has been verified and is authentic.
+                            </p>
+                          </div>
+
+                          <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+                            <div className="flex items-center gap-2 mb-2">
+                              <CheckCircle className="w-5 h-5 text-green-600" />
+                              <span className="font-medium text-green-900">Accredited</span>
+                            </div>
+                            <p className="text-sm text-green-700">
+                              Recognized by international standards.
+                            </p>
+                          </div>
                         </div>
 
 

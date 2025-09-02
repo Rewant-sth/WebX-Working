@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Info, Search, Plus, Minus } from "lucide-react";
 import api from "@/service/api";
+import Image from "next/image";
 
 // Types
 interface UsefulInfoItem {
@@ -94,13 +95,15 @@ const UsefulInfoPage = () => {
     };
 
     return (
-        <div className="min-h-screen pt-[6rem] p-6 mx-auto">
+        <div className="min-h-screen  mx-auto">
 
-            <p className="text- mb-2">Quick Informations</p>
-            <h2 className="text-2xl mb-10  md:text-3xl  font-semibold uppercase  ">some <span className="">information</span> that might help you</h2>
+            <div className="grid grid-cols-2  gap-8 lg:gap-14">
 
-            <div className="grid grid-cols-5 gap-8 lg:gap-14">
-                <div className="col-span-3">
+                <div className="pt-[6rem] p-6">
+                    <div className="">
+                        <p className="text- mb-2">Quick Informations</p>
+                        <h2 className="text-2xl mb-10  md:text-3xl  font-semibold uppercase  ">some <span className="">information</span> that might help you</h2>
+                    </div>
                     {isLoading && (
                         <div className="space-y-4">
                             <UsefulInfoSkeleton />
@@ -144,7 +147,7 @@ const UsefulInfoPage = () => {
 
                                 <div
                                     id={`panel-${item._id}`}
-                                    className="mt-3 prose max-w-none text-gray-700 pl-14 overflow-hidden transition-[max-height] duration-300 ease-in-out"
+                                    className="mt-3 prose max-w-none text-gray-700  overflow-hidden transition-[max-height] duration-300 ease-in-out"
                                     style={{ maxHeight: isOpen ? '600px' : '0px' }}
                                     aria-hidden={!isOpen}
                                 >
@@ -157,26 +160,10 @@ const UsefulInfoPage = () => {
                     })}
                 </div>
 
-                <div className="pt-4 flex col-span-2 w-full  justify-between  flex-col">
-                    <div className="lg:sticky lg:top-20 w-full bg-white pb-4">
-                        <div className="border    relative border-gray-300 w-full max-w-sm p-2 hover:border-orange-500 rounded-full">
-                            <input
-                                value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                type="text"
-                                name="usefulSearch"
-                                id="usefulSearch"
-                                placeholder="Search..."
-                                className="w-full peer h-full border-none outline-none px-4 pr-6 bg-transparent"
-                            />
-                            <div className="absolute text-gray-500 top-1/2 right-5 peer-focus:border-red-500 -translate-y-1/2">
-                                <Search />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae nisi, ratione quasi nesciunt necessi Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                <div className="w-full h-screen sticky top-0 ">
+                    <div className="relative w-full h-full">
+                        <div className="absolute inset-0 bg-gradient-to-r from-white  to-transparent -translate-x-2 z-30"></div>
+                        <Image fill src="/EXPEDITION/DSC00695.jpg" alt="about img" className=" object-cover" />
                     </div>
                 </div>
             </div>

@@ -45,13 +45,13 @@ const ExpeditionCards: React.FC = () => {
       const activeSubSlug = searchParams.get("active");
 
       // If active query parameter exists and matches a subcategory, use it
-      // Otherwise, fall back to the first subcategory
+      // Otherwise, default to showing all categories (null) instead of
+      // falling back to the first subcategory.
       const activeSub = activeSubSlug
         ? packagesArray.find(
           (pkg: any) => pkg.subCategoryId?.slug === activeSubSlug
-        )?.subCategoryId?.slug
-        : packagesArray.find((pkg: any) => pkg.subCategoryId)?.subCategoryId
-          ?.slug || null;
+        )?.subCategoryId?.slug || null
+        : null;
 
       setSelectedSubcategory(activeSub);
     } catch (error) {
@@ -93,9 +93,6 @@ const ExpeditionCards: React.FC = () => {
     <>
       <div className="min-h-screen bg-white">
 
-
-
-
         {/* Enhanced Hero Section */}
         <div className="relative">
           <div
@@ -122,9 +119,9 @@ const ExpeditionCards: React.FC = () => {
                 <h1 className="text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-tight drop-shadow-lg">
                   <span
                     style={{
-                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)"
+                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
                     }}
-                    className="text-white ">
+                    className="text-white uppercase ">
                     {subcategoryName || "All Categories"}
                   </span>
                 </h1>
@@ -175,14 +172,8 @@ const ExpeditionCards: React.FC = () => {
             {/* Left Sidebar - Tabs */}
             <div className="w-80 flex-shrink-0">
               <div className="sticky top-16">
-                <div className="bg-white border border-slate-200 rounded-sm overflow-hidden">
-                  {/* Sidebar Header */}
-                  <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
-                    <h3 className="text-lg font-semibold text-slate-900">Categories</h3>
-                    <p className="text-sm text-slate-600 mt-1">
-                      {cardData.length} packages available
-                    </p>
-                  </div>
+                <div className="bg-white  rounded-sm overflow-hidden">
+
 
                   {/* Tabs Container */}
                   <div className="p-2">
@@ -198,7 +189,7 @@ const ExpeditionCards: React.FC = () => {
                         {/* All Categories Tab */}
                         <button
                           className={`w-full text-left px-4 py-3 rounded-sm transition-all duration-200 ${!selectedSubcategory
-                            ? "bg-[#01283F]/10 text-[#01283F] border border-[#01283F]"
+                            ? "bg-orange-500/10 text-orange-500 border border-orange-500"
                             : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                             }`}
                           onClick={() => setSelectedSubcategory(null)}
@@ -211,7 +202,7 @@ const ExpeditionCards: React.FC = () => {
                               </div>
                             </div>
                             {!selectedSubcategory && (
-                              <div className="w-2 h-2 bg-[#01283F] rounded-full"></div>
+                              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                             )}
                           </div>
                         </button>
@@ -225,7 +216,7 @@ const ExpeditionCards: React.FC = () => {
                             <button
                               key={subcat._id}
                               className={`w-full text-left px-4 py-3 rounded-sm transition-all duration-200 ${isActive
-                                ? "bg-[#01283F]/10 text-[#01283F] border border-[#01283F]"
+                                ? "bg-orange-500/10 text-orange-500 border border-orange-500"
                                 : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                                 }`}
                               onClick={() => setSelectedSubcategory(subcat.slug)}
@@ -238,7 +229,7 @@ const ExpeditionCards: React.FC = () => {
                                   </div>
                                 </div>
                                 {isActive && (
-                                  <div className="w-2 h-2 bg-[#01283F] rounded-full"></div>
+                                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                                 )}
                               </div>
                             </button>
@@ -365,14 +356,14 @@ const ExpeditionCards: React.FC = () => {
                           {/* Action Buttons */}
                           <div className="flex gap-3">
                             <Link
-                              href={`/booking/${card.id}`}
+                              href={`/booking/${card._id}`}
                               className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-sm"
                             >
                               Book Now
                             </Link>
                             <Link
                               href={`/itinerary/${card.slug}`}
-                              className="flex-1 border border-[#01283F] hover:border-[#01283F] text-[#01283F] hover:text-white hover:bg-[#01283F] font-medium py-2.5 px-4 rounded-md transition-all duration-200 text-center text-sm"
+                              className="flex-1 border border-orange-500 hover:border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 font-medium py-2.5 px-4 rounded-md transition-all duration-200 text-center text-sm"
                             >
                               Details
                             </Link>
