@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Info, BookOpen, Clock, ChevronRight } from "lucide-react";
+import { Info, Search, Plus, Minus } from "lucide-react";
 import api from "@/service/api";
 
 // Types
@@ -51,54 +51,135 @@ const UsefulInfoSkeleton = () => (
 );
 
 const UsefulInfoPage = () => {
+    // local UI state
+    const [query, setQuery] = useState<string>("");
+    const [openId, setOpenId] = useState<string | null>(null);
+
     // Fetch useful info data
     const {
         data: usefulInfoData,
         isLoading,
         isError,
-        error
+        error,
     } = useQuery<UsefulInfoResponse>({
         queryKey: ["useful-info"],
         queryFn: async () => {
             const response = await api.get("/useful-info");
-            return response.data;
+            return response.data as UsefulInfoResponse;
         },
         staleTime: 1000 * 60 * 5, // Cache for 5 minutes
     });
 
-    // Sort data by sortOrder
-    const sortedData = usefulInfoData?.data?.sort((a, b) => a.sortOrder - b.sortOrder) || [];
+    // Sort data by sortOrder (make a copy first)
+    const sortedData = usefulInfoData?.data?.slice().sort((a, b) => a.sortOrder - b.sortOrder) || [];
+
+    // Filtered by search query (name + description)
+    const filteredData = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        if (!q) return sortedData;
+        return sortedData.filter((item) => {
+            return (
+                item.name.toLowerCase().includes(q) ||
+                item.description.toLowerCase().includes(q)
+            );
+        });
+    }, [sortedData, query]);
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+        return new Date(dateString).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
         });
     };
 
     return (
         <div className="min-h-screen pt-[6rem] p-6 mx-auto">
 
+            <p className="text- mb-2">Quick Informations</p>
+            <h2 className="text-2xl mb-10  md:text-3xl  font-semibold uppercase  ">some <span className="">information</span> that might help you</h2>
 
-            <h2 className="text-2xl text-center md:text-3xl  font-semibold uppercase  ">some <span className="bg-orange-500 text-white px-2">information</span> that might help you</h2>
-            <p className="pb-8 mt-2 max-w-3xl text-center mx-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, necessitatibus dolorum consectetur obcaecati odio quaerat accusamus. Dolore quas accusantium excepturi?</p>
-
-            <div className=" gap-8  grid lg:grid-cols-2  mt-4 px-4 lg:px-0 ">
-                {usefulInfoData?.data?.map((data, idx) => (
-                    <div className="relative  flex flex-col md:flex-row gap-4 border-zinc-300 py-6">
-                        <div className="w-20 text-4xl font-semibold shrink-0">
-                            {idx < 9 ? `0${idx + 1}` : idx + 1}
+            <div className="grid grid-cols-5 gap-8 lg:gap-14">
+                <div className="col-span-3">
+                    {isLoading && (
+                        <div className="space-y-4">
+                            <UsefulInfoSkeleton />
+                            <UsefulInfoSkeleton />
+                            <UsefulInfoSkeleton />
                         </div>
-                        <div className="flex flex-col w-full">
-                            <h3 className="text-2xl mb-2 uppercase lg:pr-6 max-w-xl w-full  font-semibold">{data.name}</h3>
-                            <div className="editor max-w-4xl w-full text-justify " id="editor" dangerouslySetInnerHTML={{ __html: data.description }}></div>
-                        </div>
+                    )}
 
+                    {isError && (
+                        <div className="p-4 bg-red-50 border border-red-200 rounded">Something went wrong: {(error as any)?.message || 'Failed to load.'}</div>
+                    )}
+
+                    {!isLoading && !isError && filteredData.length === 0 && (
+                        <div className="p-6 text-gray-500">No results found for "{query}"</div>
+                    )}
+
+                    {!isLoading && !isError && filteredData.map((item) => {
+                        const isOpen = openId === item._id;
+                        return (
+                            <div key={item._id} className="relative flex transition-all duration-300 flex-col gap-2 border-zinc-300 border-b py-4">
+                                <button
+                                    type="button"
+                                    aria-expanded={isOpen}
+                                    aria-controls={`panel-${item._id}`}
+                                    onClick={() => setOpenId(isOpen ? null : item._id)}
+                                    className="flex items-center justify-between w-full text-left"
+                                >
+                                    <div className="flex items-start gap-4">
+                                        {/* <div className="w-10 flex-shrink-0 mt-1 text-orange-500">
+                                            <Info />
+                                        </div> */}
+                                        <div>
+                                            <h3 className="text-xl capitalize lg:pr-6 max-w-xl w-full">{item.name}</h3>
+                                        </div>
+                                    </div>
+
+                                    <div className="ml-4 flex items-center text-gray-600">
+                                        {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                                    </div>
+                                </button>
+
+                                <div
+                                    id={`panel-${item._id}`}
+                                    className="mt-3 prose max-w-none text-gray-700 pl-14 overflow-hidden transition-[max-height] duration-300 ease-in-out"
+                                    style={{ maxHeight: isOpen ? '600px' : '0px' }}
+                                    aria-hidden={!isOpen}
+                                >
+                                    <div className={`pt-2 transition-opacity duration-200 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                        <div dangerouslySetInnerHTML={{ __html: item.description }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="pt-4 flex col-span-2 w-full  justify-between  flex-col">
+                    <div className="lg:sticky lg:top-20 w-full bg-white pb-4">
+                        <div className="border    relative border-gray-300 w-full max-w-sm p-2 hover:border-orange-500 rounded-full">
+                            <input
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                type="text"
+                                name="usefulSearch"
+                                id="usefulSearch"
+                                placeholder="Search..."
+                                className="w-full peer h-full border-none outline-none px-4 pr-6 bg-transparent"
+                            />
+                            <div className="absolute text-gray-500 top-1/2 right-5 peer-focus:border-red-500 -translate-y-1/2">
+                                <Search />
+                            </div>
+                        </div>
                     </div>
-                ))}
-            </div>
 
+                    <div className="">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae nisi, ratione quasi nesciunt necessi Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

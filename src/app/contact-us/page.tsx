@@ -314,7 +314,7 @@ export default function PremiumContact() {
                       </div>
                     </div>
 
-                    <div className="relative  rounded-sm overflow-hidden">
+                    {/* <div className="relative  rounded-sm overflow-hidden">
                       <h2 className='text-xl font-semibold mb-6'>Your Budget</h2>
                       <div className="flex gap-3 items-center flex-wrap">
                         <div className="flex gap-2 text-lg">
@@ -365,7 +365,7 @@ export default function PremiumContact() {
                           <label htmlFor="" className='shrink-0'>Above $100,000</label>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="relative ">
