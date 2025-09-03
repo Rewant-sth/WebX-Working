@@ -1,118 +1,367 @@
 "use client"
+import { motion, Variants, useInView } from "framer-motion"
+import { useRef } from "react"
 import { Icon } from "@iconify/react/dist/iconify.js"
-import { ArrowUpRight } from "lucide-react"
+import { 
+  ArrowUpRight, 
+  Mountain, 
+  Compass, 
+  Footprints, 
+  MapPin, 
+  Palette, 
+  Camera,
+  Shield
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+
+// Animation variants
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+}
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+}
+
+const fadeIn: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
+}
+
+const slideInFromLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+}
+
+const slideInFromRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+}
+
 const values = [
   {
-    icon:
-      <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 1024 1024">
-        <path fill="currentColor" d="M512 64L128 192v384c0 212.1 171.9 384 384 384s384-171.9 384-384V192zm312 512c0 172.3-139.7 312-312 312S200 748.3 200 576V246l312-110l312 110z"></path>
-        <path fill="currentColor" d="M378.4 475.1a35.91 35.91 0 0 0-50.9 0a35.91 35.91 0 0 0 0 50.9l129.4 129.4l2.1 2.1a33.98 33.98 0 0 0 48.1 0L730.6 434a33.98 33.98 0 0 0 0-48.1l-2.8-2.8a33.98 33.98 0 0 0-48.1 0L483 579.7z"></path>
-      </svg>,
+    icon: <Icon icon="mdi:shield-check" className="text-3xl text-orange-500" />,
     title: "Safety First",
     desc: "Your safety is our top priority. We maintain the highest safety standards with certified guides, quality equipment, and comprehensive emergency protocols for every expedition."
   },
   {
-    icon:
-      <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
-        <g fill="none" fillRule="evenodd"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.24l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"></path>
-          <path fill="currentColor" fillRule="nonzero" d="M6.72 16.64a1 1 0 0 1 .56 1.92c-.5.146-.86.3-1.091.44c.238.143.614.303 1.136.452C8.48 19.782 10.133 20 12 20s3.52-.218 4.675-.548c.523-.149.898-.309 1.136-.452c-.23-.14-.59-.294-1.09-.44a1 1 0 0 1 .559-1.92c.668.195 1.28.445 1.75.766c.435.299.97.82.97 1.594c0 .783-.548 1.308-.99 1.607c-.478.322-1.103.573-1.786.768C15.846 21.77 14 22 12 22s-3.846-.23-5.224-.625c-.683-.195-1.308-.446-1.786-.768c-.442-.3-.99-.824-.99-1.607c0-.774.535-1.295.97-1.594c.47-.321 1.082-.571 1.75-.766M12 2a7.5 7.5 0 0 1 7.5 7.5c0 2.568-1.4 4.656-2.85 6.14a16.4 16.4 0 0 1-1.853 1.615c-.594.446-1.952 1.282-1.952 1.282a1.71 1.71 0 0 1-1.69 0a21 21 0 0 1-1.952-1.282A16 16 0 0 1 7.35 15.64C5.9 14.156 4.5 12.068 4.5 9.5A7.5 7.5 0 0 1 12 2m0 2a5.5 5.5 0 0 0-5.5 5.5c0 1.816.996 3.428 2.28 4.74c.966.988 2.03 1.74 2.767 2.202l.453.274l.453-.274c.736-.462 1.801-1.214 2.767-2.201c1.284-1.313 2.28-2.924 2.28-4.741A5.5 5.5 0 0 0 12 4m0 2.5a3 3 0 1 1 0 6a3 3 0 0 1 0-6m0 2a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path></g></svg>,
-    title: "Local Expertise",
-    desc: "Our team consists of experienced local guides and Sherpas with deep knowledge of the Himalayas, ensuring authentic cultural experiences and unmatched mountain expertise."
+    icon: <Icon icon="mdi:account-group" className="text-3xl text-orange-500" />,
+    title: "Expert Guides",
+    desc: "Our team of experienced local guides has extensive knowledge of the Himalayas, ensuring you have the best possible experience while exploring the mountains safely."
   },
   {
-    icon:
-      <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7.75 3.5C5.127 3.5 3 5.76 3 8.547C3 14.125 12 20.5 12 20.5s9-6.375 9-11.953C21 5.094 18.873 3.5 16.25 3.5c-1.86 0-3.47 1.136-4.25 2.79c-.78-1.654-2.39-2.79-4.25-2.79M10 12h4m-2-2v4"></path></svg>,
+    icon: <Icon icon="mdi:leaf" className="text-3xl text-orange-500" />,
     title: "Sustainable Tourism",
-    desc: "We are committed to responsible tourism practices that preserve the natural environment and support local communities for future generations to enjoy."
+    desc: "We're committed to responsible travel that benefits local communities and preserves the natural beauty of the Himalayas for future generations."
   },
   {
-    icon:
-      <svg xmlns="http://www.w3.org/2000/svg" width="2.2em" height="2.2em" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth={4}><path d="M24 30c6.627 0 12-5.53 12-12.353V4H12v13.647C12 24.47 17.373 30 24 30Z"></path><path strokeLinecap="round" d="M12 21V11H4c0 6.667 4 10 8 10m24 0V11h8c0 6.667-4 10-8 10" clipRule="evenodd"></path><path strokeLinecap="round" d="M24 32v4"></path><path d="m15 42l3.69-6h10.353L33 42z"></path></g></svg>,
-    title: "Excellence",
-    desc: "We strive for excellence in every aspect of our service, from personalized itineraries to world-class equipment, ensuring your adventure exceeds expectations."
+    icon: <Icon icon="mdi:star" className="text-3xl text-orange-500" />,
+    title: "True Experiences",
+    desc: "From sunrise at Everest Base Camp to remote village homestays, we create unique, authentic experiences that go beyond typical tourist itineraries."
   },
 ]
 
-export default function AboutUsPage() {
-  return (
-    <main >
+interface ValueCardProps {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  delay?: number;
+}
 
-      <section className="py-16">
-        <p className="text-5xl font-semibold max-w-7xl mx-auto text-center leading-snug">Lorem ipsum dolor, sit amet <span className="text-orange-500 font-extrabold">consectetur adipisicing</span> elit. Harum <span className="px-3 pb-2 border rounded-full">Himalaya</span> facilis ullam quis id ipsa <u>unde dolorem</u> dignissimos cupiditate deserunt. Quia quasi ipsam tempora corrupti, ipsa mollitia <span className="h-16 w-40 rounded-full inline-flex translate-y-4 bg-amber-300 overflow-hidden"><img src="/EXPEDITION/DSC00695.jpg" alt="" className="h-full w-full object-cover" /></span> cupiditate delectus </p>
+const ValueCard: React.FC<ValueCardProps> = ({ icon, title, desc, delay = 0 }) => (
+  <motion.div
+    variants={fadeInUp}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-100px" }}
+    custom={delay}
+    className="p-8 bg-black/30 backdrop-blur-sm rounded-sm border border-white/20 hover:shadow-lg transition-all duration-300 hover:border-white/40"
+  >
+    <div className="flex flex-col space-y-4">
+      <div className="flex items-center space-x-3">
+        <div className="text-orange-400">
+          {icon}
+        </div>
+        <h3 className="text-xl font-bold text-white drop-shadow-sm">{title}</h3>
+      </div>
+      <p className="text-gray-100 leading-relaxed">{desc}</p>
+    </div>
+  </motion.div>
+
+);
+
+const AboutUsPage: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
+
+  return (
+    <main className="bg-white">
+      {/* Hero Section */}
+      <section className="relative h-[80vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+        <Image 
+          src={"/EVEREST REGION/NIKON D80013076.jpg"} 
+          alt="Everest Region" 
+          fill 
+          className="object-cover object-bottom brightness-60"
+          priority
+          sizes="100vw"
+        />
+        <div className="relative z-10 text-center text-white w-full px-4 sm:px-6 md:px-8">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+              Pioneering Himalayan Adventures Since 2005
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl font-light text-orange-300 max-w-3xl mx-auto">
+              Experience the majesty of the world's highest peaks with Nepal's most trusted adventure company
+            </p>
+          </div>
+        </div>
       </section>
 
-      <section className="grid p-6 pb-10 grid-cols-7 gap-6 h-[85dvh]">
-        <div className="col-span-5 relative rounded-sm overflow-hidden h-full ">
-          <Image src={"/EVEREST REGION/NIKON D80013076.jpg"} fill alt="Everest Region" className="object-cover " />
-          <div className="absolute inset-0 z-[99] flex flex-col justify-between  bg-black/20">
-            <div className="p-6 text-white">
-              <h3 className="text-lg font-semibold">Connect with us</h3>
-              <p className="flex gap-4 mt-3 items-center">
-                <Icon className="text-2xl" icon={"cib:facebook"} />
-                <Icon className="text-2xl" icon={"cib:twitter"} />
-                <Icon className="text-2xl" icon={"cib:instagram"} />
-                <Icon className="text-2xl" icon={"iconoir:tiktok-solid"} />
+      {/* Intro Section */}
+      <section className="min-h-screen flex items-center py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-4xl mx-auto w-full text-center">
+          <div className="mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-gray-800">Our Story</h2>
+            <div className="space-y-4 sm:space-y-6">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              Founded in <span className="text-orange-500">2014</span>, <span className="text-orange-500">Real Himalaya</span> is more than just a trekking company, it is a family of mountain dreamers, guides, and storytellers born in the heart of Nepal. Our journey is led by seasoned mountaineers who have carved their legacy on the world’s highest peaks.
+              </p>
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              <span className="text-orange-500">Dayula Sherpa</span>, our Founder and Director, carries over <span className="font-bold">20 years of mountaineering experience</span> , with successful climbs of <span className="font-bold">Everest, Shishapangma (twice), and Makalu (five times)</span>. His wisdom and resilience guide every expedition we lead. Alongside him stands <span className="text-orange-500">Gokul Thapa</span>, Co-Founder and Lead Guide, with <span className="font-bold">15+ years of high-altitude expertise</span>, having conquered  <span className="font-bold">Everest, Manaslu, Makalu, Ama Dablam, Mera Peak, Island Peak, and Lobuche.</span> Together, they built the <span className="text-orange-500">Real Himalaya</span> with one vision to share the beauty, culture, and adventure of Nepal with the world, while ensuring  <span className="font-bold">safety, authenticity, and unforgettable </span>experiences for every traveler.
+              </p>
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              We are a fully  <span className="font-bold">licensed and certified trekking agency</span>, proudly recognized by the <span className="font-bold"> Nepal Mountaineering Association (NMA), Trekking Agencies’ Association of Nepal (TAAN), and the Nepal Tourism Board (NTB)</span>. Our team of local Sherpa guides and climbing experts are not only skilled in navigating the high Himalayas but also deeply connected to its culture, ensuring every trek is both an adventure and a cultural immersion.
+              </p>
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              At <span className="text-orange-500">Real Himalaya</span> , we believe the mountains are more than summits - they are journeys of the soul. Whether you dream of <span className="font-bold">Everest Base Camp, the Three Passes, Gokyo Lakes, Manaslu, Annapurna, or a life-changing peak climb</span>, we walk beside you every step of the way.
+              </p>
+              <p className="text-lg sm:text-xl text-gray-700 font-medium italic leading-relaxed mt-8 border-t border-gray-200 pt-6">
+                <span className="text-orange-500">Real Himalaya</span> where every step is guided by experience, and every trail tells a story.
               </p>
             </div>
-
-            <div className="p-6 text-white">
-              <div className="mb-10 border-b pb-2 max-w-sm">
-                <p className="text-xl flex gap-2 items-end">Experience the breathtaking beauty of the </p>
-                <p className="pb-2 text-xl flex gap-2 items-end">Himalayas with our expert guides. <span className="bg-white size-8 shrink-0 rounded-full text-orange-500 flex justify-center items-center"><ArrowUpRight /></span></p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-8">
+                <Link 
+                  href="/ourteam"
+                  className="w-full sm:w-auto text-center bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 sm:py-3 rounded-md font-medium transition-colors duration-200"
+                >
+                  Meet Our Team
+                </Link>
+                <Link 
+                  href="/certificate"
+                  className="w-full sm:w-auto text-center sm:text-left text-orange-500 hover:text-orange-600 font-medium transition-colors duration-200 group"
+                >
+                  <span className="inline-flex items-center justify-center sm:justify-start gap-1">
+                    Our Achievements
+                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
+                </Link>
               </div>
-
-              <h3 className="text-5xl max-w-3xl font-semibold">Your journey to the roof of the world begins with us</h3>
             </div>
           </div>
-        </div>
-        <div className="col-span-2 grid grid-rows-2   ">
-          <div className="h-full w-full relative rounded-sm overflow-hidden">
-            <Image src={"/EXPEDITION/DSC00695.jpg"} fill alt="Everest Region" className="object-cover" />
-          </div>
-          <div className="py-6">
-            <h2 className="text-2xl font-semibold mb-2">Meet Our Founder</h2>
-            <p>Raj Thapa, a seasoned mountaineer with 15+ years of Himalayan experience, founded High Five Adventures to share his passion for Nepal's majestic peaks with the world.</p>
-
-            <h2 className="font-semibold mt-6">Our Specialities</h2>
-            <div className="flex gap-3 mt-2 items-center flex-wrap">
-              <span className="bg-gray-200 px-2 py-0.5 rounded-sm">Peak Climbing</span>
-              <span className="bg-gray-200 px-2 py-0.5 rounded-sm">Expeditions</span>
-              <span className="bg-gray-200 px-2 py-0.5 rounded-sm">Trekking</span>
-              <span className="bg-gray-200 px-2 py-0.5 rounded-sm">City Tours</span>
-              <span className="bg-gray-200 px-2 py-0.5 rounded-sm">Cultural Experiences</span>
-            </div>
-          </div>
-        </div>
+        
       </section>
 
-
-
-      <div className="p-6 py-10">
-        <div className=" p-8 grid grid-cols-4 gap-10 bg-gray-100">
-          <div className="col-span-2 h-full w-full  rounded-sm   leading-snug">
-            <h2 className="text-5xl font-semibold">Our Core Principal Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit, sed.</h2>
-            <p className="mt-10 text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis inventore saepe eum enim totam nihil animi quibusdam iusto. Natus nobis, error ut quae quidem quam dolorum molestias optio dicta cupiditate.</p>
-          </div>
-          <div className="col-span-2 gap-4 grid grid-rows-3">
-            {values?.slice(0, 3).map((item, idx) => (
-              <div className="flex relative  bg-white inset-shadow-sm inset-shadow-gray-300 hover:inset-shadow-2xs p-8 text- items-center gap-4 rounded-sm overflow-hidden " key={idx}>
-                <div className="relative bg-gradient-to-b  ">
-                  <div>
-                    <h4 className="text-2xl mb-3 font-semibold uppercase flex gap-2 items-center">{item.icon} {item.title}</h4>
-                    <p className="mt-1 text-lg ">{item.desc}</p>
-                  </div>
+      {/* Values Section */}
+      <section 
+        className="relative py-16 px-6 bg-gradient-to-b from-white to-gray-50 overflow-hidden"
+      >
+        <motion.div 
+          className="absolute inset-0 bg-[url('/EVEREST%20REGION/NIKON%20D50001920.JPG')] bg-cover bg-center opacity-90"
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+        />
+        <motion.div 
+          className="container mx-auto px-6 py-10"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={staggerContainer}
+          ref={ref}
+        >
+          <motion.div 
+            className="text-center mb-16"
+            variants={fadeInUp}
+          >
+            <motion.h1 
+              className="text-4xl md:text-5xl font-bold text-gray-800 mb-4"
+              variants={fadeInUp}
+            >
+              Our Core Values
+            </motion.h1>
+            <motion.p 
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              variants={fadeInUp}
+            >
+              Discover the passion and dedication that drives our team to create unforgettable Himalayan experiences.
+            </motion.p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerContainer}
+          >
+            {values.map((item, index) => (
+              <ValueCard 
+                key={index} 
+                icon={item.icon} 
+                title={item.title} 
+                desc={item.desc}
+                delay={index * 0.1}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
+      </ section>
+      
+      {/* Team & Specialties */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="lg:sticky lg:top-24 lg:self-start">
+              <div className="mb-8 flex items-center gap-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+                  <span className="text-orange-500">Vision</span> Behind The Journey
+                </h2>
+                <div className="flex-1 h-1 bg-orange-500 rounded-full max-w-[80px]"></div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="relative h-[300px] w-full rounded-lg overflow-hidden shadow-md">
+                  <Image 
+                    src={"/EXPEDITION/DSC00695.jpg"} 
+                    alt="Dayula Sherpa - Founder" 
+                    fill 
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                    priority
+                  />
+                </div>
+                <div className="relative h-[300px] w-full rounded-lg overflow-hidden shadow-md">
+                  <Image 
+                    src={"/EXPEDITION/DSC00702.JPG"} 
+                    alt="Gokul Thapa - Co-Founder" 
+                    fill 
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                    priority
+                  />
                 </div>
               </div>
-            ))}
+              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                Raj Thapa, a seasoned mountaineer with 15+ years of Himalayan experience, founded High Five Adventures to share his passion for Nepal's majestic peaks with the world. His expertise has been instrumental in developing unique expedition routes and safety protocols.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Under Raj's leadership, our team has grown to include some of the most experienced Sherpa guides in Nepal, all sharing a commitment to excellence and sustainable tourism.
+              </p>
+            </div>
+            
+            <div>
+              <h2 className="text-4xl font-bold mb-6 text-gray-800">Our Specialities</h2>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                We offer a diverse range of adventures tailored to different experience levels and interests, all with our signature attention to detail and commitment to excellence.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                 
+                  { 
+                    name: "Trekking", 
+                    // icon: <Footprints className="w-6 h-6" />,
+                    bgImage: "/banner.jpg"
+                  },
+                  { 
+                    name: "Expeditions", 
+                    // icon: <Compass className="w-6 h-6" />,
+                    bgImage: "/EVEREST REGION/NIKON D50001898.JPG"
+                  },
+                  { 
+                    name: "Peak Climbing", 
+                    // icon: <Mountain className="w-6 h-6" />,
+                    bgImage: "/EVEREST REGION/NIKON D50001920.JPG"
+                  },
+                 
+                  { 
+                    name: "City Tours", 
+                    // icon: <MapPin className="w-6 h-6" />,
+                    bgImage: "/citytour.png"
+                  },
+                  { 
+                    name: "Cultural Experiences", 
+                    // icon: <Palette className="w-6 h-6" />,
+                    bgImage: "/culture.png"
+                  },
+                  { 
+                    name: "Jungle Safari", 
+                    // icon: <Camera className="w-6 h-6" />,
+                    bgImage: "/gaida.JPG"
+                  }
+                ].map((specialty, idx) => (
+                  <div 
+                    key={idx} 
+                    className="relative group h-48 rounded-sm overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <Image
+                      src={specialty.bgImage}
+                      alt={specialty.name}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-black/40 hover:bg-black/50 transition-colors duration-300 flex flex-col items-center justify-center p-4 text-center">
+                      {/* <div className="bg-white/10 backdrop-blur-sm p-3 rounded-full mb-3 group-hover:scale-110 transition-transform">
+                        {specialty.icon}
+                      </div> */}
+                      <h3 className="text-xl font-bold text-white">{specialty.name}</h3>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-12 bg-white p-8 rounded-sm ">
+                <h3 className="text-2xl font-bold mb-4 text-gray-800">Connect With Us</h3>
+                <p className="text-gray-600 mb-6">Follow our adventures and stay updated with our latest expeditions</p>
+                <div className="flex gap-4">
+                  {[
+                    { icon: "cib:facebook", label: "Facebook" },
+                    { icon: "cib:instagram", label: "Instagram" },
+                    { icon: "cib:youtube", label: "YouTube" }
+                  ].map((social, idx) => (
+                    <div key={idx} className="bg-gray-100 p-3 rounded-full cursor-pointer hover:bg-orange-50 transition-colors">
+                      <Icon icon={social.icon} className="text-2xl text-gray-700" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-
-
-
+      
+      </section>
     </main>
   )
 }
+
+export default AboutUsPage;
