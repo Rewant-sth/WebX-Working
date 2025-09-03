@@ -10,6 +10,8 @@ import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
 import Footer from "@/components/common/footer/new-footer";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import Link from "next/link";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -44,7 +46,13 @@ export default function RootLayout({
           </LayoutWrapper>
         </Providers>
 
-       
+
+        <div className="fixed bottom-10 mix-blend-difference cursor-pointer right-10 flex justify-center items-center size-10 lg:size-16 bg-green-500 z-[9999] rounded-full">
+          <Link href={"https://wa.me/1234567890"} target="_blank" rel="noopener noreferrer">
+            <Icon icon="logos:whatsapp-icon" className="text-white text-3xl animate-pulse" />
+          </Link>
+        </div>
+
       </body>
     </html >
   );

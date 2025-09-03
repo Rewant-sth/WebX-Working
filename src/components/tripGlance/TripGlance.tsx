@@ -67,7 +67,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
               className="p-4 flex gap-6 rounded-sm transition-all duration-300 border border-orange-100"
             >
               <div className="p-2 size-20  shrink-0 bg-white/80 rounded-sm">
-                <img src={item.icon} alt="" className="grayscale" />
+                <img src={item.icon} alt="" className="" />
               </div>
               <div className="flex flex-col  gap-1">
                 <h3 className="font-semibold text-xl uppercase text-gray-800">{item.title}</h3>

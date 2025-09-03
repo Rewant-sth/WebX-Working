@@ -82,7 +82,7 @@ const ItineraryDay = ({
             {data?.duration && (
               <div className="flex  gap-4">
                 <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
-                  <img src="/icons/time.png" alt="time" className="grayscale" />
+                  <img src="/icons/time.png" alt="time" className="" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="font-semibold leading-4 text-lg mb-1">
@@ -96,7 +96,7 @@ const ItineraryDay = ({
             {data?.maxAltitude && (
               <div className="flex items-start gap-4">
                 <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
-                  <img src="/icons/mountain.png" alt="mountain" className="grayscale" />
+                  <img src="/icons/mountain.png" alt="mountain" className="" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="font-semibold leading-4  mb-1">
@@ -110,7 +110,7 @@ const ItineraryDay = ({
             {data?.accommodation && (
               <div className="flex items-start gap-3">
                 <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
-                  <img src="/icons/mansion.png" alt="time" className="grayscale" />
+                  <img src="/icons/mansion.png" alt="time" className="" />
                 </div>
                 <div className="flex flex-col">
                   <h3 className="font-semibold leading-4 mb-1">
@@ -124,7 +124,7 @@ const ItineraryDay = ({
             {data?.meals && (
               <div className="flex items-start gap-3">
                 <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
-                  <img src="/icons/bibimbap.png" alt="meal" className="grayscale" />
+                  <img src="/icons/bibimbap.png" alt="meal" className="" />
                 </div>
                 <div className="flex flex-col">
                   <p

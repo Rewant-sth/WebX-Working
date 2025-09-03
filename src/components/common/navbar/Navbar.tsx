@@ -195,7 +195,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex gap-10 items-center">
-        <ul className='hidden  sm:block'>
+        {/* <ul className='hidden  sm:block'>
           <li className={`md:text-lg transition-colors duration-300 ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
             <Link
               href="/customize-trip"
@@ -209,7 +209,7 @@ export default function Navbar() {
               <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
           </li>
-        </ul>
+        </ul> */}
         <button
           onClick={handleShow}
           className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? 'shadow-md' : ''
