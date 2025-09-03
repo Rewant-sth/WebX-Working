@@ -159,7 +159,7 @@ export default function PremiumContact() {
 
   return (
     <section className="relative   overflow-hidden">
-      <div className="absolute  inset-0 h-full w-full flex justify-end">
+      <div className="absolute  inset-0 brightness-75 h-full w-full flex justify-end">
         <img src="/jhungekoketi.png" alt="img" className='h-full  object-contain' />
       </div>
 
@@ -200,7 +200,7 @@ export default function PremiumContact() {
                           placeholder="Your Name"
                           value={formData.name}
                           onChange={(e) => handleInputChange('name', e.target.value)}
-                          className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -223,7 +223,7 @@ export default function PremiumContact() {
                           placeholder="Email Address"
                           value={formData.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
-                          className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -244,7 +244,7 @@ export default function PremiumContact() {
                           placeholder="Phone number"
                           value={formData.number}
                           onChange={(e) => handleInputChange('number', e.target.value)}
-                          className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -377,7 +377,7 @@ export default function PremiumContact() {
                         value={formData.message}
                         minLength={20}
                         onChange={(e) => handleInputChange('message', e.target.value)}
-                        className={`w-full  py-4  border-b    focus:outline-none focus:border-indigo-400 transition-all ${errors.name ? 'border-red-400' : ''
+                        className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
                           }`}
                       />
                     </div>

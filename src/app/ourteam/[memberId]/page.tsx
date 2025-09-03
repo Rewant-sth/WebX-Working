@@ -2,7 +2,7 @@
 import { getTeamMember } from "@/service/Teams";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { Facebook, Instagram, Twitter, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Twitter, Mail, Phone, Mountain, Award, Calendar, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
 
@@ -23,7 +23,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
         return (
             <div className="min-h-screen mt-[4rem] p-6">
                 <div className="max-w-7xl mx-auto">
-                    <div className="h-96 bg-gray-200 animate-pulse rounded-lg"></div>
+                    <div className="h-96 bg-gray-200 animate-pulse rounded-sm"></div>
                 </div>
             </div>
         );
@@ -44,78 +44,83 @@ export default function TeamMemberDetails({ params }: PageProps) {
     }
 
     return (
-        <div className="min-h-screen mt-[3rem] p-6">
-            {/* Hero Section */}
-            <div className="grid lg:grid-cols-2  gap-2 ">
-                <div className="h-fit lg:sticky top-16">
-                    <div className="relative h-[60vh] rounded-sm overflow-hidden">
-                        <Image
-                            src={member.data.image || "/placeholder.webp"}
-                            alt={member.data.name}
-                            fill
-                            className="object-cover object-top"
-                        />
-                    </div>
+        <div className="min-h-screen pt-[5rem] p-6 mb-16 ">
+            <div className=" mx-auto">
+                <div className="grid lg:grid-cols-5 gap-8">
+                    {/* Left Column - Profile */}
+                    <div className="lg:col-span-2 lg:sticky top-20 h-fit">
+                        <div className=" rounded-sm border border-gray-200 ">
+                            <div className="relative h-80 lg:h-96 w-full  overflow-hidden mb-6">
+                                <Image
+                                    src={member.data.image || "/placeholder.webp"}
+                                    alt={member.data.name}
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
 
+                            <div className="text-center mb-6">
+                                <h1 className="text-2xl font-bold text-gray-900">{member.data.name}</h1>
+                                <p className="text-lg text-orange-600">{member.data.designation}</p>
+                            </div>
 
-                    <div className="flex mt-4 justify-between gap-6 flex-wrap">
-                        <div className=" ">
-                            <h1 className="text-2xl uppercase font-bold">{member.data.name}</h1>
-                            <p className="text-xl md:text-2xl ">- {member.data.designation}</p>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="flex gap-4">
+                            <div className="flex justify-center space-x-4 mb-6">
                                 {member.data.facebook && (
-                                    <Link href={member.data.facebook} target="_blank" className="text-gray-600 hover:text-blue-600">
+                                    <Link href={member.data.facebook} target="_blank" className="text-gray-600 hover:text-blue-600 transition-colors">
                                         <Facebook className="w-6 h-6" />
                                     </Link>
                                 )}
                                 {member.data.instagram && (
-                                    <Link href={member.data.instagram} target="_blank" className="text-gray-600 hover:text-pink-600">
+                                    <Link href={member.data.instagram} target="_blank" className="text-gray-600 hover:text-pink-600 transition-colors">
                                         <Instagram className="w-6 h-6" />
                                     </Link>
                                 )}
                                 {member.data.twitter && (
-                                    <Link href={member.data.twitter} target="_blank" className="text-gray-600 hover:text-blue-400">
+                                    <Link href={member.data.twitter} target="_blank" className="text-gray-600 hover:text-blue-400 transition-colors">
                                         <Twitter className="w-6 h-6" />
                                     </Link>
                                 )}
+                                {member.data.linkedin && (
+                                    <Link href={member.data.linkedin} target="_blank" className="text-gray-600 hover:text-orange-600 transition-colors">
+                                        <Linkedin className="w-6 h-6" />
+                                    </Link>
+                                )}
                             </div>
+
+
+                        </div>
+                    </div>
+
+                    {/* Right Column - Content */}
+                    <div className="lg:col-span-3 space-y-8">
+                        {/* About Section */}
+                        <div className="  px-6">
+                            <h2 className="text-xl font-semibold text-gray-900 mb-4 uppercase">About {member.data.name}</h2>
+                            <div
+                                className="prose space-y-5 text-gray-700"
+                                dangerouslySetInnerHTML={{
+                                    __html: member.data.description ||
+                                        "A dedicated professional bringing expertise and passion to every project. With years of experience in the field, they contribute significantly to our team's success."
+                                }}
+                            />
+
                             {member.data.cvImage && (
-                                <Link
-                                    href={member.data.cvImage}
-                                    target="_blank"
-                                    className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm inline-flex items-center gap-2 hover:bg-orange-600 transition-colors"
-                                >
-                                    <div className="relative w-5 h-5">
-                                        <Image
-                                            src="/icons/download.png"
-                                            alt="Download CV"
-                                            fill
-                                            className="object-contain brightness-0 invert"
-                                        />
-                                    </div>
-                                    Download CV
-                                </Link>
+                                <div className=" mb-6">
+                                    <Image
+                                        src={member.data.cvImage}
+                                        alt={`CV of ${member.data.name}`}
+                                        width={1500}
+                                        height={1700}
+                                        className="object-cover "
+                                    />
+                                </div>
                             )}
                         </div>
 
-                    </div>
-                </div>
 
-                <div className="  px-6 ">
-                    <div className="">
-                        <div className="bg-white  rounded-lg ">
-                            <div className="prose space-y-3 text-lg" id="editor" dangerouslySetInnerHTML={{ __html: member.data.description || "A dedicated professional bringing expertise and passion to every project. With years of experience in the field, they contribute significantly to our team's success." }}>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
-            {/* Details Section */}
-
         </div>
     );
 }

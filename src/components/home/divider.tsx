@@ -19,7 +19,7 @@ export default function Divider() {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top top", // when the top of the trigger hits the bottom of the viewport
-                    end: "+=50%%",
+                    end: "+=50%",
                     scrub: true,
                     pin: true,
                     markers: true,
@@ -34,7 +34,7 @@ export default function Divider() {
         return () => ctx.revert();
     })
     return (
-        <div ref={containerRef} className='h-[100dvh] my-20  flex justify-start items-center  w-dvw overflow-hidden relative'>
+        <div ref={containerRef} className='h-screen   flex justify-start items-center  w-dvw overflow-hidden relative'>
             <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent z-40"></div>
             <Image src={"/EXPEDITION/intro.JPG"} ref={divider2Ref} fill className='object-cover object-bottom' alt='real himalaya ' />
             <Image src={"/divider1.JPG"} ref={divider1Ref} fill className='object-cover object-center' alt='real himalaya ' />
