@@ -59,6 +59,12 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             condition: (data) => data?.attraction?.length > 0,
         },
         {
+            id: "seasonal-info",
+            label: "Seasons",
+            icon: <Icon icon="carbon:calendar-heat-map" className="w-4 h-4" />,
+            condition: (data) => Array.isArray(data?.seasonalTrek) && data.seasonalTrek.length > 0,
+        },
+        {
             id: "overview",
             label: "Overview",
             icon: <Eye className="w-4 h-4" />,
@@ -230,10 +236,6 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
 
                 </div>
 
-                <button onClick={() => {
-                    setPackage(data as ITravelPackage)
-                    router.push('/booking/' + data?.slug)
-                }} className="px-4 py-2 border border-[#01283F] text-[#01283F] rounded-sm">Customize Trip</button>
             </div>
 
             {/* Custom scrollbar styles */}

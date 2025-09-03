@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import Title from "../../../components/intineryBars/Title";
 import TripGlance from "../../../components/tripGlance/TripGlance";
+import SeasonalInfo from "../../../components/tripGlance/SeasonalInfo";
 import MajorHighlight from "../../../components/tripGlance/MajorHighlight";
 import Cost from "../../../components/tripGlance/Cost";
 import Faq from "../../../components/tripGlance/Faq";
@@ -22,14 +23,13 @@ import SkeletonPackageDetails from "./_components/SkeletonLoader";
 import { useRouter } from "next/navigation";
 import ScrollTracker from "@/components/intineryBars/scroll-tracker";
 import GalleryCarousel from "@/components/intineryBars/gallery/gallery-carousel";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import Divider from "./_components/divider";
-import { IGallery } from "@/types/IGallery";
+
 import RightBar from "@/components/intineryBars/RightBar";
 import OverviewSection from "./_components/OverviewSection";
 import RouteMapModal from "./_components/RouteMapModal";
 import ImagePreviewModal from "./_components/ImagePreviewModal";
 import RouteMap from "@/components/tripGlance/RouteMap";
+import Image from "next/image";
 
 const Page = () => {
   const router = useRouter();
@@ -101,9 +101,15 @@ const Page = () => {
             <div className=" w-full max-w-[75%] relative  rounded-xl">
               {packageData && <TripGlance data={packageData?.data} />}
 
+              {packageData && <SeasonalInfo data={packageData.data} />}
+
               {packageData?.data?.attraction.length ? (
                 <MajorHighlight data={packageData?.data} />
               ) : null}
+
+              <div className="h-[60dvh] w-full relative mb-12 rounded-sm overflow-hidden">
+                <Image src={packageData?.data?.coverImage || "/placeholder.png"} alt="Manaslu" layout="fill" objectFit="cover" className="object-bottom" />
+              </div>
 
               {/* Overview Section */}
               <OverviewSection packageData={packageData?.data as ITravelPackage} />

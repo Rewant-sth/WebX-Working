@@ -31,7 +31,6 @@ video {
 body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     /* Add padding for fixed navbar */
 }
@@ -501,6 +500,10 @@ button:disabled {
     margin-bottom: 10px;
     border-radius: 4px;
     box-shadow: none;
+}
+
+#editor h2 {
+    font-size: 20px !important;
 }
 
 /* For Chrome, Safari, Edge, Opera */

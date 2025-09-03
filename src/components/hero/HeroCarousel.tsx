@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel } from "swiper/modules";
-import type { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,17 +9,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 export default function VerticalSwiper() {
-    const [allowScroll, setAllowScroll] = useState(false);
-
-    const handleSlideChange = (swiper: SwiperType) => {
-        // Enable scroll only when we reach the last slide
-        if (swiper.isEnd) {
-            setAllowScroll(true);
-        } else {
-            setAllowScroll(false);
-        }
-    };
-
     return (
         <div className="w-full h-screen overflow-visible transform-none">
             <Swiper
@@ -29,11 +16,8 @@ export default function VerticalSwiper() {
                 spaceBetween={100}
                 mousewheel={{
                     sensitivity: 0.5,
-                    // Prevent scrolling to next section unless all slides are viewed
-                    releaseOnEdges: allowScroll
                 }}
                 modules={[Mousewheel]}
-                onSlideChange={handleSlideChange}
                 className="w-full h-full"
             >
                 <SwiperSlide className="flex items-center pt-36 h-screen justify-center bg-white text-xl">

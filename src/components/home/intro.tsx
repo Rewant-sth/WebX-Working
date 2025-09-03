@@ -3,6 +3,7 @@ import { Camera } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import Link from 'next/link'
 
 export default function Intro() {
 
@@ -58,12 +59,14 @@ export default function Intro() {
                         <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >Who we are </h2>
                         <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >and <span className='bg-orange-500 px-2 text-white'>what we do</span></h2>
                     </div>
-                    <button className='flex w-fit h-fit font-semibold gap-2 items-center'>
-                        <span className='bg-amber-600 flex justify-center items-center text-white size-16 rounded-full'>
-                            <Camera className='fill-white' />
-                        </span>
-                        <span className='text-left  leading-4 uppercase'>view <br /> gallery</span>
-                    </button>
+                    <Link href="/about-us" className='mt-4'>
+                        <button className='flex w-fit h-fit font-semibold gap-2 items-center'>
+                            <span className='bg-amber-600 flex justify-center items-center text-white size-14 rounded-full'>
+                                <Camera className='fill-white' />
+                            </span>
+                            <span className='text-left  leading-4 uppercase'>Learn <br /> More</span>
+                        </button>
+                    </Link>
                 </div>
                 <div className="pt-6 md:pt-2 lg:pt-0 space-y-5">
                     <motion.p

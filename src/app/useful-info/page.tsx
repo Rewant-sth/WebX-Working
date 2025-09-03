@@ -163,7 +163,7 @@ const UsefulInfoPage = () => {
                 <div className="w-full h-screen sticky top-0 ">
                     <div className="relative w-full h-full">
                         <div className="absolute inset-0 bg-gradient-to-r from-white  to-transparent -translate-x-2 z-30"></div>
-                        <Image fill src="/EXPEDITION/DSC00695.jpg" alt="about img" className=" object-cover" />
+                        <Image fill src="/EXPEDITION/DSC00695.JPG" alt="about img" className=" object-cover" />
                     </div>
                 </div>
             </div>

@@ -2,6 +2,16 @@ import { ISubCategory, ICategory } from "./ICategory";
 import { IGallery } from "./IGallery";
 
 
+export interface ISeasonalTrek {
+  _id: string;
+  title: string;
+  description: string;
+  package: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface ITravelPackage {
   id: string
   activity?: string,
@@ -10,6 +20,7 @@ export interface ITravelPackage {
   difficulty?: string,
   accommodation?: string,
   meal?: string,
+  seasonalTrek?: ISeasonalTrek[];
   location: string;
   duration: string;
   categoryId: {
