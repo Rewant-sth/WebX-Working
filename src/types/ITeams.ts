@@ -9,7 +9,7 @@ export interface ITeamMember {
   name: string;
   designation: string;
   image: string;
-  memberType: "boardmember" | "fieldhero" | string; 
+  memberType: "boardmember" | "fieldhero" | string;
   countryCode: string;
   phoneNumber: string;
   description: string;
@@ -22,4 +22,10 @@ export interface ITeamMember {
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+export interface TeamMemberResponseByID {
+  success: boolean;
+  count: number;
+  data: ITeamMember;
 }

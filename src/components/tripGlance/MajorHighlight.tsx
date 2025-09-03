@@ -5,7 +5,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="major-highlights"
-      className=" mt-10 border-gray-200 mb-12 pb-12"
+      className=" mt-10 border-gray-200 mb-12 "
     >
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Content */}

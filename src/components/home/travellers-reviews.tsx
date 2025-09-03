@@ -103,7 +103,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
                                 <img
                                     src={slide.image || `/placeholder.webp`}
                                     alt={slide.fullName || `Testimonial ${idx + 1}`}
-                                    className='w-50 h-64 overflow-hidden object-cover grayscale-100 relative z-[50]'
+                                    className='w-50 h-64 overflow-hidden object-cover -100 relative z-[50]'
                                     onError={(e) => {
                                         const target = e.target as HTMLImageElement;
                                         target.src = `/placeholder.webp`;

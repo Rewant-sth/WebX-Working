@@ -21,6 +21,7 @@ const Page = () => {
       <ExpeditionPage />
       {/* <Divider /> */}
       <TrekPage />
+      <Divider />
       <TestimonialsSections />
       <CTA />
       <QuickInfo />
