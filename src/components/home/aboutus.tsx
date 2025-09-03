@@ -66,7 +66,7 @@ export default function AboutUs() {
   return (
     <section ref={sectionRef}
       style={{
-        backgroundImage: "url('/DSC00722.JPG')",
+        backgroundImage: "url('/EXPEDITION/intro.JPG')",
         backgroundSize: "cover",
         backgroundPosition: "bottom",
         backgroundAttachment: "fixed"

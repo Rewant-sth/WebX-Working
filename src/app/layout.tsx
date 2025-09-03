@@ -43,6 +43,8 @@ export default function RootLayout({
             <Footer />
           </LayoutWrapper>
         </Providers>
+
+       
       </body>
     </html >
   );

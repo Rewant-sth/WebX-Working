@@ -50,34 +50,40 @@ export default function Hero() {
 
       timeline.to(imageRef.current, {
         top: "0%",
-        duration: 1,
+        duration: 0.3,
+        ease: "none"
       }, 0);
+
+
 
       timeline.fromTo(rightSectionRef.current,
         {
           y: "100%",
-          duration: 1,
+          duration: 0.3,
+          ease: "none"
         },
         {
-          y: "30%",
-          duration: 1,
+          y: "50%",
+          duration: 0.3,
+          ease: "none"
         }, 0);
 
     });
 
     return () => ctx.revert();
-  }, []);
+  });
 
 
 
   return (
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
-      <div className="absolute top-0 left-0 inset-0">
-        <img src="/hero-back.png" alt="hero-1" />
+
+      <div className="absolute inset-0">
+        <img src="/hero-back.png" alt="" className='w-full h-full brightness-50 opacity-40' />
       </div>
       {/* hero first */}
-      <div ref={sectionRef} className="h-screen  mx-auto sticky top-50 lg:flex gap-6 lg:gap-16 p-6 ">
-        <h2 className='text-[6dvw] font-bold uppercase'>Explore the Real Himalaya</h2>
+      <div ref={sectionRef} className="h-screen   sticky top-50 lg:flex gap-6 lg:gap-16 p-6 ">
+        <h2 className='text-[5dvw] font-bold uppercase'>Explore the Real Himalaya</h2>
       </div>
 
       {/* hero second */}
@@ -89,12 +95,7 @@ export default function Hero() {
             <span className='text-orange-500'>world's highest peaks</span> and create <u>unforgettable memories.</u>
           </h2>
 
-          <div className="absolute bottom-1 left-0 -translate-x-1/2 ">
-            <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20' />
-          </div>
-          <div className="absolute bottom-1 right-0  translate-x-1/2">
-            <img src="/cloud_2.webp" alt="cloud" className='translate-x-16' />
-          </div>
+
         </div>
 
 
@@ -107,6 +108,14 @@ export default function Hero() {
         <div className="relative h-full max-w-screen  ">
           <img src="/hero-front2.png" alt="hero" className="w-full h-full object-cover object-top" />
         </div>
+      </div>
+
+
+      <div className="absolute bottom-10 left-0 -translate-x-1/2  z-[70]">
+        <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20 z-[70]' />
+      </div>
+      <div className="absolute bottom-10   right-0 translate-x-1/2  z-[70]">
+        <img src="/cloud_2.webp" alt="cloud" className='translate-x-16' />
       </div>
 
 
