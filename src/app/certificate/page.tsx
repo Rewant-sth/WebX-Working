@@ -190,15 +190,11 @@ const CertificatesPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center px-64">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center ">
               {milestonesData.map((milestone) => (
                 <div
                   key={milestone.id}
-                  className="w-[250px] h-[300px] rounded-sm p-6 border border-gray-300 transition-all duration-300 group"
-                  style={{
-                    boxShadow:
-                      "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px",
-                  }}
+                  className="w h-[300px] rounded-sm p-6 border border-gray-300 transition-all duration-300 group"
                 >
                   <div className="flex items-center mb-4">
                     {/* <div className="icon ">
@@ -238,7 +234,7 @@ const CertificatesPage = () => {
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={`skeleton-${i}`} className="bg-white rounded-sm overflow-hidden shadow-lg">
+                <div key={`skeleton-${i}`} className="bg-white rounded-sm overflow-hidden border border-gray-200">
                   <Skeleton height={250} />
                   <div className="p-6">
                     <Skeleton height={24} className="mb-4" />
@@ -275,15 +271,14 @@ const CertificatesPage = () => {
             <div className="flex flex-wrap justify-center items-center gap-4 ">
               {certificates.map((cert: Certificate, index: number) => (
                 <div
-
                   key={cert._id}
-                  className="group   inset-shadow-black  transition-all duration-500 transform "
+                  className="group transition-all duration-500 transform"
                 >
-                  <div className="relative w-[300px] h-[400px] overflow-hidden">
+                  <div className="relative w-[300px] h-[400px] overflow-hidden rounded-sm">
                     <img
                       src={cert.image}
                       alt={cert.name}
-                      className="w-full h-full   transition-transform duration-500"
+                      className="w-full h-full transition-transform duration-500"
                     />
 
                     <div className=" absolute backdrop-blur-sm z-30 flex justify-center items-center opacity-0 hover:opacity-100 transition-all duration-300 inset-0">
@@ -316,7 +311,7 @@ const CertificatesPage = () => {
           <img
             src={selectedCertificate.image}
             alt={selectedCertificate.name}
-            className="max-w-[90%] max-h-[80%] object-contain rounded-lg shadow-lg"
+            className="max-w-[90%] max-h-[80%] object-contain rounded-sm"
           />
         </div>
       )}

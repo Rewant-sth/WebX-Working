@@ -18,21 +18,18 @@ export default function Divider() {
             }, {
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top top", // when the top of the trigger hits the bottom of the viewport
-                    end: "+=50%",
+                    start: "center center", // when the top of the trigger hits the bottom of the viewport
+                    end: "+=100%",
                     scrub: true,
                     pin: true,
-                    markers: true,
                 },
                 clipPath: 'inset(0% 0% 0% 0%)',
                 ease: "none",
-                duration: 0.2
-
             })
         });
 
         return () => ctx.revert();
-    })
+    }, [])
     return (
         <div ref={containerRef} className='h-screen   flex justify-start items-center  w-dvw overflow-hidden relative'>
             <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent z-40"></div>

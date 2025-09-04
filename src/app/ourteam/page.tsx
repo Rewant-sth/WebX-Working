@@ -36,7 +36,7 @@ const OurTeam: React.FC = () => {
               data?.data?.map((member) => {
                 if (member.memberType.toLocaleLowerCase() === "boardmember") {
                   return (
-                    <div className="h-full w-full  rounded-sm relative group overflow-hidden">
+                    <div key={member._id} className="h-full w-full  rounded-sm relative group overflow-hidden">
                       <Image src={member.image} fill alt={member.name} className="object-cover object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
                       <div className="absolute flex w-full items-end inset-0 bg-black/10">
                         <div className="flex p-6 w-full justify-between  items-end">
@@ -105,7 +105,7 @@ const OurTeam: React.FC = () => {
             {data?.data?.map((member) => {
               if (member.memberType.toLocaleLowerCase() !== "boardmember") {
                 return (
-                  <div className="h-full w-full  rounded-sm relative group overflow-hidden">
+                  <div key={member._id} className="h-full w-full  rounded-sm relative group overflow-hidden">
                     <Image src={member.image} fill alt={member.name} className="object-cover object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
                     <div className="absolute flex w-full items-end inset-0 bg-black/10">
                       <div className="flex p-6 w-full justify-between  items-end">
