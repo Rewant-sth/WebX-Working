@@ -17,7 +17,7 @@ export default function Footer() {
 
 
   return (
-    <footer ref={footerRef} className="min-h-screen   w-full relative  flex flex-col justify-end items-end   ">
+    <footer ref={footerRef} className="   w-full relative  flex flex-col justify-end items-end   ">
 
       {/* footer expert part */}
 

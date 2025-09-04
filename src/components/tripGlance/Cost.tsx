@@ -8,10 +8,10 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
   const [activeTab, setActiveTab] = useState<'inclusion' | 'exclusion'>('inclusion');
 
   return (
-    <div className="py-10">
+    <div className="md:py-10">
       <div
         id="inclusion-&-exclusion"
-        className="border-b border-gray-200 mb-8 pb-10 "
+        className="md:border-b border-gray-200 mb-8 md:pb-10 "
       >
         {/* Tab Navigation */}
         <div className="mb-4">
@@ -48,7 +48,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
                 Everything that's included in your trip package to ensure a seamless travel experience.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid lg:grid-cols-2 gap-4">
                 {data?.inclusion.map((item, index) => (
                   <div
                     key={index}
@@ -74,7 +74,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
                 Items and services not included in the package that you'll need to arrange separately.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid lg:grid-cols-2 gap-4">
                 {data?.exclusion.map((item, index) => (
                   <div
                     key={index}

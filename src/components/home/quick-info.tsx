@@ -32,32 +32,9 @@ export default function QuickInfo() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
-  // Get the first 6 blogs for the layout (1+2+3 = 6 cards)
-  const blogs = blogsData?.data?.slice(0, 6) || [];
 
-  // Debug logging
-  console.log('Quick Info - Blogs data:', blogsData);
-  console.log('Quick Info - Filtered blogs:', blogs);
-
-  // Fallback images if no blogs or insufficient blogs
-  const fallbackImage = "/three.jpg";
-
-  // Ensure we always have enough content for the layout
-  const getImageSource = (index: number) => {
-    return blogs[index]?.banner || fallbackImage;
-  };
-
-  const getBlogSlug = (index: number) => {
-    return blogs[index]?.slug;
-  };
-
-  // Handle image load error
-  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const target = e.target as HTMLImageElement;
-    target.src = fallbackImage;
-  };
   return (
-    <div className="min-h-screen py-20 flex items-center justify-center bg-white px-4 w-full">
+    <div className=" py-12 md:py-20 flex items-center justify-center bg-white px-4 w-full">
       <div className="max-w-7xl w-full relative mx-auto  gap-6 items-center">
         <div className="">
           <h2 className="text-xl md:text-4xl space-x-1 pb-4 mx-auto font-semibold uppercase max-w-2xl text-center leading-snug text-gray-900">
@@ -69,17 +46,17 @@ export default function QuickInfo() {
         </div>
 
         {/* Right Side Custom Layout */}
-        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6  mt-14">
+        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div className="col-span-3 border border-gray-300 h-[26rem] p-2 rounded-sm overflow-hidden gap-6 grid md:grid-cols-2  w-full">
-                <div className="w-full h-full relative rounded-sm overflow-hidden">
+              <div className="col-span-3 border border-gray-300  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid md:grid-cols-2  w-full">
+                <div className="w-full lg::h-full h-[40dvh]  relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
                 </div>
                 <div className="flex flex-col justify-center p-4">
                   <div className="">
-                    <h2 className="text-3xl font-semibold">{data?.title}</h2>
-                    <p className="text-xl  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
+                    <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold">{data?.title}</h2>
+                    <p className="md:text-xl  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
                   </div>
 
                   <div className="flex pt-10 justify-between">
@@ -108,7 +85,7 @@ export default function QuickInfo() {
                 <div className="w-full aspect-video relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
                 </div>
-                <h2 className="text-xl font-semibold mt-2">{data?.title}</h2>
+                <h2 className="md:text-xl font-semibold mt-2">{data?.title}</h2>
 
                 <div className="flex w-full py-3 p-2 justify-between items-center">
                   <h2 className="shrink-0">By: {data?.author}</h2>

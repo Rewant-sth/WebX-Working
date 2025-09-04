@@ -62,9 +62,9 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
 
 
     return (
-        <div id='reviews' className={`relative w-full flex flex-col py-24 justify-center items-center   ${className}`}>
+        <div id='reviews' className={`relative w-full flex flex-col py-12 md:py-24 justify-center items-center   ${className}`}>
 
-            <h2 className='text-xl md:text-4xl pb-10 text-center font-semibold max-w-xl leading-6 mx-4 md:leading-12 uppercase'>
+            <h2 className='text-2xl md:text-4xl pb-10 text-center font-semibold max-w-xl  mx-4 md:leading-12 uppercase'>
                 <span className='bg-orange-500 text-white px-4  '>
                     Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>
                     platforms</span>
@@ -118,7 +118,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
                                         />;
                                     })}
                                 </div>
-                                <p className='mt-4 px-4 text-lg line-clamp-3 text-center'>{slide.comment}</p>
+                                <p className='mt-4 px-4 text-lg line-clamp-3 text-center' dangerouslySetInnerHTML={{ __html: slide.comment || "" }}></p>
                             </div>
                         </div>
                     ))}

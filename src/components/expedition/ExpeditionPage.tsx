@@ -73,7 +73,7 @@ function TrekPage() {
 
   if (loading) {
     return (
-      <section className="h-full space-y-3 py-24  mx-auto snap-start relative">
+      <section className="h-full space-y-3 py-12 md:py-24  mx-auto snap-start relative">
         <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
           The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
         </h2>
@@ -94,7 +94,7 @@ function TrekPage() {
 
   if (error) {
     return (
-      <section className="h-full space-y-3 py-24 max-w-7xl mx-auto snap-start relative">
+      <section className="h-full space-y-3 py-12 md:py-24 max-w-7xl mx-auto snap-start relative">
         <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
           The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
         </h2>
@@ -107,7 +107,7 @@ function TrekPage() {
 
   return (
     <section
-      className=" h-full space-y-3 py-28 p-4 sm:p-6 mx-auto snap-start relative"
+      className="  space-y-3 py-28 p-4 sm:p-6 mx-auto  relative"
     >
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">

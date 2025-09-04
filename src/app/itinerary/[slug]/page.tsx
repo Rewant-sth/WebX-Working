@@ -83,7 +83,7 @@ const Page = () => {
         <>
           <div ref={heroRef} className="relative min-h-screen overflow-hidden  ">
             <div className="absolute bottom-0  z-[99]  ">
-              <img src="/man2.png" alt="man" className="w-[80%] max-w- translate-y-16 object-cover drop-shadow-black" />
+              <img src="/man2.png" alt="man" className="scale-110 lg:w-[65%]  translate-y-16 object-cover drop-shadow-black" />
             </div>
 
             <Title data={packageData?.data as ITravelPackage} />
@@ -95,10 +95,10 @@ const Page = () => {
           </div>
 
           <ScrollTracker data={packageData?.data as ITravelPackage} />
-          <div className={`w-full relative h-auto flex flex-col xl:flex-row justify-between gap-4 md:gap-10 p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
+          <div className={`w-full relative h-auto flex flex-col xl:flex-row justify-between gap-4 md:gap-10 p-4 md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
             {/* Center Content */}
-            <div className=" w-full max-w-[75%] relative  rounded-xl">
+            <div className=" w-full lg:max-w-[75%] relative  rounded-xl">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData && <SeasonalInfo data={packageData.data} />}

@@ -83,13 +83,13 @@ export default function AboutUs() {
       </motion.div>
 
       <div
-        className='flex  pl-40 relative  z-[99]  items-center w-full justify-start '
+        className='flex pl-4  md:pl-40 relative  z-[99]  items-center w-full justify-start '
       >
-        <div className="w-full relative  max-w-2xl flex gap-2 items-start ">
-          <div className="size-[8rem]  relative rounded-sm overflow-hidden ">
+        <div className="w-full relative  md:max-w-2xl flex gap-2 flex-wrap items-start ">
+          <div className="size-14 md:size-[8rem]  relative rounded-sm overflow-hidden ">
             <Image src={"/logo/logo.svg"} alt='bg' fill />
           </div>
-          <div className="max-w-2xl w-full space-y-1.5 text-4xl uppercase font-semibold">
+          <div className="max-w-2xl w-full space-y-1.5 text-2xl md:text-4xl uppercase font-semibold">
             <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >We are maniacs</h2>
             <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >of travelling</h2>
           </div>

@@ -24,13 +24,6 @@ interface SubCategory {
   slug: string;
 }
 
-interface Package {
-  _id: string;
-  name: string;
-  coverImage: string;
-  overview: string;
-  slug: string;
-}
 
 interface StaticNavItem {
   name: string;
@@ -195,16 +188,15 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 w-full p-4 md:px-6 py-3 flex justify-between items-center transition-all duration-300 ${
-        isScrolled ? "backdrop-blur-sm " : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 w-full p-4 md:px-6 py-1.5 lg:py-3 flex justify-between items-center transition-all duration-300 ${isScrolled ? "backdrop-blur-sm " : "bg-transparent"
+        }`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
       }}
     >
       <Link
         href={"/"}
-        className="w-28 md:w-40 transition-transform duration-300 "
+        className="w-28 lg:w-40 transition-transform duration-300 "
       >
         <img
           src={"/logo/main.svg"}
@@ -231,9 +223,8 @@ export default function Navbar() {
         </ul> */}
         <button
           onClick={handleShow}
-          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${
-            isScrolled ? "shadow-md" : ""
-          }`}
+          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
+            }`}
         >
           <span className="font-medium text-sm md:text-base">Menu</span>
           <span className="bg-white size-9 flex justify-center items-center text-amber-500 rounded-sm transition-transform duration-300 group-hover:rotate-180">
@@ -244,9 +235,8 @@ export default function Navbar() {
 
       <div
         ref={menuRef}
-        className={`absolute hidden top-0 left-0 min-h-[100dvh] overflow-auto w-[100vw] bg-[#0d1117] ${
-          showNav ? "block" : "hidden"
-        }`}
+        className={`absolute hidden top-0 left-0 min-h-[100dvh] overflow-auto w-[100vw] bg-[#0d1117] ${showNav ? "block" : "hidden"
+          }`}
       >
         <div
           ref={popupNavref}
@@ -297,20 +287,18 @@ export default function Navbar() {
                         setSelectedSubcategoryId(category.subCategories[0]._id);
                       }
                     }}
-                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${
-                      selectedCategory?._id === category._id
-                        ? "text-amber-300 bg-amber-500/5 "
-                        : ""
-                    }`}
+                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
+                      ? "text-amber-300 bg-amber-500/5 "
+                      : ""
+                      }`}
                   >
                     {category.name}
                     <Icon
                       icon="fluent:arrow-right-20-filled"
-                      className={`ml-2 inline-block transition-all duration-500 ${
-                        selectedCategory?._id === category._id
-                          ? "translate-x-0 opacity-100"
-                          : "-translate-x-3 opacity-0"
-                      }`}
+                      className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id
+                        ? "translate-x-0 opacity-100"
+                        : "-translate-x-3 opacity-0"
+                        }`}
                     />
                   </h2>
                 </Link>
@@ -328,20 +316,18 @@ export default function Navbar() {
                           setSelectedStaticSubItem(item.subItems[0]);
                         }
                       }}
-                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${
-                        selectedStaticNav?.name === item.name
-                          ? "text-amber-300 bg-amber-500/5 "
-                          : ""
-                      }`}
+                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
+                        ? "text-amber-300 bg-amber-500/5 "
+                        : ""
+                        }`}
                     >
                       {item.name}
                       <Icon
                         icon="fluent:arrow-right-20-filled"
-                        className={`ml-2 inline-block transition-all duration-500 ${
-                          selectedStaticNav?.name === item.name
-                            ? "translate-x-0 opacity-100"
-                            : "-translate-x-3 opacity-0"
-                        }`}
+                        className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name
+                          ? "translate-x-0 opacity-100"
+                          : "-translate-x-3 opacity-0"
+                          }`}
                       />
                     </h2>
                   ) : (
@@ -370,20 +356,18 @@ export default function Navbar() {
               <h2
                 key={subCategory._id}
                 onMouseEnter={() => setSelectedSubcategoryId(subCategory._id)}
-                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${
-                  selectedSubcategoryId === subCategory._id
-                    ? "text-amber-300 bg-amber-500/5"
-                    : ""
-                }`}
+                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${selectedSubcategoryId === subCategory._id
+                  ? "text-amber-300 bg-amber-500/5"
+                  : ""
+                  }`}
               >
                 {subCategory.name}
                 <Icon
                   icon="fluent:arrow-right-20-filled"
-                  className={`ml-2 inline-block transition-all duration-500 ${
-                    selectedSubcategoryId === subCategory._id
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-3 opacity-0"
-                  }`}
+                  className={`ml-2 inline-block transition-all duration-500 ${selectedSubcategoryId === subCategory._id
+                    ? "translate-x-0 opacity-100"
+                    : "-translate-x-3 opacity-0"
+                    }`}
                 />
               </h2>
             ))}
@@ -394,20 +378,18 @@ export default function Navbar() {
                 onClick={handleClose}
                 title="click to view more"
                 onMouseEnter={() => setSelectedStaticSubItem(subItem)}
-                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${
-                  selectedStaticSubItem?.name === subItem.name
-                    ? "text-amber-300 bg-amber-500/5"
-                    : ""
-                }`}
+                className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${selectedStaticSubItem?.name === subItem.name
+                  ? "text-amber-300 bg-amber-500/5"
+                  : ""
+                  }`}
               >
                 {subItem.name}
                 <Icon
                   icon="fluent:arrow-right-20-filled"
-                  className={`ml-2 inline-block transition-all duration-500 ${
-                    selectedStaticSubItem?.name === subItem.name
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-3 opacity-0"
-                  }`}
+                  className={`ml-2 inline-block transition-all duration-500 ${selectedStaticSubItem?.name === subItem.name
+                    ? "translate-x-0 opacity-100"
+                    : "-translate-x-3 opacity-0"
+                    }`}
                 />
               </Link>
             ))}

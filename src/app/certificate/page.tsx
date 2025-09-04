@@ -156,7 +156,7 @@ const CertificatesPage = () => {
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
-          src={"/EVEREST REGION/NIKON D80013076.jpg"}
+          src={"/EVEREST REGION/NIKON D80013076.JPG"}
           alt="Everest Region"
           fill
           className="object-cover object-bottom brightness-60"
@@ -168,9 +168,6 @@ const CertificatesPage = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               Certifications & Achievements
             </h1>
-            {/* <p className="text-lg sm:text-xl md:text-2xl font-light text-orange-300 max-w-3xl mx-auto">
-              Experience the majesty of the world's highest peaks with Nepal's most trusted adventure company
-            </p> */}
           </div>
         </div>
       </section>

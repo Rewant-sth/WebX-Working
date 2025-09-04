@@ -90,7 +90,7 @@ export default function Hero() {
       <section ref={rightSectionRef} className="h-screen overflow-hidden  absolute top-0 left-0 w-full translate-y-full text-white  gap-14 z-[60] flex flex-col justify-center items-center">
         <div className="h-full relative w-full space-y-4 flex flex-col justify-center items-center">
           <img src="logo/white.svg" alt="" className="w-80" />
-          <h2 className="relative z-50 text-4xl mt-6 text-center">
+          <h2 className="relative z-50 text-xl md:text-4xl mt-6 text-center">
             Embark on <span className='text-orange-500'>extraordinary journeys</span> through the <br />
             <span className='text-orange-500'>world's highest peaks</span> and create <u>unforgettable memories.</u>
           </h2>

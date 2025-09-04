@@ -67,7 +67,7 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
                                     src={slide.imageUrl}
                                     alt={slide.caption || `Gallery image ${index + 1}`}
                                     fill
-                                    className="object-cover object-center"
+                                    className="object-cover object-top"
                                     priority={index === 0}
                                     sizes="100vw"
                                 />
