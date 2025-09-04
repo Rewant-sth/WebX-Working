@@ -44,7 +44,7 @@ function TrekPage() {
         throw new Error("Backend URL is not configured");
       }
 
-      const response = await fetch(`${baseURL}/package/category/trekking`, {
+      const response = await fetch(`${baseURL}/package/category/expedition`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,8 @@ function TrekPage() {
     return (
       <section className="h-full space-y-3 py-12 md:py-24  mx-auto snap-start relative">
         <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
-          The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
+          Step into the <span className="bg-orange-500  px-2 text-white">Realm</span> of the Giants
+          {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto">
           Loading expedition packages...
@@ -96,7 +97,8 @@ function TrekPage() {
     return (
       <section className="h-full space-y-3 py-12 md:py-24 max-w-7xl mx-auto snap-start relative">
         <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
-          The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
+          Step into the <span className="bg-orange-500  px-2 text-white">Realm</span> of the Giants
+          {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto text-red-600">
           Error: {error}
@@ -111,11 +113,12 @@ function TrekPage() {
     >
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
-          <h2 className="text-xl max-w-xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
-            The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
+          <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
+            Step into the <span className="bg-orange-500  px-2 text-white">Realm</span> of the Giants
+            {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
           </h2>
           <p className="text-lg max-w-2xl mx-auto mt-2">
-            Journeys that transcend time crafted to create memories that last forever.
+            Expeditions that push limits, conquer heights, and create stories etched in time.
           </p>
         </div>
 

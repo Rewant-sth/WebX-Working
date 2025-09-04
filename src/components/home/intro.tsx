@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 export default function Intro() {
 
@@ -47,50 +48,48 @@ export default function Intro() {
     };
 
     return (
-        <section className="min-h-screen flex justify-center items-center h-full relative  snap-start px-4 md:px-0">
+        <section className="min-h-screen flex justify-center items-center h-full relative  snap-start px-6 ">
 
 
 
             <div
-                className='grid lg:grid-cols-2 max-w-7xl mx-auto py-20 '
+                className='grid lg:grid-cols-5 max-w- mx-auto py-20 '
             >
-                <div className="w-full md:max-w-2xl flex flex-col gap-6 md:gap-12 items-start ">
+                <div className="w-full md:max-w-2xl flex flex-col gap-6 md:gap-12 items-start col-span-2 h-fit lg:sticky top-28">
                     <div className="max-w-2xl w-full md:space-y-1.5 text-2xl md:text-4xl uppercase font-semibold">
-                        <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >Who we are </h2>
-                        <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >and <span className='bg-orange-500 px-2 text-white'>what we do</span></h2>
+                        <h2 className='bg-white w-fit  rounded-sm py-1 ' >Who we are </h2>
+                        <h2 className='bg-white w-fit rounded-sm py-1 ' >and <span className='bg-orange-500 px-2 text-white'>what we do</span></h2>
                     </div>
                     <Link href="/about-us" className='mt-4'>
                         <button className='flex w-fit h-fit font-semibold gap-2 items-center'>
                             <span className='bg-amber-600 flex justify-center items-center text-white size-14 rounded-full'>
-                                <Camera className='fill-white' />
+                                <Icon icon={"humbleicons:info"} className='text-4xl' />
                             </span>
                             <span className='text-left  leading-4 uppercase'>Learn <br /> More</span>
                         </button>
                     </Link>
                 </div>
-                <div className="pt-6 md:pt-2 lg:pt-0 space-y-5">
+                <div className="pt-6 col-span-3 md:pt-2 lg:pt-0 space-y-5">
                     <p
                         className='md:text-2xl'>
-                        We have developed interesting routes across <b>different continents</b>, countries, and places on the planet that will allow us to get to know the world closer.
-                    </p>
+                        <span className="text-orange-400 font-semibold">Real Himalaya</span> is a trusted Nepal trekking company founded by veteran mountaineers and local travel experts. With years of experience in guiding expeditions across the Himalayas, we are committed to offering authentic, safe, and life-changing journeys. Our roots in Nepalese culture give us a unique perspective, allowing us to share not only the breathtaking landscapes but also the traditions, spirituality, and hospitality of the mountain communities.                    </p>
                     <p
-                        className='md:text-2xl'>
-                        Team of professional guides and a support team with years of <u> experience</u> in traveling and climbing. Our guides will ensure the safety of the tour, will give you useful <u>knowledge and skills</u> for independent travel in the future.
-                    </p>
+                        className='md:text-2xl pt-5'>
+                        We specialize in <strong>Himalayan treks, climbing expeditions, and cultural tours</strong> tailored to every type of traveler. From world-famous adventures like the <strong>Everest Base Camp trek, Annapurna Circuit, and Gokyo Lakes trek</strong> to hidden gems such as Manaslu and Nar Phu Valley, we create itineraries that balance challenge, discovery, and comfort. Our services include full trekking support like permits, logistics, guides, porters, and safety protocols ensuring a seamless and unforgettable Himalayan experience. Whether you’re seeking your first trek in Nepal or aiming for high-altitude expeditions, <span className='text-orange-400 font-semibold'>Real Himalaya</span> is here to turn your Himalayan dream into reality.                    </p>
 
 
                     <div
-                        className="grid grid-cols-3 mt-16 text-center gap-4"
+                        className="grid grid-cols-3 mt-16  gap-4"
                     >
-                        <div className="">
+                        <div className="w-fit text-center">
                             <h2>Years of Experience</h2>
                             <Counter target={16} />
                         </div>
-                        <div className="">
+                        <div className="w-fit text-center">
                             <h2>Successful Tours</h2>
                             <Counter target={200} />
                         </div>
-                        <div className="">
+                        <div className="w-fit text-center">
                             <h2>Happy Clients</h2>
                             <Counter target={1500} />
                         </div>

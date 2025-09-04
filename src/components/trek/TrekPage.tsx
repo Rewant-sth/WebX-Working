@@ -112,10 +112,10 @@ function TrekPage() {
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
           <h2 className="text-xl max-w-[35rem] mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
-            Step into the <span className="bg-orange-500  px-2 text-white">Heart</span> of the Mountains
+            The Ultimate <span className="bg-orange-500  px-2 text-white">Himalayan</span> Trekking Experience
           </h2>
-          <p className="text-lg max-w-2xl mx-auto mt-2">
-            Journeys that transcend time crafted to create memories that last forever.
+          <p className="text-lg max-w-4xl mx-auto mt-2">
+            Adventures designed to challenge your spirit and create memories that stay with you for a lifetime.
           </p>
         </div>
 

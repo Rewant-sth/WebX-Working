@@ -62,7 +62,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
 
 
     return (
-        <div id='reviews' className={`relative w-full flex flex-col py-12 md:py-24 justify-center items-center   ${className}`}>
+        <div id='testimonial' className={`relative w-full flex flex-col py-12 md:py-24 justify-center items-center   ${className}`}>
 
             <h2 className='text-2xl md:text-4xl pb-10 text-center font-semibold max-w-xl  mx-4 md:leading-12 uppercase'>
                 <span className='bg-orange-500 text-white px-4  '>

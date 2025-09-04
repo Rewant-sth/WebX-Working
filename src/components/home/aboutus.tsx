@@ -83,15 +83,16 @@ export default function AboutUs() {
       </motion.div>
 
       <div
-        className='flex pl-4  md:pl-40 relative  z-[99]  items-center w-full justify-start '
+        className='flex p-6   relative  z-[99]  items-center w-full justify-start '
       >
-        <div className="w-full relative  md:max-w-2xl flex gap-2 flex-wrap items-start ">
-          <div className="size-14 md:size-[8rem]  relative rounded-sm overflow-hidden ">
+        <div className="w-full relative   flex gap-6 flex-col justify-center items-center">
+          <div className="size-16 md:size-20    relative rounded-sm overflow-hidden ">
             <Image src={"/logo/logo.svg"} alt='bg' fill />
           </div>
-          <div className="max-w-2xl w-full space-y-1.5 text-2xl md:text-4xl uppercase font-semibold">
-            <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >We are maniacs</h2>
-            <h2 className='bg-white w-fit px-2 rounded-sm py-1 ' >of travelling</h2>
+          <div className="max-w-3xl mx-auto w-full text-white text-center space-y-1.5 text-2xl md:text-4xl uppercase font-semibold">
+            <h2 className='   py-1 ' >We are devoted to travel</h2>
+            <h2 className='text-lg capitalize px-2  py-1 ' >explorers at heart, inspired by the Himalayas and driven by a passion for discovery.</h2>
+            <p className='text-lg capitalize mt-4'>Our mission is to share authentic adventures that connect people with nature, culture, and unforgettable experiences.</p>
           </div>
         </div>
       </div>

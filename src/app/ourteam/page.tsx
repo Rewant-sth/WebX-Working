@@ -26,7 +26,7 @@ const OurTeam: React.FC = () => {
               <span className="flex gap-2 items-center">Meet our <Icon icon={"mynaui:arrow-long-right"} className="pt-4" /></span>
               Reason for excellence
             </h2>
-            <p className="mt-4 text-xl max-w-4xl">The Himalayas are not just mountains — they are symbols of resilience, wisdom, and unwavering strength. Our board embodies the same spirit.</p>
+            <p className="mt-4 text-xl max-w-7xl">The Board Members of Real Himalaya bring together decades of experience in mountaineering, trekking, and adventure tourism. Each member plays a vital role in shaping our vision, ensuring that every Himalayan trek and expedition upholds the highest standards of safety, authenticity, and service. Their leadership and dedication are the driving force behind our reputation as a trusted Nepal trekking company, preferred by adventurers worldwide.</p>
 
 
 
@@ -92,7 +92,7 @@ const OurTeam: React.FC = () => {
 
       <div className="p-6">
         <h2 className="text-4xl lg:text-6xl font-semibold  ">Our Heroes <br /> Who Made it  Possible</h2>
-        <p className="max-w-4xl text-xl mt-4">From the heights of the Himalayas comes a spirit of strength, resilience, and vision. These heroes are more than just leaders — they are the guiding force behind every step of our journey.</p>
+        <p className="max-w-7xl text-xl mt-4">Our field heroes are the backbone of every Himalayan journey. From expert Sherpa mountaineers and licensed trekking guides to hardworking porters and support staff, they are the ones who make each trek possible. Their strength, knowledge of the mountains, and dedication to client safety ensure that every adventure is not only successful but also deeply memorable. At Real Himalaya, we honor our field heroes as the true champions who turn Himalayan dreams into reality.</p>
         {!data?.data || data.data.filter(member => member.memberType.toLowerCase() !== "boardmember").length === 0 ? (
           <div className="flex flex-col h-[60dvh] items-center justify-center mt-10 py-16 px-4 border-2 border-dashed border-gray-300 rounded-sm">
             <h3 className="text-xl font-semibold mb-2 uppercase">No Team Members Found</h3>

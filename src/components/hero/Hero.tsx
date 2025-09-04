@@ -82,23 +82,22 @@ export default function Hero() {
         <img src="/hero-back.png" alt="" className='w-full h-full brightness-50 opacity-40' />
       </div>
       {/* hero first */}
-      <div ref={sectionRef} className="h-screen   sticky top-50 lg:flex gap-6 lg:gap-16 p-6 ">
-        <h2 className='text-[5dvw] font-bold uppercase'>Explore the Real Himalaya</h2>
+      <div ref={sectionRef} className="h-screen   sticky top-20 lg:flex gap-6 lg:gap-16 p-6 ">
+        <h2 className='text-[8dvw] font-bold uppercase text-center mx-auto max-w-5xl leading-12 lg:leading-tight flex flex-col'><span className="text-[#01283F]">Explore the</span> <span className="text-[#F05E25] italic">Real Himalaya</span></h2>
       </div>
 
       {/* hero second */}
       <section ref={rightSectionRef} className="h-screen overflow-hidden  absolute top-0 left-0 w-full translate-y-full text-white  gap-14 z-[60] flex flex-col justify-center items-center">
         <div className="h-full relative w-full space-y-4 flex flex-col justify-center items-center">
-          <img src="logo/white.svg" alt="" className="w-80" />
-          <h2 className="relative z-50 text-xl md:text-4xl mt-6 text-center">
-            Embark on <span className='text-orange-500'>extraordinary journeys</span> through the <br />
-            <span className='text-orange-500'>world's highest peaks</span> and create <u>unforgettable memories.</u>
+          <img src="logo/white.svg" alt="" className="w-28 lg:w-80" />
+          <h2 className="relative z-50 text-xl md:text-4xl mt-6 max-w-7xl mx-auto px-4 text-center">
+            “Step into the realm of the world’s highest peaks, where every path whispers adventure and every journey becomes a memory etched forever.”
           </h2>
 
-
+          <h3 className='max-w-7xl mx-auto text-lg text-center px-4 text-' >
+            At <strong className='text-orange-500  '>Real Himalaya</strong>, we invite you to embrace the spirit of the mountains, where snow-capped giants rise above ancient valleys and cultures thrive in timeless harmony. Each trek is more than a trail, it is a passage into breathtaking landscapes, heartfelt encounters, and unforgettable experiences waiting to be discovered.
+          </h3>
         </div>
-
-
       </section>
 
       <div

@@ -231,7 +231,7 @@ export default function Navbar() {
         </ul> */}
         <button
           onClick={handleShow}
-          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
+          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-[#F05E25] to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
             }`}
         >
           <span className="font-medium text-sm md:text-base">Menu</span>
@@ -264,7 +264,7 @@ export default function Navbar() {
           <div className="flex gap-10 items-center">
             <button
               onClick={handleClose}
-              className="w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95"
+              className="w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-amber-500 to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95"
             >
               <span className="font-medium text-sm md:text-base">Close</span>
               <span className="bg-white text-amber-500 size-9 flex justify-center items-center  rounded-sm  duration-300 ">
@@ -341,12 +341,12 @@ export default function Navbar() {
                         <Icon
                           icon={isMobile ? "material-symbols:arrow-drop-down" : "fluent:arrow-right-20-filled"}
                           className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name
-                              ? isMobile
-                                ? "rotate-180"
-                                : "translate-x-0 opacity-100"
-                              : isMobile
-                                ? "rotate-0"
-                                : "-translate-x-3 opacity-0"
+                            ? isMobile
+                              ? "rotate-180"
+                              : "translate-x-0 opacity-100"
+                            : isMobile
+                              ? "rotate-0"
+                              : "-translate-x-3 opacity-0"
                             }`}
                         />
                       </h2>
@@ -373,10 +373,10 @@ export default function Navbar() {
                       className="cursor-pointer px-2 flex gap-2 justify-between items-center group transition-all duration-300 hover:text-amber-300  py-2  hover:bg-amber-500/5  hover:border-amber-400 "
                     >
                       {item.name}
-                      <Icon
+                      {/* <Icon
                         icon="fluent:arrow-right-20-filled"
                         className="-translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all"
-                      />
+                      /> */}
                     </Link>
                   )}
                 </div>
@@ -449,7 +449,7 @@ export default function Navbar() {
                         <Link
                           href="/about-us#mission"
                           onClick={handleClose}
-                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600  upp text-white transition-all duration-300 hover:shadow-md  active:scale-95"
+                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-[#F05E25]  upp text-white transition-all duration-300 hover:shadow-md  active:scale-95"
                         >
                           Learn More{" "}
                           <Icon
@@ -468,7 +468,7 @@ export default function Navbar() {
                         <Link
                           href="/ourteam#guides"
                           onClick={handleClose}
-                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600  text-white transition-all duration-300 hover:shadow-md  active:scale-95"
+                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-[#F05E25]  text-white transition-all duration-300 hover:shadow-md  active:scale-95"
                         >
                           Meet Guides{" "}
                           <Icon
@@ -487,7 +487,7 @@ export default function Navbar() {
                         <Link
                           href="/useful-info#seasons"
                           onClick={handleClose}
-                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600  text-white transition-all duration-300 hover:shadow-md  active:scale-95"
+                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-[#F05E25]  text-white transition-all duration-300 hover:shadow-md  active:scale-95"
                         >
                           Learn More{" "}
                           <Icon
@@ -506,7 +506,7 @@ export default function Navbar() {
                         <Link
                           href="/certificate#tourism"
                           onClick={handleClose}
-                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white transition-all duration-300 hover:shadow-md  active:scale-95"
+                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] text-white transition-all duration-300 hover:shadow-md  active:scale-95"
                         >
                           View License{" "}
                           <Icon

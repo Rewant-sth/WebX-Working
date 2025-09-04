@@ -1,6 +1,7 @@
 "use client"
 import { Play } from "lucide-react";
 import { motion } from "motion/react"
+import Link from "next/link";
 
 const TestimonialsSections = () => {
   return (
@@ -22,13 +23,15 @@ const TestimonialsSections = () => {
       <div className="flex flex-col gap-6 justify-center -translate-y-10 md:-translate-y-44 items-center">
         <span className="bg-gray-100 px-4 text-gray-800 rounded-full">Testimonials</span>
         <h2 className="text-xl md:text-4xl text-center font-semibold max-w-[80%] sm:max-w-xl uppercase"><span className="bg-orange-500 text-white px-2">Preferred</span> by  thousands  around the <span className="bg-orange-500 text-white px-2">world</span></h2>
-        <p className="max-w-xl text-center">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente earum dolor, hic quisquam iste est. Lorem, ipsum dollar</p>
-        <button className='flex w-fit h-fit gap-2 items-center'>
-          <span className='bg-amber-600 flex justify-center items-center text-white size-12 rounded-full'>
-            <Play className='fill-white' />
-          </span>
-          <span className='text-left  leading-4 uppercase font-semibold'>Success <br /> Story</span>
-        </button>
+        <p className="max-w-2xl text-center px-4 xl:px-0">Over the years, Real Himalaya has become the trusted choice of trekkers and climbers from across the globe. Our commitment to safety, authentic experiences, and expert guidance has earned us the loyalty of thousands who return to the Himalayas with us time and again. Each journey is crafted with care, ensuring that every traveler takes home not just memories, but a lifelong connection to the mountains.</p>
+        <Link href={"#testimonial"} >
+          <button className='flex w-fit h-fit gap-2 items-center'>
+            <span className='bg-amber-600 flex justify-center items-center text-white size-12 rounded-full'>
+              <Play className='fill-white' />
+            </span>
+            <span className='text-left  leading-4 uppercase font-semibold'>Success <br /> Story</span>
+          </button>
+        </Link>
       </div>
     </section>
 

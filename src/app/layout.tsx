@@ -47,8 +47,8 @@ export default function RootLayout({
         </Providers>
 
 
-        <div className="fixed bottom-5 md:bottom-10  cursor-pointer right-4 md:right-10 flex flex-col justify-center items-center">
-          <Link href={"https://wa.me/1234567890"} target="_blank" rel="noopener noreferrer" className="flex justify-center mx-auto p-2 items-center size-10 lg:size-16 bg-green-500 z-[9999] rounded-full">
+        <div className="fixed bottom-5 md:bottom-10  cursor-pointer right-4 md:right-10 flex flex-col justify-center items-center z-[99999]">
+          <Link href={"https://wa.me/1234567890"} target="_blank" rel="noopener noreferrer" className="flex justify-center mx-auto p-2 items-center size-10 lg:size-16 bg-green-500  rounded-full">
             <Icon icon="logos:whatsapp-icon" className="text-white text-3xl animate-pulse" />
           </Link>
           <h2 className="text-black font-bold text-sm sm:text-base">Live Chat</h2>
