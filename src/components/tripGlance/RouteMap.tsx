@@ -9,7 +9,8 @@ const RouteMap = ({ data, onShow }: { data: ITravelPackage | undefined, onShow: 
 
   return (
     <div ref={routeMapRef} className="">
-      <h2 className="mb-6 text-2xl font-semibold">Route Map</h2>
+      <h2 className="text-3xl font-bold text-orange-500 text-left mb-6">
+        Route Map</h2>
       <div className=" transition-opacity duration-300 mb-10"
       >
         <div

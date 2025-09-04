@@ -69,28 +69,18 @@ export default function Intro() {
                     </Link>
                 </div>
                 <div className="pt-6 md:pt-2 lg:pt-0 space-y-5">
-                    <motion.p
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
+                    <p
                         className='md:text-2xl'>
                         We have developed interesting routes across <b>different continents</b>, countries, and places on the planet that will allow us to get to know the world closer.
-                    </motion.p>
-                    <motion.p
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.3 }}
+                    </p>
+                    <p
                         className='md:text-2xl'>
                         Team of professional guides and a support team with years of <u> experience</u> in traveling and climbing. Our guides will ensure the safety of the tour, will give you useful <u>knowledge and skills</u> for independent travel in the future.
-                    </motion.p>
+                    </p>
 
 
-                    <motion.div
+                    <div
                         className="grid grid-cols-3 mt-16 text-center gap-4"
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
                     >
                         <div className="">
                             <h2>Years of Experience</h2>
@@ -104,7 +94,7 @@ export default function Intro() {
                             <h2>Happy Clients</h2>
                             <Counter target={1500} />
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section >

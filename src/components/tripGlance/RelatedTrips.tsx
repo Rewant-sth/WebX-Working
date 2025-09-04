@@ -25,12 +25,12 @@ const RelatedTrips = ({
     <div className="border-b  border-gray-200 mb-8 pb-10">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-            <span className="w-fit text-2xl font-semibold">
+          <h2 className="text-3xl font-bold text-orange-500 text-left ">
+            <span className="w-fit  font-semibold">
               Related Trips
             </span>
           </h2>
-          <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl">
+          <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl">
             Discover other amazing adventures that might interest you on your next journey.
           </p>
         </div>

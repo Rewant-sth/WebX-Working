@@ -49,7 +49,7 @@ export default function QuickInfo() {
         <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div className="col-span-3 border border-gray-300  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid md:grid-cols-2  w-full">
+              <div key={idx} className="col-span-3 border border-gray-300  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid md:grid-cols-2  w-full">
                 <div className="w-full lg::h-full h-[40dvh]  relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
                 </div>

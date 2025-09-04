@@ -10,8 +10,8 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
             className="  border-gray-200  pb-10"
         >
             {/* Important Notice */}
-            <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-                <span className="w-fit text-2xl font-semibold">
+            <h2 className="text-3xl font-bold text-orange-500 text-left ">
+                <span className="w-fit  font-semibold">
                     Important Notice
                 </span>
             </h2>

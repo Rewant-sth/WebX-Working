@@ -11,7 +11,8 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
     return (
         <div id="seasonal-info" className="w-full bg-white rounded-xl py-6 mt-8">
             <div className="flex items-center gap-2 mb-6">
-                <h2 className="text-2xl font-semibold">Best Seasons for Trek</h2>
+                <h2 className="text-3xl font-bold text-orange-500 text-left mb-3">
+                    Best Seasons for Trek</h2>
             </div>
 
             <div className="space-y-6">

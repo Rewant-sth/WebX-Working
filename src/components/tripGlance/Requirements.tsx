@@ -10,12 +10,12 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
             className="border-b  border-gray-200 mb-8 pb-10"
         >
             {/* Requirements */}
-            <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+            <h2 className="text-3xl font-bold text-orange-500 text-left ">
                 <span className="w-fit text-2xl font-semibold">
                     Requirements
                 </span>
             </h2>
-            <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+            <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl mb-8">
                 Essential requirements and preparations needed for a safe and successful journey.
             </p>
             <div className="space-y-4">

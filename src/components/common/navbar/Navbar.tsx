@@ -66,6 +66,7 @@ const navs: StaticNavItem[] = [
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -174,15 +175,22 @@ export default function Navbar() {
       setIsScrolled(scrollY > 250);
     };
 
-    // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
 
-    // Check initial scroll position
+    // Add event listeners
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+
+    // Check initial conditions
     handleScroll();
+    handleResize();
 
     // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -306,30 +314,58 @@ export default function Navbar() {
               {navs.map((item, idx) => (
                 <div key={idx}>
                   {item.subItems ? (
-                    <h2
-                      onMouseEnter={() => {
-                        setSelectedStaticNav(item);
-                        setSelectedCategory(null); // Clear category selection
-                        setSelectedSubcategoryId(null); // Clear subcategory selection
-                        // Set first sub-item as selected by default
-                        if (item.subItems && item.subItems.length > 0) {
-                          setSelectedStaticSubItem(item.subItems[0]);
-                        }
-                      }}
-                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
-                        ? "text-amber-300 bg-amber-500/5 "
-                        : ""
-                        }`}
-                    >
-                      {item.name}
-                      <Icon
-                        icon="fluent:arrow-right-20-filled"
-                        className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name
-                          ? "translate-x-0 opacity-100"
-                          : "-translate-x-3 opacity-0"
+                    <div className="">
+                      <h2
+                        onClick={() => {
+                          if (isMobile) {
+                            setSelectedStaticNav(selectedStaticNav?.name === item.name ? null : item);
+                          }
+                        }}
+                        onMouseEnter={() => {
+                          if (!isMobile) {
+                            setSelectedStaticNav(item);
+                            setSelectedCategory(null); // Clear category selection
+                            setSelectedSubcategoryId(null); // Clear subcategory selection
+                            // Set first sub-item as selected by default
+                            if (item.subItems && item.subItems.length > 0) {
+                              setSelectedStaticSubItem(item.subItems[0]);
+                            }
+                          }
+                        }}
+                        className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
+                          ? "text-amber-300 bg-amber-500/5 "
+                          : ""
                           }`}
-                      />
-                    </h2>
+                      >
+                        {item.name}
+                        <Icon
+                          icon={isMobile ? "material-symbols:arrow-drop-down" : "fluent:arrow-right-20-filled"}
+                          className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name
+                              ? isMobile
+                                ? "rotate-180"
+                                : "translate-x-0 opacity-100"
+                              : isMobile
+                                ? "rotate-0"
+                                : "-translate-x-3 opacity-0"
+                            }`}
+                        />
+                      </h2>
+
+                      {/* Mobile dropdown */}
+                      <div className={`sm:hidden overflow-hidden transition-all duration-300 ${selectedStaticNav?.name === item.name ? "max-h-48" : "max-h-0"
+                        }`}>
+                        {item.subItems?.map((subItem, subIdx) => (
+                          <Link
+                            key={subIdx}
+                            href={subItem.href!}
+                            onClick={handleClose}
+                            className="block pl-6 py-2 text-base text-gray-300 hover:text-amber-300 transition-colors duration-300"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   ) : (
                     <Link
                       href={item.href!}
@@ -348,7 +384,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem] hidden md:block">
+          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem] hidden sm:block">
             <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               SUB Categories
             </h2>

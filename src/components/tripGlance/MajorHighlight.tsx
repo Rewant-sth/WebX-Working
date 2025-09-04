@@ -11,12 +11,11 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
         {/* Left Content */}
         <div className="flex-1">
           {/* Section Title */}
-          <h2 className="text-2xl font-bold text-gray-900 text-center sm:text-left flex items-center gap-2">
-
+          <h2 className="text-3xl font-bold text-orange-500 text-left">
             <span>Major Highlights</span>
           </h2>
 
-          <p className="text-gray-600 mt-4 leading-relaxed mb-10 text-center sm:text-left">
+          <p className="text-gray-600 mt-1 leading-relaxed mb-10 text-center sm:text-left">
             Discover the key attractions and memorable experiences that make this
             journey extraordinary.
           </p>

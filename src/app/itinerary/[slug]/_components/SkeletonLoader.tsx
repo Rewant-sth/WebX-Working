@@ -6,10 +6,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const SkeletonPackageDetails = () => {
   return (
-    <div>
+    <div className="w-full">
       {/* Hero Section Skeleton */}
       <div className="relative min-h-screen overflow-hidden">
-        {/* Hero Background Skeleton */}
+        {/* Background Image Skeleton */}
         <div className="absolute inset-0">
           <Skeleton height="100vh" className="!rounded-none" />
         </div>

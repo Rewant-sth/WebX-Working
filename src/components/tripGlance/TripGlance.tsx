@@ -7,7 +7,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
       className="border-b  border-gray-200 pb-10 "
     >
       <div className=" mx-auto ">
-        <h2 className="text-2xl font-bold text-gray-900 text-left mb-6">
+        <h2 className="text-3xl font-bold text-orange-500 text-left mb-6">
           Your Trip at a Glance
         </h2>
 

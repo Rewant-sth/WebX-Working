@@ -156,7 +156,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
       id="itinerary"
       className="border-b  border-gray-200 mb-8 pb-10"
     >
-      <h2 className="text-3xl font-semibold text-gray-800 text-center sm:text-left">
+      <h2 className="text-3xl font-bold text-orange-500 text-left mb-6">
         <span className="flex items-center gap-2">
           <span>Itinerary</span>
         </span>

@@ -10,8 +10,8 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
             className="border-b  border-gray-200 mb-8 py-10"
         >
             {/* Gear */}
-            <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-                <span className="w-fit text-2xl font-semibold">
+            <h2 className="text-3xl font-bold text-orange-500 text-left ">
+                <span className="w-fit  ">
                     Essential Gear
                 </span>
             </h2>
@@ -23,7 +23,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
                     <div
                         key={index}
                         className="flex items-start gap-4 p-6 rounded-sm border hover:border-gray-300 transition-all duration-200"
-                        style={{ backgroundColor: '#fafafa', borderColor: '#f0f0f0' }}
+                        style={{ borderColor: '#f0f0f0' }}
                     >
                         <div className="flex-1 min-w-0">
                             <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>

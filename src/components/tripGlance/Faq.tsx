@@ -21,12 +21,12 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
       id="faqs"
       className=" mb-16  "
     >
-      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-        <span className="w-fit text-2xl font-semibold">
+      <h2 className="text-3xl font-bold text-orange-500 text-left ">
+        <span className="w-fit  font-semibold">
           FAQ and Guides
         </span>
       </h2>
-      <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-8">
+      <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl mb-8">
         Find answers to commonly asked questions and helpful guides for your trip preparation.
       </p>
       <div className="space-y-4">

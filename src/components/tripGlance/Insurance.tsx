@@ -10,12 +10,12 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                 className=" pb-6"
             >
                 {/* Insurance */}
-                <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-                    <span className="w-fit text-2xl font-semibold">
+                <h2 className="text-3xl font-bold text-orange-500 text-left ">
+                    <span className="w-fit">
                         Travel Insurance
                     </span>
                 </h2>
-                <p className="text-zinc-600 mt-2 leading-relaxed  mb-8">
+                <p className="text-zinc-600 mt-1 leading-relaxed  mb-8">
                     Comprehensive insurance coverage details to ensure your safety and peace of mind during your adventure.
                 </p>
                 <div className="space-y-4">

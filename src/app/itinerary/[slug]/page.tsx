@@ -108,7 +108,7 @@ const Page = () => {
               ) : null}
 
               <div className="h-[60dvh] w-full relative mb-12 rounded-sm overflow-hidden">
-                <Image src={packageData?.data?.coverImage || "/placeholder.png"} alt="Manaslu" layout="fill" objectFit="cover" className="object-bottom" />
+                <Image src={packageData?.data?.coverImage || "/placeholder.png"} alt="Manaslu" layout="fill" objectFit="cover" className="object-top" />
               </div>
 
               {/* Overview Section */}

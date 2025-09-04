@@ -97,9 +97,9 @@ const UsefulInfoPage = () => {
     return (
         <div className="min-h-screen  mx-auto">
 
-            <div className="grid grid-cols-2  gap-8 lg:gap-14">
+            <div className="grid md:grid-cols-2  gap-8 lg:gap-14">
 
-                <div className="pt-[6rem] p-6">
+                <div className="pt-[6rem] p-4 md:p-6">
                     <div className="">
                         <p className="text- mb-2">Quick Informations</p>
                         <h2 className="text-2xl mb-10  md:text-3xl  font-semibold uppercase  ">some <span className="">information</span> that might help you</h2>
@@ -160,9 +160,9 @@ const UsefulInfoPage = () => {
                     })}
                 </div>
 
-                <div className="w-full h-screen sticky top-0 ">
+                <div className="w-full h-screen md:sticky top-0 ">
                     <div className="relative w-full h-full">
-                        <div className="absolute inset-0 bg-gradient-to-r from-white  to-transparent -translate-x-2 z-30"></div>
+                        <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-white  to-transparent -translate-x-2 z-30"></div>
                         <Image fill src="/EXPEDITION/DSC00695.JPG" alt="about img" className=" object-cover" />
                     </div>
                 </div>

@@ -71,12 +71,12 @@ export default function TravellerReview({
     return (
       <div className="border-b border-gray-200 mb-8 pb-10">
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
-            <span className="w-fit text-2xl font-semibold">
+          <h2 className="text-3xl font-bold text-orange-500 text-left ">
+            <span className="w-fit  font-semibold">
               Traveller Reviews
             </span>
           </h2>
-          <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl">
+          <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl">
             Hear what our travellers have to say. We're proud to maintain a 5-star
             rating across all platforms.
           </p>

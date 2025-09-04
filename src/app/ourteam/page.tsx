@@ -19,31 +19,31 @@ const OurTeam: React.FC = () => {
 
   return (
     <div className="space-y-16 mt-[4rem]">
-      <div className=" p-6 gap-3 w-full  ">
+      <div className="p-4 md:p-6 gap-3 w-full  ">
         <div className="">
           <div className="h-full flex flex-col justify-between pb-10 w-full ">
             <h2 className="text-4xl lg:text-6xl font-semibold">
               <span className="flex gap-2 items-center">Meet our <Icon icon={"mynaui:arrow-long-right"} className="pt-4" /></span>
               Reason for excellence
             </h2>
-            <p className="mt-4 text-xl max-w-4xl">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus repellendus iure reiciendis quidem voluptatum delectus quam quibusdam reprehenderit?</p>
+            <p className="mt-4 text-xl max-w-4xl">The Himalayas are not just mountains — they are symbols of resilience, wisdom, and unwavering strength. Our board embodies the same spirit.</p>
 
 
 
           </div>
-          <div className=" h-[60dvh] w-full grid gap-3 grid-cols-2">
+          <div className=" lg:h-[60dvh] w-full grid gap-3 lg:grid-cols-2">
             {
               data?.data?.map((member) => {
                 if (member.memberType.toLocaleLowerCase() === "boardmember") {
                   return (
-                    <div key={member._id} className="h-full w-full  rounded-sm relative group overflow-hidden">
-                      <Image src={member.image} fill alt={member.name} className="object-cover object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
+                    <div key={member._id} className="h-[50dvh] lg:h-full group w-full  rounded-sm relative group overflow-hidden">
+                      <Image src={member.image} fill alt={member.name} className="object-cover group-hover:blur-xs object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
                       <div className="absolute flex w-full items-end inset-0 bg-black/10">
-                        <div className="flex p-6 w-full justify-between  items-end">
+                        <div className="flex p-4 lg:p-6 w-full justify-between  items-end">
                           <div className=" text-white flex w-full justify-end gap-6 flex-col h-full">
-                            <div className="">
+                            <div className="w-full shrink-0">
                               <h2 className="text-2xl uppercase font-semibold">{member.name}</h2>
-                              <p className="uppercase">{member.designation} - Real Himalaya</p>
+                              <p className="uppercase">{member.designation}</p>
                             </div>
 
                             <div className="flex gap-2 items-center">
@@ -54,7 +54,7 @@ const OurTeam: React.FC = () => {
                               )}
                               {member.twitter && (
                                 <Link href={member.twitter} target="_blank" rel="noopener noreferrer">
-                                  <Icon icon="arcticons:x-twitter" className="size-6 text-white" />
+                                  <Icon icon="arcticons:x-twitter" className="size-6 text-black" />
                                 </Link>
                               )}
                               {member.instagram && (
@@ -71,7 +71,7 @@ const OurTeam: React.FC = () => {
                           </div>
                           <div className="shrink-0">
                             <Link href={`/ourteam/${member._id}`}>
-                              <button className=" text-white px-4 py-2 rounded-full font-semibold shrink-0 flex items-center gap-2">
+                              <button className=" text-white hover:text-orange-400 px-4 py-2 rounded-full font-semibold shrink-0 flex items-center gap-2">
                                 View Profile <ArrowRight />
                               </button>
                             </Link>
@@ -92,7 +92,7 @@ const OurTeam: React.FC = () => {
 
       <div className="p-6">
         <h2 className="text-4xl lg:text-6xl font-semibold  ">Our Heroes <br /> Who Made it  Possible</h2>
-        <p className="max-w-4xl text-xl mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum at velit ex quibusdam corporis consequatur veniam delectus illum voluptatibus voluptate. Lorem ipsum dolor sit.</p>
+        <p className="max-w-4xl text-xl mt-4">From the heights of the Himalayas comes a spirit of strength, resilience, and vision. These heroes are more than just leaders — they are the guiding force behind every step of our journey.</p>
         {!data?.data || data.data.filter(member => member.memberType.toLowerCase() !== "boardmember").length === 0 ? (
           <div className="flex flex-col h-[60dvh] items-center justify-center mt-10 py-16 px-4 border-2 border-dashed border-gray-300 rounded-sm">
             <h3 className="text-xl font-semibold mb-2 uppercase">No Team Members Found</h3>
@@ -137,13 +137,6 @@ const OurTeam: React.FC = () => {
                               </Link>
                             )}
                           </div>
-                        </div>
-                        <div className="shrink-0">
-                          <Link href={`/ourteam/${member._id}`}>
-                            <button className=" text-white px-4 py-2 rounded-full font-semibold shrink-0 flex items-center gap-2">
-                              View Profile <ArrowRight />
-                            </button>
-                          </Link>
                         </div>
                       </div>
                     </div>
