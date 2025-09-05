@@ -1,62 +1,151 @@
-import React from "react";
+"use client";
 
-const RotatingButton = ({ text = " CUSTOMIZE TRIP" }) => {
-    const letters = text.split("");
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import Draggable from "gsap/dist/Draggable";
+import Link from "next/link";
+
+// Register the Draggable plugin
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(Draggable);
+}
+
+const WhatsappBtn = () => {
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = useState(false);
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const button = buttonRef.current;
+        const container = containerRef.current;
+
+        if (!button || !container) return;
+
+        // Calculate initial bottom-right position
+        const calcInitialPosition = () => {
+            const padding = 20; // Padding from edges
+            return {
+                x: window.innerWidth - button.offsetWidth - padding - container.offsetLeft,
+                y: window.innerHeight - button.offsetHeight - padding - container.offsetTop
+            };
+        };
+
+        // Get stored position from localStorage or use bottom-right position
+        const storedPosition = localStorage.getItem('whatsappBtnPosition');
+        const initialPosition = storedPosition ? JSON.parse(storedPosition) : calcInitialPosition();
+
+        // Set initial position with animation
+        gsap.fromTo(button,
+            {
+                x: initialPosition.x,
+                y: window.innerHeight, // Start from bottom
+                opacity: 0
+            },
+            {
+                x: initialPosition.x,
+                y: initialPosition.y,
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                onComplete: () => setIsLoaded(true)
+            }
+        );
+
+        // Initialize draggable
+        const draggable = Draggable.create(button, {
+            type: "x,y",
+            bounds: container,
+            inertia: true,
+            onClick: function () {
+                if (!isDragging) {
+                    // Handle click when not dragging
+                    const link = button.querySelector('a');
+                    if (link) link.click();
+                }
+            },
+            onDragStart: () => {
+                setIsDragging(true);
+                gsap.to(button, { scale: 0.95, duration: 0.2 });
+            },
+            onDragEnd: function () {
+                // Save position to localStorage
+                localStorage.setItem('whatsappBtnPosition', JSON.stringify({
+                    x: this.x,
+                    y: this.y,
+                }));
+
+                gsap.to(button, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "elastic.out(1, 0.5)",
+                    onComplete: () => setIsDragging(false)
+                });
+            },
+            onDrag: function () {
+                // Optional: Add boundaries check here if needed
+                const bounds = this.getBounds();
+                if (bounds) {
+                    const { minX, maxX, minY, maxY } = bounds;
+                    this.x = Math.max(minX, Math.min(maxX, this.x));
+                    this.y = Math.max(minY, Math.min(maxY, this.y));
+                }
+            }
+        })[0];
+
+        // Handle window resize
+        const handleResize = () => {
+            if (button) {
+                const newPos = calcInitialPosition();
+                gsap.to(button, {
+                    x: newPos.x,
+                    y: newPos.y,
+                    duration: 0.3,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        localStorage.setItem('whatsappBtnPosition', JSON.stringify(newPos));
+                    }
+                });
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup
+        return () => {
+            draggable.kill();
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
-        <div className="fixed bottom-10 right-10">
-            <button
-                className="relative grid place-content-center w-[100px] h-[100px] rounded-full bg-[#7808d0] text-white font-semibold overflow-hidden transition-all duration-300 ease-in-out hover:bg-black hover:scale-105 group"
+        <div ref={containerRef} className="fixed h-screen w-full inset-0 pointer-events-none z-[99999]">
+            <div
+                ref={buttonRef}
+                className={`pointer-events-auto w-fit cursor-grab opacity-0 ${isDragging ? 'cursor-grabbing' : ''
+                    }`}
+                style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
             >
-                {/* Rotating Text */}
-                <p className="absolute inset-0 animate-[spin_10s_linear_infinite]">
-                    {letters.map((char, index) => (
-                        <span
-                            key={index}
-                            style={{
-                                transform: `rotate(${(360 / letters.length) * index}deg)`,
-                                position: "absolute",
-                                inset: "7px",
-                            }}
-                        >
-                            {char}
-                        </span>
-                    ))}
-                </p>
+                <Link
+                    href={"https://wa.me/1234567890"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => isDragging && e.preventDefault()}
+                    className="group flex flex-col items-center"
+                >
+                    <h2 className="text-black font-bold text-sm sm:text-base mb-2 opacit0 group-hove-100 transition-opacity duration-300">
+                        Live Chat
+                    </h2>
+                    <div className="flex justify-center items-center size-10 lg:size-16 bg-green-500 rounded-full transition-transform duration-300 group-hover:scale-110">
+                        <Icon icon="logos:whatsapp-icon" className="text-white text-3xl animate-pulse" />
+                    </div>
 
-                {/* Circle Icon Area */}
-                <div className="relative w-9 h-9 bg-white text-[#7808d0] rounded-full flex items-center justify-center overflow-hidden">
-                    {/* First Icon */}
-                    <svg
-                        viewBox="0 0 14 15"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="absolute text-[#7808d0] transition-transform duration-300 ease-in-out group-hover:translate-x-[150%] group-hover:-translate-y-[150%]"
-                        width="14"
-                    >
-                        <path
-                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
-                            fill="currentColor"
-                        />
-                    </svg>
-
-                    {/* Second Icon */}
-                    <svg
-                        viewBox="0 0 14 15"
-                        fill="none"
-                        width="14"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="absolute text-[#7808d0] translate-x-[-150%] translate-y-[150%] transition-transform duration-300 ease-in-out delay-100 group-hover:translate-x-0 group-hover:translate-y-0"
-                    >
-                        <path
-                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
-                            fill="currentColor"
-                        />
-                    </svg>
-                </div>
-            </button>
+                </Link>
+            </div>
         </div>
     );
 };
 
-export default RotatingButton;
+export default WhatsappBtn;

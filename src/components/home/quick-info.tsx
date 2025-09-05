@@ -42,16 +42,20 @@ export default function QuickInfo() {
             <span>our latest insights and healing</span>
             <span className="bg-orange-500 text-white  px-2">Journey</span>
           </h2>
-          <p className="max-w-3xl mx-auto text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius ducimus fugiat ut consequatur repellendus? Asperiores, soluta mollitia voluptate assumenda voluptatibus harum sed molestiae fugiat nemo.</p>
+          <p className="max-w-3xl mx-auto text-center">
+            Discover stories, tips, and experiences from the heart of the Himalayas.
+            From mountaineering expeditions to cultural journeys, our blogs bring you closer
+            to the mountains, the people, and the adventures that make every trip unforgettable.
+          </p>
         </div>
 
         {/* Right Side Custom Layout */}
         <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div key={idx} className="col-span-3 border border-gray-300  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid md:grid-cols-2  w-full">
-                <div className="w-full lg::h-full h-[40dvh]  relative rounded-sm overflow-hidden">
-                  <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
+              <div key={idx} className="col-span-3 relative border border-gray-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid md:grid-cols-2  w-full">
+                <div className="w-full lg:h-full h-[40dvh]  relative rounded-sm overflow-hidden">
+                  <Image fill src={data?.banner} alt={data?.title} className="object-cover object-center" />
                 </div>
                 <div className="flex flex-col justify-center p-4">
                   <div className="">
@@ -62,7 +66,7 @@ export default function QuickInfo() {
                   <div className="flex pt-10 justify-between">
                     <div className="">
                       <h2 className="uppercase font-semibold">Author</h2>
-                      <p className="text-sm  mt-1">{data?.author}</p>
+                      <p className="  mt-1">{data?.author}</p>
                     </div>
 
                     <div className="">

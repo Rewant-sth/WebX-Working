@@ -3,16 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
     Eye,
-    Compass,
-    MapPinned,
     CalendarRange,
     DollarSign,
     CalendarDays,
     Users,
     HelpCircle,
     ClipboardCheck,
-    Locate,
-    Star,
     Shield,
     Backpack,
     Heart,
@@ -20,7 +16,6 @@ import {
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
-import { setPackage } from "@/store/booking-store";
 import { useRouter } from "next/navigation";
 
 // Define section interfaces for better type safety
@@ -35,7 +30,6 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     const [activeSection, setActiveSection] = useState<string>("major-highlights");
     const [isScrollingToSection, setIsScrollingToSection] = useState(false);
     const lastScrollY = useRef(0);
-    const router = useRouter();
 
     // Handle scroll events for section tracking only
     useEffect(() => {
@@ -105,7 +99,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         },
         {
             id: "gear",
-            label: "Gear",
+            label: "Gear Info",
             icon: <Backpack className="w-4 h-4" />,
             condition: (data) => data?.gearInfo?.length > 0,
         },
@@ -217,12 +211,12 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                     <button
                                         key={section.id}
                                         onClick={() => handleScrollToSection(section.id)}
-                                        className={`flex items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
-                                            ? "bg-[#01283F] text-white"
-                                            : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                                        className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
+                                            ? "bg-orange-500 text-white"
+                                            : " border-gray-300 hover:bg-orange-500 hover:text-white text-gray-400 "
                                             }`}
                                     >
-                                        <span className={`${activeSection === section.id ? "text-white" : "text-gray-500"}`}>
+                                        <span className={`${activeSection === section.id ? "text-white" : ""}`}>
                                             {section.icon}
                                         </span>
                                         {section.label}
