@@ -123,6 +123,7 @@ const WhatsappBtn = () => {
     return (
         <div ref={containerRef} className="fixed h-screen w-full inset-0 pointer-events-none z-[99999]">
             <div
+                title="Adjust position by dragging"
                 ref={buttonRef}
                 className={`pointer-events-auto w-fit cursor-grab opacity-0 ${isDragging ? 'cursor-grabbing' : ''
                     }`}
@@ -132,10 +133,11 @@ const WhatsappBtn = () => {
                     href={"https://wa.me/1234567890"}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Chat on WhatsApp"
                     onClick={(e) => isDragging && e.preventDefault()}
                     className="group flex flex-col items-center"
                 >
-                    <h2 className="text-black font-bold text-sm sm:text-base mb-2 opacit0 group-hove-100 transition-opacity duration-300">
+                    <h2 className="text-black font-bold text-sm sm:text-base mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         Live Chat
                     </h2>
                     <div className="flex justify-center items-center size-10 lg:size-16 bg-green-500 rounded-full transition-transform duration-300 group-hover:scale-110">

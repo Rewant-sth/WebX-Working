@@ -1,65 +1,20 @@
 "use client"
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail,
   Phone,
   MapPin,
   Send,
-  User,
-  MessageSquare,
-  Building,
   ArrowRight,
-  Sparkles,
   CheckCircle,
   Headset,
   Clock10,
-  Footprints,
-  DollarSign
 } from 'lucide-react';
 import { FaSmile } from 'react-icons/fa';
-import TitleDesc from '@/components/titleDesc/TitleDesc';
 import { useMutation } from '@tanstack/react-query';
 import { sendContact } from '@/service/contact';
 import toast from 'react-hot-toast';
-import Link from 'next/link';
-
-const contactMethods = [
-  {
-    icon: Mail,
-    title: "Email Us",
-    description: "Get in touch via email",
-    value: "high5adv@gmail.com",
-    link: "mailto:high5adv@gmail.com",
-    gradient: "from-white/20 to-cyan-500/20",
-    hoverColor: "blue"
-  },
-  {
-    icon: Phone,
-    title: "Call Us",
-    description: "Speak directly with our team",
-    value: "+977-9851279322",
-    link: "tel:+977-9851279322",
-    gradient: "from-green-500/20 to-emerald-500/20",
-    hoverColor: "green"
-  },
-  {
-    icon: MapPin,
-    title: "Location",
-    description: "Our Office",
-    value: "Kathmandu, Nepal",
-    link: "https://maps.app.goo.gl/p3Fv65ePTBNcYdVM6",
-    gradient: "from-purple-500/20 to-pink-500/20",
-    hoverColor: "purple"
-  }
-];
-
-const companyStats = [
-  { label: "24 Hrs", value: "Customer Support", icon: Headset },
-  { label: "48 Hrs", value: "Response Time", icon: Clock10 },
-  { label: "Multiple", value: "Locations", icon: MapPin },
-  { label: "500+", value: "Happy Clients", icon: FaSmile },
-];
 
 export default function PremiumContact() {
   const [formData, setFormData] = useState({
@@ -75,9 +30,7 @@ export default function PremiumContact() {
   // State for checkboxes
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [selectedBudget, setSelectedBudget] = useState<string>('');
-
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -96,10 +49,6 @@ export default function PremiumContact() {
         return [...prev, goal];
       }
     });
-  };
-
-  const handleBudgetChange = (budget: string) => {
-    setSelectedBudget(prevBudget => prevBudget === budget ? '' : budget);
   };
 
   const { mutate: fnContact, isPending } = useMutation({
@@ -158,25 +107,27 @@ export default function PremiumContact() {
 
 
   return (
-    <section className="relative   overflow-hidden">
-      <div className="absolute  inset-0 brightness-75 h-full w-full flex justify-end">
-        <img src="/jhungekoketi.png" alt="img" className='h-full  object-contain' />
+    <section className="relative    overflow-hidden">
+      <div className="absolute  inset-0 brightness-70 h-full w-full flex justify-end">
+        <img src="/contact.png" alt="img" className='h-full w-full  object-cover object-center' />
       </div>
 
-      <motion.div
+      <div className="absolute inset-0 bg-gradient-to-r  from-white via-white/70"></div>
+
+      <div
         ref={containerRef}
-        className=" z-10 relative my-10 sm:my-24 mx-auto "
+        className=" z-10 relative my-10 mt-20 sm:my-24 mx-auto "
 
       >
 
-        <div className="grid grid-cols-3 gap-6  mx-auto  space-y-12 md:space-y-28 ">
+        <div className="grid md:grid-cols-3 gap-6  mx-auto  space-y-12 md:space-y-28 ">
 
           {/* Contact Form */}
-          <motion.div
-            className="space-y-8 col-span-2 w-full   rounded-sm text-[#01283F p-6"
+          <div
+            className="space-y-8 col-span-2 w-full   rounded-sm  p-4 md:p-6"
           >
             <div className=' pb-6 '>
-              <h3 className="text-3xl lg:text-4xl font-bold  mb-4 uppercase"><span className='bg-orange-500 px-3 inline-flex  leading-9 pb-1 w-fit text-white'>Start</span> your himalayan <br />adventure <span className='bg-orange-500 px-3 inline-flex  leading-9 pb-1 w-fit text-white'>today</span> with Real Himalaya</h3>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold  mb-4 uppercase"><span className='text-orange-500 '>Start</span> your himalayan <br />adventure <span className='text-orange-500'>today</span> with Real Himalaya</h3>
               <p className=" text-lg">
                 Tell us about your project and we'll get back to you within 24 hours.
               </p>
@@ -193,14 +144,14 @@ export default function PremiumContact() {
                   transition={{ duration: 0.3 }}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="relative">
+                    <div title='Your Name' aria-label='Your Name' className="relative">
                       <div className="relative  rounded-sm overflow-hidden">
                         <input
                           type="text"
                           placeholder="Your Name"
                           value={formData.name}
                           onChange={(e) => handleInputChange('name', e.target.value)}
-                          className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -215,7 +166,7 @@ export default function PremiumContact() {
                       )}
                     </div>
 
-                    <div className="relative">
+                    <div title='Your Email' aria-label='Your Email' className="relative">
                       <div className="relative  rounded-sm overflow-hidden">
 
                         <input
@@ -223,7 +174,7 @@ export default function PremiumContact() {
                           placeholder="Email Address"
                           value={formData.email}
                           onChange={(e) => handleInputChange('email', e.target.value)}
-                          className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -237,14 +188,15 @@ export default function PremiumContact() {
                         </motion.p>
                       )}
                     </div>
-                    <div className="relative">
+
+                    <div title='Your Phone Number' aria-label='Your Phone Number' className="relative">
                       <div className="relative  rounded-sm overflow-hidden">
                         <input
                           type="tel"
                           placeholder="Phone number"
                           value={formData.number}
                           onChange={(e) => handleInputChange('number', e.target.value)}
-                          className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -260,10 +212,10 @@ export default function PremiumContact() {
                     </div>
                   </div>
 
-                  <div className="grid sm:grid-cols-2  gap-6">
-                    <div className="relative  rounded-sm overflow-hidden">
+                  <div className="">
+                    <div title='Your Goal' aria-label='Your Goal' className="relative  rounded-sm overflow-hidden">
                       <h2 className='text-xl font-semibold mb-6'>Your Goal</h2>
-                      <div className="flex gap-3 items-center flex-wrap">
+                      <div className="flex gap-5 items-center flex-wrap">
                         <div className="flex gap-2 text-lg">
                           <label className="container">
                             <input
@@ -368,7 +320,7 @@ export default function PremiumContact() {
                     </div> */}
                   </div>
 
-                  <div className="relative ">
+                  <div title='Your Message' aria-label='Your Message' className="relative ">
 
                     <div className="relative  rounded-sm overflow-hidden">
                       <textarea
@@ -377,7 +329,7 @@ export default function PremiumContact() {
                         value={formData.message}
                         minLength={20}
                         onChange={(e) => handleInputChange('message', e.target.value)}
-                        className={`w-full  py-4  border-b border-gray-300    focus:outline-none focus:border-gray-400 transition-all ${errors.name ? 'border-red-400' : ''
+                        className={`w-full  py-3 active:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                           }`}
                       />
                     </div>
@@ -395,8 +347,10 @@ export default function PremiumContact() {
                   <div className="flex justify-end text-[#01283F]">
                     <motion.button
                       type="submit"
+                      title='Send Message'
+                      aria-label='Send Message'
                       disabled={isPending}
-                      className="w-fit  relative group border overflow-hidden bg-gradient-to-r  from-white to-white hover:from-white hover:to-white  font-medium py-4 px-6 rounded-sm transition-all disabled:opacity-50"
+                      className="w-fit  bg-white sm:bg-transparent relative group sm:border overflow-hidden   font-medium py-3 px-6 rounded-sm transition-all disabled:opacity-50"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -415,7 +369,6 @@ export default function PremiumContact() {
                           />
                         ) : (
                           <>
-                            <Send className="h-5 w-5" />
                             Send Message
                             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </>
@@ -459,13 +412,13 @@ export default function PremiumContact() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
 
 
         </div>
 
 
-      </motion.div>
+      </div>
     </section>
   );
 }

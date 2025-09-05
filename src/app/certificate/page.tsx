@@ -64,14 +64,13 @@ interface Milestone {
   icon?: string;
   color: string;
 }
-
 const milestonesData: Milestone[] = [
   {
     id: 1,
     title: "10,000+ Happy Trekkers",
     description:
-      "Successfully guided over 10,000 trekkers across the Himalayas.",
-    imageUrl: "/images/10000-trekkers.jpg",
+      "Guided over 10,000 trekkers safely across Himalayan mountain trails.",
+    imageUrl: "/icons/group.png",
     alt: "10,000+ Happy Trekkers",
     icon: "/icons/users.svg",
     color: "from-blue-500 to-blue-600",
@@ -79,8 +78,9 @@ const milestonesData: Milestone[] = [
   {
     id: 2,
     title: "500+ Expeditions Completed",
-    description: "Led more than 500 expeditions to various peaks and trails.",
-    imageUrl: "/images/500-expeditions.jpg",
+    description:
+      "Successfully led 500 expeditions conquering peaks and thrilling trails.",
+    imageUrl: "/icons/mountain.png",
     alt: "500+ Expeditions Completed",
     icon: "/icons/mountain.svg",
     color: "from-green-500 to-green-600",
@@ -89,8 +89,8 @@ const milestonesData: Milestone[] = [
     id: 3,
     title: "25 International Partnerships",
     description:
-      "Collaborated with 25 international travel agencies worldwide.",
-    imageUrl: "/images/25-partnerships.jpg",
+      "Partnered with 25 global agencies, enhancing travel experiences worldwide.",
+    imageUrl: "/icons/handshake.png",
     alt: "25 International Partnerships",
     icon: "/icons/globe.svg",
     color: "from-purple-500 to-purple-600",
@@ -98,8 +98,9 @@ const milestonesData: Milestone[] = [
   {
     id: 4,
     title: "15 Years of Excellence",
-    description: "Providing top-notch adventure services since 2010.",
-    imageUrl: "/images/15-years.jpg",
+    description:
+      "Delivering outstanding adventure services consistently since year 2010.",
+    imageUrl: "/icons/medal.png",
     alt: "15 Years of Excellence",
     icon: "/icons/achievement.svg",
     color: "from-yellow-500 to-yellow-600",
@@ -107,8 +108,9 @@ const milestonesData: Milestone[] = [
   {
     id: 5,
     title: "Zero Accident Record",
-    description: "Maintained a flawless safety record in all our adventures.",
-    imageUrl: "/images/safety-certified.jpg",
+    description:
+      "Maintained flawless safety record ensuring adventure without any accidents.",
+    imageUrl: "/icons/insurance.png",
     alt: "Zero Accident Record",
     icon: "/icons/shield.svg",
     color: "from-red-500 to-red-600",
@@ -117,13 +119,14 @@ const milestonesData: Milestone[] = [
     id: 6,
     title: "Sustainable Tourism Award",
     description:
-      "Awarded for our commitment to sustainable and responsible tourism.",
-    imageUrl: "/images/sustainable-tourism.jpg",
+      "Honored with award for sustainable and responsible tourism practices.",
+    imageUrl: "/icons/tree.png",
     alt: "Sustainable Tourism Award",
     icon: "/icons/trophy.svg",
     color: "from-emerald-500 to-emerald-600",
   },
 ];
+
 
 const CertificatesPage = () => {
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
@@ -156,16 +159,16 @@ const CertificatesPage = () => {
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
-          src={"/EVEREST REGION/NIKON D80013076.JPG"}
+          src={"/achievement.png"}
           alt="Everest Region"
           fill
-          className="object-cover object-bottom brightness-60"
+          className="object-cover  object-left brightness-60"
           priority
           sizes="100vw"
         />
         <div className="relative z-10 text-center text-white w-full px-4 sm:px-6 md:px-8">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl uppercase md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               Certifications & Achievements
             </h1>
           </div>
@@ -181,27 +184,29 @@ const CertificatesPage = () => {
 
           <div className="relative">
             <div className="text-center mb-12">
-
+              <h2 className="text-3xl uppercase md:text-4xl font-bold text-orange-500 mb-4">
+                Our Milestones
+              </h2>
               <p className="text-lg text-gray-600 max-w-4xl mx-auto">
                 These milestones represent years of dedication, expertise, and commitment to excellence in adventure tourism.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center items-center ">
               {milestonesData.map((milestone) => (
                 <div
                   key={milestone.id}
-                  className="w h-[300px] rounded-sm p-6 border border-gray-300 transition-all duration-300 group"
+                  className=" rounded-sm group hover:bg-orange-100 hover:border-orange-200 p-3 md:p-6 border border-gray-300 transition-all duration-300 group"
                 >
-                  <div className="flex items-center mb-4">
-                    {/* <div className="icon ">
-                      <img className="w-7 h-7" src={milestone.icon} alt="" />
-                    </div> */}
-                    <h3 className="text-xl font-bold text-[#F05E25]">
+                  <div className="flex flex-col text-center items-center mb-2">
+                    <div className="icon ">
+                      <img className="size-12 lg:size-16 object-contain" src={milestone.imageUrl} alt={milestone.alt} />
+                    </div>
+                    <h3 className="text-xl mt-6 lg:mt-10 font-bold text-[#F05E25]">
                       {milestone.title}
                     </h3>
                   </div>
-                  <p className="leading-relaxed">{milestone.description}</p>
+                  <p className="leading-relaxed text-center">{milestone.description}</p>
                 </div>
               ))}
             </div>
@@ -220,10 +225,10 @@ const CertificatesPage = () => {
           className="mb-20"
         >
           <div className="text-center my-12 mt-20">
-            {/* <h2 className="text-3xl uppercase md:text-4xl font-bold text-[#D16200] mb-4">
-              Our Official Certifications
-            </h2> */}
-            <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+            <h2 className="text-3xl uppercase md:text-4xl font-bold text-orange-500 mb-4">
+              Our Certifications
+            </h2>
+            <p className="text-lg text-gray-600 max-w-7xl mx-auto">
               These certifications validate our expertise and commitment to providing world-class adventure tourism services.
             </p>
           </div>
@@ -269,9 +274,9 @@ const CertificatesPage = () => {
               {certificates.map((cert: Certificate, index: number) => (
                 <div
                   key={cert._id}
-                  className="group transition-all duration-500 transform"
+                  className="group transition-all border border-gray-200 duration-500 transform"
                 >
-                  <div className="relative w-[300px] h-[400px] overflow-hidden rounded-sm">
+                  <div className="relative w-full  md:w-[350px] h-[400px] overflow-hidden rounded-sm">
                     <img
                       src={cert.image}
                       alt={cert.name}
@@ -298,10 +303,10 @@ const CertificatesPage = () => {
       </div>
 
       {isModalOpen && selectedCertificate && (
-        <div className="fixed inset-0 bg-black z-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99999] flex justify-center items-center">
           <button
             onClick={closeModal}
-            className="absolute top-20 right-6 text-white hover:text-gray-300"
+            className="absolute top-8 right-6 text-white hover:text-gray-300"
           >
             <X className="w-8 h-8" />
           </button>

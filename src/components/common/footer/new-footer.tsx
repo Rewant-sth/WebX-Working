@@ -36,8 +36,8 @@ export default function Footer() {
       {/* footer bottom part */}
       <div className="w-full relative z-50  flex  flex-col justify-center  p-4 md:p-0      pb-4">
         <div className="relative text-center w-full  ">
-          <div className=" mx-auto h-[200px]  overflow-hidden">
-            <img src="/logo/text.svg" alt="real himalaya" className='w-full -translate-y-5 2-full z-40  max-w-7xl mx-auto invert' />
+          <div className=" mx-auto h-[100px] lg:h-[200px]  overflow-hidden">
+            <img src="/logo/text.svg" alt="real himalaya" className='w-full lg:-translate-y-5 2-full z-40  max-w-7xl mx-auto invert' />
           </div>
 
           <div className="max-w-7xl  b pb-5 mb-5  border-zinc-300 sm:mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
