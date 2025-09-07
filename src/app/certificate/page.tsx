@@ -5,21 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getCertificates } from "@/service/certificates";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import {
   Award,
-  Shield,
-  Star,
-  Users,
-  Mountain,
-  Trophy,
-  CheckCircle,
-  Target,
-  Globe,
-  Heart,
-  Zap,
-  Eye,
   X,
   ZoomIn
 } from "lucide-react";
@@ -157,7 +146,7 @@ const CertificatesPage = () => {
     <>
 
       {/* Hero Section */}
-      <section className="relative h-[80vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[75dvh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
           src={"/achievement.png"}
           alt="Everest Region"
@@ -270,13 +259,13 @@ const CertificatesPage = () => {
               </p>
             </div>
           ) : (
-            <div className="flex flex-wrap justify-center items-center gap-4 ">
+            <div className="flex flex-wrap justify-center items-center w-full  gap-4 ">
               {certificates.map((cert: Certificate, index: number) => (
                 <div
                   key={cert._id}
                   className="group transition-all border border-gray-200 duration-500 transform"
                 >
-                  <div className="relative w-full  md:w-[350px] h-[400px] overflow-hidden rounded-sm">
+                  <div className="relative w-full  md:w-[350px] md:h-[400px] overflow-hidden rounded-sm">
                     <img
                       src={cert.image}
                       alt={cert.name}

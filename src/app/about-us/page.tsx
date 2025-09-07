@@ -87,7 +87,7 @@ const AboutUsPage: React.FC = () => {
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="relative h-[80vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[75dvh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
           src={"/EVEREST REGION/NIKON D80013076.jpg"}
           alt="Everest Region"
@@ -98,7 +98,7 @@ const AboutUsPage: React.FC = () => {
         />
         <div className="relative z-10 text-center text-white w-full px-4 sm:px-6 md:px-8">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <h1 className="text-3xl uppercase sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+            <h1 className="text-2xl uppercase sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               Pioneering Himalayan Adventures Since 2014
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl font-light text-orange-300 max-w-3xl mx-auto">
@@ -162,7 +162,7 @@ const AboutUsPage: React.FC = () => {
           viewport={{ once: true }}
         />
         <motion.div
-          className="container mx-auto px-6 py-10"
+          className="container mx-auto sm:px-6 py-10"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
@@ -214,7 +214,7 @@ const AboutUsPage: React.FC = () => {
                 </h2>
                 <div className="flex-1 h-1 bg-orange-500 rounded-full max-w-[80px]"></div>
               </div>
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="grid sm:grid-cols-2 gap-4 mb-8">
                 <div className="relative h-[300px] w-full rounded-sm overflow-hidden shadow-md">
                   <Image
                     src={"/Avtar/gokul.jpg"}
@@ -306,7 +306,7 @@ const AboutUsPage: React.FC = () => {
                 ))}
               </div>
 
-              <div className="mt-12 bg-white p-8 rounded-sm ">
+              <div className="mt-12 hidden sm:block sm:bg-white sm:p-8 rounded-sm ">
                 <h3 className="text-2xl font-bold mb-4 text-gray-800">Connect With Us</h3>
                 <p className="text-gray-600 mb-6">Follow our adventures and stay updated with our latest expeditions</p>
                 <div className="flex gap-4">
@@ -321,6 +321,7 @@ const AboutUsPage: React.FC = () => {
                   ))}
                 </div>
               </div>
+
             </div>
           </div>
         </div>

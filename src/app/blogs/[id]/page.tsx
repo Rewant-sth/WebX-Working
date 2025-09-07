@@ -61,7 +61,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       <main className="bg-gray-50 min-h-screen">
         {/* Hero Section with Banner */}
         <div className="relative">
-          <div className="aspect-[16/9] md:aspect-[21/8] w-full overflow-hidden">
+          <div className="aspect-square md:aspect-[21/8] w-full overflow-hidden">
             <Image
               src={data?.data?.banner || "/default-image.jpg"}
               alt={data?.data?.title}
@@ -72,22 +72,13 @@ export default async function BlogPage({ params }: BlogPageProps) {
             />
             <div className="absolute inset-0 bg-black/30"></div>
           </div>
-
-          {/* Back Button - Floating */}
-          {/* <Link
-            href="/blogs"
-            className="absolute top-6 left-6 flex items-center px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:bg-white hover:text-orange-600 transition-all duration-200 rounded-sm font-medium z-10"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Blogs
-          </Link> */}
         </div>
 
         {/* Content Section */}
-        <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="bg-white mt-10 sm:mt-0">
+          <div className="max-w-7xl mx-auto px-4 sm:py-12">
             {/* Article Header */}
-            <header className="mb-12">
+            <header className="sm:mb-12">
               {/* Category & Reading Time */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-sm text-sm font-semibold">

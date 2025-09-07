@@ -355,7 +355,6 @@ body {
     cursor: pointer;
     font-size: 20px;
     user-select: none;
-    border: 2px solid #f05e25a0;
     border-radius: 4px;
     overflow: hidden;
 }

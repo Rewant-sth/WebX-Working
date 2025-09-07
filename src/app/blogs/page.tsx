@@ -34,10 +34,10 @@ const Blogs = async () => {
 
   return (
     <>
-      <div className="py-12 pt-[5rem] px-4 sm:px-8 md:px-12 lg:px-16 bg-white mx-3">
+      <div className="py-12 pt-[5rem] px-4 sm:px-8 md:px-12 lg:px-16 bg-white sm:mx-3">
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight uppercase">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight uppercase">
             Adventure Stories & Insights
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -49,7 +49,7 @@ const Blogs = async () => {
         <div className="grid md:grid-cols-3 gap-10  mt-5">
           <Suspense fallback={<BlogsSkeletonGrid />}>
             {data?.data.length === 0 && (
-              <div className="col-span-3 flex flex-col items-center justify-center py-24 px-4 text-center min-h-[60vh]">
+              <div className="col-span-3 flex flex-col items-center justify-center py-24 sm:px-4 text-center min-h-[60vh]">
                 <div className="relative mb-8">
                   <div className="w-24 h-24 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full flex items-center justify-center mb-2">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

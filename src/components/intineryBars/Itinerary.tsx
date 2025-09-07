@@ -45,13 +45,13 @@ const ItineraryDay = ({
   const [expanded, setExpanded] = useState(isFirst);
 
   return (
-    <div className=" hover:border-gray-300 transition-all duration-300 rounded-sm bg-gray-50/80 border border-gray-100 mb-4 overflow-hidden">
+    <div className=" hover:border-gray-300 transition-all duration-300 rounded-sm bg-gray-50/80 sm:border border-gray-100 mb-4 ">
       <div
-        className="flex items-center justify-between py-5 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-200 rounded-t-lg"
+        className="flex items-start sm:items-center justify-between py-2 sm:py-5 px-4 sm:px-6 cursor-pointer hover:bg-gray-100 transition-all duration-200 rounded-t-lg"
         onClick={() => setExpanded(!expanded)}
       >
-        <div className="flex items-center gap-4">
-          <span className="rounded-sm px-4 bg-[#F05E25] py-2 text-sm font-semibold text-white">
+        <div className="flex sm:items-center gap-4">
+          <span className="rounded-sm shrink-0 px-4 bg-[#F05E25] py-2 text-sm h-fit font-semibold text-white">
             Day {day?.toString()?.padStart(2, "0")}
           </span>
           <h3 className="font-semibold text-lg" style={{ color: "#3A3A3A" }}>
@@ -70,7 +70,7 @@ const ItineraryDay = ({
       </div>
 
       <div
-        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "min-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
       >
         <div className="px-6 pb-6">

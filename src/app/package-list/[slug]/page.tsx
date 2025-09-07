@@ -13,11 +13,24 @@ const ExpeditionCards: React.FC = () => {
   const [cardData, setCardData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [subCategoryList, setSubCategoryList] = useState<any[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   // New state for selected subcategory slug
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
     null
   );
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Unique subcategories extracted from cardData
   const subcategories = Array.from(
@@ -75,7 +88,7 @@ const ExpeditionCards: React.FC = () => {
   const activeSubcategory = subCategoryList.find(
     (subcat) => subcat.slug === selectedSubcategory
   );
-  const subcategoryImage = activeSubcategory?.image || "/placeholder.webp";
+  const subcategoryImage = activeSubcategory?.coverImage || "/categories.png";
   const subcategoryDescription = activeSubcategory?.description || "";
   const subcategoryName = activeSubcategory?.name || "";
 
@@ -100,52 +113,33 @@ const ExpeditionCards: React.FC = () => {
               backgroundImage: `url(${subcategoryImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              backgroundAttachment: "fixed"
-
+              backgroundAttachment: isMobile ? "scroll" : "fixed"
             }}
-            className="relative w-full h-[80vh] overflow-hidden">
-
+            className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] overflow-hidden">
 
             {/* Layered Overlay for depth */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-800/40 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-indigo-900/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-900/20 via-transparent to-indigo-900/20"></div>
 
             {/* Hero Content with improved layout */}
-            <div className="relative h-full flex flex-col justify-center items-center text-center px-6 md:px-12">
-              <div className="max-w-5xl mx-auto space-y-6">
-
+            <div className="relative h-full flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-12">
+              <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
 
                 {/* Enhanced title with text shadow */}
-                <h1 className="text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-tight drop-shadow-lg">
+                <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight drop-shadow-lg">
                   <span
                     style={{
-                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
+                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                     }}
-                    className="text-white uppercase ">
+                    className="text-white uppercase">
                     {subcategoryName || "All Categories"}
                   </span>
                 </h1>
 
-                {/* Enhanced description */}
-                <div className="max-w-4xl mx-auto">
-                  <p
-                    className="text-white/90 text-lg md:text-xl line-clamp-3 leading-relaxed drop-shadow-sm"
-                    id="editor" dangerouslySetInnerHTML={{ __html: subcategoryDescription }}
-                  />
-                </div>
-
-                {/* Enhanced divider */}
-                <div className="flex justify-center items-center space-x-4">
-                  <div className="w-8 h-px bg-white/40"></div>
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <div className="w-16 h-px bg-white"></div>
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <div className="w-8 h-px bg-white/40"></div>
-                </div>
 
                 {/* Package count indicator */}
-                <div className="mt-8">
-                  <div className="inline-flex items-center px-4 py-2 bg-black/30 backdrop-blur-sm rounded-full text-white/90 text-sm">
+                <div className="mt-4">
+                  <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2  bg-orange-50 rounded-full text-orange-500 text-xs sm:text-sm">
                     <span className="font-medium">{cardData.length} Packages Available</span>
                   </div>
                 </div>
@@ -153,9 +147,9 @@ const ExpeditionCards: React.FC = () => {
             </div>
 
             {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2">
               <div className="animate-bounce">
-                <svg className="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
               </div>
@@ -167,14 +161,55 @@ const ExpeditionCards: React.FC = () => {
 
 
         {/* Sidebar Navigation and Content Layout */}
-        <div className=" mx-auto  md:px-12 py-8">
-          <div className="flex gap-8">
-            {/* Left Sidebar - Tabs */}
-            <div className="w-80 flex-shrink-0">
+        <div className="mx-auto px-4 sm:px-6 md:px-12 py-6 sm:py-8">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+            {/* Mobile Tabs - Horizontal Scroll */}
+            <div className="block lg:hidden">
+              <div className="mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">Categories</h2>
+                <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  <style jsx>{`
+                    div::-webkit-scrollbar {
+                      display: none;
+                    }
+                  `}</style>
+                  {/* All Categories Tab */}
+                  <button
+                    className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${!selectedSubcategory
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    onClick={() => setSelectedSubcategory(null)}
+                  >
+                    All ({cardData.length})
+                  </button>
+
+                  {/* Individual Category Tabs */}
+                  {subcategories.map((subcat) => {
+                    const isActive = selectedSubcategory === subcat.slug;
+                    const packageCount = cardData.filter(pkg => pkg.subCategoryId?.slug === subcat.slug).length;
+
+                    return (
+                      <button
+                        key={subcat._id}
+                        className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive
+                          ? "bg-orange-500 text-white"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          }`}
+                        onClick={() => setSelectedSubcategory(subcat.slug)}
+                      >
+                        {subcat.name} ({packageCount})
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Sidebar - Vertical */}
+            <div className="hidden lg:block w-80 flex-shrink-0">
               <div className="sticky top-16">
-                <div className="bg-white  rounded-sm overflow-hidden">
-
-
+                <div className="bg-white rounded-sm overflow-hidden">
                   {/* Tabs Container */}
                   <div className="p-2">
                     {subcategories.length === 0 ? (
@@ -242,22 +277,22 @@ const ExpeditionCards: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Content Area */}
+            {/* Content Area */}
             <div className="flex-1 min-w-0">
               {/* Content Header */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-4">
+              <div className="mb-6 sm:mb-8">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900">
                       {selectedSubcategory
                         ? subcategories.find(s => s.slug === selectedSubcategory)?.name
                         : "All Packages"
                       }
                     </h2>
-                    <p className="text-slate-600 mt-1">
+                    <p className="text-slate-600 mt-1 text-sm sm:text-base">
                       {filteredPackages.length} packages found
                       {selectedSubcategory && (
-                        <span className="ml-2 text-blue-600 cursor-pointer" onClick={() => setSelectedSubcategory(null)}>
+                        <span className="ml-2 text-orange-600 cursor-pointer hover:underline" onClick={() => setSelectedSubcategory(null)}>
                           · View all categories
                         </span>
                       )}
@@ -267,9 +302,9 @@ const ExpeditionCards: React.FC = () => {
 
                 {/* Category Description (if selected) */}
                 {selectedSubcategory && activeSubcategory?.description && (
-                  <div className="bg-slate-50 border border-slate-200 rounded-sm p-6 mb-6">
+                  <div className="bg-slate-50 border border-slate-200 rounded-sm p-4 sm:p-6 mb-4 sm:mb-6">
                     <div
-                      className="text-slate-700 leading-relaxed"
+                      className="text-slate-700 leading-relaxed text-sm sm:text-base"
                       id="editor" dangerouslySetInnerHTML={{ __html: activeSubcategory.description }}
                     />
                   </div>
@@ -278,15 +313,15 @@ const ExpeditionCards: React.FC = () => {
 
               {/* Packages Grid */}
               {filteredPackages.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="max-w-md mx-auto">
-                    <div className="w-20 h-20 mx-auto mb-6 bg-slate-100 rounded-full flex items-center justify-center">
-                      <svg className="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="text-center py-12 sm:py-16">
+                  <div className="max-w-md mx-auto px-4">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-slate-100 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2M4 13h2" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-slate-700 mb-2">No packages found</h3>
-                    <p className="text-slate-500">
+                    <h3 className="text-lg sm:text-xl font-semibold text-slate-700 mb-2">No packages found</h3>
+                    <p className="text-slate-500 text-sm sm:text-base">
                       {selectedSubcategory
                         ? "No packages available in this category."
                         : "No packages available at this time."
@@ -295,7 +330,7 @@ const ExpeditionCards: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                   {filteredPackages.map((card, index) => {
                     if (!card) return null;
 
@@ -306,16 +341,17 @@ const ExpeditionCards: React.FC = () => {
                       >
                         {/* Location Badge */}
                         {card.location && (
-                          <div className="absolute top-4 left-4 z-20">
-                            <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-white text-slate-700 border border-slate-200 shadow-sm">
-                              <MapPin className="w-3 h-3 mr-1 text-blue-600" />
-                              {card.location}
+                          <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-20">
+                            <span className="inline-flex items-center px-2 sm:px-3 py-1 rounded-md text-xs font-medium bg-white text-slate-700 border border-slate-200 shadow-sm">
+                              <MapPin className="w-3 h-3 mr-1 text-orange-600" />
+                              <span className="hidden sm:inline">{card.location}</span>
+                              <span className="sm:hidden">{card.location.split(',')[0]}</span>
                             </span>
                           </div>
                         )}
 
                         {/* Image Container */}
-                        <div className="relative overflow-hidden h-48">
+                        <div className="relative overflow-hidden h-40 sm:h-48">
                           <img
                             src={card.coverImage || "/placeholder-image.jpg"}
                             alt={card.name || "Travel Package"}
@@ -324,8 +360,8 @@ const ExpeditionCards: React.FC = () => {
 
                           {/* Price Badge */}
                           {card.price && (
-                            <div className="absolute bottom-4 right-4">
-                              <span className="bg-green-600 text-white px-3 py-1 rounded-md text-sm font-medium shadow-lg">
+                            <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4">
+                              <span className="bg-green-600 text-white px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium shadow-lg">
                                 ${card.price}
                               </span>
                             </div>
@@ -333,20 +369,20 @@ const ExpeditionCards: React.FC = () => {
                         </div>
 
                         {/* Content */}
-                        <div className="p-5">
-                          <div className="mb-3">
-                            <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full border border-blue-100">
+                        <div className="p-4 sm:p-5">
+                          <div className="mb-2 sm:mb-3">
+                            <span className="inline-block bg-orange-50 px-2 sm:px-3 py-1 bg-oran-50 text-orange-700 text-xs font-medium rounded-full border border-orange-100">
                               {typeof card.subCategoryId === "object"
                                 ? card.subCategoryId?.name
                                 : "Adventure"}
                             </span>
                           </div>
 
-                          <h3 className="text-lg font-bold text-slate-900  mb-2 line-clamp-1 leading-tight">
+                          <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 line-clamp-2 leading-tight">
                             {card.name || "Unnamed Package"}
                           </h3>
 
-                          <div className="text-slate-600 text-sm leading-relaxed mb-5">
+                          <div className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">
                             <p
                               id="editor" dangerouslySetInnerHTML={{ __html: card?.overview }}
                               className="line-clamp-2"
@@ -354,16 +390,16 @@ const ExpeditionCards: React.FC = () => {
                           </div>
 
                           {/* Action Buttons */}
-                          <div className="flex gap-3">
+                          <div className="flex  flex-wrap gap-2 sm:gap-3">
                             <Link
                               href={`/booking/${card._id}`}
-                              className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-sm"
+                              className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-xs sm:text-sm"
                             >
                               Book Now
                             </Link>
                             <Link
                               href={`/itinerary/${card.slug}`}
-                              className="flex-1 border border-orange-500 hover:border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 font-medium py-2.5 px-4 rounded-md transition-all duration-200 text-center text-sm"
+                              className="flex-1 border border-orange-500 hover:border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 font-medium py-2.5 px-4 rounded-md transition-all duration-200 text-center text-xs sm:text-sm"
                             >
                               Details
                             </Link>

@@ -77,7 +77,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
     };
 
     return (
-        <div className="mt-6 pt-8 border-t border-gray-200">
+        <div className="mt-6 pt-8 border-t mb-10 border-gray-200">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4 sm:mb-0">
                     Share this article
@@ -98,7 +98,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                     {/* Twitter */}
                     <button
                         onClick={handleTwitterShare}
-                        className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition-colors"
+                        className="flex items-center px-4 text-sm sm:text-base py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700 transition-colors"
                         aria-label="Share on Twitter"
                     >
                         <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                     {/* Facebook */}
                     <button
                         onClick={handleFacebookShare}
-                        className="flex items-center px-4 py-2 bg-blue-800 text-white rounded-sm hover:bg-blue-900 transition-colors"
+                        className="flex items-center px-4 text-sm sm:text-base py-2 bg-blue-800 text-white rounded-sm hover:bg-blue-900 transition-colors"
                         aria-label="Share on Facebook"
                     >
                         <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                     {/* LinkedIn */}
                     <button
                         onClick={handleLinkedInShare}
-                        className="flex items-center px-4 py-2 bg-blue-700 text-white rounded-sm hover:bg-blue-800 transition-colors"
+                        className="flex items-center px-4 text-sm sm:text-base py-2 bg-blue-700 text-white rounded-sm hover:bg-blue-800 transition-colors"
                         aria-label="Share on LinkedIn"
                     >
                         <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -134,7 +134,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                     {/* WhatsApp */}
                     <button
                         onClick={handleWhatsAppShare}
-                        className="flex items-center px-4 py-2 bg-green-600 text-white rounded-sm hover:bg-green-700 transition-colors"
+                        className="flex items-center px-4 text-sm sm:text-base py-2 bg-green-600 text-white rounded-sm hover:bg-green-700 transition-colors"
                         aria-label="Share on WhatsApp"
                     >
                         <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -146,9 +146,9 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                     {/* Copy Link */}
                     <button
                         onClick={handleCopyLink}
-                        className={`flex items-center px-4 py-2 transition-colors rounded-sm ${copied
-                                ? 'bg-green-600 text-white'
-                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        className={`flex items-center px-4 text-sm sm:text-base py-2 transition-colors rounded-sm ${copied
+                            ? 'bg-green-600 text-white'
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                             }`}
                         aria-label="Copy link"
                     >

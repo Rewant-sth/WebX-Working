@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
-import { useRouter } from "next/navigation";
 
 // Define section interfaces for better type safety
 interface Section {
@@ -201,7 +200,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
 
     return (
         <div className="sticky top-0 z-[99999]  w-full  bg-white border-b border-gray-200 ">
-            <div className="px-4 sm:px-6 lg:px-10 flex justify-between items-center gap-10 ">
+            <div className="sm:px-6 lg:px-10 flex justify-between items-center gap-10 ">
                 <div className="py-2 flex justify-start items-center overflow-auto">
                     {/* Scroll Spy Navigation Tabs */}
                     {visibleSections.length > 0 && (
