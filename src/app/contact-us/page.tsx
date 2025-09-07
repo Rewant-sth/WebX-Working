@@ -217,7 +217,7 @@ export default function PremiumContact() {
                       <h2 className='text-xl font-semibold mb-6'>Your Goal</h2>
                       <div className="flex gap-5 items-center flex-wrap">
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedGoals.includes('Peak Climbing')}
@@ -229,7 +229,7 @@ export default function PremiumContact() {
                         </div>
 
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedGoals.includes('Trekking')}
@@ -241,7 +241,7 @@ export default function PremiumContact() {
                         </div>
 
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedGoals.includes('City Tour')}
@@ -253,7 +253,7 @@ export default function PremiumContact() {
                         </div>
 
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedGoals.includes('Others')}
@@ -270,7 +270,7 @@ export default function PremiumContact() {
                       <h2 className='text-xl font-semibold mb-6'>Your Budget</h2>
                       <div className="flex gap-3 items-center flex-wrap">
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedBudget === 'Above $25,000'}
@@ -282,7 +282,7 @@ export default function PremiumContact() {
                         </div>
 
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedBudget === 'Above $50,000'}
@@ -294,7 +294,7 @@ export default function PremiumContact() {
                         </div>
 
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedBudget === 'Above $75,000'}
@@ -306,7 +306,7 @@ export default function PremiumContact() {
                         </div>
 
                         <div className="flex gap-2 text-lg">
-                          <label className="container">
+                          <label className="container border border-orange-500">
                             <input
                               type="checkbox"
                               checked={selectedBudget === 'Above $100,000'}
@@ -382,15 +382,15 @@ export default function PremiumContact() {
                   key="success"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-center py-12"
+                  className="text- py-12 border border-orange-300 rounded-sm w-full max-w-xl text-center"
                 >
                   <motion.div
-                    className="w-20 h-20 rounded-full bg-green-500/20 border border-green-400/30 flex items-center justify-center mx-auto mb-6"
+                    className="w-20 h-20 rounded-full bg-orange-500/20 border border-orange-400/30 mx-auto flex items-center justify-center  mb-6"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
                   >
-                    <CheckCircle className="w-10 h-10 text-green-400" />
+                    <CheckCircle className="w-10 h-10 text-orange-400" />
                   </motion.div>
                   <h3 className="text-2xl font-bold  mb-4">Message Sent!</h3>
                   <p className="/60 text-lg mb-6">
@@ -419,6 +419,6 @@ export default function PremiumContact() {
 
 
       </div>
-    </section>
+    </section >
   );
 }

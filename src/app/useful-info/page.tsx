@@ -95,11 +95,11 @@ const UsefulInfoPage = () => {
     };
 
     return (
-        <div className="min-h-screen  mx-auto">
+        <div className="min-h-screen   mx-auto">
 
             <div className="grid md:grid-cols-2  gap-8 lg:gap-14">
 
-                <div className="pt-[6rem] p-4 md:p-6">
+                <div className=" px-4 md:px-6  pt-[6rem]">
                     <div className="">
                         <p className="text- mb-2">Quick Informations</p>
                         <h2 className="text-2xl mb-10  md:text-3xl  font-semibold uppercase  ">some <span className="">information</span> that might help you</h2>

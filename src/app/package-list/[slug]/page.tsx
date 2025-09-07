@@ -100,7 +100,15 @@ const ExpeditionCards: React.FC = () => {
   }, [slug]);
 
   if (isLoading) return <CardSkeleton />;
-  if (!cardData.length) return <div>No packages found for this category.</div>;
+
+  if (!cardData.length) {
+    return (
+      <div className="min-h-screen h-[50dvh] flex flex-col justify-center items-center  bg-gradient-to-br from-slate-50 via-white to-orange-50">
+
+        <h2 className="text-xl uppercase font-semibold">Sorry no packages found for this category</h2>
+      </div>
+    );
+  }
 
   return (
     <>

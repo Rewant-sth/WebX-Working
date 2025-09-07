@@ -70,7 +70,7 @@ const ItineraryDay = ({
       </div>
 
       <div
-        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "min-h-96 opacity-100" : "max-h-0 opacity-0"
+        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "h-full opacity-100" : "max-h-0 opacity-0"
           }`}
       >
         <div className="px-6 pb-6">
@@ -167,7 +167,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
       </p>
 
       <div className="space-y-4">
-        {displayedData?.map((day, index) => (
+        {displayedData?.reverse().map((day, index) => (
           <ItineraryDay
             key={day._id || index}
             day={day.days}

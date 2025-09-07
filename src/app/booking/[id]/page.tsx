@@ -583,25 +583,28 @@ export default function BookingForm() {
                     error={errors.departureDate}
                   />
 
-                  <div className="mb-4">
+                  <div className="mb-4 relative">
                     <label className="block text-gray-700 mb-1">Select Package Date *</label>
                     <select
                       {...register("fixedDateId")}
-                      className="w-full p-3 border border-gray-300 rounded-sm"
+                      className="w-full p-2 relative border border-gray-300 rounded-sm"
                     >
                       {packageData?.data?.fixedDates?.map((dateOption: any) => {
                         const startDate = new Date(dateOption.startDate).toLocaleDateString();
                         const endDate = new Date(dateOption.endDate).toLocaleDateString();
                         return (
-                          <option key={dateOption._id} value={dateOption._id}>
+                          <option key={dateOption._id} value={dateOption._id} className="border">
                             {startDate} - {endDate} (${dateOption.pricePerPerson})
                           </option>
+
                         );
                       })}
-                    </select>
-                    {errors.fixedDateId && (
-                      <p className="text-red-500 text-sm mt-1">{errors.fixedDateId.message}</p>
-                    )}
+                    </select >
+                    {
+                      errors.fixedDateId && (
+                        <p className="text-red-500 text-sm mt-1">{errors.fixedDateId.message}</p>
+                      )
+                    }
                   </div>
                 </div>
               </div>

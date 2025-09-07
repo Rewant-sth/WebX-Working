@@ -9,13 +9,13 @@ import { ICategoryResponse } from "@/types/ICategory";
 import { ITravelPackageResponse } from "@/types/IPackages";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { StarBorder } from "@/components/ui/moving-border";
 import "./NavBar.css";
 
 interface Category {
   _id: string;
   name: string;
   subCategories: SubCategory[];
+  slug: string;
 }
 
 interface SubCategory {
@@ -214,21 +214,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex gap-10 items-center">
-        {/* <ul className='hidden  sm:block'>
-          <li className={`md:text-lg transition-colors duration-300 ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
-            <Link
-              href="/customize-trip"
-              className="group relative px-4 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium text-sm md:text-base rounded-sm transition-all duration-300  hover:shadow-green-500/25  active:scale-95 flex items-center gap-2"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse group-hover:animate-ping"></div>
-                Live Chat
-                <Icon icon="logos:whatsapp-icon" className="text-lg" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-          </li>
-        </ul> */}
+
         <button
           onClick={handleShow}
           className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-[#F05E25] to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
@@ -251,6 +237,7 @@ export default function Navbar() {
           className="flex border-b border-white/10 backdrop-blur-sm bg-black/10 p-4 md:p-4 py-3 justify-between items-center"
         >
           <Link
+            onClick={handleClose}
             href={"/"}
             className="w-28 md:w-40 transition-transform duration-300 "
           >
@@ -560,7 +547,8 @@ export default function Navbar() {
               packages.data.length > 4 && (
                 <div className="w-full max-w-3xl  flex justify-end items-center">
                   <Link
-                    href={`/package-list/${selectedSubcategoryId}`}
+                    onClick={handleClose}
+                    href={`/package-list/${selectedCategory?.slug}`}
                     className="flex items-center gap-2 text-white hover:text-amber-400 transition-colors duration-300 uppercase"
                   >
                     View All <ArrowRight />
