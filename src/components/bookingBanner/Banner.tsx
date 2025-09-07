@@ -8,7 +8,7 @@ const Banner = () => {
     <div className="relative w-full h-[44vh] ">
       {/* Background Image */}
       <Image
-        src="/EVEREST REGION/NIKON D50001965.jpg"
+        src="/EVEREST REGION/NIKON D50001965.JPG"
         alt="himal"
         className="absolute top-0 left-0 w-full h-full object-cover object-center"
         priority
@@ -25,7 +25,7 @@ const Banner = () => {
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
             <img
-              src="/logo/white.svg"
+              src="/logo/main.svg"
               alt="treak logo images"
               className="h-6 sm:h-7 md:h-8"
               height={200}

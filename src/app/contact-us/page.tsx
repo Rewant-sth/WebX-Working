@@ -109,7 +109,7 @@ export default function PremiumContact() {
   return (
     <section className="relative    overflow-hidden">
       <div className="absolute  inset-0 brightness-70 h-full w-full flex justify-end">
-        <img src="/contact.png" alt="img" className='h-full w-full  object-cover object-center' />
+        <img src="/contact.jpg" alt="img" className='h-full w-full  object-cover object-center' />
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-r  from-white via-white/70"></div>
