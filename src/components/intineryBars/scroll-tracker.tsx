@@ -213,7 +213,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                         onClick={() => handleScrollToSection(section.id)}
                                         className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
                                             ? "bg-orange-500 text-white"
-                                            : " border-gray-300 hover:bg-orange-500 hover:text-white text-gray-400 "
+                                            : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
                                             }`}
                                     >
                                         <span className={`${activeSection === section.id ? "text-white" : ""}`}>

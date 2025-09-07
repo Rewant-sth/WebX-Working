@@ -1,302 +1,159 @@
-"use client"
-import { Mountain, Shield, FileText, Users, CreditCard, AlertTriangle, Phone, Mail, MapPin, ArrowLeft } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import React from 'react'
+"use client";
+import { useState } from 'react';
 
-export default function Page() {
-    const router = useRouter()
+const TermsOfService = () => {
+    const [activeSection, setActiveSection] = useState('agreement');
+
+    const sections = [
+        { id: 'agreement', title: 'Agreement' },
+        { id: 'services', title: 'Our Services' },
+        { id: 'ip', title: 'Intellectual Property' },
+        { id: 'userreps', title: 'User Representations' },
+        { id: 'purchases', title: 'Purchases' },
+        { id: 'prohibited', title: 'Prohibited Activities' },
+        { id: 'ugc', title: 'User Content' },
+        { id: 'copyright', title: 'Copyright' },
+        { id: 'terms', title: 'Term & Termination' },
+        { id: 'liability', title: 'Liability' },
+        { id: 'contact', title: 'Contact' },
+    ];
+
+    const scrollToSection = (sectionId: string) => {
+        setActiveSection(sectionId);
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Hero Section */}
-            <section className="bg-gray-900 text-white py-16">
-                <div className="max-w-7xl mx-auto px-4 lg:px-8">
-                    <div className="text-center">
-
-                        <h1 className="text-4xl lg:text-5xl font-bold mb-6">
-                            Terms and Conditions
-                        </h1>
-                        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                            Please read these terms carefully before booking your adventure with Real Himalaya
-                        </p>
-                        <div className="mt-8 text-sm text-gray-400">
-                            Last updated: {new Date().toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })}
+        <div className="min-h-screen bg-gray-50 py-8">
+            <div className="max-w-7xl mx-auto px-4">
+                {/* Header */}
+                <div className="bg-white rounded-sm  p-6 mb-4">
+                    <div className="flex flex-col md:flex-row  justify-between">
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Terms of Service</h1>
+                            <p className="text-gray-600 mt-2">Last updated: September 05, 2025</p>
+                        </div>
+                        <div className="mt-4 md:mt-0">
+                            <img src="/logo/main.svg" alt="real himalaya logo" className=' w-28' />
                         </div>
                     </div>
                 </div>
-            </section>
 
-            {/* Main Content */}
-            <section className="py-16">
-                <div className="max-w-7xl mx-auto px-4 lg:px-8">
-
-                    <button onClick={() => router.back()} className=" mb-6  flex gap-2 items-center">
-                        <ArrowLeft />   Go Back
-                    </button>
-
-                    {/* Introduction */}
-                    <div className="bg-white rounded-sm border border-gray-200 p-8 mb-8">
-                        <div className="prose max-w-none">
-                            <p className="text-lg text-gray-600 leading-relaxed">
-                                Welcome to <strong className='text-orange-500'>Real Himalaya</strong>. By accessing and using our website or booking any of our services,
-                                you agree to comply with and be bound by the following Terms and Conditions. These terms govern all
-                                activities related to trekking, mountaineering, expeditions, and other adventure travel services
-                                provided by Real Himalaya. If you do not agree with these terms, please do not use our services.
-                            </p>
+                <div className="flex flex-col lg:flex-row gap-4">
+                    {/* Sidebar Navigation */}
+                    <div className="lg:w-1/4">
+                        <div className="bg-white rounded-sm  p-5 sticky top-6">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Table of Contents</h2>
+                            <ul className="space-y-2">
+                                {sections.map((section) => (
+                                    <li key={section.id}>
+                                        <button
+                                            onClick={() => scrollToSection(section.id)}
+                                            className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${activeSection === section.id
+                                                ? 'bg-blue-100 text-blue-700 font-medium'
+                                                : 'text-gray-600 hover:bg-gray-100'
+                                                }`}
+                                        >
+                                            {section.title}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
 
-                    {/* Terms Sections */}
-                    <div className="space-y-8">
-
-                        {/* Company Information */}
-                        <div className="bg-white rounded-sm border border-gray-200 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Company Information</h2>
-                            <div className="prose max-w-none">
-                                <p className="mb-4">
-                                    Real Himalaya is a licensed and registered adventure travel company operating in Nepal,
-                                    specializing in high-altitude trekking, mountaineering expeditions, and cultural tours
-                                    throughout the Himalayan region.
+                    {/* Main Content */}
+                    <div className="lg:w-3/4">
+                        <div className="bg-white rounded-sm  p-6 md:p-8">
+                            {/* Agreement Section */}
+                            <section id="agreement" className="mb-10 scroll-mt-20">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-4">1. AGREEMENT TO OUR LEGAL TERMS</h2>
+                                <p className="text-gray-700 mb-4">
+                                    We are <span className="font-semibold">REAL Himalaya Pvt. Ltd.</span> ("Company," "we," "us," "our").
+                                    We operate the website <a href="https://realhimalaya.webxnepal.com" className="text-blue-600 hover:underline">https://realhimalaya.webxnepal.com</a>
+                                    (the "Site"), as well as any other related products and services that refer or link to these legal terms
+                                    (the "Legal Terms") (collectively, the "Services").
                                 </p>
-                                <div className="bg-gray-100 p-4 rounded-sm">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <MapPin className="w-4 h-4 text-gray-600" />
-                                        <strong>Registered Address:</strong> Kathmandu, Nepal
-                                    </div>
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <Phone className="w-4 h-4 text-gray-600" />
-                                        <strong>Contact:</strong> +977-XXXX-XXXXXX
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Mail className="w-4 h-4 text-gray-600" />
-                                        <strong>Email:</strong> info@realhimalaya.com
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Booking Terms */}
-                        <div className="bg-white rounded-sm border border-gray-200 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Booking Terms</h2>
-                            <div className="space-y-6">
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Reservation Policy</h3>
-                                    <ul className="space-y-3 text-gray-600">
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            All bookings are subject to availability and confirmation by Real Himalaya
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            A deposit of 30% is required to secure your booking
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            Full payment is required 30 days prior to departure
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            Group bookings may have different payment terms
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Cancellation Policy</h3>
-                                    <div className="bg-gray-100 p-4 rounded-sm">
-                                        <ul className="space-y-2 text-gray-700">
-                                            <li><strong>60+ days before departure:</strong> 10% cancellation fee</li>
-                                            <li><strong>30-59 days before departure:</strong> 25% cancellation fee</li>
-                                            <li><strong>15-29 days before departure:</strong> 50% cancellation fee</li>
-                                            <li><strong>Less than 15 days:</strong> 100% cancellation fee</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Risk and Safety */}
-                        <div className="bg-white rounded-sm border border-gray-200 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Risk Acknowledgment and Safety</h2>
-                            <div className="space-y-6">
-                                <div className="bg-gray-100 p-6 rounded-sm">
-                                    <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                                        Important Safety Notice
-                                    </h3>
-                                    <p className="text-gray-700">
-                                        Adventure travel activities including trekking, mountaineering, and high-altitude expeditions
-                                        carry inherent risks that may result in injury, illness, or in extreme cases, death.
-                                        These activities take place in remote areas with limited rescue capabilities.
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Participant Requirements</h3>
-                                    <ul className="space-y-3 text-gray-600">
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            Participants must be in good physical and mental health
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            Medical certificate may be required for high-altitude expeditions
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            Previous trekking experience recommended for advanced routes
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <div className="w-2 h-2 bg-gray-600 rounded-full mt-2 flex-shrink-0"></div>
-                                            Participants must follow all safety instructions from guides
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Insurance and Liability */}
-                        <div className="bg-white rounded-sm border border-gray-200 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Insurance and Liability</h2>
-                            <div className="space-y-6">
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Insurance Requirements</h3>
-                                    <div className="bg-gray-100 p-6 rounded-sm">
-                                        <p className="text-gray-800 mb-4">
-                                            <strong>Mandatory Travel Insurance:</strong> All participants must have comprehensive
-                                            travel insurance covering:
-                                        </p>
-                                        <ul className="space-y-2 text-gray-700">
-                                            <li>• Medical expenses and emergency treatment</li>
-                                            <li>• Helicopter rescue and evacuation up to 6,000m</li>
-                                            <li>• Trip cancellation and interruption</li>
-                                            <li>• Personal accident and disability coverage</li>
-                                            <li>• Equipment loss and damage</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Limitation of Liability</h3>
-                                    <p className="text-gray-600 mb-4">
-                                        Real Himalaya acts as an organizer and facilitator of adventure travel services.
-                                        We work with experienced local guides, porters, and suppliers but cannot control
-                                        all aspects of your journey.
-                                    </p>
-                                    <ul className="space-y-2 text-gray-600">
-                                        <li>• Weather conditions and natural disasters</li>
-                                        <li>• Flight delays and cancellations</li>
-                                        <li>• Political situations and permit issues</li>
-                                        <li>• Individual health conditions and reactions</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Service Modifications */}
-                        <div className="bg-white rounded-sm border border-gray-200 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Service Modifications</h2>
-                            <div className="space-y-6">
-                                <p className="text-gray-600">
-                                    Real Himalaya reserves the right to modify itineraries, accommodation, and services
-                                    due to circumstances beyond our control, including but not limited to:
+                                <p className="text-gray-700 mb-4">
+                                    You can contact us by email at <span className="font-semibold">info@realhimalaya.com</span> or by mail to
+                                    <span className="font-semibold"> kathmandu, Nepal, kathmandu, Bagmati 44600, Nepal</span>.
                                 </p>
-                                <div className="grid md:grid-cols-2 gap-4">
-                                    <div className="bg-gray-100 p-4 rounded-sm">
-                                        <h4 className="font-semibold text-gray-800 mb-2">Weather Conditions</h4>
-                                        <p className="text-sm text-gray-700">
-                                            Extreme weather may require route changes or delays for safety
-                                        </p>
-                                    </div>
-                                    <div className="bg-gray-100 p-4 rounded-sm">
-                                        <h4 className="font-semibold text-gray-800 mb-2">Government Regulations</h4>
-                                        <p className="text-sm text-gray-700">
-                                            Changes in permits, regulations, or restricted areas
-                                        </p>
-                                    </div>
-                                    <div className="bg-gray-100 p-4 rounded-sm">
-                                        <h4 className="font-semibold text-gray-800 mb-2">Force Majeure</h4>
-                                        <p className="text-sm text-gray-700">
-                                            Natural disasters, political unrest, or other unforeseeable events
-                                        </p>
-                                    </div>
-                                    <div className="bg-gray-100 p-4 rounded-sm">
-                                        <h4 className="font-semibold text-gray-800 mb-2">Safety Concerns</h4>
-                                        <p className="text-sm text-gray-700">
-                                            Any situation that may compromise participant safety
-                                        </p>
-                                    </div>
+                                <p className="text-gray-700 mb-4">
+                                    These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf
+                                    of an entity ("you"), and REAL Himalaya Pvt. Ltd., concerning your access to and use of the Services.
+                                    You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these
+                                    Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING
+                                    THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+                                </p>
+                            </section>
+
+                            {/* Our Services Section */}
+                            <section id="services" className="mb-10 scroll-mt-20">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-4">2. OUR SERVICES</h2>
+                                <p className="text-gray-700">
+                                    The information provided when using the Services is not intended for distribution to or use by any person
+                                    or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation
+                                    or which would subject us to any registration requirement within such jurisdiction or country. Accordingly,
+                                    those persons who choose to access the Services from other locations do so on their own initiative and are
+                                    solely responsible for compliance with local laws, if and to the extent local laws are applicable.
+                                </p>
+                            </section>
+
+                            {/* Intellectual Property Section */}
+                            <section id="ip" className="mb-10 scroll-mt-20">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-4">3. INTELLECTUAL PROPERTY RIGHTS</h2>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-3">Our intellectual property</h3>
+                                <p className="text-gray-700 mb-4">
+                                    We are the owner or the licensee of all intellectual property rights in our Services, including all source
+                                    code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics
+                                    in the Services (collectively, the "Content"), as well as the trademarks, service marks, and logos contained
+                                    therein (the "Marks").
+                                </p>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-3">Your use of our Services</h3>
+                                <p className="text-gray-700 mb-4">
+                                    Subject to your compliance with these Legal Terms, we grant you a non-exclusive, non-transferable, revocable
+                                    license to:
+                                </p>
+                                <ul className="list-disc pl-5 text-gray-700 mb-4 space-y-2">
+                                    <li>Access the Services</li>
+                                    <li>Download or print a copy of any portion of the Content to which you have properly gained access</li>
+                                </ul>
+                                <p className="text-gray-700">
+                                    solely for your personal, non-commercial use.
+                                </p>
+                            </section>
+
+                            {/* Additional sections would follow the same pattern */}
+
+                            {/* Contact Section */}
+                            <section id="contact" className="scroll-mt-20">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-4">3. CONTACT US</h2>
+                                <p className="text-gray-700 mb-4">
+                                    In order to resolve a complaint regarding the Services or to receive further information regarding use of
+                                    the Services, please contact us at:
+                                </p>
+                                <div className="bg-gray-100 p-4 rounded-lg">
+                                    <p className="font-semibold">REAL Himalaya Pvt. Ltd.</p>
+                                    <p>kathmandu, Nepal</p>
+                                    <p>kathmandu, Bagmati 44600</p>
+                                    <p>Nepal</p>
+                                    <p className="mt-2">Email: info@realhimalaya.com</p>
                                 </div>
-                            </div>
+                            </section>
                         </div>
 
-                        {/* Participant Responsibilities */}
-                        <div className="bg-white rounded-sm border border-gray-200 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Participant Responsibilities</h2>
-                            <div className="space-y-4">
-                                <div className="border-l-4 border-gray-500 pl-4">
-                                    <h3 className="font-semibold text-gray-900 mb-2">Physical Preparation</h3>
-                                    <p className="text-gray-600">
-                                        Maintain appropriate fitness levels and undergo medical checkups before departure
-                                    </p>
-                                </div>
-                                <div className="border-l-4 border-gray-500 pl-4">
-                                    <h3 className="font-semibold text-gray-900 mb-2">Equipment</h3>
-                                    <p className="text-gray-600">
-                                        Bring proper gear as specified in our equipment list
-                                    </p>
-                                </div>
-                                <div className="border-l-4 border-gray-500 pl-4">
-                                    <h3 className="font-semibold text-gray-900 mb-2">Conduct</h3>
-                                    <p className="text-gray-600">
-                                        Respect local customs, environment, and follow all guide instructions
-                                    </p>
-                                </div>
-                                <div className="border-l-4 border-gray-500 pl-4">
-                                    <h3 className="font-semibold text-gray-900 mb-2">Documentation</h3>
-                                    <p className="text-gray-600">
-                                        Ensure valid passport, visas, and permits are obtained before travel
-                                    </p>
-                                </div>
-                            </div>
+                        {/* Acceptance Footer */}
+                        <div className="mt-4 bg-white rounded-sm  p-6 text-center">
+                            <p className="text-gray-700 mb-4">By using our services, you acknowledge that you have read and agree to these Terms of Service.</p>
                         </div>
-
-                        {/* Contact Information */}
-                        <div className="bg-gray-800 text-white rounded-sm p-8">
-                            <h2 className="text-2xl font-bold mb-6">Questions About These Terms?</h2>
-                            <p className="mb-6 text-gray-300">
-                                If you have any questions about these Terms and Conditions, please contact us:
-                            </p>
-                            <div className="grid md:grid-cols-3 gap-6">
-                                <div className="flex items-center gap-3">
-                                    <Phone className="w-5 h-5 text-gray-400" />
-                                    <div>
-                                        <div className="font-semibold">Phone</div>
-                                        <div className="text-sm text-gray-400">+977-XXXX-XXXXXX</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Mail className="w-5 h-5 text-gray-400" />
-                                    <div>
-                                        <div className="font-semibold">Email</div>
-                                        <div className="text-sm text-gray-400">info@realhimalaya.com</div>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <MapPin className="w-5 h-5 text-gray-400" />
-                                    <div>
-                                        <div className="font-semibold">Address</div>
-                                        <div className="text-sm text-gray-400">Kathmandu, Nepal</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
-    )
-}
+    );
+};
+
+export default TermsOfService;

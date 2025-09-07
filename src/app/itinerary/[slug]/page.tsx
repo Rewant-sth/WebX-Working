@@ -86,7 +86,7 @@ const Page = () => {
               <img src="/man2.png" alt="man" className="scale-110 lg:w-[65%]  translate-y-16 object-cover drop-shadow-black" />
             </div>
 
-            <Title data={packageData?.data as ITravelPackage} />
+            {/* <Title data={packageData?.data as ITravelPackage} /> */}
             <div className=" px-4 sm:px-6  lg:px-16 mt-8  z-[80]">
               {packageData?.data?.gallery?.length !== 0 && (
                 <GalleryCarousel slides={packageData?.data?.gallery} />

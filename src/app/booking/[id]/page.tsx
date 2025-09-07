@@ -16,6 +16,7 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BookingFormSkeleton from "./_components/Skeleton";
+import Image from "next/image";
 
 // Zod schemas
 const travelerSchema = z.object({
@@ -47,6 +48,7 @@ const formSchema = z.object({
   totalPeople: z.number().min(1, "At least one adult required"),
   children: z.number().min(0, "Children count cannot be negative"),
   fixedDateId: z.string().min(1, "Fixed date not selected properly"),
+  selectedAddons: z.array(z.string()).default([]), // Add addons field
 });
 
 // Reusable form components
@@ -200,6 +202,7 @@ export default function BookingForm() {
       children: 0,
       totalAmount: 0,
       fixedDateId: "",
+      selectedAddons: [], // Add default for addons
     }
   });
 
@@ -210,6 +213,7 @@ export default function BookingForm() {
   const arrivalDate = useWatch({ control, name: "arrivalDate" });
   const departureDate = useWatch({ control, name: "departureDate" });
   const fixedDateId = useWatch({ control, name: "fixedDateId" });
+  const selectedAddons = useWatch({ control, name: "selectedAddons" });
 
   // Fetch package data
   const { data: packageData } = useQuery({
@@ -256,14 +260,19 @@ export default function BookingForm() {
   const { totalPeopleCount, childrenCount, totalAmount } = useMemo(() => {
     const totalPeople = personalInfo?.filter(t => !t.isChild).length || 0;
     const children = personalInfo?.filter(t => t.isChild).length || 0;
-    const total = pricePerPerson * (totalPeople + children);
+    const basePrice = pricePerPerson * (totalPeople + children);
+
+    // Calculate add-ons total
+    const addonsTotal = packageData?.data?.addons
+      ?.filter((addon: any) => selectedAddons?.includes(addon._id))
+      ?.reduce((sum: number, addon: any) => sum + addon.price, 0) || 0;
 
     return {
       totalPeopleCount: totalPeople,
       childrenCount: children,
-      totalAmount: total
+      totalAmount: basePrice + addonsTotal
     };
-  }, [personalInfo, pricePerPerson]);
+  }, [personalInfo, pricePerPerson, selectedAddons, packageData]);
 
   // Update form values when counts change
   useEffect(() => {
@@ -289,7 +298,12 @@ export default function BookingForm() {
   });
 
   const onSubmit = (data: any) => {
-    mutate({ bookingData: data });
+    // Only send addon IDs to backend
+    const bookingData = {
+      ...data,
+      selectedAddons: data.selectedAddons || []
+    };
+    mutate({ bookingData });
   };
 
   const addTraveler = () => {
@@ -401,7 +415,7 @@ export default function BookingForm() {
               <h3 className="text-xl font-bold text-gray-800 mb-6">Traveler Information</h3>
 
               {fields.map((traveler, index) => (
-                <div key={traveler.id} className="bg-white p-6 rounded-sm shadow-sm mb-6">
+                <div key={traveler.id} className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-orange-600 text-lg font-medium">Traveler #{index + 1}</h3>
                     {index > 0 && (
@@ -544,13 +558,12 @@ export default function BookingForm() {
                   onClick={addTraveler}
                   className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-sm flex items-center gap-2 transition"
                 >
-
                   Add Traveler
                 </button>
               </div>
 
               {/* Trip Dates Section */}
-              <div className="bg-white p-6 rounded-sm shadow-sm mb-6">
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
                 <h4 className="text-xl font-bold text-gray-800 mb-4">Trip Dates</h4>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -593,8 +606,45 @@ export default function BookingForm() {
                 </div>
               </div>
 
+              {/* Add-ons Section */}
+              {packageData?.data?.addons && packageData.data.addons.length > 0 && (
+                <div className="sm:border border-gray-200 sm:p-6 rounded-sm mb-6">
+                  <h4 className="text-xl font-bold text-gray-800 mb-4">Add-ons</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {packageData.data.addons.map((addon: any) => (
+                      <div key={addon._id} className="flex flex-wrap items-start p-4  bg-white md:gap-4 border border-gray-200 rounded-sm hover:border-orange-300 transition-colors">
+                        <input
+                          type="checkbox"
+                          id={`addon-${addon._id}`}
+                          {...register("selectedAddons")}
+                          value={addon._id}
+                          className="mt-2 h-5 w-5 accent-orange-500"
+                        />
+                        <label htmlFor={`addon-${addon._id}`} className="ml-3 lg:ml-6 flex-1 cursor-pointer">
+                          <div className="flex justify-between items-start">
+                            <span className="font-medium text-gray-800">{addon.name}</span>
+                            <span className="text-orange-600 font-semibold">+${addon.price}</span>
+                          </div>
+                          {addon.image && (
+                            <div className="mt-2 relative h-52 w-full">
+                              <Image
+                                src={addon.image}
+                                alt={addon.name}
+                                fill
+                                className="object-cover object-center rounded-"
+                              />
+                            </div>
+                          )}
+                          <p className="text-gray-600 text-sm mt-2">{addon.description}</p>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Additional Notes */}
-              <div className="bg-white p-6 rounded-sm shadow-sm mb-6">
+              <div className="bg-white p-6 rounded-sm border border-gray-200 mb-6">
                 <h5 className="text-xl font-bold text-gray-800 mb-4">Additional Notes</h5>
 
                 <div className="mb-4">
@@ -617,7 +667,7 @@ export default function BookingForm() {
               </div>
 
               {/* Terms and Conditions */}
-              <div className="bg-white p-6 rounded-sm shadow-sm mb-6">
+              <div className="bg-white p-6 rounded-sm border border-gray-200 mb-6">
                 <div className="flex items-start">
                   <input
                     type="checkbox"
@@ -640,7 +690,7 @@ export default function BookingForm() {
 
             {/* Right Column - Booking Summary */}
             <div className="lg:w-96">
-              <div className="sticky top-6 bg-white p-6 rounded-sm shadow border border-orange-100">
+              <div className="sticky top-6 bg-white p-6   rounded-sm border border-gray-200 ">
                 <h2 className="text-xl font-bold text-gray-800 mb-6">Booking Summary</h2>
 
                 <div className="space-y-3 mb-6">
@@ -650,7 +700,7 @@ export default function BookingForm() {
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-600">totalPeople:</span>
+                    <span className="text-gray-600">Adults:</span>
                     <span className="font-medium">{totalPeopleCount}</span>
                   </div>
 
@@ -659,10 +709,25 @@ export default function BookingForm() {
                     <span className="font-medium">{childrenCount}</span>
                   </div>
 
-                  <div className="flex justify-between border-t border-gray-200 pt-3">
+                  <div className="flex justify-between">
                     <span className="text-gray-600">Price per traveler:</span>
                     <span className="font-medium">${pricePerPerson}</span>
                   </div>
+
+                  {/* Selected Add-ons */}
+                  {selectedAddons && selectedAddons.length > 0 && (
+                    <div className="border-t border-gray-200 pt-3 mt-3">
+                      <h4 className="font-medium text-gray-800 mb-2">Add-ons:</h4>
+                      {packageData?.data?.addons
+                        ?.filter((addon: any) => selectedAddons.includes(addon._id))
+                        ?.map((addon: any) => (
+                          <div key={addon._id} className="flex justify-between text-sm mb-1">
+                            <span>{addon.name}</span>
+                            <span>+${addon.price}</span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
 
                   <div className="flex justify-between text-lg font-bold pt-3 border-t border-gray-200">
                     <span>Total:</span>

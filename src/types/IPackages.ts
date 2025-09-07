@@ -29,7 +29,7 @@ export interface ITravelPackage {
     "description": string
     "image": string
     "slug": string
-  } // Can be improved with a Category type if parsed properly
+  }
   subCategoryId: ISubCategory;
   season: string;
   name: string;
@@ -51,7 +51,14 @@ export interface ITravelPackage {
   pax: IPax[];
   gallery: IGallery[];
   fixedDates: IFixedDate[];
-  addons: string[];
+  addons: {
+    image: string;
+    price: number;
+    packageId: string;
+    description: string;
+    name: string;
+    _id: string;
+  }[];
   slug: string;
   testimonial: {
     "_id": string,

@@ -90,11 +90,11 @@ export default function Hero() {
       <section ref={rightSectionRef} className="h-screen overflow-hidden  absolute top-0 left-0 w-full translate-y-full text-white  gap-14 z-[60] flex flex-col justify-center items-center">
         <div className="h-full relative w-full space-y-4 flex flex-col justify-center items-center">
           <img src="logo/white.svg" alt="" className="w-28 lg:w-80" />
-          <h2 className="relative z-50 text-xl md:text-4xl mt-6 max-w-7xl mx-auto px-4 text-center">
+          <h2 className="relative z-50 text-xl md:text-4xl mt-6 max-w-6xl mx-auto px-4 text-center">
             “Step into the realm of the world’s highest peaks, where every path whispers adventure and every journey becomes a memory etched forever.”
           </h2>
 
-          <h3 className='max-w-7xl mx-auto text-lg text-center px-4 text-' >
+          <h3 className='max-w-6xl mx-auto text-xl text-center px-4 text-' >
             At <strong className='text-orange-500  '>Real Himalaya</strong>, we invite you to embrace the spirit of the mountains, where snow-capped giants rise above ancient valleys and cultures thrive in timeless harmony. Each trek is more than a trail, it is a passage into breathtaking landscapes, heartfelt encounters, and unforgettable experiences waiting to be discovered.
           </h3>
         </div>
@@ -119,7 +119,7 @@ export default function Hero() {
 
 
       {/* carousel here */}
-      <div className="absolute -bottom-20 left-0 pointer-events-none w-full z-[70]">
+      <div className="absolute  -bottom-20 left-0 pointer-events-none w-full z-[70]">
         <div className="relative  mx-auto  ">
 
           {/* Carousel */}

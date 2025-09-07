@@ -55,7 +55,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
                                     src={member.data.image || "/placeholder.webp"}
                                     alt={member.data.name}
                                     fill
-                                    className="object-cover"
+                                    className="object-cover object-top"
                                 />
                             </div>
 
