@@ -16,6 +16,8 @@ interface Expert {
   image: string;
   memberType: string;
   designation: string;
+  addToHome?: boolean;
+  gallery: string[];
 }
 
 interface TeamMemberResponse {
@@ -51,10 +53,10 @@ const TalkToExperts: React.FC = () => {
         {data.data
           // .filter((expert) => expert.memberType === "fieldhero")
           .filter((expert) =>
-            expert.designation.toLowerCase().includes("expert")
+            expert.addToHome == true
           )
           .map((expert) => {
-            if (expert.designation.toLowerCase() == "expert") {
+            if (expert.addToHome) {
               return (
                 <div
                   key={expert._id}

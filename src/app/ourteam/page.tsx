@@ -31,12 +31,12 @@ const OurTeam: React.FC = () => {
 
 
           </div>
-          <div className=" lg:h-[60dvh] w-full grid gap-3 lg:grid-cols-2">
+          <div className="h-full w-full grid gap-3 lg:grid-cols-2">
             {
               data?.data?.map((member) => {
                 if (member.memberType.toLocaleLowerCase() === "boardmember") {
                   return (
-                    <div key={member._id} className="h-[50dvh] lg:h-full group w-full  rounded-sm relative group overflow-hidden">
+                    <div key={member._id} className="h-[60dvh]  group w-full  rounded-sm relative group overflow-hidden">
                       <Image src={member.image} fill alt={member.name} className="object-cover group-hover:blur-xs object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
                       <div className="absolute flex w-full items-end inset-0 bg-black/10">
                         <div className="flex p-4 lg:p-6 w-full justify-between  items-end">
@@ -105,7 +105,7 @@ const OurTeam: React.FC = () => {
             {data?.data?.map((member) => {
               if (member.memberType.toLocaleLowerCase() !== "boardmember") {
                 return (
-                  <div key={member._id} className="h-full w-full  rounded-sm relative group overflow-hidden">
+                  <div key={member._id} className="h-[60dvh] w-full  rounded-sm relative group overflow-hidden">
                     <Image src={member.image} fill alt={member.name} className="object-cover object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
                     <div className="absolute flex w-full items-end inset-0 bg-black/10">
                       <div className="flex p-6 w-full justify-between  items-end">

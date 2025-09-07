@@ -89,7 +89,7 @@ const AboutUsPage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[75dvh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
-          src={"/EVEREST REGION/NIKON D80013076.jpg"}
+          src={"/EVEREST REGION/NIKON D80013076.JPG"}
           alt="Everest Region"
           fill
           className="object-cover object-bottom brightness-60"
@@ -256,7 +256,7 @@ const AboutUsPage: React.FC = () => {
                   {
                     name: "Trekking",
                     // icon: <Footprints className="w-6 h-6" />,
-                    bgImage: "/banner.jpg"
+                    bgImage: "/banner.webp"
                   },
                   {
                     name: "Expeditions",
@@ -306,21 +306,7 @@ const AboutUsPage: React.FC = () => {
                 ))}
               </div>
 
-              <div className="mt-12 hidden sm:block sm:bg-white sm:p-8 rounded-sm ">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">Connect With Us</h3>
-                <p className="text-gray-600 mb-6">Follow our adventures and stay updated with our latest expeditions</p>
-                <div className="flex gap-4">
-                  {[
-                    { icon: "cib:facebook", label: "Facebook" },
-                    { icon: "cib:instagram", label: "Instagram" },
-                    { icon: "cib:youtube", label: "YouTube" }
-                  ].map((social, idx) => (
-                    <div key={idx} className="bg-gray-100 p-3 rounded-full cursor-pointer hover:bg-orange-50 transition-colors">
-                      <Icon icon={social.icon} className="text-2xl text-gray-700" />
-                    </div>
-                  ))}
-                </div>
-              </div>
+
 
             </div>
           </div>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Facebook, Instagram, Twitter, Mail, Phone, Mountain, Award, Calendar, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
+import GalleryCarousel from "./_components/GalleryCarousel";
 
 interface PageProps {
     params: Promise<{
@@ -44,7 +45,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
     }
 
     return (
-        <div className="min-h-screen pt-[5rem] p-6 mb-16 ">
+        <div className="min-h-screen p-6 mb-16 ">
             <div className=" mx-auto">
                 <div className="grid lg:grid-cols-5 gap-8">
                     {/* Left Column - Profile */}
@@ -61,7 +62,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
 
                             <div className="text-center mb-6">
                                 <h1 className="text-2xl font-bold text-gray-900">{member.data.name}</h1>
-                                <p className="text-lg text-orange-600">{member.data.designation}</p>
+                                <p className="text-lg text-orange-500">{member.data.designation}</p>
                             </div>
 
                             <div className="flex justify-center space-x-4 mb-6">
@@ -93,6 +94,16 @@ export default function TeamMemberDetails({ params }: PageProps) {
 
                     {/* Right Column - Content */}
                     <div className="lg:col-span-3 space-y-8">
+
+
+                        {/* Gallery Section */}
+                        {member.data.gallery && member.data.gallery.length > 0 && (
+                            <div className="px-6 mt-8">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4 uppercase">Gallery</h2>
+                                <GalleryCarousel images={member.data.gallery} />
+                            </div>
+                        )}
+
                         {/* About Section */}
                         <div className="  px-6">
                             <h2 className="text-xl font-semibold text-gray-900 mb-4 uppercase">About {member.data.name}</h2>
@@ -116,6 +127,8 @@ export default function TeamMemberDetails({ params }: PageProps) {
                                 </div>
                             )}
                         </div>
+
+
 
 
                     </div>
