@@ -130,7 +130,7 @@ const WhatsappBtn = () => {
                 style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
             >
                 <Link
-                    href={"https://wa.me/1234567890"}
+                    href={"https://wa.me/9851026840"}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Chat on WhatsApp"
@@ -140,7 +140,7 @@ const WhatsappBtn = () => {
                     <h2 className="text-black font-bold text-sm sm:text-base mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         Live Chat
                     </h2>
-                    <div className="flex justify-center items-center size-10 lg:size-16 bg-green-500 rounded-full transition-transform duration-300 group-hover:scale-110">
+                    <div className="flex justify-center p-2 items-center size-10 lg:size-16 bg-green-500 rounded-full transition-transform duration-300 group-hover:scale-110">
                         <Icon icon="logos:whatsapp-icon" className="text-white text-3xl animate-pulse" />
                     </div>
 
