@@ -13,23 +13,23 @@ export interface ISeasonalTrek {
 }
 
 export interface ITravelPackage {
-  id: string
-  activity?: string,
-  groupSize?: string,
-  vehicle?: string,
-  difficulty?: string,
-  accommodation?: string,
-  meal?: string,
+  id: string;
+  activity?: string;
+  groupSize?: string;
+  vehicle?: string;
+  difficulty?: string;
+  accommodation?: string;
+  meal?: string;
   seasonalTrek?: ISeasonalTrek[];
   location: string;
   duration: string;
   categoryId: {
-    "_id": string
-    "name": string
-    "description": string
-    "image": string
-    "slug": string
-  }
+    _id: string;
+    name: string;
+    description: string;
+    image: string;
+    slug: string;
+  };
   subCategoryId: ISubCategory;
   season: string;
   name: string;
@@ -37,6 +37,16 @@ export interface ITravelPackage {
   coverImage: string;
   elevation: number;
   distance: number;
+  maxAltitude?: string;
+  bestSeasons?: string | string[];
+  highlights?: string[];
+  included?: string[];
+  excluded?: string[];
+  additionalInfo?: string;
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
   attraction: IAttraction[];
   itinerary: IItinerary[];
   faq: IFaq[];
@@ -51,31 +61,30 @@ export interface ITravelPackage {
   pax: IPax[];
   gallery: IGallery[];
   fixedDates: IFixedDate[];
-  addons: {
+  addons: Array<{
     image: string;
     price: number;
     packageId: string;
     description: string;
     name: string;
     _id: string;
-  }[];
+  }>;
   slug: string;
-  testimonial: {
-    "_id": string,
-    "packageId": string,
-    "fullName": string,
-    "rating": number,
-    "sortOrder": number,
-    "comment": string,
-    "createdAt": string,
-    "updatedAt": string,
-    "__v": number
-  }[];
+  testimonial: Array<{
+    _id: string;
+    packageId: string;
+    fullName: string;
+    rating: number;
+    sortOrder: number;
+    comment: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  }>;
   createdAt: string;
   updatedAt: string;
   _id: string;
-  tag: string;//THIS IS NOT INCLUDED IN BACKEDN FOR NOW SOSSOOSO
-
+  tag: string; // THIS IS NOT INCLUDED IN BACKEND FOR NOW
 }
 
 export interface IPax {

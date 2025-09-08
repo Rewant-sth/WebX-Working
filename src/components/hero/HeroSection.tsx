@@ -108,8 +108,8 @@ export default function HeroSection() {
       {/* HeroSection first */}
       <div ref={sectionRef} className="h-screen sticky top-20 lg:flex gap-6 lg:gap-16 p-6">
         <h2 className='text-[8dvw] font-bold uppercase text-center mx-auto max-w-5xl leading-12 lg:leading-28 flex flex-col'>
-          <span className="text-[#01283F]">Explore the</span>
-          <span className="text-[#F05E25] italic">Real Himalaya</span>
+          <span className="text-[#01283F]">Explore the </span>
+          <span className="text-[#F05E25]">Real Himalaya</span>
         </h2>
       </div>
 
