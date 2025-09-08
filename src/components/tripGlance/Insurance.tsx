@@ -24,9 +24,9 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                             key={index}
                             className="flex items-start gap-4  border-b border-gray-300 pb-6 mb-6 transition-all duration-200"
                         >
-                            <div className="size-7">
+                            {/* <div className="size-7">
                                 <img src="/icons/insurance.png" alt="insurance icon" />
-                            </div>
+                            </div> */}
                             <div className="flex-1 min-w-0">
                                 <h3 className="text-xl font-semibold mb-2">
                                     {item.title}

@@ -199,36 +199,62 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     }, [visibleSections, isScrollingToSection]);
 
     return (
-        <div className="sticky top-0 z-[99999]  w-full  bg-white border-b border-gray-200 ">
-            <div className="sm:px-6 lg:px-10 flex justify-between items-center gap-10 ">
-                <div className="py-2 flex justify-start items-center overflow-auto">
-                    {/* Scroll Spy Navigation Tabs */}
-                    {visibleSections.length > 0 && (
-                        <div className="relative">
-                            <div className="flex overflow-x-auto z-[99] scrollbar-hide gap-2 py-2">
-                                {visibleSections.map((section) => (
-                                    <button
-                                        key={section.id}
-                                        onClick={() => handleScrollToSection(section.id)}
-                                        className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
-                                            ? "bg-orange-500 text-white"
-                                            : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
-                                            }`}
-                                    >
-                                        <span className={`${activeSection === section.id ? "text-white" : ""}`}>
-                                            {section.icon}
-                                        </span>
-                                        {section.label}
-                                    </button>
-                                ))}
-
+        <div className="w-full">
+            {/* Mobile/Tablet Layout - Horizontal Scroll */}
+            <div className="lg:hidden w-full bg-white border-b border-gray-200">
+                <div className="px-4 flex justify-start items-center overflow-auto">
+                    <div className="py-2 flex justify-start items-center overflow-auto">
+                        {visibleSections.length > 0 && (
+                            <div className="relative">
+                                <div className="flex overflow-x-auto z-[99] scrollbar-hide gap-2 py-2">
+                                    {visibleSections.map((section) => (
+                                        <button
+                                            key={section.id}
+                                            onClick={() => handleScrollToSection(section.id)}
+                                            className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
+                                                ? "bg-orange-500 text-white"
+                                                : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
+                                                }`}
+                                        >
+                                            <span className={`${activeSection === section.id ? "text-white" : ""}`}>
+                                                {section.icon}
+                                            </span>
+                                            {section.label}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
-
-
+                        )}
+                    </div>
                 </div>
+            </div>
 
+            {/* Desktop Layout - Vertical Sidebar */}
+            <div className="hidden lg:block">
+                <div className="bg-white  rounded-sm  ">
+                    <h3 className="text-lg  font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-100">
+                        Table of Contents
+                    </h3>
+                    {visibleSections.length > 0 && (
+                        <nav className="space-y-1">
+                            {visibleSections.map((section) => (
+                                <button
+                                    key={section.id}
+                                    onClick={() => handleScrollToSection(section.id)}
+                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-sm  font-medium transition-all duration-300 text-left ${activeSection === section.id
+                                        ? "bg-orange-500 text-white "
+                                        : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                                        }`}
+                                >
+                                    <span className={`flex-shrink-0 ${activeSection === section.id ? "text-white" : "text-gray-500"}`}>
+                                        {section.icon}
+                                    </span>
+                                    <span className="truncate">{section.label}</span>
+                                </button>
+                            ))}
+                        </nav>
+                    )}
+                </div>
             </div>
 
             {/* Custom scrollbar styles */}

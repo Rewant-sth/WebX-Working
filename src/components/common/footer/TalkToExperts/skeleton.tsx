@@ -12,7 +12,7 @@ const ExpertSkeleton = () => {
             {Array.from({ length: 3 }).map((_, index) => (
               <div
                 key={index}
-                className="flex gap-2 lg:gap-4 items-center p-2 bg-gradient-to-r from-sky-400 to-blue-500 rounded-2xl animate-pulse"
+                className="flex gap-2 lg:gap-4 items-center p-2 bg-gradient-to-r from-orange-400 to-orange-500 rounded-sm animate-pulse"
               >
                 <div>
                   <div className="size-32 shrink-0 lg:size-32 rounded-full bg-white/30" />

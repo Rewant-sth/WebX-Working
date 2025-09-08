@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useLayoutEffect } from 'react'
+import React from 'react'
 import TalkToExperts from './TalkToExperts/TalkToExperts';
 import Link from 'next/link';
 
@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Footer() {
   const divRef = React.useRef<HTMLDivElement>(null);
   const footerRef = React.useRef<HTMLDivElement>(null);
-  const textRef = React.useRef<HTMLHeadingElement | null>(null);
 
 
 
@@ -65,9 +64,9 @@ export default function Footer() {
           </div>
           <div className="border-t border-dashed pt-4 pb-2 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
 
-            <div className="max-w-[1200px] w-full mx-auto">
+            <div className="max-w-7xl w-full mx-auto">
               <div className="flex w-full justify-between items-center gap-5 md:gap-6 flex-wrap">
-                <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya</p>
+                <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya Pvt. Ltd</p>
                 <ul className="flex gap-4 md:gap-6">
                   <li><Icon className='size-7' icon="mdi:facebook" /></li>
                   <li><Icon className='size-7' icon="mdi:instagram" /></li>

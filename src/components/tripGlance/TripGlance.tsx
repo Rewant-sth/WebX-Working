@@ -11,7 +11,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
           Your Trip at a Glance
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2  gap-4">
           {[
             {
               icon: "/icons/destination.png",
@@ -28,11 +28,11 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
               title: "Trip Difficulty",
               value: data?.difficulty || "N/A",
             },
-            {
-              icon: "/icons/jogging.png",
-              title: "Activities",
-              value: data?.activity || "N/A",
-            },
+            // {
+            //   icon: "/icons/jogging.png",
+            //   title: "Activities",
+            //   value: data?.activity || "N/A",
+            // },
             {
               icon: "/icons/mountain.png",
               title: "Max Elevation",

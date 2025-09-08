@@ -94,11 +94,22 @@ const Page = () => {
             </div>
           </div>
 
-          <ScrollTracker data={packageData?.data as ITravelPackage} />
-          <div className={`w-full relative h-auto flex flex-col xl:flex-row justify-between gap-4 md:gap-10 p-4 md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
+          <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-4 md:gap-6 lg:gap-8 p-4 md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
+
+            {/* Left Sidebar - Scroll Tracker */}
+            <div className="hidden lg:block lg:w-[22%] xl:w-[20%] shrink-0">
+              <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+                <ScrollTracker data={packageData?.data as ITravelPackage} />
+              </div>
+            </div>
+
+            {/* Mobile Scroll Tracker - Sticky Top */}
+            <div className="lg:hidden sticky top-0 z-[99999]">
+              <ScrollTracker data={packageData?.data as ITravelPackage} />
+            </div>
 
             {/* Center Content */}
-            <div className=" w-full lg:max-w-[75%] relative  rounded-xl">
+            <div className="w-full lg:w-[53%] xl:w-[55%] relative rounded-xl min-w-0">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData && <SeasonalInfo data={packageData.data} />}
@@ -154,11 +165,11 @@ const Page = () => {
               {packageData?.data?.faq.length ? (
                 <Faq faq={packageData?.data?.faq} />
               ) : null}
-              {packageData?.data?.testimonial && (
+              {packageData?.data?.testimonial.length ? (
                 <TravellerReview
                   data={packageData.data}
                 />
-              )}
+              ) : null}
               <RelatedTrips
                 packageId={packageData?.data?.id as string}
                 category={packageData?.data?.categoryId?.slug as string}
@@ -166,9 +177,12 @@ const Page = () => {
               />
 
             </div>
+
             {/* Right Sidebar */}
-            <div className="xl:w-[25%] shrink-0">
-              <RightBar data={packageData?.data} />
+            <div className="lg:w-[25%] xl:w-[25%] shrink-0">
+              <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+                <RightBar data={packageData?.data} />
+              </div>
             </div>
           </div>
 

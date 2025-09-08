@@ -24,9 +24,9 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
                         key={index}
                         className="flex items-start gap-4 pb-6 mb-6 border-b border-gray-300 transition-all duration-200"
                     >
-                        <div className="shrink-0 size-10 flex justify-center items-center mt-1 p-2 rounded-sm bg-green-500 text-white" >
+                        {/* <div className="shrink-0 size-10 flex justify-center items-center mt-1 p-2 rounded-sm bg-green-500 text-white" >
                             <AlertTriangle className="text-3xl" />
-                        </div>
+                        </div> */}
                         <div className="flex-1 min-w-0">
                             <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                                 {item.title}

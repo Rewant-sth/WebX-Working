@@ -88,15 +88,15 @@ export interface ITravelPackage {
 }
 
 export interface IPax {
-  sortOrder: number;
-  _id: string;
-  package: string;
-  min: number;
-  max: number;
-  price: number;
-  order: number;
-  createdAt: string;
-  updatedAt: string;
+  _id: string
+  package: string
+  min: number
+  max: number
+  discount: number
+  sortOrder: number
+  createdAt: string
+  updatedAt: string
+  __v: number
 }
 
 

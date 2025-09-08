@@ -48,20 +48,23 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
                 Everything that's included in your trip package to ensure a seamless travel experience.
               </p>
-              <div className="grid lg:grid-cols-2 gap-4">
+              <div className="grid  gap-4">
                 {data?.inclusion.map((item, index) => (
                   <div
                     key={index}
                     className="flex border border-gray-200 p-6 items-start gap-4 rounded-sm hover:border-gray-300 transition-all duration-200"
                   >
-                    <div className="shrink-0 size-7 mt-1 rounded-md" >
-                      <img src="/icons/check-green.png" alt="check" className="" />
-                    </div>
+
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
-                        {item.title}
-                      </h3>
-                      <p className=" leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                      <div className="flex gap-4 ">
+                        <div className="shrink-0 size-7 mt-1 rounded-md" >
+                          <img src="/icons/check-green.png" alt="check" className="" />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                          {item.title}
+                        </h3>
+                      </div>
+                      <p className="mt-4 leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                     </div>
                   </div>
                 ))}
@@ -74,20 +77,23 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
               <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
                 Items and services not included in the package that you'll need to arrange separately.
               </p>
-              <div className="grid lg:grid-cols-2 gap-4">
+              <div className="grid  gap-4">
                 {data?.exclusion.map((item, index) => (
                   <div
                     key={index}
                     className="flex border border-gray-200 items-start gap-4 p-6 rounded-sm hover:border-gray-300 transition-all duration-200"
                   >
-                    <div className="shrink-0 size-7 mt-1 rounded-md" >
-                      <img src="/icons/delete.png" alt="exclusion" />
-                    </div>
+
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
-                        {item.title}
-                      </h3>
-                      <p className=" leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                      <div className="flex gap-4 ">
+                        <div className="shrink-0 size-7 mt-1 rounded-md" >
+                          <img src="/icons/delete.png" alt="exclusion" />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                          {item.title}
+                        </h3>
+                      </div>
+                      <p className="mt-4 leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                     </div>
                   </div>
                 ))}

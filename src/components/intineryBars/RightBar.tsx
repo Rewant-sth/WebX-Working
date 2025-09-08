@@ -5,10 +5,10 @@ import { ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
 import api from "@/service/api";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import html2pdf from 'html2pdf.js';
 
 const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const [price, setPrice] = useState<number | null>(null);
+  const [showPaxDropdown, setShowPaxDropdown] = useState(false);
 
   const getLowestPrice = async () => {
     try {
@@ -30,13 +30,12 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const pdfRef = useRef<HTMLDivElement>(null);
 
   const isEnquiryActive = hovered === "enquiry";
-  const isDownloadHovered = hovered === "download";
 
   const generatePdf = () => {
     if (!data) return;
-    
+
     setIsGeneratingPdf(true);
-    
+
     try {
       // Get current date for the PDF
       const currentDate = new Date().toLocaleDateString('en-US', {
@@ -60,7 +59,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               font-family: 'Montserrat', Arial, sans-serif; 
               line-height: 1.8; 
               color: #333; 
-              max-width: 1000px; 
+              max-width: 1400px; 
               margin: 0 auto; 
               padding: 40px;
               background-color: #f9f9f9;
@@ -78,9 +77,8 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
             
             .header { 
               text-align: center; 
-              margin-bottom: 40px;
+              margin-bottom: 10px;
               padding-bottom: 20px;
-              border-bottom: 2px solid #f5f5f5;
             }
             
             h1 { 
@@ -101,7 +99,6 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
             
             .cover-image { 
               width: 100%; 
-              max-height: 400px;
               object-fit: cover;
               border-radius: 8px;
               margin: 30px 0;
@@ -109,13 +106,12 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
             }
             
             .section {
-              margin-bottom: 40px;
+              margin-bottom: 20px;
             }
             
             h2 { 
               color: #2c3e50; 
               font-size: 1.5em;
-              border-bottom: 2px solid #f05e25; 
               padding-bottom: 10px;
               margin: 40px 0 25px 0;
               font-weight: 600;
@@ -131,12 +127,10 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
             
             .itinerary-day {
               margin-bottom: 30px;
-              padding: 25px;
+              padding: 5px;
               background: #fff9f7;
-              border-left: 4px solid #f05e25;
               border-radius: 0 8px 8px 0;
               position: relative;
-              box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             }
             
             .day-title { 
@@ -158,8 +152,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               color: #555;
               line-height: 1.8;
               padding-left: 15px;
-              margin-left: 8px;
-              border-left: 2px solid #ffd8c9;
+              margin-left: 4px;
             }
             
             .highlight-box {
@@ -313,8 +306,6 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
             .fact-item {
               background: #f8f9fa;
               padding: 15px;
-              border-radius: 6px;
-              border-left: 3px solid #f05e25;
             }
             
             .fact-label {
@@ -370,7 +361,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               <div class="trip-info">
                 ${data.location} • ${data.duration} Days • Generated on ${currentDate}
               </div>
-              ${data.difficulty ? `<div style="color: #f05e25; font-weight: 600; margin-top: 5px;">${data.difficulty} Difficulty</div>` : ''}
+              ${data.difficulty ? `<div style="color: #f05e25; font-weight: 600;">${data.difficulty} Difficulty</div>` : ''}
             </div>
             
             <!-- Cover Image -->
@@ -452,12 +443,12 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               <div class="itinerary-days">
                 ${data.itinerary?.map((day, index) => `
                   <div class="itinerary-day">
-                    <div class="day-title">Day ${day.day}: ${day.title}</div>
+                    <div class="day-title">Day ${day.days}: ${day.title}</div>
                     <div class="day-description">
                       ${(day.description || 'No description available.').replace(/\n/g, '<br>')}
                       
                       ${day.meals ? `
-                        <div style="margin-top: 15px; background: #f0f8ff; padding: 10px 15px; border-radius: 6px; display: inline-block;">
+                        <div style="margin-top: 15px;  display: inline-block;">
                           <strong>🍽️ Meals:</strong> ${day.meals}
                         </div>
                       ` : ''}
@@ -573,7 +564,6 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               </div>
               
               <button onclick="window.print()" class="print-button no-print">
-                <span>🖨️</span>
                 <span>Print Itinerary</span>
               </button>
             </div>
@@ -599,14 +589,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
         </html>
           </div>
           
-          <script>
-            // Auto-print when the window loads
-            window.onload = function() {
-              setTimeout(function() {
-                window.print();
-              }, 500);
-            };
-          </script>
+          
         </body>
         </html>
       `;
@@ -625,7 +608,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
         document.write(content);
         document.close();
       }
-      
+
     } catch (error) {
       console.error('Error:', error);
       alert('Error loading the itinerary. Please try again.');
@@ -642,24 +625,24 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   };
 
   return (
-    <div className="bg-[#F05E25]/5 hidden xl:block rounded-sm border border-gray-200 sticky top-[80px] overflow-hidden">
+    <div className="bg-[#F05E25]/5 hidden xl:block rounded-sm border border-gray-200 sticky  h-full">
       {/* Header */}
       <div className="px-6 py-5 border-b border-gray-200" >
-        <h2 className="text-2xl font-bold text-center" style={{ color: '#3A3A3A' }}>
+        <h2 className="text-xl mb-2 font-bold text-center" style={{ color: '#3A3A3A' }}>
           Starting Price
         </h2>
         {data?.name && (
-          <p className="text-center  font-medium text-gray-600 leading-tight">
+          <p className="text-center font-medium leading-tight">
             {data.name}
           </p>
         )}
       </div>
 
       {/* Price Section */}
-      <div className="px-6 py-4 mb-5">
+      <div className="px-4 py-4 ">
         <div className="text-center mb-4">
           <div className="flex items-baseline justify-center gap-2 mb-3">
-            <span className="text-5xl font-bold" style={{ color: '#f05e25' }}>
+            <span className="text-4xl font-bold" style={{ color: '#f05e25' }}>
               ${price + "99" || "N/A"}
             </span>
             <span className="text-xl font-medium text-gray-600">per person</span>
@@ -669,19 +652,63 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
           </p>
         </div>
 
-        {/* Key Benefits Banner */}
-        {/* <div className={` overflow-hidden ${showBanner ? "h-full mb-8" : "h-0"}  `}>
-          <div className="rounded-sm  p-4 text-center" style={{ borderColor: '#f05e25', backgroundColor: '#fffbf8' }}>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="font-bold text-lg" style={{ color: '#3A3A3A' }}>
-                Premium Experience
-              </span>
-            </div>
-            <p className="text-sm font-medium text-gray-600">
-              Expert Guides • Best Price • Full Customization
-            </p>
+        {/* Pax Details Dropdown */}
+        {data?.pax && data.pax.length > 0 && (
+          <div className="mb-4 ">
+            <button
+              onClick={() => setShowPaxDropdown(!showPaxDropdown)}
+              className="w-full  flex items-center justify-between rounded-sm   transition-colors duration-200"
+            >
+              <span className="font-medium text-gray-700">Group Booking Discount</span>
+              <Icon
+                icon={showPaxDropdown ? "mdi:chevron-up" : "mdi:chevron-down"}
+                width="20"
+                height="20"
+                className=""
+              />
+            </button>
+
+            {(
+              <div className={` transition-transform  overflow-hidden ${showPaxDropdown ? 'h-full' : 'h-0'} `}>
+
+                <div className="mt-4 bg-orange-200 p-4">
+                  <div className="flex justify-between items-center border-b pb-2 border-orange-500">
+                    <h2 className="font-semibold text-orange-500">Group Size</h2>
+                    <h2 className="font-semibold text-orange-500">Discount</h2>
+                  </div>
+                  {data.pax
+                    .sort((a, b) => a.sortOrder - b.sortOrder)
+                    .map((paxItem, index) => (
+                      <div
+                        key={paxItem._id}
+                        className={`py-2 ${index !== data.pax.length - 1 ? 'border-b border-gray-100' : ''}  transition-colors duration-150`}
+                      >
+                        <div className="flex gap-2  items-center">
+                          <div className="flex shrink-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-medium text-sm text-gray-800">
+                                {paxItem.min === paxItem.max
+                                  ? `${paxItem.min} Person${paxItem.min > 1 ? 's' : ''}`
+                                  : `${paxItem.min}-${paxItem.max} Persons`
+                                }
+                              </span>
+                            </div>
+                          </div>
+                          <div className="w-full border border-orange-500 border-dashed"></div>
+                          <div className="text-right shrink-0">
+                            <div className="font-semibold ">
+                              {paxItem.discount} % Off
+                            </div>
+                            {/* <div className="text-xs text-gray-500">per person</div> */}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
           </div>
-        </div> */}
+        )}
 
         {/* Action Buttons */}
         <div className="space-y-4 transition-all duration-300">
@@ -691,7 +718,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               onClick={scrollToDateSection}
               onMouseEnter={() => setHovered("date")}
               onMouseLeave={() => setHovered(null)}
-              className="w-full px-8 py-2.5 rounded-sm font-bold text-lg transition-all duration-300 text-white border-2"
+              className="w-full px-6 py-2 rounded-sm font-bold text-lg transition-all duration-300 text-white border-2"
               style={{
                 backgroundColor: '#f05e25',
                 borderColor: '#f05e25'
@@ -701,46 +728,47 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
             </button>
           ) : null}
 
-          {/* Enquiry Now Button */}
-          <Link href={"/contact-us"} className="w-full block">
-            <button
-              onMouseEnter={() => setHovered("enquiry")}
-              onMouseLeave={() => setHovered(null)}
-              className="w-full px-8 py-2.5 rounded-sm font-bold text-lg border-2 transition-all duration-300"
-              style={{
-                backgroundColor: isEnquiryActive ? '#3A3A3A' : 'transparent',
-                borderColor: '#3A3A3A',
-                color: isEnquiryActive ? 'white' : '#3A3A3A'
-              }}
-            >
-              Enquiry Now
-            </button>
-          </Link>
+          <div className="flex gap-2 items-center ">
+            {/* Enquiry Now Button */}
+            <Link href={"/contact-us"} className="w-full lg:w-1/2 block">
+              <button
+                onMouseEnter={() => setHovered("enquiry")}
+                onMouseLeave={() => setHovered(null)}
+                className="w-full px-6 py-2.5 text-sm rounded-sm font-bold  border-2 transition-all duration-300"
+                style={{
+                  backgroundColor: isEnquiryActive ? '#3A3A3A' : 'transparent',
+                  borderColor: '#3A3A3A',
+                  color: isEnquiryActive ? 'white' : '#3A3A3A'
+                }}
+              >
+                Enquiry Now
+              </button>
+            </Link>
 
-          {/* View Itinerary Button */}
-          <div className="mt-4">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                generatePdf();
-              }}
-              disabled={isGeneratingPdf || !data}
-              className={`w-full px-8 py-2.5 rounded-sm font-bold text-lg border-2 flex items-center justify-center gap-2 transition-all duration-300 ${
-                isGeneratingPdf || !data 
-                  ? 'opacity-50 cursor-not-allowed' 
+            {/* View Itinerary Button */}
+            <div className="w-full lg:w-1/2 shrink-0">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  generatePdf();
+                }}
+                disabled={isGeneratingPdf || !data}
+                className={`w-full px-6 text-sm py-2.5 rounded-sm font-bold  shrink-0 border-2 flex items-center justify-center gap-2 transition-all duration-300 ${isGeneratingPdf || !data
+                  ? 'opacity-50 cursor-not-allowed'
                   : 'hover:bg-[#3A3A3A] hover:text-white cursor-pointer'
-              }`}
-              style={{
-                backgroundColor: 'transparent',
-                borderColor: '#3A3A3A',
-                color: '#3A3A3A',
-              }}
-            >
-              
-              {isGeneratingPdf ? 'Opening...' : 'View Details'}
-            </button>
+                  }`}
+                style={{
+                  backgroundColor: 'transparent',
+                  borderColor: '#3A3A3A',
+                  color: '#3A3A3A',
+                }}
+              >
+
+                {isGeneratingPdf ? 'Downloading...' : 'Download Info'}
+              </button>
+            </div>
           </div>
-          
+
           {/* Hidden content for PDF generation */}
           <div className="hidden">
             <div ref={pdfRef} className="p-8">
@@ -750,20 +778,20 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                     <h1 className="text-3xl font-bold text-orange-500 mb-2">{data.name}</h1>
                     <p className="text-lg text-gray-600">{data.location} • {data.duration} Days</p>
                   </div>
-                  
+
                   {data.coverImage && (
-                    <img 
-                      src={data.coverImage} 
-                      alt={data.name} 
+                    <img
+                      src={data.coverImage}
+                      alt={data.name}
                       className="w-full h-64 object-cover mb-8 rounded"
                     />
                   )}
-                  
+
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Trip Overview</h2>
                     <p className="text-gray-700">{data.overview || 'No overview available.'}</p>
                   </div>
-                  
+
                   {data.itinerary?.length > 0 && (
                     <div className="mb-8">
                       <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Detailed Itinerary</h2>
@@ -771,8 +799,8 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                         {data.itinerary.map((day, index) => (
                           <div key={index} className="border-b border-gray-200 pb-4">
                             <h3 className="text-xl font-semibold text-orange-500 mb-2">Day {day.day}: {day.title}</h3>
-                            <div 
-                              className="text-gray-700" 
+                            <div
+                              className="text-gray-700"
                               dangerouslySetInnerHTML={{ __html: day.description || 'No description available.' }}
                             />
                           </div>
@@ -780,7 +808,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                       </div>
                     </div>
                   )}
-                  
+
                   <div className="text-center text-sm text-gray-500 mt-12 pt-4 border-t border-gray-200">
                     <p>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9803556169</p>
                     <p className="mt-2">www.realhimalaya.com</p>
