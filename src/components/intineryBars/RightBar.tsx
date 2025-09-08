@@ -736,13 +736,8 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                 color: '#3A3A3A',
               }}
             >
-              <Icon 
-                icon="material-symbols:visibility-rounded" 
-                width="20" 
-                height="20" 
-                className="transition-colors duration-300"
-              />
-              {isGeneratingPdf ? 'Opening...' : 'View Itinerary'}
+              
+              {isGeneratingPdf ? 'Opening...' : 'View Details'}
             </button>
           </div>
           

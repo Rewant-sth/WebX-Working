@@ -9,10 +9,10 @@ import {
     Users,
     HelpCircle,
     ClipboardCheck,
-    Shield,
     Backpack,
     Heart,
     AlertTriangle,
+    MapPin,
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
@@ -93,7 +93,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         {
             id: "route-map",
             label: "Route Map",
-            icon: <Shield className="w-4 h-4" />,
+            icon: <MapPin className="w-4 h-4" />,
             condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {

@@ -13,6 +13,7 @@ import { IItinerary } from "@/types/IPackages";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { console } from "inspector";
 
 // Types
 type ItineraryDetails = {
@@ -150,6 +151,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
 
   const displayedData = showAll ? data : data?.slice(0, 5);
   const hasMoreItems = data && data.length > 5;
+  
 
   return (
     <div
@@ -167,7 +169,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
       </p>
 
       <div className="space-y-4">
-        {displayedData?.reverse().map((day, index) => (
+        {displayedData?.map((day, index) => (
           <ItineraryDay
             key={day._id || index}
             day={day.days}
