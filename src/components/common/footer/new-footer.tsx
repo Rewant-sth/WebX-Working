@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
           <div className="  border-t border-dashed pt-4 pb-2 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
 
-            <div className="max-w-[1200px] w-full mx-auto ">
+            <div className="max-w-[1200px] w-full mx-auto">
               <div className="flex w-full justify-between items-center gap-5 md:gap-6 flex-wrap">
                 <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya</p>
                 <ul className="flex gap-4 md:gap-6">
