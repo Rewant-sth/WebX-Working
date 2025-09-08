@@ -91,10 +91,10 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             condition: (data) => data?.requirements?.length > 0,
         },
         {
-            id: "insurance",
-            label: "Insurance",
+            id: "route-map",
+            label: "Route Map",
             icon: <Shield className="w-4 h-4" />,
-            condition: (data) => data?.insurance?.length > 0,
+            condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
             id: "gear",
