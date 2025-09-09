@@ -58,7 +58,7 @@ const TalkToExperts: React.FC = () => {
           .map((expert) => {
             if (expert.addToHome) {
               return (
-                <div
+                <Link href={`/ourteam/${expert._id}`}
                   key={expert._id}
                   className="grid grid-cols-2 transition-all duration-500 cursor-pointer gap-6  items-center p-1 md:p-2 w-full md:max-w-[360px] text-[#01283F] border rounded-sm"
                 >
@@ -109,7 +109,7 @@ const TalkToExperts: React.FC = () => {
                       )}
                     </div>
                   </div>
-                </div>
+                </Link>
               )
             }
           })}
