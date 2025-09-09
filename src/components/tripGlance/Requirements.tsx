@@ -1,13 +1,12 @@
 "use client";
 
 import { ITravelPackage } from "@/types/IPackages";
-import { ClipboardCheck } from "lucide-react";
 
 const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="requirements"
-            className="border-b  border-gray-200 mb-8 pb-10"
+            className="pb-14"
         >
             {/* Requirements */}
             <h2 className="text-3xl font-bold text-orange-500 text-left ">

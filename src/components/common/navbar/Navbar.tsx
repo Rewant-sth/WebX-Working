@@ -196,7 +196,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 w-full p-4 md:px-6 py-1.5 lg:py-3 flex justify-between items-center transition-all duration-300 ${isScrolled ? "backdrop-blur-sm " : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 w-full p-4 md:px-6 py-1.5 lg:py-3 flex justify-between items-center transition-all duration-300 ${isScrolled ? "backdrop-blur-md " : "bg-transparent"
         }`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
@@ -267,37 +267,40 @@ export default function Navbar() {
               Categories
             </h2>
             <div className="grid gap-3">
-              {categories?.data?.map((category) => (
-                <Link
-                  className=""
-                  href={`/package-list/${category.slug}`}
-                  key={category._id}
-                  onClick={handleClose}
-                >
-                  <h2
-                    onMouseEnter={() => {
-                      setSelectedCategory(category);
-                      setSelectedStaticNav(null); // Clear static nav selection
-                      if (category.subCategories.length > 0) {
-                        setSelectedSubcategoryId(category.subCategories[0]._id);
-                      }
-                    }}
-                    className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
-                      ? "text-amber-300 bg-amber-500/5 "
-                      : ""
-                      }`}
+              {categories?.data?.map((category) => {
+                if (category.subCategories.length === 0) return null;
+                return (
+                  <Link
+                    className=""
+                    href={`/package-list/${category.slug}`}
+                    key={category._id}
+                    onClick={handleClose}
                   >
-                    {category.name}
-                    <Icon
-                      icon="fluent:arrow-right-20-filled"
-                      className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id
-                        ? "translate-x-0 opacity-100"
-                        : "-translate-x-3 opacity-0"
+                    <h2
+                      onMouseEnter={() => {
+                        setSelectedCategory(category);
+                        setSelectedStaticNav(null); // Clear static nav selection
+                        if (category.subCategories.length > 0) {
+                          setSelectedSubcategoryId(category.subCategories[0]._id);
+                        }
+                      }}
+                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
+                        ? "text-amber-300 bg-amber-500/5 "
+                        : ""
                         }`}
-                    />
-                  </h2>
-                </Link>
-              ))}
+                    >
+                      {category.name}
+                      <Icon
+                        icon="fluent:arrow-right-20-filled"
+                        className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id
+                          ? "translate-x-0 opacity-100"
+                          : "-translate-x-3 opacity-0"
+                          }`}
+                      />
+                    </h2>
+                  </Link>
+                )
+              })}
               {navs.map((item, idx) => (
                 <div key={idx}>
                   {item.subItems ? (

@@ -4,14 +4,14 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="trip-glance"
-      className="border-b  border-gray-200 pb-10 "
+      className="pb-14 "
     >
       <div className=" mx-auto ">
-        <h2 className="text-3xl font-bold text-orange-500 text-left mb-6">
+        <h2 className="text-2xl font-bold text-orange-500 text-left mb-6">
           Your Trip at a Glance
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2  gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3">
           {[
             {
               icon: "/icons/destination.png",
@@ -28,11 +28,11 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
               title: "Trip Difficulty",
               value: data?.difficulty || "N/A",
             },
-            // {
-            //   icon: "/icons/jogging.png",
-            //   title: "Activities",
-            //   value: data?.activity || "N/A",
-            // },
+            {
+              icon: "/icons/jogging.png",
+              title: "Activities",
+              value: data?.activity || "N/A",
+            },
             {
               icon: "/icons/mountain.png",
               title: "Max Elevation",
@@ -48,7 +48,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
             },
             {
               icon: "/icons/bus-school.png",
-              title: "Vehicle",
+              title: "Transportation",
               value: data?.vehicle || "N/A",
             },
             {
@@ -64,14 +64,14 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="p-4 flex gap-6 rounded-sm transition-all duration-300 border border-orange-100"
+              className="p-4 flex gap-4 rounded-sm transition-all duration-300 border border-orange-100"
             >
-              <div className="p-2 size-20  shrink-0 bg-white/80 rounded-sm">
+              <div className="p-2 size-12  shrink-0 bg-white/80 rounded-sm">
                 <img src={item.icon} alt="" className="" />
               </div>
               <div className="flex flex-col  gap-1">
-                <h3 className="font-semibold text-xl uppercase text-gray-800">{item.title}</h3>
-                <p className="text-gray-700  font-medium">
+                <h3 className="font-semibold  uppercase text-gray-800">{item.title}</h3>
+                <p className="text-gray-700 ">
                   {item.value || "N/A"}
                 </p>
               </div>

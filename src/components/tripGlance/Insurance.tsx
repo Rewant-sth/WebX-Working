@@ -7,10 +7,10 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
         <>
             <div
                 id="insurance"
-                className=" pb-6"
+                className=" pb-14"
             >
                 {/* Insurance */}
-                <h2 className="text-3xl font-bold text-orange-500 text-left ">
+                <h2 className="text-2xl font-semibold text-orange-500 text-left ">
                     <span className="w-fit">
                         Travel Insurance
                     </span>
@@ -18,20 +18,18 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                 <p className="text-zinc-600 mt-1 leading-relaxed  mb-8">
                     Comprehensive insurance coverage details to ensure your safety and peace of mind during your adventure.
                 </p>
-                <div className="space-y-4">
+                <div className="space-y-6">
                     {data?.insurance.map((item, index) => (
                         <div
                             key={index}
-                            className="flex items-start gap-4  border-b border-gray-300 pb-6 mb-6 transition-all duration-200"
+                            className="flex items-start gap-4   transition-all duration-200"
                         >
-                            {/* <div className="size-7">
-                                <img src="/icons/insurance.png" alt="insurance icon" />
-                            </div> */}
-                            <div className="flex-1 min-w-0">
-                                <h3 className="text-xl font-semibold mb-2">
+                            <div className="flex-1 min-w-0 ">
+                                <h3 className="text-lg font-semibold mb-3">
                                     {item.title}
                                 </h3>
                                 <div
+                                    id="editor"
                                     className="space-y-2 leading-relaxed text-gray-800"
                                     dangerouslySetInnerHTML={{ __html: item.description }}
                                 />

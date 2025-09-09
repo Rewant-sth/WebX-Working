@@ -1,37 +1,36 @@
 "use client";
 
 import { ITravelPackage } from "@/types/IPackages";
-import { CheckCircle, XCircle, ClipboardList, ListChecks } from "lucide-react";
 import { useState } from "react";
 
 const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
   const [activeTab, setActiveTab] = useState<'inclusion' | 'exclusion'>('inclusion');
 
   return (
-    <div className="md:py-10">
+    <div className="">
       <div
         id="inclusion-&-exclusion"
-        className="md:border-b border-gray-200 mb-8 md:pb-10 "
+        className=" "
       >
         {/* Tab Navigation */}
-        <div className="mb-4">
-          <div className="flex overflow-auto gap-2 border-b border-gray-200">
+        <div className="mb-4  bg-white z-[99]">
+          <div className="flex text-xl overflow-auto gap-2 border-b border-gray-200">
             <button
               onClick={() => setActiveTab('inclusion')}
-              className={`px-4 sm:px-6 py-3 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'inclusion'
-                ? 'border-green-600 text-green-600 bg-green-50'
-                : 'border-transparent text-gray-600 hover:text-green-600 hover:bg-green-50'
+              className={`px-4 sm:px-6 py-2 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'inclusion'
+                ? 'border-orange-500 text-orange-500 bg-orange-50'
+                : 'border-transparent text-gray-500 hover:text-orange-500 hover:bg-orange-50'
                 }`}
             >
               <span className="flex items-center gap-2">
-                <span>What's Included ?</span>
+                <span className="">What's Included ?</span>
               </span>
             </button>
             <button
               onClick={() => setActiveTab('exclusion')}
-              className={`px-4 sm:px-6 py-3 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'exclusion'
-                ? 'border-[#0F40B0] text-[#0F40B0] bg-[#0F40B0]/20'
-                : 'border-transparent text-gray-600 hover:bg-[#0F40B0]/20 hover:text-[#0F40B0] '
+              className={`px-4 sm:px-6 py-2 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'exclusion'
+                ? 'border-orange-500 text-orange-500 bg-orange-500/20'
+                : 'border-transparent text-gray-500 hover:bg-orange-500/20 hover:text-orange-500 '
                 }`}
             >
               <span className="flex items-center gap-2">
@@ -45,26 +44,25 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
         <div className="mb-10">
           {activeTab === 'inclusion' && (
             <div>
-              <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
+              <p className="text-zinc-500 mb-6 leading-relaxed max-w-2xl">
                 Everything that's included in your trip package to ensure a seamless travel experience.
               </p>
-              <div className="grid  gap-4">
+              <div className="grid divide-y divide-gray-200 gap-4">
                 {data?.inclusion.map((item, index) => (
                   <div
                     key={index}
-                    className="flex border border-gray-200 p-6 items-start gap-4 rounded-sm hover:border-gray-300 transition-all duration-200"
+                    className="flex pb-4  items-start gap-4 rounded-sm  transition-all duration-200"
                   >
-
                     <div className="flex-1 min-w-0">
                       <div className="flex gap-4 ">
-                        <div className="shrink-0 size-7 mt-1 rounded-md" >
-                          <img src="/icons/check-green.png" alt="check" className="" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                        {/* <div className="shrink-0 size-7 mt-1 rounded-md" >
+                          <img src="/icons/check.png" alt="check" className="" />
+                        </div> */}
+                        <h3 className="text-xl capitalize font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                           {item.title}
                         </h3>
                       </div>
-                      <p className="mt-4 leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                      <p className="mt- leading-relaxed text-gray-500" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                     </div>
                   </div>
                 ))}
@@ -74,26 +72,26 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
 
           {activeTab === 'exclusion' && (
             <div>
-              <p className="text-zinc-600 mb-6 leading-relaxed max-w-2xl">
+              <p className="text-zinc-500 mb-6 leading-relaxed max-w-2xl">
                 Items and services not included in the package that you'll need to arrange separately.
               </p>
-              <div className="grid  gap-4">
+              <div className="grid divide-y divide-gray-200  gap-4">
                 {data?.exclusion.map((item, index) => (
                   <div
                     key={index}
-                    className="flex border border-gray-200 items-start gap-4 p-6 rounded-sm hover:border-gray-300 transition-all duration-200"
+                    className="flex pb-4  items-start gap-4  transition-all duration-200"
                   >
 
                     <div className="flex-1 min-w-0">
                       <div className="flex gap-4 ">
-                        <div className="shrink-0 size-7 mt-1 rounded-md" >
+                        {/* <div className="shrink-0 size-7 mt-1 rounded-md" >
                           <img src="/icons/delete.png" alt="exclusion" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                        </div> */}
+                        <h3 className="text-xl capitalize font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                           {item.title}
                         </h3>
                       </div>
-                      <p className="mt-4 leading-relaxed text-gray-600" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                      <p className="mt- leading-relaxed text-gray-500" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                     </div>
                   </div>
                 ))}
@@ -109,7 +107,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
             <span>Requirements</span>
           </span>
         </h2>
-        <p className="text-zinc-600 mt-3 leading-relaxed max-w-2xl mb-6">
+        <p className="text-zinc-500 mt-3 leading-relaxed max-w-2xl mb-6">
           Essential items and documents you'll need to bring for your trip.
         </p>
         <div className="space-y-4">
@@ -126,7 +124,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                 <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                <p className="text-sm leading-relaxed text-gray-500">{item.description}</p>
               </div>
             </div>
           )) || (

@@ -23,15 +23,15 @@ const RelatedTrips = ({
 
   return (
     <div className="border-b  border-gray-200 mb-8 pb-10">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-end mb-8">
         <div>
-          <h2 className="text-3xl font-bold text-orange-500 text-left ">
+          <h2 className="text-2xl text-orange-500 text-left ">
             <span className="w-fit  font-semibold">
               Related Trips
             </span>
           </h2>
           <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl">
-            Discover other amazing adventures that might interest you on your next journey.
+            Adventures that might interest you on your next journey.
           </p>
         </div>
         <Link
@@ -39,7 +39,7 @@ const RelatedTrips = ({
           className="inline-flex items-center font-medium transition-colors duration-200 hover:underline"
           style={{ color: '#01283F' }}
         >
-          View all related trips <ArrowRight className="ml-2 w-5 h-5" />
+          View all  <ArrowRight className="ml-2 w-5 h-5" />
         </Link>
       </div>
 

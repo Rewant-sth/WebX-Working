@@ -8,15 +8,15 @@ const RouteMap = ({ data, onShow }: { data: ITravelPackage | undefined, onShow: 
   if (!data?.routeMap) return null;
 
   return (
-    <div id="route-map" ref={routeMapRef} className="scroll-mt-20">
-      <h2 className="text-3xl font-bold text-orange-500 text-left mb-6">
+    <div id="route-map" ref={routeMapRef} className="scroll-mt-20 pb-14">
+      <h2 className="text-2xl font-semibold text-orange-500 text-left  mb-4">
         Route Map</h2>
-      <div className=" transition-opacity duration-300 mb-10"
+      <div className=" transition-opacity duration-300 "
       >
         <div
 
           onClick={onShow}
-          className="w-full  overflow-auto  bg-white  rounded-sm  cursor-pointer hover:shadow-none transition-all border border-orange-100  relative"
+          className="w-full  overflow-auto  bg-white  rounded-sm  cursor-pointer hover:shadow-none transition-all  relative"
         >
           <Image
             src={data.routeMap}

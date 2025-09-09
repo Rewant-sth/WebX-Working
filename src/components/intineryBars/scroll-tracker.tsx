@@ -2,17 +2,10 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
-    Eye,
-    CalendarRange,
-    DollarSign,
-    CalendarDays,
     Users,
     HelpCircle,
     ClipboardCheck,
     Backpack,
-    Heart,
-    AlertTriangle,
-    MapPin,
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
@@ -47,89 +40,89 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             id: "major-highlights",
             label: "Highlights",
             icon: (
-                <Icon icon="lineicons:bulb-4" className="w-4 h-4" />
+                <Icon icon="stash:light-bulb-light" className="size-6" />
             ),
             condition: (data) => data?.attraction?.length > 0,
         },
         {
             id: "seasonal-info",
             label: "Seasons",
-            icon: <Icon icon="carbon:calendar-heat-map" className="w-4 h-4" />,
+            icon: <Icon icon="ph:snowflake-thin" className="size-6 scale-110" />,
             condition: (data) => Array.isArray(data?.seasonalTrek) && data.seasonalTrek.length > 0,
         },
         {
             id: "overview",
             label: "Overview",
-            icon: <Eye className="w-4 h-4" />,
+            icon: <Icon icon="qlementine-icons:info-32" className="size-6" />,
         },
         // {
         //     id: "trip-glance",
         //     label: "Trip Info",
-        //     icon: <Compass className="w-4 h-4" />,
+        //     icon: <Compass className="size-6" />,
         // },
         // {
         //     id: "route-map",
         //     label: "Route",
-        //     icon: <MapPinned className="w-4 h-4" />,
+        //     icon: <MapPinned className="size-6" />,
         // },
         {
             id: "itinerary",
             label: "Itinerary",
-            icon: <CalendarRange className="w-4 h-4" />,
+            icon: <Icon icon={"guidance:calendar"} className="size-6" />,
             condition: (data) => data?.itinerary?.length > 0,
         },
         {
             id: "inclusion-&-exclusion",
             label: "Cost Info",
-            icon: <DollarSign className="w-4 h-4" />,
+            icon: <Icon strokeWidth={2} icon={"streamline-freehand:money-bag-dollar"} className="size-6" />,
             condition: (data) => data?.inclusion?.length > 0,
         },
         {
             id: "requirements",
             label: "Requirements",
-            icon: <ClipboardCheck className="w-4 h-4" />,
+            icon: <ClipboardCheck className="size-6" />,
             condition: (data) => data?.requirements?.length > 0,
         },
         {
             id: "route-map",
             label: "Route Map",
-            icon: <MapPin className="w-4 h-4" />,
+            icon: <Icon icon={'streamline-cyber:location-pin-1'} className="size-6" />,
             condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
             id: "gear",
             label: "Gear Info",
-            icon: <Backpack className="w-4 h-4" />,
+            icon: <Backpack className="size-6" />,
             condition: (data) => data?.gearInfo?.length > 0,
         },
         {
             id: "why-love-this",
             label: "Why Love This",
-            icon: <Heart className="w-4 h-4" />,
+            icon: <Icon icon={"ph:heart-thin"} className="size-6" />,
             condition: (data) => data?.whyLoveThisTrek?.length > 0,
         },
         {
             id: "important-notice",
             label: "Important Notice",
-            icon: <AlertTriangle className="w-4 h-4" />,
+            icon: <Icon icon={"guidance:alert-triangle"} className="size-6" />,
             condition: (data) => data?.importantNotice?.length > 0,
         },
         {
             id: "date-&-prices",
             label: "Dates & Prices",
-            icon: <CalendarDays className="w-4 h-4" />,
+            icon: <Icon icon={"ph:calendar-dots-thin"} className="size-6 scale-110" />,
             condition: (data) => data?.fixedDates?.length > 0,
         },
         {
             id: "traveller-review",
             label: "Reviews",
-            icon: <Users className="w-4 h-4" />,
+            icon: <Users className="size-6" />,
             condition: (data) => data?.testimonial?.length > 0,
         },
         {
             id: "faqs",
             label: "FAQs",
-            icon: <HelpCircle className="w-4 h-4" />,
+            icon: <Icon icon={"qlementine-icons:question-32"} className="size-6" />,
             condition: (data) => data?.faq?.length > 0,
         },
     ];
@@ -199,10 +192,10 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     }, [visibleSections, isScrollingToSection]);
 
     return (
-        <div className="w-full">
+        <div className="w-full ">
             {/* Mobile/Tablet Layout - Horizontal Scroll */}
             <div className="lg:hidden w-full bg-white border-b border-gray-200">
-                <div className="px-4 flex justify-start items-center overflow-auto">
+                <div className="w-full flex justify-start items-center overflow-auto">
                     <div className="py-2 flex justify-start items-center overflow-auto">
                         {visibleSections.length > 0 && (
                             <div className="relative">
@@ -211,12 +204,12 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                         <button
                                             key={section.id}
                                             onClick={() => handleScrollToSection(section.id)}
-                                            className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm font-medium transition-all duration-300 flex-shrink-0 ${activeSection === section.id
+                                            className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm   transition-all duration-300 flex-shrink-0 ${activeSection === section.id
                                                 ? "bg-orange-500 text-white"
                                                 : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
                                                 }`}
                                         >
-                                            <span className={`${activeSection === section.id ? "text-white" : ""}`}>
+                                            <span className={`${activeSection === section.id ? "text-white" : ""} `}>
                                                 {section.icon}
                                             </span>
                                             {section.label}
@@ -232,11 +225,11 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             {/* Desktop Layout - Vertical Sidebar */}
             <div className="hidden lg:block">
                 <div className="bg-white  rounded-sm  ">
-                    <h3 className="text-lg  font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-100">
+                    <h3 className=" b  uppercase text-orange-500 font-semibold lg:text-xl  mb-4 pb-2 border-b border-gray-200">
                         Table of Contents
                     </h3>
                     {visibleSections.length > 0 && (
-                        <nav className="space-y-1">
+                        <nav className="space-y-1 pr-3">
                             {visibleSections.map((section) => (
                                 <button
                                     key={section.id}
@@ -246,7 +239,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                         : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
                                         }`}
                                 >
-                                    <span className={`flex-shrink-0 ${activeSection === section.id ? "text-white" : "text-gray-500"}`}>
+                                    <span className={`flex-shrink-0 ${activeSection === section.id ? "text-white" : ""}`}>
                                         {section.icon}
                                     </span>
                                     <span className="truncate">{section.label}</span>

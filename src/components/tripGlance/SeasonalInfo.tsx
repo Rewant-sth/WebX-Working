@@ -9,15 +9,15 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
     if (!data.seasonalTrek || data.seasonalTrek.length === 0) return null;
 
     return (
-        <div id="seasonal-info" className="w-full bg-white rounded-xl py-6 mt-8">
-            <div className="flex items-center gap-2 mb-6">
-                <h2 className="text-3xl font-bold text-orange-500 text-left mb-3">
+        <div id="seasonal-info" className="w-full bg-white rounded-xl  pb-14">
+            <div className="flex items-center gap-2 mb-4">
+                <h2 className="text-2xl font-bold text-orange-500 text-left ">
                     Best Seasons for Trek</h2>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
                 {data.seasonalTrek.map((season) => (
-                    <div key={season._id} className="border-b border-gray-100 pb-6 last:border-0 last:pb-0">
+                    <div key={season._id} className="">
                         <h3 className="text-lg font-medium mb-3">{season.title}</h3>
                         <div
                             className="text-gray-600"

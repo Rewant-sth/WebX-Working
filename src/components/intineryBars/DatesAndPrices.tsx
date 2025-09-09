@@ -337,7 +337,6 @@ const DatesAndPrices = ({
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date | null>(null);
-  const { setSelectedTrip } = useSelectedTrip();
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -414,19 +413,14 @@ const DatesAndPrices = ({
     // Don't reset currentDisplayMonth - keep the calendar view stable
   };
 
-  const handleBookNow = () => {
-    if (selectedDate && data) {
-      setSelectedTrip(data);
-      setShowForm(true);
-    }
-  };
+
 
   return (
     <div
       id="date-&-prices"
-      className="mt-6 border-b-2  border-dashed border-zinc-200 mb-8 pb-10"
+      className=" pb-14"
     >
-      <h2 className="text-3xl font-bold text-orange-500 text-left ">
+      <h2 className="text-2xl  text-orange-500 text-left ">
         <span className="w-fit   font-semibold " >
           Dates & Prices
         </span>
@@ -438,8 +432,8 @@ const DatesAndPrices = ({
 
       {/* Calendar Section */}
       <div className="mt-8 max-w-4xl">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-semibold text-gray-800">Select Your Start Date</h3>
+        <div className="flex justify-between items-center  mb-2">
+          <h3 className=" font-semibold text-gray-800 ">Select Your Start Date</h3>
 
           {/* Navigation arrows */}
           <div className="flex items-center gap-2">
@@ -448,14 +442,14 @@ const DatesAndPrices = ({
               className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
               aria-label="Previous months"
             >
-              <Icon icon="mdi:chevron-left" width="24" height="24" className="text-gray-600" />
+              <Icon icon="mdi:chevron-left" width="24" height="24" className="text-orange-500" />
             </button>
             <button
               onClick={handleNextMonth}
               className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
               aria-label="Next months"
             >
-              <Icon icon="mdi:chevron-right" width="24" height="24" className="text-gray-600" />
+              <Icon icon="mdi:chevron-right" width="24" height="24" className="text-orange-500" />
             </button>
           </div>
         </div>
@@ -481,57 +475,56 @@ const DatesAndPrices = ({
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-6 mb-6 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#F05E25] rounded"></div>
-            <span>Selected Start Date</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#F05E25]/20 rounded border border-[#F05E25]/20"></div>
-            <span>Trip Duration ({tripDuration} days)</span>
-          </div>
-          {/* <div className="flex items-center gap-2">
-            <div className="w-4 h-4 border-2 border-blue-400 rounded"></div>
-            <span>Today</span>
-          </div> */}
-        </div>
+
 
         {/* Selected Date Info and Book Button */}
         {selectedDate && (
-          <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
-            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                  Selected Trip Details
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-800 font-medium">Start Date:</span>
-                    <p className="text-gray-800">{selectedDate.toDateString()}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-800 font-medium">End Date:</span>
-                    <p className="text-gray-800">
-                      {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-gray-800 font-medium">Duration:</span>
-                    <p className="text-gray-800">{tripDuration} days</p>
+          <>
+            <div className="flex flex-wrap gap-6 mb-6 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-[#F05E25] rounded"></div>
+                <span>Selected Start Date</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-[#F05E25]/20 rounded border border-[#F05E25]/20"></div>
+                <span>Trip Duration ({tripDuration} days)</span>
+              </div>
+            </div>
+            <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
+              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                    Selected Trip Details
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <span className="text-gray-800 font-medium">Start Date:</span>
+                      <p className="text-gray-800">{selectedDate.toDateString()}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-800 font-medium">End Date:</span>
+                      <p className="text-gray-800">
+                        {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-gray-800 font-medium">Duration:</span>
+                      <p className="text-gray-800">{tripDuration} days</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <Link onClick={() => setPackage(pkg as ITravelPackage)} href={`/booking/${pkg?.slug}`} >
-                <button
-                  className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
-                >
-                  <Icon icon="mdi:calendar-check" width="20" height="20" />
-                  Book This Trip
-                </button>
-              </Link>
+                <Link onClick={() => setPackage(pkg as ITravelPackage)} href={`/booking/${pkg?.slug}`} >
+                  <button
+                    className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
+                  >
+                    <Icon icon="mdi:calendar-check" width="20" height="20" />
+                    Book This Trip
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {/* Booking Form */}

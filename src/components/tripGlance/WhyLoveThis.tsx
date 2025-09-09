@@ -7,10 +7,10 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="why-love-this"
-            className=" mt-10  border-gray-200  pb-10"
+            className="   border-gray-200  pb-14"
         >
             {/* Why Love This */}
-            <h2 className="text-3xl font-bold text-orange-500 text-left ">
+            <h2 className="text-2xl  text-orange-500 text-left ">
                 <span className="w-fit  font-semibold">
                     Why You'll Love This
                 </span>
@@ -32,7 +32,7 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
                                 {item.title}
                             </h3>
                             <div
-                                className="text-sm space-x-4  leading-relaxed text-gray-600"
+                                className=" space-x-4  leading-relaxed text-gray-600"
                                 id="editor" dangerouslySetInnerHTML={{ __html: item.description }}
                             />
                         </div>

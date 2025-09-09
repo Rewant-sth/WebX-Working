@@ -19,9 +19,9 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
   return (
     <div
       id="faqs"
-      className=" mb-16  "
+      className=" pb-14  "
     >
-      <h2 className="text-3xl font-bold text-orange-500 text-left ">
+      <h2 className="text-2xl font-semibold text-orange-500 text-left ">
         <span className="w-fit  font-semibold">
           FAQ and Guides
         </span>

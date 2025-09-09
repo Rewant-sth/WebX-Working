@@ -82,8 +82,8 @@ const Page = () => {
       ) : (
         <>
           <div ref={heroRef} className="relative min-h-screen overflow-hidden  ">
-            <div className="absolute bottom-0  z-[99]  ">
-              <img src="/man2.png" alt="man" className="scale-110 lg:w-[65%]  translate-y-16 object-cover drop-shadow-black" />
+            <div className="absolute bottom-0 right-0 z-[99]  flex justify-end items-end w-full h-full">
+              <img src="/man2.png" alt="man" className="scale-110 lg:w-[60%]  translate-y-16 object-cover drop-shadow-black" />
             </div>
 
             {/* <Title data={packageData?.data as ITravelPackage} /> */}
@@ -94,10 +94,10 @@ const Page = () => {
             </div>
           </div>
 
-          <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-4 md:gap-6 lg:gap-8 p-4 md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
+          <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
             {/* Left Sidebar - Scroll Tracker */}
-            <div className="hidden lg:block lg:w-[22%] xl:w-[20%] shrink-0">
+            <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
               <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
                 <ScrollTracker data={packageData?.data as ITravelPackage} />
               </div>
@@ -109,7 +109,7 @@ const Page = () => {
             </div>
 
             {/* Center Content */}
-            <div className="w-full lg:w-[53%] xl:w-[55%] relative rounded-xl min-w-0">
+            <div className="w-full lg:border-l border-gray-200 lg:w-[53%] xl:w-[60%] p-4 lg:px-8 relative  min-w-0">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData && <SeasonalInfo data={packageData.data} />}
@@ -118,7 +118,7 @@ const Page = () => {
                 <MajorHighlight data={packageData?.data} />
               ) : null}
 
-              <div className="h-[60dvh] w-full relative mb-12 rounded-sm overflow-hidden">
+              <div className="h-[60dvh] w-full relative mb-14 rounded-sm overflow-hidden">
                 <Image src={packageData?.data?.coverImage || "/placeholder.png"} alt="Manaslu" layout="fill" objectFit="cover" className="object-top" />
               </div>
 
@@ -180,7 +180,7 @@ const Page = () => {
 
             {/* Right Sidebar */}
             <div className="lg:w-[25%] xl:w-[25%] shrink-0">
-              <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+              <div className="sticky top-20 ">
                 <RightBar data={packageData?.data} />
               </div>
             </div>

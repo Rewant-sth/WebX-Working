@@ -16,13 +16,13 @@ export default function Footer() {
 
 
   return (
-    <footer ref={footerRef} className="   w-full relative  flex flex-col justify-end items-end   ">
+    <footer ref={footerRef} className="p-6   w-full relative  flex flex-col justify-end items-end   ">
 
       {/* footer expert part */}
 
       <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center  w-full mb-8 md:mb-24 ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
-          <div className="  max-w-7xl w-full  mt-6 px-4">
+          <div className="   w-full  mt-6">
             <TalkToExperts />
           </div>
         </div>
@@ -33,13 +33,13 @@ export default function Footer() {
       </div>
 
       {/* footer bottom part */}
-      <div className="w-full relative z-50  flex  flex-col justify-center  p-4 md:p-0      pb-4">
+      <div className="w-full relative z-50  flex  flex-col justify-center  ">
         <div className="relative text-center w-full  ">
           <div className=" mx-auto h-[100px] lg:h-[200px]  overflow-hidden">
-            <img src="/logo/text.svg" alt="real himalaya" className='w-full lg:-translate-y-5 2-full z-40  max-w-7xl mx-auto invert' />
+            <img src="/logo/text.svg" alt="real himalaya" className='w-full lg:-translate-y-5 2-full z-40   mx-auto invert' />
           </div>
 
-          <div className="max-w-7xl  b pb-5 mb-5  border-zinc-300 sm:mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
+          <div className="  b pb-2 mb-2 border-zinc-300 sm:mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
             <div className="flex flex-wrap gap-4 md:gap-6 items-center">
               <p className='md:text-xl shrink-0'>Recommended By : </p>
               <div className="">
@@ -64,7 +64,7 @@ export default function Footer() {
           </div>
           <div className="border-t border-dashed pt-4 pb-2 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
 
-            <div className="max-w-7xl w-full mx-auto">
+            <div className=" w-full mx-auto">
               <div className="flex w-full justify-between items-center gap-5 md:gap-6 flex-wrap">
                 <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya Pvt. Ltd</p>
                 <ul className="flex gap-4 md:gap-6">

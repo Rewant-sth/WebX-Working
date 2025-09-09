@@ -3,27 +3,11 @@ import {
   ChevronRight,
   PhoneCall,
   Info,
-  Timer,
-  Mountain,
-  Bed,
-  Utensils,
-  CalendarDays,
 } from "lucide-react";
 import { IItinerary } from "@/types/IPackages";
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { console } from "inspector";
 
-// Types
-type ItineraryDetails = {
-  altitude?: string;
-  activity?: string;
-  distance?: string;
-  duration?: string;
-  accommodation?: string;
-  meals?: string;
-};
 
 type ItineraryDayProps = {
   day: string;
@@ -46,23 +30,22 @@ const ItineraryDay = ({
   const [expanded, setExpanded] = useState(isFirst);
 
   return (
-    <div className=" hover:border-gray-300 transition-all duration-300 rounded-sm bg-gray-50/80 sm:border border-gray-100 mb-4 ">
+    <div className=" pb-4 transition-all duration-300 ">
       <div
-        className="flex items-start sm:items-center justify-between py-2 sm:py-5 px-4 sm:px-6 cursor-pointer hover:bg-gray-100 transition-all duration-200 rounded-t-lg"
+        className="flex items-start sm:items-center justify-between py-2 sm:py-3   cursor-pointer  transition-all duration-200 rounded-t-lg"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex sm:items-center gap-4">
-          <span className="rounded-sm shrink-0 px-4 bg-[#F05E25] py-2 text-sm h-fit font-semibold text-white">
+          <span className="rounded-sm shrink-0 px-3 bg-[#F05E25] py-2 text-sm h-fit font-semibold text-white">
             Day {day?.toString()?.padStart(2, "0")}
           </span>
-          <h3 className="font-semibold text-lg" style={{ color: "#3A3A3A" }}>
+          <h3 className="font-semibold text-lg" >
             {title}
           </h3>
         </div>
         <div
           className="transition-transform duration-300 ease-in-out"
           style={{
-            color: "#f05e25",
             transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
           }}
         >
@@ -71,22 +54,22 @@ const ItineraryDay = ({
       </div>
 
       <div
-        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "h-full opacity-100" : "max-h-0 opacity-0"
+        className={` transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "h-full opacity-100" : "max-h-0 opacity-0"
           }`}
       >
-        <div className="px-6 pb-6">
+        <div className=" pb-6">
           <div id="editor" dangerouslySetInnerHTML={{ __html: description }} className="text-gray-600 text-base leading-relaxed pt-4 mb-6">
 
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex flex-wrap gap-4 lg:gap-8">
             {data?.duration && (
               <div className="flex  gap-4">
                 <div className="rounded-sm  flex items-center justify-center w-10 h-10 shrink-0">
                   <img src="/icons/time.png" alt="time" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="font-semibold leading-4 text-lg mb-1">
+                  <h3 className="font-semibold leading-4  mb-1">
                     Duration
                   </h3>
                   <p className=" text-gray-600">{data.duration}</p>
@@ -114,7 +97,7 @@ const ItineraryDay = ({
                   <img src="/icons/mansion.png" alt="time" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="font-semibold leading-4 mb-1">
+                  <h3 className="font-semibold leading-4  mb-1">
                     Accommodation
                   </h3>
                   <p className=" text-gray-600">{data.accommodation}</p>
@@ -128,12 +111,9 @@ const ItineraryDay = ({
                   <img src="/icons/bibimbap.png" alt="meal" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <p
-                    className="font-semibold text-sm mb-1"
-                    style={{ color: "#3A3A3A" }}
-                  >
+                  <h3 className="font-semibold leading-4  mb-1">
                     Meals
-                  </p>
+                  </h3>
                   <p className="text-sm text-gray-600">{data.meals}</p>
                 </div>
               </div>
@@ -151,24 +131,24 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
 
   const displayedData = showAll ? data : data?.slice(0, 5);
   const hasMoreItems = data && data.length > 5;
-  
+
 
   return (
     <div
       id="itinerary"
-      className="border-b  border-gray-200 mb-8 pb-10"
+      className=" pb-14"
     >
-      <h2 className="text-3xl font-bold text-orange-500 text-left mb-6">
+      <h2 className="text-2xl font-semibold text-orange-500 text-left mb-2">
         <span className="flex items-center gap-2">
-          <span>Itinerary</span>
+          <span>Itinerary Details</span>
         </span>
       </h2>
-      <p className="text-zinc-600 mt-1 leading-relaxed  mb-8">
+      <p className="text-zinc-600 mt-1 leading-relaxed  mb-4">
         Follow our detailed day-by-day itinerary to understand what each day of
         your adventure will bring.
       </p>
 
-      <div className="space-y-4">
+      <div className="space-y-4 divide-y divide-gray-200">
         {displayedData?.map((day, index) => (
           <ItineraryDay
             key={day._id || index}
