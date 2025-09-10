@@ -89,7 +89,7 @@ const AboutUsPage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative h-[75dvh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
-          src={"/EVEREST REGION/NIKON D80013076.JPG"}
+          src={"/EVEREST REGION/NIKOND80013076.JPG"}
           alt="Everest Region"
           fill
           className="object-cover object-bottom brightness-60"
@@ -157,7 +157,7 @@ const AboutUsPage: React.FC = () => {
         className="relative py-16 px-6 bg-gradient-to-b from-white to-gray-50 overflow-hidden"
       >
         <motion.div
-          className="absolute inset-0 bg-[url('/EVEREST%20REGION/NIKON%20D50001920.JPG')] bg-cover bg-center opacity-90"
+          className="absolute inset-0 bg-[url('/EVEREST%20REGION/NIKOND50001920.JPG')] bg-cover bg-center opacity-90"
           transition={{ duration: 1.2, ease: "easeOut" }}
           viewport={{ once: true }}
         />
@@ -255,12 +255,10 @@ const AboutUsPage: React.FC = () => {
 
                   {
                     name: "Trekking",
-                    // icon: <Footprints className="w-6 h-6" />,
                     bgImage: "/banner.webp"
                   },
                   {
                     name: "Expeditions",
-                    // icon: <Compass className="w-6 h-6" />,
                     bgImage: "/EVEREST REGION/NIKON D50001898.JPG"
                   },
                   {
@@ -272,12 +270,12 @@ const AboutUsPage: React.FC = () => {
                   {
                     name: "City Tours",
                     // icon: <MapPin className="w-6 h-6" />,
-                    bgImage: "/citytour.png"
+                    bgImage: "/citytour.jpeg"
                   },
                   {
                     name: "Cultural Experiences",
                     // icon: <Palette className="w-6 h-6" />,
-                    bgImage: "/culture.png"
+                    bgImage: "/culture.jpeg"
                   },
                   {
                     name: "Jungle Safari",

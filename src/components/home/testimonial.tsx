@@ -7,7 +7,7 @@ const TestimonialsSections = () => {
   return (
     <section className=" h-full   my-16 mb-20">
       <div className="grid grid-cols-8 gap-1 md:gap-4 px-2 sm:px-6 py-10 pt-10">
-        {['/1.jpeg', '/2.jpeg', '/3.jpeg', '/4.jpeg', '/5.jpeg', '/1.jpeg', '/2.jpeg', '/3.jpeg', '/4.jpeg', '/5.jpeg', '/1.jpeg', '/2.jpeg'].map((src, index) => (
+        {['/Avtar/1.jpg', '/Avtar/2.jpg', '/Avtar/3.jpg', '/Avtar/4.jpg', '/Avtar/5.jpg', '/Avtar/6.jpg', '/Avtar/7.jpg', '/Avtar/8.jpg', '/Avtar/9.jpg', '/Avtar/10.jpg', '/Avtar/11.jpg', '/Avtar/12.jpg'].map((src, index) => (
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
@@ -16,7 +16,7 @@ const TestimonialsSections = () => {
             key={index} className={`col-span-1 rounded-xl w-full h-[120px] md:h-[220px] relative ${index % 2 == 0 ? "translate-y-6 md:translate-y-14" : ""}
           ${index > 1 && index < 6 ? "row-span-2" : ""}
           `}>
-            <img src={src} alt={`Testimonial ${index + 1}`} className="w-full h-full object-cover rounded-xl" />
+            <img src={src} alt={`Testimonial ${index + 1}`} className="w-full h-full object-cover object-center rounded-sm" />
           </motion.div>
         ))}
       </div>

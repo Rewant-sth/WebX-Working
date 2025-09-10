@@ -79,7 +79,7 @@ export default function Hero() {
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
 
       <div className="absolute inset-0">
-        <img src="/hero-back.png" alt="" className='w-full h-full brightness-50 opacity-40' />
+        <img src="/hero-back.JPEG" alt="" className='w-full h-full brightness-50 opacity-40' />
       </div>
       {/* hero first */}
       <div ref={sectionRef} className="h-screen   sticky top-30 lg:flex gap-6 lg:gap-16 p-6 ">
@@ -105,7 +105,7 @@ export default function Hero() {
         className="absolute top-[20%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
       >
         <div className="relative h-full max-w-screen  ">
-          <img src="/hero-front2.png" alt="hero" className="w-full h-full object-cover object-top" />
+          <img src="/hero-front.png" alt="hero" className="w-full h-full object-cover object-top" />
         </div>
       </div>
 
