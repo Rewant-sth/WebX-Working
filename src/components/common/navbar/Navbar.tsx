@@ -149,7 +149,10 @@ export default function Navbar() {
       !selectedCategory &&
       !selectedStaticNav
     ) {
-      const firstCategory = categories.data[0];
+      const firstCategory = categories.data[0].subCategories.length > 0
+        ? categories.data[0]
+        : categories.data.find(cat => cat.subCategories.length > 0);
+      if (!firstCategory) return; // No category with subcategories found
       setSelectedCategory(firstCategory);
       if (firstCategory.subCategories.length > 0) {
         setSelectedSubcategoryId(firstCategory.subCategories[0]._id);
@@ -520,10 +523,10 @@ export default function Navbar() {
                     key={pkg._id}
                     href={`/itinerary/${pkg.slug}`}
                     onClick={handleClose}
-                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 hover:shadow-2xl hover:scale-[1.02] relative cursor-pointer group"
+                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 ] relative cursor-pointer group"
                   >
                     <div className="w-full h-full group  rounded-sm   group-hover:opacity-70 transition-opacity duration-300 ">
-                      <div className="absolute inset-0 z-10 p-4 flex items-end">
+                      <div className="absolute inset-0 group-hover:backdrop-blur-sm z-50 p-4 flex items-end">
                         <h2
                           style={{
                             textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
@@ -538,7 +541,7 @@ export default function Navbar() {
                         quality={80}
                         src={pkg.coverImage}
                         alt={pkg.name}
-                        className="w-full h-full object-cover group-hover:blur-[3px]"
+                        className="w-full h-full object-cover "
                       />
                     </div>
                   </Link>
