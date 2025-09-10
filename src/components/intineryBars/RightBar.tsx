@@ -11,18 +11,22 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const [price, setPrice] = useState<number | null>(null);
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
 
-  const getLowestPrice = async () => {
-    try {
-      const response = await api.get("/lowest-price");
-      setPrice(response.data.data.pricePerPerson);
-    } catch (error) {
-      console.error("Error fetching lowest price:", error);
-    }
-  };
+  // {
+  //   "_id": "68b93faa646a972f71064704",
+  //     "package": "68b7e33db2dac984a7aa1ea3",
+  //       "startDate": "2026-02-01T00:00:00.000Z",
+  //         "endDate": "2026-03-31T00:00:00.000Z",
+  //           "status": "Open",
+  //             "numberOfPerson": 12,
+  //               "pricePerPerson": 65000,
+  //                 "sortOrder": 1,
+  //                   "availableSeats": 10,
+  //                     "createdAt": "2025-09-04T07:28:42.338Z",
+  //                       "updatedAt": "2025-09-10T07:26:03.754Z",
+  //                         "__v": 0
+  // }
 
-  useEffect(() => {
-    getLowestPrice();
-  }, []);
+
 
 
 
@@ -642,7 +646,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
           <div className="text-center mb-4">
             <div className="flex items-baseline justify-center  mb-3">
               <span className="text-4xl font-bold" style={{ color: '#f05e25' }}>
-                ${price + "99" || "N/A"}/
+                ${data?.fixedDates[0]?.pricePerPerson || "N/A"}/
               </span>
               <span className="text-xl font-medium text-gray-600">per person</span>
             </div>

@@ -429,7 +429,7 @@ export default function BookingForm() {
                     )}
                   </div>
 
-                  <div className="flex items-center mb-4">
+                  {/* <div className="flex items-center mb-4">
                     <input
                       type="checkbox"
                       id={`isChild-${index}`}
@@ -439,7 +439,7 @@ export default function BookingForm() {
                     <label htmlFor={`isChild-${index}`} className="text-md font-medium">
                       Is this traveler a child?
                     </label>
-                  </div>
+                  </div> */}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <FormInput
@@ -552,7 +552,7 @@ export default function BookingForm() {
                 </div>
               ))}
 
-              <div className="flex justify-end mb-8">
+              {/* <div className="flex justify-end mb-8">
                 <button
                   type="button"
                   onClick={addTraveler}
@@ -560,7 +560,7 @@ export default function BookingForm() {
                 >
                   Add Traveler
                 </button>
-              </div>
+              </div> */}
 
               {/* Trip Dates Section */}
               <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
@@ -613,32 +613,47 @@ export default function BookingForm() {
               {packageData?.data?.addons && packageData.data.addons.length > 0 && (
                 <div className="sm:border border-gray-200 sm:p-6 rounded-sm mb-6">
                   <h4 className="text-xl font-bold text-gray-800 mb-4">Add-ons</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {packageData.data.addons.map((addon: any) => (
-                      <div key={addon._id} className="flex flex-wrap items-start p-4  bg-white md:gap-4 border border-gray-200 rounded-sm hover:border-orange-300 transition-colors">
+                      <div key={addon._id} className="flex flex-wrap items-center  bg-white md:gap-4 border border-gray-200 rounded-sm hover:border-orange-300 transition-colors">
                         <input
                           type="checkbox"
                           id={`addon-${addon._id}`}
                           {...register("selectedAddons")}
                           value={addon._id}
-                          className="mt-2 h-5 w-5 accent-orange-500"
+                          className="mt-2 hidden accent-orange-500"
                         />
-                        <label htmlFor={`addon-${addon._id}`} className="ml-3 lg:ml-6 flex-1 cursor-pointer">
-                          <div className="flex justify-between items-start">
-                            <span className="font-medium text-gray-800">{addon.name}</span>
-                            <span className="text-orange-600 font-semibold">+${addon.price}</span>
+                        <label
+                          style={{
+                            backgroundColor: watch("selectedAddons")?.includes(addon._id) ? '#F54A00' : 'transparent',
+                            color: watch("selectedAddons")?.includes(addon._id) ? 'white' : ''
+                          }}
+                          htmlFor={`addon-${addon._id}`} className=" flex gap-4 items-center  cursor-pointer p-4 w-full">
+                          <div className="">
+                            {/* {addon.image && (
+                              <div className=" relative shrink-0 size-14 lg:size-20 ">
+                                <Image
+                                  src={addon.image}
+                                  alt={addon.name}
+                                  fill
+                                  className="object-cover object-center rounded-"
+                                />
+                              </div>
+                            )} */}
                           </div>
-                          {addon.image && (
-                            <div className="mt-2 relative h-52 w-full">
-                              <Image
-                                src={addon.image}
-                                alt={addon.name}
-                                fill
-                                className="object-cover object-center rounded-"
-                              />
+                          <div className="flex justify-between w-full items-center">
+                            <div className="">
+                              <span className="font-medium   lg:text-lg">{addon.name}</span>
+                              <div className=" text-sm " dangerouslySetInnerHTML={{ __html: addon.description }}></div>
                             </div>
-                          )}
-                          <p className="text-gray-600 text-sm mt-2">{addon.description}</p>
+                            <h2>
+                              <span
+                                style={{
+                                  color: watch("selectedAddons")?.includes(addon._id) ? 'white' : ''
+                                }}
+                                className="text-green-600 font-bold">+${addon.price}</span>
+                            </h2>
+                          </div>
                         </label>
                       </div>
                     ))}
@@ -659,14 +674,14 @@ export default function BookingForm() {
                   />
                 </div>
 
-                <div>
+                {/* <div>
                   <label className="block text-gray-700 mb-2">Message (Optional)</label>
                   <textarea
                     {...register("message")}
                     placeholder="Additional information or questions..."
                     className="w-full p-3 border border-gray-300 rounded-sm min-h-[120px]"
                   />
-                </div>
+                </div> */}
               </div>
 
               {/* Terms and Conditions */}
@@ -702,7 +717,7 @@ export default function BookingForm() {
                     <span className="font-medium">{packageData?.data?.name}</span>
                   </div>
 
-                  <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                     <span className="text-gray-600">Adults:</span>
                     <span className="font-medium">{totalPeopleCount}</span>
                   </div>
@@ -710,11 +725,16 @@ export default function BookingForm() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">Children:</span>
                     <span className="font-medium">{childrenCount}</span>
-                  </div>
+                  </div> */}
 
                   <div className="flex justify-between">
                     <span className="text-gray-600">Price per traveler:</span>
                     <span className="font-medium">${pricePerPerson}</span>
+                  </div>
+
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Arrival Date:</span>
+                    <span className="font-medium">{watch("arrivalDate")?.toLocaleDateString()}</span>
                   </div>
 
                   {/* Selected Add-ons */}
@@ -758,8 +778,8 @@ export default function BookingForm() {
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </form >
+      </div >
     </>
   );
 }

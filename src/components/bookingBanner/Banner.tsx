@@ -8,9 +8,9 @@ const Banner = () => {
     <div className="relative w-full h-[44vh] ">
       {/* Background Image */}
       <Image
-        src="/EVEREST REGION/NIKON D50001965.JPG"
+        src="/EXPEDITION/DSC00713.JPG"
         alt="himal"
-        className="absolute top-0 left-0 w-full h-full object-cover object-center"
+        className="absolute top-0 left-0 w-full h-full object-cover object-bottom"
         priority
         width={1920}
         height={1080}
@@ -21,11 +21,11 @@ const Banner = () => {
 
       {/* Content Container */}
       <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
-        <div className="w-full max-w-6xl bg-orange-500 backdrop-blur-md text-white rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 px-4 sm:px-6 md:px-8 py-4 sm:py-6">
+        <div className="w-full max-w-6xl  backdrop-blur-sm border border-white/50 text-white rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0 px-4 sm:px-6 md:px-8 py-4 sm:py-6">
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
             <img
-              src="/logo/main.svg"
+              src="/logo/white.svg"
               alt="treak logo images"
               className="h-6 sm:h-7 md:h-8"
               height={200}
