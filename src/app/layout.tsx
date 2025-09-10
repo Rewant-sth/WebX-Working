@@ -10,8 +10,6 @@ import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
 import Footer from "@/components/common/footer/new-footer";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import Link from "next/link";
 import WhatsappBtn from "@/components/awesome-btn";
 
 const dancingScript = Dancing_Script({

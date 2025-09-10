@@ -6,6 +6,7 @@ import { Facebook, Instagram, Twitter, Mail, Phone, Mountain, Award, Calendar, L
 import Link from "next/link";
 import { use } from "react";
 import GalleryCarousel from "./_components/GalleryCarousel";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface PageProps {
     params: Promise<{
@@ -47,53 +48,59 @@ export default function TeamMemberDetails({ params }: PageProps) {
     return (
         <div className="min-h-screen p-6 mb-16 ">
             <div className=" mx-auto">
-                <div className="grid lg:grid-cols-5 gap-8">
+                <div className="grid lg:grid-cols-5 ">
                     {/* Left Column - Profile */}
                     <div className="lg:col-span-2 lg:sticky top-20 h-fit">
                         <div className=" rounded-sm border border-gray-200 ">
-                            <div className="relative h-80 lg:h-96 w-full  overflow-hidden mb-6">
+                            <div className="relative h-80 lg:h-96 w-full  overflow-hidden ">
                                 <Image
                                     src={member.data.image || "/placeholder.webp"}
                                     alt={member.data.name}
                                     fill
                                     className="object-cover object-top"
                                 />
+
                             </div>
 
-                            <div className="text-center mb-6">
-                                <h1 className="text-2xl font-bold text-gray-900">{member.data.name}</h1>
-                                <p className="text-lg text-orange-500">{member.data.designation}</p>
+                            <div className=" px-4 flex flex-wrap justify-between w-full gap-4 items-center py-6 bg-orange-50  ">
+                                <div className="w-fit">
+                                    <h1 className="text-2xl lg:text-3xl font-bold ">{member.data.name.trim()}</h1>
+                                    <p className=" ">{member.data.designation}</p>
+                                </div>
+                                <div className="flex h-full  space-x-4 justify-center items-center mt-4">
+                                    {member.data.facebook && (
+                                        <Link href={member.data.facebook} target="_blank" className="text-gray-600 hover:text-blue-600 transition-colors">
+                                            <Icon icon={"logos:facebook"} className="size-7" />
+                                        </Link>
+                                    )}
+                                    {member.data.instagram && (
+                                        <Link href={member.data.instagram} target="_blank" className="text-gray-600 hover:text-pink-600 transition-colors">
+                                            <Icon icon={"skill-icons:instagram"} className="size-7" />
+                                        </Link>
+                                    )}
+
+                                    {member.data.linkedin && (
+                                        <Link href={member.data.linkedin} target="_blank" className="text-gray-600 hover:text-orange-600 transition-colors">
+                                            <Icon icon={"devicon:linkedin"} className="size-7" />
+                                        </Link>
+                                    )}
+
+                                    {member.data.phoneNumber && (
+                                        <Link href={`tel:${member.data.phoneNumber}`} className="text-gray-600 hover:text-blue-400 transition-colors">
+                                            <Icon icon={"ic:baseline-phone-enabled"} className="size-8 text-black" />
+                                        </Link>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="flex justify-center space-x-4 mb-6">
-                                {member.data.facebook && (
-                                    <Link href={member.data.facebook} target="_blank" className="text-gray-600 hover:text-blue-600 transition-colors">
-                                        <Facebook className="w-6 h-6" />
-                                    </Link>
-                                )}
-                                {member.data.instagram && (
-                                    <Link href={member.data.instagram} target="_blank" className="text-gray-600 hover:text-pink-600 transition-colors">
-                                        <Instagram className="w-6 h-6" />
-                                    </Link>
-                                )}
-                                {member.data.twitter && (
-                                    <Link href={member.data.twitter} target="_blank" className="text-gray-600 hover:text-blue-400 transition-colors">
-                                        <Twitter className="w-6 h-6" />
-                                    </Link>
-                                )}
-                                {member.data.linkedin && (
-                                    <Link href={member.data.linkedin} target="_blank" className="text-gray-600 hover:text-orange-600 transition-colors">
-                                        <Linkedin className="w-6 h-6" />
-                                    </Link>
-                                )}
-                            </div>
+
 
 
                         </div>
                     </div>
 
                     {/* Right Column - Content */}
-                    <div className="lg:col-span-3 space-y-8">
+                    <div className="lg:col-span-3 mt-14 space-y-8">
 
 
                         {/* Gallery Section */}
@@ -106,7 +113,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
 
                         {/* About Section */}
                         <div className="  px-6">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-4 uppercase">About {member.data.name}</h2>
+                            <h2 className="text-xl font-bold text-gray-900 mb-4 uppercase">About {member.data.name}</h2>
                             <div
                                 className="prose space-y-5 text-gray-700"
                                 dangerouslySetInnerHTML={{

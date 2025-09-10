@@ -75,37 +75,33 @@ const TalkToExperts: React.FC = () => {
                     <div className="text-lg md:text-md lg:text-xl font-medium ">
                       {expert.name}
                     </div>
-                    <Link
-                      href={`tel:${expert.phoneNumber.replace(/-/g, "")}`}
+                    <div
                       className=" font-medium md:text-md text-sm lg:text-md"
                     >
                       {expert.phoneNumber}
-                    </Link>
+                    </div>
                     <div className="flex gap-4 mt-4">
                       {
                         expert.instagram && (
-                          <Link
-                            href={expert.instagram}
+                          <div
                             className=" text-lg md:text-xl"
                           >
                             <FaInstagram />
-                          </Link>
+                          </div>
                         )}
                       {expert.facebook && (
-                        <Link
-                          href={expert.facebook}
+                        <div
                           className=" text-lg md:text-xl"
                         >
                           <FaFacebook />
-                        </Link>
+                        </div>
                       )}
                       {expert.twitter && (
-                        <Link
-                          href={expert.twitter}
+                        <div
                           className=" text-lg md:text-xl"
                         >
                           <FaTwitter />
-                        </Link>
+                        </div>
                       )}
                     </div>
                   </div>

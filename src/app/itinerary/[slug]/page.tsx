@@ -19,7 +19,7 @@ import { useParams } from "next/navigation";
 import { getPackagesById } from "@/service/packages";
 import { useQuery } from "@tanstack/react-query";
 import { ITravelPackage } from "@/types/IPackages";
-import SkeletonPackageDetails from "./_components/SkeletonLoader";
+import SkeletonLoader from "./_components/SkeletonLoader";
 import { useRouter } from "next/navigation";
 import ScrollTracker from "@/components/intineryBars/scroll-tracker";
 import GalleryCarousel from "@/components/intineryBars/gallery/gallery-carousel";
@@ -73,12 +73,12 @@ const Page = () => {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedImg, setSelectedImg] = useState("/TrekImages/manaslu.png");
+  const [selectedImg] = useState("/TrekImages/manaslu.png");
 
   return (
     <div className="w-full">
       {isLoading ? (
-        <SkeletonPackageDetails />
+        <SkeletonLoader />
       ) : (
         <>
           <div ref={heroRef} className="relative min-h-screen overflow-hidden  ">
