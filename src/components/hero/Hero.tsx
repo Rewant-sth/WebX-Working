@@ -79,7 +79,7 @@ export default function Hero() {
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
 
       <div className="absolute inset-0">
-        <img src="/hero-back.JPEG" alt="" className='w-full h-full brightness-50 opacity-40' />
+        <img src="/hero-back.jpeg" alt="" className='w-full h-full brightness-50 opacity-40' />
       </div>
       {/* hero first */}
       <div ref={sectionRef} className="h-screen   sticky top-30 lg:flex gap-6 lg:gap-16 p-6 ">
