@@ -51,14 +51,13 @@ export default function LayoutWrapper({
 
   return (
     <>
-      {
-        isClient && preloaderVisible ? (
-          <Preloader />
-        ) : (
-          <>
+      {preloaderVisible ? (
+        <Preloader />
+      ) : (
+        <>
 
-          </>
-        )
+        </>
+      )
       }
 
       {!shouldHideNavbar && <Navbar />}
