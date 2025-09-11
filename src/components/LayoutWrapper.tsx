@@ -36,7 +36,7 @@ export default function LayoutWrapper({
       const timer = setTimeout(() => {
         sessionStorage.setItem("preloader-shown", "true");
         setPreloaderVisible(false);
-      }, 10000);
+      }, 12000);
 
       return () => clearTimeout(timer);
     }
@@ -51,7 +51,7 @@ export default function LayoutWrapper({
 
   return (
     <>
-      {preloaderVisible ? (
+      {isClient &&preloaderVisible ? (
         <Preloader />
       ) : (
         <>

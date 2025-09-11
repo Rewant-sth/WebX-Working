@@ -15,20 +15,21 @@ export default function Preloader() {
                 clipPath: "inset(0% 0% 0% 0%)",
                 duration: 1,
                 ease: "power2.out",
-                delay: 4
+                delay: 8
             });
 
             tl.fromTo(sectionRef.current, {
                 clipPath: "inset(0% 0% 0% 0%)"
             }, {
-                clipPath: "inset(0% 100% 0% 100%)",
+                clipPath: "inset(100% 0% 100% 0%)",
                 duration: 1,
-                ease: "none"
+                ease: "none",
+                delay: 2
             })
         });
 
         return () => ctx.revert();
-    })
+    }, [])
 
     return (
         <section ref={sectionRef} className='h-screen w-full fixed top-0 left-0 z-[999999] overflow-hidden'>
