@@ -1,0 +1,41 @@
+"use client"
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import React, { useLayoutEffect, useRef } from 'react'
+
+
+gsap.registerPlugin(ScrollTrigger)
+export default function Preloader() {
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    useLayoutEffect(() => {
+        let ctx = gsap.context(() => {
+            const tl = gsap.timeline();
+            tl.fromTo(titleRef.current, { clipPath: "inset(0% 100% 0% 0%)" }, {
+                clipPath: "inset(0% 0% 0% 0%)",
+                duration: 1,
+                ease: "power2.out",
+                delay: 4
+            });
+
+            tl.fromTo(sectionRef.current, {
+                clipPath: "inset(0% 0% 0% 0%)"
+            }, {
+                clipPath: "inset(0% 100% 0% 100%)",
+                duration: 1,
+                ease: "none"
+            })
+        });
+
+        return () => ctx.revert();
+    })
+
+    return (
+        <section ref={sectionRef} className='h-screen w-full fixed top-0 left-0 z-[999999] overflow-hidden'>
+            <video src="/preloader.mp4" autoPlay muted className='h-full w-full object-cover'></video>
+            <div className="absolute inset-0 flex justify-center items-center">
+                <h1 ref={titleRef} className='text-4xl md:text-7xl uppercase font-bold text-white'>Real Himalaya</h1>
+            </div>
+        </section>
+    )
+}
