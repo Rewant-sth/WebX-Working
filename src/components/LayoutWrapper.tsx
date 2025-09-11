@@ -110,7 +110,7 @@ export default function LayoutWrapper({
       {/* Audio element - controlled by user confirmation */}
       <audio
         ref={audioRef}
-        src="/Audio/cumb.mp3"
+        src="/Audio/cumb2.mp3"
         style={{ display: 'none' }}
       />
 
