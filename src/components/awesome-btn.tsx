@@ -138,7 +138,7 @@ const WhatsappBtn = () => {
                     className="group flex flex-col items-center"
                 >
                     <div className="flex justify-center p-2 items-center size-10 lg:size-16 relative bg-green-500 rounded-full transition-transform duration-300 group-hover:scale-110">
-                        <div className="absolute top-0 right-0 size-5 text-xs animate-pulse bg-red-500 text-white flex justify-center items-center rounded-full">1</div>
+                        <div className="absolute top-0 right-0 size-4 sm:size-5 text-[9px] sm:text-xs animate-pulse bg-red-500 text-white flex justify-center items-center rounded-full">1</div>
                         <Icon icon="logos:whatsapp-icon" className="text-white text-3xl " />
                     </div>
 

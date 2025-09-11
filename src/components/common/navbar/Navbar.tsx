@@ -55,13 +55,14 @@ const navs: StaticNavItem[] = [
     ],
   },
   {
-    name: "Contact Us",
-    href: "/contact-us",
-  },
-  {
     name: "Blogs",
     href: "/blogs",
   },
+  {
+    name: "Contact Us",
+    href: "/contact-us",
+  },
+
 ];
 
 export default function Navbar() {
