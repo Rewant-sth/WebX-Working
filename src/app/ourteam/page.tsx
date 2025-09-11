@@ -54,7 +54,7 @@ const OurTeam: React.FC = () => {
                               )}
                               {member.twitter && (
                                 <Link href={member.twitter} target="_blank" rel="noopener noreferrer">
-                                  <Icon icon="arcticons:x-twitter" className="size-6 text-black" />
+                                  <Icon icon="arcticons:x-twitter" className="size-6 text-white" />
                                 </Link>
                               )}
                               {member.instagram && (
@@ -62,9 +62,9 @@ const OurTeam: React.FC = () => {
                                   <Icon icon="skill-icons:instagram" className="size-6 text-white" />
                                 </Link>
                               )}
-                              {member.facebook && (
-                                <Link href={member.facebook} target="_blank" rel="noopener noreferrer">
-                                  <Icon icon="logos:facebook" className="size-6 text-white" />
+                              {member.linkedin && (
+                                <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                                  <Icon icon="devicon:linkedin" className="size-6 text-white" />
                                 </Link>
                               )}
                             </div>
@@ -131,9 +131,9 @@ const OurTeam: React.FC = () => {
                                 <Icon icon="skill-icons:instagram" className="size-6 text-white" />
                               </Link>
                             )}
-                            {member.facebook && (
-                              <Link href={member.facebook} target="_blank" rel="noopener noreferrer">
-                                <Icon icon="logos:facebook" className="size-6 text-white" />
+                            {member.linkedin && (
+                              <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                                <Icon icon="logos:linkedin" className="size-6 text-white" />
                               </Link>
                             )}
                           </div>

@@ -109,7 +109,7 @@ const Page = () => {
             </div>
 
             {/* Center Content */}
-            <div className="w-full lg:border-l border-gray-200 lg:w-[53%] xl:w-[60%] p-4 lg:px-8 relative  min-w-0">
+            <div className="w-full lg:border-l border-gray-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
               {packageData && <TripGlance data={packageData?.data} />}
 
               {packageData && <SeasonalInfo data={packageData.data} />}
@@ -179,8 +179,8 @@ const Page = () => {
             </div>
 
             {/* Right Sidebar */}
-            <div className="lg:w-[25%] xl:w-[25%] shrink-0">
-              <div className="sticky top-20 ">
+            <div className="w-[25%] shrink-0">
+              <div className="lg:sticky top-20 ">
                 <RightBar data={packageData?.data} />
               </div>
             </div>

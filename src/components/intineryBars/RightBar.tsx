@@ -629,7 +629,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   };
 
   return (
-    <div className=" hidden xl:block rounded-sm  space-y-4  sticky  h-full">
+    <div className=" hidden lg:block rounded-sm  space-y-4  sticky  h-full">
 
       <div className="bg-orange-100">
         {/* Header */}

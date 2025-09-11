@@ -35,7 +35,7 @@ export default function Preloader() {
         <section ref={sectionRef} className='h-screen w-full fixed top-0 left-0 z-[999999] overflow-hidden'>
             <video src="/preloader.mp4" autoPlay muted className='h-full w-full object-cover'></video>
             <div className="absolute inset-0 flex justify-center items-center">
-                <h1 ref={titleRef} className='text-4xl md:text-7xl uppercase font-bold text-white'>Real Himalaya</h1>
+                <h1 ref={titleRef} className='text-4xl md:text-5xl uppercase font-bold text-white'>Welcome To Real Himalaya</h1>
             </div>
         </section>
     )

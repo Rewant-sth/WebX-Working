@@ -113,7 +113,7 @@ const RelatedTrips = ({
                           e.currentTarget.style.color = '#3A3A3A';
                         }}
                       >
-                        Itienary <ArrowRight size={18} />
+                        Itienary <ArrowRight size={18} className="translate-y-0.5" />
                       </button>
                     </Link>
                   </div>

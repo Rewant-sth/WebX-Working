@@ -30,7 +30,7 @@ const ItineraryDay = ({
   const [expanded, setExpanded] = useState(isFirst);
 
   return (
-    <div className=" pb-4 transition-all duration-300 ">
+    <div className=" pb-4  ">
       <div
         className="flex items-start sm:items-center justify-between py-2 sm:py-3   cursor-pointer  transition-all duration-200 rounded-t-lg"
         onClick={() => setExpanded(!expanded)}

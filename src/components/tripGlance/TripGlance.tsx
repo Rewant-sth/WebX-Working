@@ -11,7 +11,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
           Your Trip at a Glance
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-3">
           {[
             {
               icon: "/icons/destination.png",
@@ -64,7 +64,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="p-4 flex gap-4 rounded-sm transition-all duration-300 border border-orange-100"
+              className="p-3 xl:p-4 flex gap-4 rounded-sm transition-all duration-300 border border-orange-100"
             >
               <div className="p-2 size-12  shrink-0 bg-white/80 rounded-sm">
                 <img src={item.icon} alt="" className="" />
