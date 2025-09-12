@@ -90,7 +90,7 @@ export default function LayoutWrapper({
   useEffect(() => {
     if (audioEnabled && !showAudioConfirmation) {
       // Use the Zustand store to play music
-      play('/Audio/cumb3.mp3').catch(console.error);
+      play().catch(console.error);
     }
   }, [audioEnabled, showAudioConfirmation, play]);
 
