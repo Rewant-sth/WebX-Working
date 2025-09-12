@@ -55,8 +55,8 @@ export default function Intro() {
             <div
                 className='grid lg:grid-cols-5 max-w- mx-auto py-20 '
             >
-                <div className="w-full md:max-w-2xl flex flex-col gap-6 md:gap-12 items-start col-span-2 h-fit lg:sticky top-28">
-                    <div className="max-w-2xl w-full md:space-y-1.5 text-2xl md:text-4xl uppercase font-semibold">
+                <div className="w-full md:max-w-2xl  flex flex-col gap-6 md:gap-12 items-start col-span-2 h-fit lg:sticky top-28">
+                    <div className="max-w-2xl w-full md:space-y-1.5 text-2xl md:text-4xl xl:text-5xl uppercase font-semibold">
                         <h2 className='bg-white w-fit  rounded-sm py-1 ' >Who we are </h2>
                         <h2 className='bg-white w-fit rounded-sm py-1 ' >and <span className='bg-orange-500 px-2 text-white'>what we do</span></h2>
                     </div>
@@ -82,15 +82,15 @@ export default function Intro() {
                         className="grid grid-cols-3 mt-16  gap-4"
                     >
                         <div className="w-fit text-center">
-                            <h2>Years of Experience</h2>
+                            <h2 className='lg:text-lg'>Our Experience</h2>
                             <Counter target={16} />
                         </div>
                         <div className="w-fit text-center">
-                            <h2>Successful Tours</h2>
+                            <h2 className='lg:text-lg'>Successful Tours</h2>
                             <Counter target={200} />
                         </div>
                         <div className="w-fit text-center">
-                            <h2>Happy Clients</h2>
+                            <h2 className='lg:text-lg'>Happy Clients</h2>
                             <Counter target={1500} />
                         </div>
                     </div>

@@ -91,8 +91,7 @@ export default function AboutUs() {
           </div>
           <div className="max-w-3xl mx-auto w-full text-white text-center space-y-1.5 text-2xl md:text-4xl uppercase font-semibold">
             <h2 className='   py-1 ' >We are devoted to travel</h2>
-            <h2 className='text-lg capitalize px-2  py-1 ' >explorers at heart, inspired by the Himalayas and driven by a passion for discovery.</h2>
-            <p className='text-lg capitalize mt-4'>Our mission is to share authentic adventures that connect people with nature, culture, and unforgettable experiences.</p>
+            <p className='text-lg capitalize px-2  py-1 ' >explorers at heart, inspired by the Himalayas and driven by a passion for discovery. Our mission is to share authentic adventures that connect people with nature, culture, and unforgettable experiences.</p>
           </div>
         </div>
       </div>

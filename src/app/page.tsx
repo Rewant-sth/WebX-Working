@@ -19,7 +19,6 @@ const Page = () => {
       <Intro />
       <AboutUs />
       <ExpeditionPage />
-      {/* <Divider /> */}
       <TrekPage />
       <Divider />
       <TestimonialsSections />

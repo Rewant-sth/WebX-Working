@@ -73,9 +73,9 @@ function TrekPage() {
 
   if (loading) {
     return (
-      <section className="h-full space-y-3 py-12 md py-12:md:py-24  mx-auto snap-start relative">
-        <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
-          The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
+      <section className="h-full space-y-3 py-12 md:mt-20 relative">
+        <h2 className="text-xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+          The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto">
           Loading expedition packages...
@@ -94,9 +94,9 @@ function TrekPage() {
 
   if (error) {
     return (
-      <section className="h-full space-y-3 py-12 md:py-24 max-w-7xl mx-auto snap-start relative">
-        <h2 className="text-xl md:text-4xl text-center font-semibold uppercase">
-          The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge
+      <section className="h-full space-y-3 py-12 md:mt-28 max-w-7xl mx-auto  relative">
+        <h2 className="text-xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+          The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto text-red-600">
           Error: {error}
@@ -107,12 +107,12 @@ function TrekPage() {
 
   return (
     <section
-      className=" h-full space-y-3 py-28 p-4 sm:p-6 mx-auto snap-start relative"
+      className=" h-full space-y-3 mt-10 md:mt-16 p-4 sm:p-6 mx-auto snap-start relative"
     >
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
-          <h2 className="text-xl max-w-[35rem] mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
-            The Ultimate <span className="bg-orange-500  px-2 text-white">Himalayan</span> Trekking Experience
+          <h2 className="text-xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+            The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
           </h2>
           <p className="text-lg max-w-4xl mx-auto mt-2">
             Adventures designed to challenge your spirit and create memories that stay with you for a lifetime.

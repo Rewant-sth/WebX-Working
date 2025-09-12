@@ -24,16 +24,16 @@ const WhatsappBtn = () => {
 
         if (!button || !container) return;
 
-        // Calculate initial bottom-right position
+        // Calculate initial bottom-left position
         const calcInitialPosition = () => {
             const padding = 20; // Padding from edges
             return {
-                x: window.innerWidth - button.offsetWidth - padding - container.offsetLeft,
+                x: padding - container.offsetLeft,
                 y: window.innerHeight - button.offsetHeight - padding - container.offsetTop
             };
         };
 
-        // Get stored position from localStorage or use bottom-right position
+        // Get stored position from localStorage or use bottom-left position
         const storedPosition = localStorage.getItem('whatsappBtnPosition');
         const initialPosition = storedPosition ? JSON.parse(storedPosition) : calcInitialPosition();
 

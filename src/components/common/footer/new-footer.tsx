@@ -68,10 +68,26 @@ export default function Footer() {
               <div className="flex w-full justify-between items-center gap-5 md:gap-6 flex-wrap">
                 <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya Pvt. Ltd</p>
                 <ul className="flex gap-4 md:gap-6">
-                  <li><Icon className='size-7' icon="mdi:facebook" /></li>
-                  <li><Icon className='size-7' icon="mdi:instagram" /></li>
-                  <li><Icon className='size-7' icon="mdi:linkedin" /></li>
-                  <li><Icon className='size-7' icon="mdi:twitter" /></li>
+                  <li>
+                    <Link target='_blank' href="https://www.facebook.com/dayula.sherpa">
+                      <Icon className='size-7' icon="mdi:facebook" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link target='_blank' href="https://instagram.com/realhimalayanp">
+                      <Icon className='size-7' icon="mdi:instagram" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link target='_blank' href="https://www.linkedin.com/company/realhimalaya">
+                      <Icon className='size-7' icon="mdi:linkedin" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link target='_blank' href="https://twitter.com/realhimalayanp">
+                      <Icon className='size-7' icon="mdi:twitter" />
+                    </Link>
+                  </li>
                 </ul>
                 <Link target='parent' href="https://www.webxnep.com" className='flex gap-2 items-center'>Designed and developed by <img src="/logo/black-logo-png.png" alt="webx nepal" width={62} /></Link>
               </div>

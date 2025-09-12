@@ -10,6 +10,7 @@ import { ITravelPackageResponse } from "@/types/IPackages";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import "./NavBar.css";
+import { useMusicPlayerStore } from "@/store/music-player-store";
 
 interface Category {
   _id: string;
@@ -81,6 +82,8 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
+
+  const { isPlaying, play, pause } = useMusicPlayerStore()
 
   // Fetch categories with React Query
   const { data: categories } = useQuery<ICategoryResponse>({
@@ -217,7 +220,18 @@ export default function Navbar() {
         />
       </Link>
 
+      <button className="text-2xl cursor-pointer flex justify-center items-center  rounded-full  xl:text-3xl">
+        {
+          isPlaying ? <span onClick={() => pause()} className="cursor-pointer border border-white rounded-full size-7 lg:size-10 flex justify-center items-center ">
+            <img src="/icons/play.svg" alt="" />
+          </span>
+            : <span onClick={() => play('/Audio/cumb2.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border rounded-full flex justify-center items-center  border-white"><img src="/icons/pause.svg" alt="" className="  w-full border-none" /></span>
+        }
+      </button>
+
       <div className="flex gap-10 items-center">
+
+
 
         <button
           onClick={handleShow}

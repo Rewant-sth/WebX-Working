@@ -64,11 +64,10 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
     return (
         <div id='testimonial' className={`relative w-full flex flex-col py-12 md:py-24 justify-center items-center   ${className}`}>
 
-            <h2 className='text-2xl md:text-4xl pb-10 text-center font-semibold max-w-xl  mx-4 md:leading-12 uppercase'>
-                <span className='bg-orange-500 text-white px-4  '>
-                    Thousands</span> of reviews on various <span className='bg-orange-500 text-white px-4'>
-                    platforms</span>
+            <h2 className='text-2xl md:text-4xl text-center font-semibold max-w-4xl  mx-4 md:leading-12 uppercase'>
+                Global <span className=''> Trust</span> - Thousands of Reviews
             </h2>
+            <p className='pb-10  max-w-4xl text-lg text-center mx-auto'>With thousands of genuine reviews across multiple platforms, we’ve earned the trust of  adventurers and climbers worldwide who share their real experiences and journeys with us.</p>
 
             {/* Loading State */}
             {isLoading && (

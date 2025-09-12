@@ -1,9 +1,10 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Navbar from "./common/navbar/Navbar";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Preloader from "./Preloader";
 import AudioConfirmation from "./AudioConfirmation";
+import { useMusicPlayerStore } from "@/store/music-player-store";
 
 export default function LayoutWrapper({
   children,
@@ -15,9 +16,11 @@ export default function LayoutWrapper({
   const [showAudioConfirmation, setShowAudioConfirmation] = React.useState(false);
   const [audioEnabled, setAudioEnabled] = React.useState(false);
   const [preloaderVisible, setPreloaderVisible] = React.useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [isVisible, setIsVisible] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
+
+  // Get music player functions from Zustand store
+  const { play, initializeAudioElement, cleanupAudioElement, } = useMusicPlayerStore();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,8 +29,11 @@ export default function LayoutWrapper({
     return () => clearInterval(interval);
   }, []);
 
-  // Handle client-side hydration
+  // Handle client-side hydration and initialize music player
   useEffect(() => {
+    // Initialize the music player audio element
+    initializeAudioElement();
+
     // Check if audio confirmation has already been shown in this session
     const audioConfirmationShown = sessionStorage.getItem("audio-confirmation-shown");
     const audioWasEnabled = sessionStorage.getItem("audio-enabled") === "true";
@@ -49,7 +55,12 @@ export default function LayoutWrapper({
     }
 
     setIsInitialized(true);
-  }, []);
+
+    // Cleanup on unmount
+    return () => {
+      cleanupAudioElement();
+    };
+  }, [initializeAudioElement, cleanupAudioElement]);
 
   // Handle preloader logic after audio confirmation
   useEffect(() => {
@@ -77,10 +88,11 @@ export default function LayoutWrapper({
 
   // Handle audio playback - start immediately after confirmation, during preloader
   useEffect(() => {
-    if (audioEnabled && audioRef.current && !showAudioConfirmation) {
-      audioRef.current.play().catch(console.error);
+    if (audioEnabled && !showAudioConfirmation) {
+      // Use the Zustand store to play music
+      play('/Audio/cumb3.mp3').catch(console.error);
     }
-  }, [audioEnabled, showAudioConfirmation]);
+  }, [audioEnabled, showAudioConfirmation, play]);
 
   const handleAudioConfirmation = (allowAudio: boolean) => {
     setAudioEnabled(allowAudio);
@@ -107,13 +119,6 @@ export default function LayoutWrapper({
 
   return (
     <>
-      {/* Audio element - controlled by user confirmation */}
-      <audio
-        ref={audioRef}
-        src="/Audio/cumb2.mp3"
-        style={{ display: 'none' }}
-      />
-
       {/* Show audio confirmation first */}
       {showAudioConfirmation && (
         <AudioConfirmation onConfirm={handleAudioConfirmation} />
