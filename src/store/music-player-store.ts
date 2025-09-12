@@ -35,7 +35,7 @@ export const useMusicPlayerStore = create<MusicPlayerState>((set, get) => ({
     // Initial state
     isPlaying: false,
     currentTrack: DEFAULT_TRACKS[0],
-    volume: 0.7,
+    volume: 0.5,
     duration: 0,
     currentTime: 0,
     loading: false,
