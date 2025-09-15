@@ -19,7 +19,7 @@ export const MusicControlExample: React.FC = () => {
     };
 
     const handlePlay = () => {
-        playMusic('/Audio/cumb3.mp3');
+        playMusic('/Audio/cumb4.mp3');
     };
 
     // Method 2: Getting state without hooks (useful for non-React contexts)
