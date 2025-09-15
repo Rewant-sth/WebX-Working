@@ -3,9 +3,12 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import React, { useLayoutEffect, useRef } from 'react'
 
+interface PreloaderProps {
+    onSkip?: () => void;
+}
 
 gsap.registerPlugin(ScrollTrigger)
-export default function Preloader() {
+export default function Preloader({ onSkip }: PreloaderProps) {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const sectionRef = useRef<HTMLDivElement>(null);
     useLayoutEffect(() => {
@@ -37,6 +40,14 @@ export default function Preloader() {
             <div className="absolute inset-0 flex justify-center items-center">
                 <h1 ref={titleRef} className='text-4xl md:text-5xl uppercase font-bold text-white text-center'>Welcome To Real Himalaya</h1>
             </div>
+            {onSkip && (
+                <button
+                    onClick={onSkip}
+                    className="absolute bottom-8 right-8 text-white text-lg font-medium underline hover:text-gray-200 transition-colors duration-300 z-10"
+                >
+                    Skip
+                </button>
+            )}
         </section>
     )
 }

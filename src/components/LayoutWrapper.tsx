@@ -105,6 +105,12 @@ export default function LayoutWrapper({
     if (preloaderShown !== "true") {
       setPreloaderVisible(true);
     }
+  };
+
+  const handleSkipPreloader = () => {
+    sessionStorage.setItem("preloader-shown", "true");
+    setPreloaderVisible(false);
+    setIsVisible(true);
   }; useEffect(() => {
     document.title = notificationCount ? "1 New Message" : "Real Himalaya | Your real expedition partner";
   }, [notificationCount]);
@@ -126,7 +132,7 @@ export default function LayoutWrapper({
 
       {/* Show preloader after audio confirmation */}
       {preloaderVisible && (
-        <Preloader />
+        <Preloader onSkip={handleSkipPreloader} />
       )}
 
       {/* Show main content only when not showing audio confirmation or preloader */}
