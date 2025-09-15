@@ -27,7 +27,7 @@ interface MusicPlayerState {
     cleanupAudioElement: () => void;
 }
 
-const DEFAULT_TRACKS = ['/Audio/cumb3.mp3'];
+const DEFAULT_TRACKS = ['/Audio/cumb4.mp3'];
 
 let currentTrackIndex = 0;
 

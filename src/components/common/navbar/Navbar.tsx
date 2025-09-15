@@ -231,7 +231,7 @@ export default function Navbar() {
             isPlaying ? <span onClick={() => pause()} className="cursor-pointer border-2 border-orange-500 rounded-full size-7 lg:size-10 flex justify-center items-center ">
               <img src="/icons/play.svg" alt="Real Himalaya" />
             </span>
-              : <span onClick={() => play('/Audio/cumb2.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border-2 border-orange-500 rounded-full flex justify-center items-center "><img src="/icons/pause.svg" alt="Real Himalaya" className="  w-full border-none" /></span>
+              : <span onClick={() => play('/Audio/cumb4.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border-2 border-orange-500 rounded-full flex justify-center items-center "><img src="/icons/pause.svg" alt="Real Himalaya" className="  w-full border-none" /></span>
           }
         </button>
 

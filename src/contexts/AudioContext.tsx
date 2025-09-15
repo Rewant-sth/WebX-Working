@@ -22,8 +22,8 @@ interface AudioProviderProps {
 }
 
 const DEFAULT_TRACKS = [
-    '/Audio/audio1.mp3',
-    '/Audio/cumb2.mp3'
+    '/Audio/audio4.mp3',
+    '/Audio/cumb4.mp3'
 ];
 
 export function AudioProvider({ children }: AudioProviderProps) {
