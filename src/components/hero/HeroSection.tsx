@@ -98,7 +98,7 @@ export default function HeroSection() {
       <div className="absolute inset-0">
         <img
           src="/HeroSection-back.png"
-          alt=""
+          alt="Real Himalaya"
           className='w-full h-full brightness-50 opacity-40'
           loading="eager"
           decoding="async"

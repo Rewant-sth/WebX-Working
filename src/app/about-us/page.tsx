@@ -97,8 +97,8 @@ const AboutUsPage: React.FC = () => {
           sizes="100vw"
         />
         <div className="relative z-10 text-center text-white w-full px-4 sm:px-6 md:px-8">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <h1 className="text-2xl uppercase sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <h1 className="text-2xl uppercase  md:text-3xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               Pioneering Himalayan Adventures Since 2014
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl font-light text-orange-300 max-w-3xl mx-auto">

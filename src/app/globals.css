@@ -516,3 +516,9 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+
+#editor li {
+    list-style-type: disc !important;
+    margin-left: 18px !important;
+}

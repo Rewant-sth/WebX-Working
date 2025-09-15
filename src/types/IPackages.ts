@@ -85,6 +85,18 @@ export interface ITravelPackage {
   updatedAt: string;
   _id: string;
   tag: string; // THIS IS NOT INCLUDED IN BACKEND FOR NOW
+  videos: {
+    _id: string
+    title: string
+    description: string
+    videoUrl: string
+    package: string
+    isActive: boolean
+    sortOrder: number
+    createdAt: string
+    updatedAt: string
+    __v: number
+  }[]
 }
 
 export interface IPax {

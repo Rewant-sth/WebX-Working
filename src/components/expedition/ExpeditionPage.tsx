@@ -109,7 +109,7 @@ function TrekPage() {
 
   return (
     <section
-      className="  space-y-3 py-28 p-4 sm:p-6 mx-auto  relative"
+      className="  space-y-3 py-16 md:py-28 p-4 sm:p-6 mx-auto  relative"
     >
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
@@ -148,8 +148,8 @@ function TrekPage() {
             expeditionPackages.map((pkg, index) => (
               <div
                 key={pkg._id || index}
-                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
-                style={{ paddingRight: '0.5rem' }}
+                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:pr-[0.5rem]"
+              // style={{ paddingRight: '0.5rem' }}
               >
                 <Link key={pkg._id || index} href={`/itinerary/${pkg.slug}`}>
 

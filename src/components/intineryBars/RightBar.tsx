@@ -1,35 +1,14 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
-import api from "@/service/api";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 
 const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const [price, setPrice] = useState<number | null>(null);
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
-
-  // {
-  //   "_id": "68b93faa646a972f71064704",
-  //     "package": "68b7e33db2dac984a7aa1ea3",
-  //       "startDate": "2026-02-01T00:00:00.000Z",
-  //         "endDate": "2026-03-31T00:00:00.000Z",
-  //           "status": "Open",
-  //             "numberOfPerson": 12,
-  //               "pricePerPerson": 65000,
-  //                 "sortOrder": 1,
-  //                   "availableSeats": 10,
-  //                     "createdAt": "2025-09-04T07:28:42.338Z",
-  //                       "updatedAt": "2025-09-10T07:26:03.754Z",
-  //                         "__v": 0
-  // }
-
-
-
-
-
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
@@ -465,14 +444,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                       
                       ${day.activity ? `
                         <div style="margin-top: 15px;">
-                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">Activities:</div>
-                          <ul style="margin: 0 0 0 20px; padding: 0;">
-                            <li style="margin-bottom: 8px; position: relative; padding-left: 25px;">
-                              <span style="position: absolute; left: 0; color: #f05e25;">•</span>
-                              ${day.activity}
-                            </li>
-                          </ul>
-                          </ul>
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">${day.activity}</span></div>
                         </div>
                       ` : ''}
                     </div>
@@ -635,7 +607,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
         {/* Header */}
         <div className="px-6 py-5 border-b border-gray-200" >
           {data?.name && (
-            <p className="text-center font-medium leading-tight">
+            <p className="text-center text-lg font-semibold  leading-tight">
               {data.name}
             </p>
           )}
@@ -643,14 +615,18 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
 
         {/* Price Section */}
         <div className="px-4 py-2 ">
-          <div className="text-center mb-4">
-            <div className="flex items-baseline justify-center  mb-3">
-              <span className="text-4xl font-bold" style={{ color: '#f05e25' }}>
-                ${data?.fixedDates[0]?.pricePerPerson || "N/A"}/
-              </span>
-              <span className="text-xl font-medium text-gray-600">per person</span>
-            </div>
-          </div>
+          {
+            data?.fixedDates.length !== undefined && data?.fixedDates.length > 0 && (
+              <div className="text-center mb-4">
+                <div className="flex items-baseline justify-center  mb-3">
+                  <span className="text-4xl font-bold" style={{ color: '#f05e25' }}>
+                    ${data?.fixedDates[0]?.pricePerPerson || "N/A"}/
+                  </span>
+                  <span className="text-xl font-medium text-gray-600">per person</span>
+                </div>
+              </div>
+            )
+          }
 
           {/* Pax Details Dropdown */}
           {data?.pax && data.pax.length > 0 && (
@@ -811,21 +787,29 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
       </div>
 
       {/* Talk to Expert Section */}
-      <div className="border-t rounded-sm bg-orange-100 border-gray-200" >
-        <div className="w-full aspect-video bg-black relative">
+      <div className="border-t py-4 md:py-6 rounded-sm bg-orange-100 border-gray-200" >
+        <div className=" size-20 lg:size-28 rounded-full flex  justify-center items-center overflow-hidden mx-auto bg-black relative">
           <Image src="/Avtar/gokul2.jpg" fill alt="gokul thapa" className="object-cover object-top" />
         </div>
         <div className="px-8 py-4">
-          <h3 className="text-xl font-bold  text-center" style={{ color: '#3A3A3A' }}>
+          <h3 className="text-xl uppercase font-bold  text-center" style={{ color: '#3A3A3A' }}>
             Talk To Expert
           </h3>
-          <h2 className="text-center">- Gokul Thapa</h2>
+          <h2 className="text-center text-xl">- Gokul Thapa</h2>
           <div className="text-center mt-4">
             <div className="flex items-center justify-center gap-3">
-              <Icon icon="mingcute:phone-fill" width="24" height="24" style={{ color: 'f05e25' }} />
-              <Icon icon="skill-icons:instagram" width="24" height="24" style={{ color: '#f05e25' }} />
-              <Icon icon="logos:facebook" width="24" height="24" style={{ color: '#f05e25' }} />
-              <Icon icon="skill-icons:gmail-light" width="28" height="28" style={{ color: '#f05e25' }} />
+              <Link href="tel:+977-9803556169">
+                <Icon icon="mingcute:phone-fill" width="24" height="24" style={{ color: 'f05e25' }} />
+              </Link>
+              <Link href="https://www.instagram.com/realhimalayanp">
+                <Icon icon="skill-icons:instagram" width="24" height="24" style={{ color: '#f05e25' }} />
+              </Link>
+              <Link href="https://www.facebook.com/dayula.sherpa">
+                <Icon icon="logos:facebook" width="24" height="24" style={{ color: '#f05e25' }} />
+              </Link>
+              <Link href="mailto:info@realhimalaya.com mail">
+                <Icon icon="skill-icons:gmail-light" width="28" height="28" style={{ color: '#f05e25' }} />
+              </Link>
             </div>
 
           </div>

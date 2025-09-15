@@ -45,10 +45,12 @@ export default function Footer() {
               <div className="">
                 <ul className="flex gap-3 md:gap-4">
                   <li className='size-7 md:size-10'>
-                    <img src="https://uploads-ssl.webflow.com/5ee4030d6fd7285009fe05f5/625835dc5e9a3877c49e9bb7_tripadvisor-logo-5-p-2600.png" alt="" />
+                    <Link target='_blank' href="https://www.tripadvisor.com/Attraction_Review-g293890-d10100922-Reviews-Real_Himalaya_Private_Day_Tour-Kathmandu_Kathmandu_Valley_Bagmati_Zone_Central_R.html">
+                      <img src="https://uploads-ssl.webflow.com/5ee4030d6fd7285009fe05f5/625835dc5e9a3877c49e9bb7_tripadvisor-logo-5-p-2600.png" alt="trip advisor real himalaya" />
+                    </Link>
                   </li>
                   <li className="size-7 md:size-10 bg-gray-200 rounded-full flex justify-center items-center"><Icon icon={"flat-color-icons:google"} className='text-4xl' /></li>
-                  <li className='w-24 md:w-32   translate-y-2 '><img src="https://framerusercontent.com/images/ZV0ieMLPHcyWwiRRZTPzNijd0.png" alt="" /></li>
+                  {/* <li className='w-24 md:w-32   translate-y-2 '><img src="https://framerusercontent.com/images/ZV0ieMLPHcyWwiRRZTPzNijd0.png" alt="Real Himalaya" /></li> */}
                 </ul>
               </div>
             </div>
@@ -57,7 +59,7 @@ export default function Footer() {
               <p className='md:text-xl shrink-0'>We Accept : </p>
               <div className="">
                 <ul className="flex gap-4 md:gap-6">
-                  <li className='w-32 md:w-40 '><img src="https://www.omegla.chat/images/OmeglePaymentOptions.webp" alt="" /></li>
+                  <li className='w-32 md:w-40 '><img src="https://www.omegla.chat/images/OmeglePaymentOptions.webp" alt="Real Himalaya" /></li>
                 </ul>
               </div>
             </div>

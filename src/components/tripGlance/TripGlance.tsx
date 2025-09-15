@@ -64,13 +64,13 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="p-3 xl:p-4 flex gap-4 rounded-sm transition-all duration-300 border border-orange-100"
+              className="p-2 xl:p-4 flex gap-3 xl:gap-4 rounded-sm transition-all duration-300 border border-orange-100"
             >
               <div className="p-2 size-12  shrink-0 bg-white/80 rounded-sm">
-                <img src={item.icon} alt="" className="" />
+                <img src={item.icon} alt="Real Himalaya" className="" />
               </div>
               <div className="flex flex-col  gap-1">
-                <h3 className="font-semibold  uppercase text-gray-800">{item.title}</h3>
+                <h3 className="font-semibold  capitalize text-gray-800">{item.title}</h3>
                 <p className="text-gray-700 ">
                   {item.value || "N/A"}
                 </p>

@@ -30,6 +30,7 @@ import RouteMapModal from "./_components/RouteMapModal";
 import ImagePreviewModal from "./_components/ImagePreviewModal";
 import RouteMap from "@/components/tripGlance/RouteMap";
 import Image from "next/image";
+import VideoReview from "./_components/video-review";
 
 const Page = () => {
   const router = useRouter();
@@ -87,9 +88,20 @@ const Page = () => {
             </div>
 
             {/* <Title data={packageData?.data as ITravelPackage} /> */}
-            <div className=" px-4 sm:px-6  lg:px-16 mt-8  z-[80]">
+            <div className="  z-[80]">
               {packageData?.data?.gallery?.length !== 0 && (
                 <GalleryCarousel slides={packageData?.data?.gallery} />
+              )}
+
+              {packageData?.data?.gallery?.length === 0 && (
+                <div className="h-dvh w-dvw relative">
+                  <Image
+                    src={"/EVEREST REGION/NIKOND50001920.JPG"}
+                    alt={`No images available`}
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
               )}
             </div>
           </div>
@@ -170,6 +182,9 @@ const Page = () => {
                   data={packageData.data}
                 />
               ) : null}
+              {packageData?.data?.videos?.length && (
+                <VideoReview data={packageData?.data} />
+              )}
               <RelatedTrips
                 packageId={packageData?.data?.id as string}
                 category={packageData?.data?.categoryId?.slug as string}

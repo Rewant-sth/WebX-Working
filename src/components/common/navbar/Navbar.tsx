@@ -80,6 +80,8 @@ export default function Navbar() {
   const [selectedStaticSubItem, setSelectedStaticSubItem] =
     useState<StaticNavItem | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
 
@@ -141,6 +143,8 @@ export default function Navbar() {
           setSelectedSubcategoryId(null);
           setSelectedStaticNav(null);
           setSelectedStaticSubItem(null);
+          setExpandedCategory(null);
+          setExpandedSubcategory(null);
         },
       });
     }
@@ -183,7 +187,7 @@ export default function Navbar() {
     };
 
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint for mobile/medium detection
     };
 
     // Add event listeners
@@ -203,10 +207,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 w-full p-4 md:px-6 py-1.5 lg:py-3 flex justify-between items-center transition-all duration-300 ${isScrolled ? "backdrop-blur-md " : "bg-transparent"
-        }`}
+      className={`fixed  top-0 left-0  items-start overflow-x-hidden right-0 w-full p-4 md:px-6 py-1.5 lg:py-3 flex justify-between transition-all duration-300 ${isScrolled ? "backdrop-blur-md " : "bg-transparent"
+        } ${showNav ? "min-h-screen overflow-y-auto lg:overflow-hidden " : "items-start"}`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
+
       }}
     >
       <Link
@@ -222,17 +227,14 @@ export default function Navbar() {
 
       <button className="text-2xl cursor-pointer flex justify-center items-center  rounded-full  xl:text-3xl">
         {
-          isPlaying ? <span onClick={() => pause()} className="cursor-pointer border border-white rounded-full size-7 lg:size-10 flex justify-center items-center ">
-            <img src="/icons/play.svg" alt="" />
+          isPlaying ? <span onClick={() => pause()} className="cursor-pointer border-2 border-orange-500 rounded-full size-7 lg:size-10 flex justify-center items-center ">
+            <img src="/icons/play.svg" alt="Real Himalaya" />
           </span>
-            : <span onClick={() => play('/Audio/cumb2.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border rounded-full flex justify-center items-center  border-white"><img src="/icons/pause.svg" alt="" className="  w-full border-none" /></span>
+            : <span onClick={() => play('/Audio/cumb2.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border-2 border-orange-500 rounded-full flex justify-center items-center "><img src="/icons/pause.svg" alt="Real Himalaya" className="  w-full border-none" /></span>
         }
       </button>
 
       <div className="flex gap-10 items-center">
-
-
-
         <button
           onClick={handleShow}
           className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-[#F05E25] to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
@@ -247,7 +249,7 @@ export default function Navbar() {
 
       <div
         ref={menuRef}
-        className={`absolute hidden top-0 left-0 min-h-[100dvh] overflow-auto w-[100vw] bg-[#0d1117] ${showNav ? "block" : "hidden"
+        className={`absolute hidden top-0 left-0 min-h-[100dvh]  w-[100vw] bg-[#0d1117] ${showNav ? "block" : "hidden"
           }`}
       >
         <div
@@ -279,8 +281,8 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex  text-white min-h-[calc(100dvh-4rem)]">
-          <div className="w-full max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
+        <div className="flex  text-white min-h-[calc(100dvh-4rem)] ">
+          <div className="w-full lg:max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
             <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
@@ -288,90 +290,209 @@ export default function Navbar() {
               {categories?.data?.map((category) => {
                 if (category.subCategories.length === 0) return null;
                 return (
-                  <Link
-                    className=""
-                    href={`/package-list/${category.slug}`}
-                    key={category._id}
-                    onClick={handleClose}
-                  >
-                    <h2
-                      onMouseEnter={() => {
-                        setSelectedCategory(category);
-                        setSelectedStaticNav(null); // Clear static nav selection
-                        if (category.subCategories.length > 0) {
-                          setSelectedSubcategoryId(category.subCategories[0]._id);
-                        }
-                      }}
-                      className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
-                        ? "text-amber-300 bg-amber-500/5 "
-                        : ""
-                        }`}
+                  <div key={category._id}>
+                    {/* Desktop behavior (lg and up) */}
+                    <Link
+                      className="hidden lg:block"
+                      href={`/package-list/${category.slug}`}
+                      onClick={handleClose}
                     >
-                      {category.name}
-                      <Icon
-                        icon="fluent:arrow-right-20-filled"
-                        className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id
-                          ? "translate-x-0 opacity-100"
-                          : "-translate-x-3 opacity-0"
+                      <h2
+                        onMouseEnter={() => {
+                          setSelectedCategory(category);
+                          setSelectedStaticNav(null);
+                          if (category.subCategories.length > 0) {
+                            setSelectedSubcategoryId(category.subCategories[0]._id);
+                          }
+                        }}
+                        className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
+                          ? "text-amber-300 bg-amber-500/5 "
+                          : ""
                           }`}
-                      />
-                    </h2>
-                  </Link>
+                      >
+                        {category.name}
+                        <Icon
+                          icon="fluent:arrow-right-20-filled"
+                          className={`ml-2 inline-block transition-all duration-500 ${selectedCategory?._id === category._id
+                            ? "translate-x-0 opacity-100"
+                            : "-translate-x-3 opacity-0"
+                            }`}
+                        />
+                      </h2>
+                    </Link>
+
+                    {/* Mobile/Medium behavior (below lg) */}
+                    <div className="lg:hidden">
+                      <h2
+                        onClick={() => {
+                          if (expandedCategory === category._id) {
+                            setExpandedCategory(null);
+                            setExpandedSubcategory(null);
+                          } else {
+                            setExpandedCategory(category._id);
+                            setExpandedSubcategory(null);
+                          }
+                        }}
+                        className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${expandedCategory === category._id
+                          ? "text-amber-300 bg-amber-500/5 "
+                          : ""
+                          }`}
+                      >
+                        {category.name}
+                        <Icon
+                          icon="material-symbols:arrow-drop-down"
+                          className={`ml-2 inline-block transition-all duration-300 ${expandedCategory === category._id
+                            ? "rotate-180"
+                            : "rotate-0"
+                            }`}
+                        />
+                      </h2>
+
+                      {/* Mobile dropdown for subcategories */}
+                      <div className={`overflow-hidden transition-all duration-300 ${expandedCategory === category._id ? "max-h-96" : "max-h-0"
+                        }`}>
+                        <div className="pl-4 py-2 space-y-2">
+
+
+                          {/* Subcategories */}
+                          {category.subCategories.slice(0, 5).map((subCategory) => (
+                            <div key={subCategory._id}>
+                              <h3
+                                onClick={() => {
+                                  if (expandedSubcategory === subCategory._id) {
+                                    setExpandedSubcategory(null);
+                                  } else {
+                                    setExpandedSubcategory(subCategory._id);
+                                    setSelectedSubcategoryId(subCategory._id);
+                                  }
+                                }}
+                                className={`cursor-pointer text-base md:text-lg transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1 pr-2 ${expandedSubcategory === subCategory._id
+                                  ? "text-amber-300"
+                                  : "text-gray-300"
+                                  }`}
+                              >
+                                {subCategory.name}
+                                <Icon
+                                  icon="material-symbols:arrow-drop-down"
+                                  className={`ml-2 inline-block transition-all duration-300 ${expandedSubcategory === subCategory._id
+                                    ? "rotate-180"
+                                    : "rotate-0"
+                                    }`}
+                                />
+                              </h3>
+
+                              {/* Packages dropdown */}
+                              <div className={`overflow-hidden transition-all duration-300 ${expandedSubcategory === subCategory._id ? "max-h-64" : "max-h-0"
+                                }`}>
+                                {expandedSubcategory === subCategory._id && (
+                                  <div className="pl-4 py-2 space-y-1">
+                                    {packagesLoading && selectedSubcategoryId === subCategory._id ? (
+                                      <div className="text-sm text-gray-400">Loading packages...</div>
+                                    ) : packages?.data && selectedSubcategoryId === subCategory._id ? (
+                                      <>
+                                        {packages.data.slice(0, 5).map((pkg) => (
+                                          <Link
+                                            key={pkg._id}
+                                            href={`/itinerary/${pkg.slug}`}
+                                            onClick={handleClose}
+                                            className="block text-sm md:text-base text-gray-400 hover:text-amber-300 transition-colors duration-300 py-1"
+                                          >
+                                            {pkg.name}
+                                          </Link>
+                                        ))}
+                                        {packages.data.length > 5 && (
+                                          <Link
+                                            href={`/package-list/${category.slug}?subcategory=${subCategory.slug}`}
+                                            onClick={handleClose}
+                                            className="block text-sm text-amber-400 hover:text-amber-300 transition-colors duration-300 py-1 font-medium"
+                                          >
+                                            View All ({packages.data.length} packages)
+                                          </Link>
+                                        )}
+                                      </>
+                                    ) : selectedSubcategoryId === subCategory._id ? (
+                                      <div className="text-sm text-gray-400">No packages available</div>
+                                    ) : (
+                                      <div className="text-sm text-gray-400">Click to load packages</div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                          {/* Category link */}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 )
               })}
               {navs.map((item, idx) => (
                 <div key={idx}>
                   {item.subItems ? (
-                    <div className="">
+                    <div>
+                      {/* Desktop behavior */}
                       <h2
-                        onClick={() => {
-                          if (isMobile) {
-                            setSelectedStaticNav(selectedStaticNav?.name === item.name ? null : item);
-                          }
-                        }}
+                        className="hidden lg:block"
                         onMouseEnter={() => {
-                          if (!isMobile) {
-                            setSelectedStaticNav(item);
-                            setSelectedCategory(null); // Clear category selection
-                            setSelectedSubcategoryId(null); // Clear subcategory selection
-                            // Set first sub-item as selected by default
-                            if (item.subItems && item.subItems.length > 0) {
-                              setSelectedStaticSubItem(item.subItems[0]);
-                            }
+                          setSelectedStaticNav(item);
+                          setSelectedCategory(null);
+                          setSelectedSubcategoryId(null);
+                          if (item.subItems && item.subItems.length > 0) {
+                            setSelectedStaticSubItem(item.subItems[0]);
                           }
                         }}
-                        className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
+                      >
+                        <div className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
                           ? "text-amber-300 bg-amber-500/5 "
                           : ""
-                          }`}
-                      >
-                        {item.name}
-                        <Icon
-                          icon={isMobile ? "material-symbols:arrow-drop-down" : "fluent:arrow-right-20-filled"}
-                          className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name
-                            ? isMobile
-                              ? "rotate-180"
-                              : "translate-x-0 opacity-100"
-                            : isMobile
-                              ? "rotate-0"
+                          }`}>
+                          {item.name}
+                          <Icon
+                            icon="fluent:arrow-right-20-filled"
+                            className={`ml-2 inline-block transition-all duration-500 ${selectedStaticNav?.name === item.name
+                              ? "translate-x-0 opacity-100"
                               : "-translate-x-3 opacity-0"
-                            }`}
-                        />
+                              }`}
+                          />
+                        </div>
                       </h2>
 
-                      {/* Mobile dropdown */}
-                      <div className={`sm:hidden overflow-hidden transition-all duration-300 ${selectedStaticNav?.name === item.name ? "max-h-48" : "max-h-0"
-                        }`}>
-                        {item.subItems?.map((subItem, subIdx) => (
-                          <Link
-                            key={subIdx}
-                            href={subItem.href!}
-                            onClick={handleClose}
-                            className="block pl-6 py-2 text-base text-gray-300 hover:text-amber-300 transition-colors duration-300"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
+                      {/* Mobile/Medium behavior */}
+                      <div className="lg:hidden">
+                        <h2
+                          onClick={() => {
+                            setSelectedStaticNav(selectedStaticNav?.name === item.name ? null : item);
+                          }}
+                          className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
+                            ? "text-amber-300 bg-amber-500/5 "
+                            : ""
+                            }`}
+                        >
+                          {item.name}
+                          <Icon
+                            icon="material-symbols:arrow-drop-down"
+                            className={`ml-2 inline-block transition-all duration-300 ${selectedStaticNav?.name === item.name
+                              ? "rotate-180"
+                              : "rotate-0"
+                              }`}
+                          />
+                        </h2>
+
+                        {/* Mobile dropdown */}
+                        <div className={`overflow-hidden transition-all duration-300 ${selectedStaticNav?.name === item.name ? "max-h-48" : "max-h-0"
+                          }`}>
+                          {item.subItems?.map((subItem, subIdx) => (
+                            <Link
+                              key={subIdx}
+                              href={subItem.href!}
+                              onClick={handleClose}
+                              className="block pl-6 py-2 text-base text-gray-300 hover:text-amber-300 transition-colors duration-300"
+                            >
+                              {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   ) : (
@@ -381,10 +502,6 @@ export default function Navbar() {
                       className="cursor-pointer px-2 flex gap-2 justify-between items-center group transition-all duration-300 hover:text-amber-300  py-2  hover:bg-amber-500/5  hover:border-amber-400 "
                     >
                       {item.name}
-                      {/* <Icon
-                        icon="fluent:arrow-right-20-filled"
-                        className="-translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all"
-                      /> */}
                     </Link>
                   )}
                 </div>
@@ -392,7 +509,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem] hidden sm:block">
+          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem] hidden lg:block">
             <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               SUB Categories
             </h2>

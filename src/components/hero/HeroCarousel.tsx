@@ -23,13 +23,13 @@ export default function VerticalSwiper() {
                 <SwiperSlide className="flex items-center pt-36 h-screen justify-center bg-white text-xl">
                     <h2 className="text-[5dvw] w-fit  sticky top-20  mx-auto font-semibold uppercase">Experience the REAL HIMALAYA</h2>
                     <div className="absolute inset-0">
-                        <img src="/hero-front.png" alt="" className="h-[200dvh] object-top" />
+                        <img src="/hero-front.png" alt="Real Himalaya" className="h-[200dvh] object-top" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide className="flex relative items-center h-screen  justify-center bg-white text-xl">
                     <img src="/hero-back.png" alt="hero-back" className="object-bottom" />
                     <div className="absolute bottom-0 ">
-                        <img src="/hero-front.png" alt="" className="h-[200dvh] object-cover object-top" />
+                        <img src="/hero-front.png" alt="Real Himalaya" className="h-[200dvh] object-cover object-top" />
                     </div>
                 </SwiperSlide>
 

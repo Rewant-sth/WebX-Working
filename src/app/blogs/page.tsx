@@ -109,12 +109,13 @@ const Blogs = async () => {
                   />
                 </div>
 
+
                 <div className="flex gap-2 capitalize items-center pt-2">
                   <span className="bg-orange-100 text-orange-500 py-1 px-4 rounded-sm text-sm font-semibold">
-                    4 min reading
+                    {blog?.estimatedReadTime ? blog.estimatedReadTime + " Min Read" : '5 Min Read'}
                   </span>
                   <span className="bg-orange-100 text-orange-500 py-1 px-4 rounded-sm text-sm font-semibold">
-                    Expedition
+                    By:  {blog.author}
                   </span>
                 </div>
 

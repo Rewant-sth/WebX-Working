@@ -90,7 +90,7 @@ const RelatedTrips = ({
                   <div className="flex gap-3">
                     <Link href={`/booking/${trip.id}`} className="flex-1">
                       <button
-                        className="w-full flex gap-2 items-center text-sm justify-center text-white py-3 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
+                        className="w-full flex gap-2 items-center text-sm justify-center text-white py-2.5 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
                         style={{ backgroundColor: '#01283F' }}
                       >
                         <Calendar size={18} /> Book Now
@@ -99,7 +99,7 @@ const RelatedTrips = ({
 
                     <Link href={`/itinerary/${trip.slug}`} className="flex-1">
                       <button
-                        className="w-full flex gap-2 text-sm items-center justify-center py-3 px-4 rounded-sm font-semibold border-2 transition-all duration-300 hover:text-white"
+                        className="w-full flex gap-2 text-sm items-center justify-center py-2 px-4 rounded-sm font-semibold border-2 transition-all duration-300 hover:text-white"
                         style={{
                           borderColor: '#3A3A3A',
                           color: '#3A3A3A'

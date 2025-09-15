@@ -49,16 +49,16 @@ export default function QuickInfo() {
         </div>
 
         {/* Right Side Custom Layout */}
-        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div key={idx} className="col-span-3 relative border border-gray-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid md:grid-cols-2  w-full">
+              <div key={idx} className="lg:col-span-3 relative border border-gray-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid lg:grid-cols-2  w-full">
                 <div className="w-full lg:h-full h-[40dvh]  relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover object-center" />
                 </div>
                 <div className="flex flex-col justify-center p-4">
                   <div className="">
-                    <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold">{data?.title}</h2>
+                    <h2 className="text-lg lg:text-2xl md:text-3xl font-semibold">{data?.title}</h2>
                     <p className="md:text-xl  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
                   </div>
 

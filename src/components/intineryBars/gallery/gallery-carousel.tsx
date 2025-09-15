@@ -64,7 +64,7 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
                         >
                             <div className="w-full h-full relative">
                                 <Image
-                                    src={slide.imageUrl}
+                                    src={slide.imageUrl || "/EVEREST REGION/NIKOND50001920.JPG"}
                                     alt={slide.caption || `Gallery image ${index + 1}`}
                                     fill
                                     className="object-cover object-top"
@@ -76,6 +76,16 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
                             </div>
                         </div>
                     ))}
+                    {slides?.length === 0 && (
+                        <div className="h-dvh w-dvh relative">
+                            <Image
+                                src={"/EVEREST REGION/NIKOND50001920.JPG"}
+                                alt={`No images available`}
+                                fill
+                                className="object-cover object-top"
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
 

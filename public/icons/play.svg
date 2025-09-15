@@ -1,5 +1,5 @@
 <svg viewBox="0 0 10 8" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <g id="Audio" transform="translate(0.250000, 0.25000)" stroke="#e0eeee" stroke-width="0.5" fill-rule="evenodd"
+  <g id="Audio" transform="translate(0.250000, 0.25000)" stroke="#F05E25" stroke-width="0.8" fill-rule="evenodd"
     stroke-linecap="round">
     <line x1="6.25" y1="0" x2="6.25" y2="5" id="Line-4">
       <animate attributeType="XML" attributeName="y1" values="0;2;0" keyTimes="0;0.5;1" dur=".75s"

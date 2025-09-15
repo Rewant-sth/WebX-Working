@@ -9,4 +9,5 @@ export interface IBlog {
   banner: string;
   createdAt: string;
   slug: string;
+  estimatedReadTime: string;
 }

@@ -81,11 +81,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
             <header className="sm:mb-12">
               {/* Category & Reading Time */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-sm text-sm font-semibold">
+                <span className="bg-orange-100 text-orange-500 capitalize px-3 py-1 rounded-sm text-sm font-semibold">
                   Adventure Blog
                 </span>
-                <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-sm text-sm">
-                  5 min read
+                <span className="bg-orange-100 text-orange-500  capitalize font-semibold px-3 py-1 rounded-sm text-sm">
+                  {data?.data?.estimatedReadTime ? data?.data?.estimatedReadTime + " Min Read" : '5 Min Read'}
                 </span>
               </div>
 
@@ -104,7 +104,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between py-6  border-gray-200">
                 <div className="flex items-center space-x-4 mb-4 sm:mb-0">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm flex items-center justify-center">
-                    <img src="/logo/logo.svg" alt="" />
+                    <img src="/logo/logo.svg" alt="Real Himalaya" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 text-xl">REAL HIMALAYA</p>

@@ -27,7 +27,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
               >
                 {/* Icon */}
                 {/* <div className="shrink-0 mt-1  size-10 flex items-start justify-center text-orange-500">
-                  <img src="/icons/idea-bulb.png" alt="" />
+                  <img src="/icons/idea-bulb.png" alt="Real Himalaya" />
                 </div> */}
 
                 {/* Content */}
