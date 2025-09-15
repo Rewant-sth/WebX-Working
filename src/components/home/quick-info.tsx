@@ -37,9 +37,9 @@ export default function QuickInfo() {
     <div className=" py-12 md:py-20 flex items-center justify-center bg-white px-4 w-full">
       <div className="max-w-7xl w-full relative mx-auto  gap-6 items-center">
         <div className="">
-          <h2 className="text-xl md:text-4xl space-x-1 pb-4 mx-auto font-semibold uppercase max-w-4xl text-center leading-snug text-gray-900">
+          <h2 className="text-2xl md:text-4xl space-x-1 pb-4 mx-auto font-semibold uppercase max-w-4xl text-center leading-snug text-gray-900">
             Your Mountain
-            <span className="bg-orange-500 ml-2 text-white px-2"> Guidebook</span>
+            <span className="bg-orange-500 ml-2 text-white px-2">Guidebook</span>
           </h2>
           <p className="max-w-4xl mx-auto text-center">
             Discover stories, tips, and experiences from the heart of the Himalayas.
@@ -58,7 +58,7 @@ export default function QuickInfo() {
                 </div>
                 <div className="flex flex-col justify-center p-4">
                   <div className="">
-                    <h2 className="text-lg lg:text-2xl md:text-3xl font-semibold">{data?.title}</h2>
+                    <h2 className="text-xl lg:text-2xl md:text-3xl font-semibold">{data?.title}</h2>
                     <p className="md:text-xl  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
                   </div>
 

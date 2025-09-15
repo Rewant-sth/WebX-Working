@@ -83,7 +83,7 @@ export default function Hero() {
       </div>
       {/* hero first */}
       <div ref={sectionRef} className="h-screen   sticky top-30 lg:flex gap-6 lg:gap-16 p-6 ">
-        <h2 className='text-[6dvw] font-bold uppercase text-center mx-auto flex flex-col  leading-12 lg:leading-24'><span className="text-[#01283F]">Explore  The</span> <span className="text-[#F05E25]">Real Himalaya</span></h2>
+        <h2 className='text-[10dvw] sm:text-[6dvw] font-bold uppercase text-center mx-auto flex flex-col  leading-12 lg:leading-24'><span className="text-[#01283F]">Explore  The</span> <span className="text-[#F05E25]">Real Himalaya</span></h2>
       </div>
 
       {/* hero second */}

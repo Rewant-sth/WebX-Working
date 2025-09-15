@@ -19,13 +19,13 @@ export default function AudioConfirmation({ onConfirm }: AudioConfirmationProps)
                     </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 lg:gap-10 justify-center">
+                <div className="flex flex-wrap gap-10 justify-center">
 
 
 
                     <button
                         onClick={() => onConfirm(true)}
-                        className="hover:text-orange-500 border-b  px-4 py-2  flex gap-2 items-center pb-1   font-medium  transition-colors duration-200"
+                        className="hover:text-orange-500 border-b w-12  px-4 py-2  flex gap-2 items-center pb-1   font-medium  transition-colors duration-200"
                     >
                         YES
                     </button>

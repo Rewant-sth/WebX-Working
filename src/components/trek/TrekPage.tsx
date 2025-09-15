@@ -74,7 +74,7 @@ function TrekPage() {
   if (loading) {
     return (
       <section className="h-full space-y-3 py-12 md:mt-20 relative">
-        <h2 className="text-xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+        <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
           The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto">
@@ -95,7 +95,7 @@ function TrekPage() {
   if (error) {
     return (
       <section className="h-full space-y-3 py-12 md:mt-28 max-w-7xl mx-auto  relative">
-        <h2 className="text-xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+        <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
           The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto text-red-600">
@@ -111,7 +111,7 @@ function TrekPage() {
     >
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
-          <h2 className="text-xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+          <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
             The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
           </h2>
           <p className="text-lg max-w-4xl mx-auto mt-2">
@@ -123,14 +123,14 @@ function TrekPage() {
         <div className="flex justify-end mt-4 md:mt-0 gap-2 md:ml-4">
           <button
             onClick={scrollPrev}
-            className="p-2 rounded-full border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
+            className="p-2 rounded-sm border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={scrollNext}
-            className="p-2 rounded-full border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
+            className="p-2 rounded-sm border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5" />

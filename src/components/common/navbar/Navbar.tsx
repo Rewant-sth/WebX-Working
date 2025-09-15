@@ -207,44 +207,46 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed  top-0 left-0  items-start overflow-x-hidden right-0 w-full p-4 md:px-6 py-1.5 lg:py-3 flex justify-between transition-all duration-300 ${isScrolled ? "backdrop-blur-md " : "bg-transparent"
-        } ${showNav ? "min-h-screen overflow-y-auto lg:overflow-hidden " : "items-start"}`}
+      className={`fixed  top-0 left-0   overflow-x-hidden right-0 w-full items-start p-4 md:px-6 py-1.5 lg:py-3 flex justify-between transition-all duration-300 ${isScrolled ? "backdrop-blur-md " : "bg-transparent"
+        } ${showNav ? "min-h-screen overflow-y-auto lg:overflow-hidden items-start" : ""}`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
 
       }}
     >
-      <Link
-        href={"/"}
-        className="w-28 lg:w-40 transition-transform duration-300 "
-      >
-        <img
-          src={"/logo/main.svg"}
-          alt="Real Himalaya Logo"
-          className="w-full h-auto transition-opacity duration-300"
-        />
-      </Link>
-
-      <button className="text-2xl cursor-pointer flex justify-center items-center  rounded-full  xl:text-3xl">
-        {
-          isPlaying ? <span onClick={() => pause()} className="cursor-pointer border-2 border-orange-500 rounded-full size-7 lg:size-10 flex justify-center items-center ">
-            <img src="/icons/play.svg" alt="Real Himalaya" />
-          </span>
-            : <span onClick={() => play('/Audio/cumb2.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border-2 border-orange-500 rounded-full flex justify-center items-center "><img src="/icons/pause.svg" alt="Real Himalaya" className="  w-full border-none" /></span>
-        }
-      </button>
-
-      <div className="flex gap-10 items-center">
-        <button
-          onClick={handleShow}
-          className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-[#F05E25] to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
-            }`}
+      <div className="flex justify-between items-center w-full gap-4">
+        <Link
+          href={"/"}
+          className="w-28 lg:w-40 transition-transform duration-300 "
         >
-          <span className="font-medium text-sm md:text-base">Menu</span>
-          <span className="bg-white size-9 flex justify-center items-center text-amber-500 rounded-sm transition-transform duration-300 group-hover:rotate-180">
-            <Icon icon={"fa6-solid:bars"} className="md:text-lg" />
-          </span>
+          <img
+            src={"/logo/main.svg"}
+            alt="Real Himalaya Logo"
+            className="w-full h-auto transition-opacity duration-300"
+          />
+        </Link>
+
+        <button className="text-2xl cursor-pointer flex justify-center items-center  rounded-full  xl:text-3xl">
+          {
+            isPlaying ? <span onClick={() => pause()} className="cursor-pointer border-2 border-orange-500 rounded-full size-7 lg:size-10 flex justify-center items-center ">
+              <img src="/icons/play.svg" alt="Real Himalaya" />
+            </span>
+              : <span onClick={() => play('/Audio/cumb2.mp3')} className="cursor-pointer size-7 shrink-0 lg:size-10 border-2 border-orange-500 rounded-full flex justify-center items-center "><img src="/icons/pause.svg" alt="Real Himalaya" className="  w-full border-none" /></span>
+          }
         </button>
+
+        <div className="flex gap-10 items-center">
+          <button
+            onClick={handleShow}
+            className={`w-fit px-4 md:px-6 pr-0.5 md:pr-1 py-0.5 md:py-1 rounded-sm flex gap-4 items-center bg-gradient-to-r from-[#F05E25] to-[#F05E25] hover:from-[#F05E25] hover:to-[#F05E25] shrink-0 text-white transition-all duration-300 hover:shadow-lg  active:scale-95 ${isScrolled ? "shadow-md" : ""
+              }`}
+          >
+            <span className="font-medium text-sm md:text-base">Menu</span>
+            <span className="bg-white size-9 flex justify-center items-center text-amber-500 rounded-sm transition-transform duration-300 group-hover:rotate-180">
+              <Icon icon={"fa6-solid:bars"} className="md:text-lg" />
+            </span>
+          </button>
+        </div>
       </div>
 
       <div
