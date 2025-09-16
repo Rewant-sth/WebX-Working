@@ -68,7 +68,7 @@ const ValueCard: React.FC<ValueCardProps> = ({ icon, title, desc, delay = 0 }) =
     className="p-8 bg-black/30 backdrop-blur-sm rounded-sm border border-white/20 hover:shadow-lg transition-all duration-300 hover:border-white/40"
   >
     <div className="flex flex-col space-y-4">
-      <div className="flex items-center space-x-3">
+      <div className="flex items-start space-x-3">
         <div className="text-orange-400">
           {icon}
         </div>
