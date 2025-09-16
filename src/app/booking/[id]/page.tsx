@@ -16,7 +16,7 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BookingFormSkeleton from "./_components/Skeleton";
-import Image from "next/image";
+import { Select, SelectOption } from '@highlight-ui/select';
 
 // Zod schemas
 const travelerSchema = z.object({
@@ -60,7 +60,9 @@ const FormInput = ({
   icon,
   type = "text",
   placeholder,
-  required = true
+  min,
+  required = true,
+  onChange
 }: any) => (
   <div className="mb-4">
     <label className="block text-gray-700 mb-1">
@@ -71,7 +73,13 @@ const FormInput = ({
         {icon}
       </div>
       <input
-        {...register(name)}
+        {...register(name, {
+          ...(type === "number" && {
+            valueAsNumber: true,
+            onChange: onChange
+          })
+        })}
+        min={min}
         type={type}
         placeholder={placeholder}
         className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm"
@@ -206,7 +214,7 @@ export default function BookingForm() {
     }
   });
 
-  const { fields, append, remove } = useFieldArray({ control, name: "personalInfo" });
+  const { fields } = useFieldArray({ control, name: "personalInfo" });
 
   // Watch form values for real-time updates
   const personalInfo = useWatch({ control, name: "personalInfo" });
@@ -214,6 +222,19 @@ export default function BookingForm() {
   const departureDate = useWatch({ control, name: "departureDate" });
   const fixedDateId = useWatch({ control, name: "fixedDateId" });
   const selectedAddons = useWatch({ control, name: "selectedAddons" });
+  const numberOfTravelers = useWatch({ control, name: "numberOfTravelers" });
+
+  // Function to calculate pax discount based on number of travelers
+  const calculatePaxDiscount = (totalTravelers: number, paxData: any[]) => {
+    if (!paxData || paxData.length === 0) return 0;
+
+    // Find the applicable pax discount based on number of travelers
+    const applicablePax = paxData.find(pax =>
+      totalTravelers >= pax.min && totalTravelers <= pax.max
+    );
+
+    return applicablePax ? applicablePax.discount : 0;
+  };
 
   // Fetch package data
   const { data: packageData } = useQuery({
@@ -257,31 +278,43 @@ export default function BookingForm() {
   }, [fixedDateId, packageData, setValue]);
 
   // Calculate counts and totals
-  const { totalPeopleCount, childrenCount, totalAmount } = useMemo(() => {
-    const totalPeople = personalInfo?.filter(t => !t.isChild).length || 0;
-    const children = personalInfo?.filter(t => t.isChild).length || 0;
-    const basePrice = pricePerPerson * (totalPeople + children);
+  const { totalPeopleCount, childrenCount, totalAmount, originalAmount, discountPercentage, discountAmount } = useMemo(() => {
+    // Use numberOfTravelers field instead of counting from personalInfo
+    const totalTravelers = numberOfTravelers || 1;
+    const totalPeople = totalTravelers; // For now, assume all are adults
+    const children = 0; // For now, set to 0
+
+    // Calculate base price
+    const basePrice = pricePerPerson * totalTravelers;
 
     // Calculate add-ons total
     const addonsTotal = packageData?.data?.addons
       ?.filter((addon: any) => selectedAddons?.includes(addon._id))
       ?.reduce((sum: number, addon: any) => sum + addon.price, 0) || 0;
 
+    // Calculate pax discount
+    const paxDiscountPercentage = calculatePaxDiscount(totalTravelers, packageData?.data?.pax || []);
+    const discountAmount = (basePrice * paxDiscountPercentage) / 100;
+    const discountedBasePrice = basePrice - discountAmount;
+
+    // Total amount includes discounted base price + addons
+    const finalAmount = discountedBasePrice + addonsTotal;
+
     return {
       totalPeopleCount: totalPeople,
       childrenCount: children,
-      totalAmount: basePrice + addonsTotal
+      totalAmount: finalAmount,
+      originalAmount: basePrice + addonsTotal,
+      discountPercentage: paxDiscountPercentage,
+      discountAmount: discountAmount
     };
-  }, [personalInfo, pricePerPerson, selectedAddons, packageData]);
-
-  // Update form values when counts change
+  }, [numberOfTravelers, pricePerPerson, selectedAddons, packageData]);  // Update form values when counts change
   useEffect(() => {
     setValue("package", selectedPackage?._id as string);
-    setValue("totalPeople", totalPeopleCount);
+    setValue("totalPeople", numberOfTravelers || 1);
     setValue("children", childrenCount);
-    setValue("numberOfTravelers", totalPeopleCount + childrenCount);
     setValue("totalAmount", totalAmount);
-  }, [totalPeopleCount, childrenCount, totalAmount, setValue, selectedPackage]);
+  }, [numberOfTravelers, childrenCount, totalAmount, setValue, selectedPackage]);
 
   const { mutate } = useMutation({
     mutationFn: bookTraveller,
@@ -301,24 +334,19 @@ export default function BookingForm() {
     // Only send addon IDs to backend
     const bookingData = {
       ...data,
-      selectedAddons: data.selectedAddons || []
+      selectedAddons: data.selectedAddons || [],
+      // Add discount information for backend processing
+      discountInfo: {
+        originalAmount: originalAmount,
+        discountPercentage: discountPercentage,
+        discountAmount: discountAmount,
+        finalAmount: totalAmount
+      }
     };
     mutate({ bookingData });
   };
 
-  const addTraveler = () => {
-    append({
-      fullName: "",
-      email: "",
-      phoneNumber: "",
-      gender: "",
-      dateOfBirth: null as unknown as Date,
-      country: "",
-      passportNumber: "",
-      passportExpiry: null as unknown as Date,
-      isChild: false,
-    });
-  };
+
 
   // Validation functions
   const validateBirthDate = (dob: Date, isChild: boolean) => {
@@ -412,42 +440,21 @@ export default function BookingForm() {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Left Column - Traveler Info */}
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-gray-800 mb-6">Traveler Information</h3>
 
-              {fields.map((traveler, index) => (
-                <div key={traveler.id} className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
+              {/* Single Traveler Information Form */}
+              {fields.length > 0 && (
+                <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-orange-600 text-lg font-medium">Traveler #{index + 1}</h3>
-                    {index > 0 && (
-                      <button
-                        type="button"
-                        onClick={() => remove(index)}
-                        className="text-red-500 hover:text-red-700 transition"
-                      >
-                        <Trash size={20} />
-                      </button>
-                    )}
+                    <h3 className="text-orange-600 text-lg font-medium">Traveller Information</h3>
                   </div>
-
-                  {/* <div className="flex items-center mb-4">
-                    <input
-                      type="checkbox"
-                      id={`isChild-${index}`}
-                      {...register(`personalInfo.${index}.isChild`)}
-                      className="w-5 h-5 mr-2 accent-orange-600"
-                    />
-                    <label htmlFor={`isChild-${index}`} className="text-md font-medium">
-                      Is this traveler a child?
-                    </label>
-                  </div> */}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <FormInput
                       register={register}
-                      name={`personalInfo.${index}.fullName`}
+                      name={`personalInfo.0.fullName`}
                       label="Full Name"
                       placeholder="Full Name"
-                      error={errors.personalInfo?.[index]?.fullName}
+                      error={errors.personalInfo?.[0]?.fullName}
                       icon={
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
@@ -457,11 +464,11 @@ export default function BookingForm() {
 
                     <FormInput
                       register={register}
-                      name={`personalInfo.${index}.email`}
+                      name={`personalInfo.0.email`}
                       label="Email"
                       placeholder="Email Address"
                       type="email"
-                      error={errors.personalInfo?.[index]?.email}
+                      error={errors.personalInfo?.[0]?.email}
                       icon={
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -472,11 +479,11 @@ export default function BookingForm() {
 
                     <FormInput
                       register={register}
-                      name={`personalInfo.${index}.phoneNumber`}
+                      name={`personalInfo.0.phoneNumber`}
                       label="Phone Number"
                       placeholder="Phone Number"
                       type="tel"
-                      error={errors.personalInfo?.[index]?.phoneNumber}
+                      error={errors.personalInfo?.[0]?.phoneNumber}
                       icon={
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -486,9 +493,9 @@ export default function BookingForm() {
 
                     <FormSelect
                       register={register}
-                      name={`personalInfo.${index}.gender`}
+                      name={`personalInfo.0.gender`}
                       label="Gender"
-                      error={errors.personalInfo?.[index]?.gender}
+                      error={errors.personalInfo?.[0]?.gender}
                       icon={
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M9.58 1a1 1 0 00-.868.504l-1.414 2.121a1 1 0 00.217 1.284L8.938 6 6.1 8.838a1 1 0 000 1.414l.932.932a1 1 0 001.414 0L11 8.414l1.121 1.121a1 1 0 001.284.217l2.121-1.414a1 1 0 00.504-.868V5.414a1 1 0 00-.293-.707L13.293 2.293A1 1 0 0012.586 2H9.58z" clipRule="evenodd" />
@@ -504,22 +511,22 @@ export default function BookingForm() {
 
                     <FormDatePicker
                       control={control}
-                      name={`personalInfo.${index}.dateOfBirth`}
+                      name={`personalInfo.0.dateOfBirth`}
                       label="Date of Birth"
                       minDate={new Date(1900, 0, 1)}
                       maxDate={new Date()}
-                      error={errors.personalInfo?.[index]?.dateOfBirth}
+                      error={errors.personalInfo?.[0]?.dateOfBirth}
                       validate={(dob: Date) =>
-                        validateBirthDate(dob, personalInfo[index]?.isChild as boolean)
+                        validateBirthDate(dob, personalInfo[0]?.isChild as boolean)
                       }
                     />
 
                     <FormInput
                       register={register}
-                      name={`personalInfo.${index}.country`}
+                      name={`personalInfo.0.country`}
                       label="Country"
                       placeholder="Country"
-                      error={errors.personalInfo?.[index]?.country}
+                      error={errors.personalInfo?.[0]?.country}
                       icon={
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
@@ -529,10 +536,10 @@ export default function BookingForm() {
 
                     <FormInput
                       register={register}
-                      name={`personalInfo.${index}.passportNumber`}
+                      name={`personalInfo.0.passportNumber`}
                       label="Passport Number"
                       placeholder="Passport Number"
-                      error={errors.personalInfo?.[index]?.passportNumber}
+                      error={errors.personalInfo?.[0]?.passportNumber}
                       icon={
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
@@ -542,15 +549,28 @@ export default function BookingForm() {
 
                     <FormDatePicker
                       control={control}
-                      name={`personalInfo.${index}.passportExpiry`}
+                      name={`personalInfo.0.passportExpiry`}
                       label="Passport Expiry Date"
                       minDate={new Date()}
-                      error={errors.personalInfo?.[index]?.passportExpiry}
+                      error={errors.personalInfo?.[0]?.passportExpiry}
                       validate={validatePassportExpiry}
+                    />
+
+                    <FormInput
+                      min={1}
+                      max={20}
+                      register={register}
+                      name="numberOfTravelers"
+                      label="Number of Travelers"
+                      placeholder="Enter number of travelers"
+                      type="number"
+                      error={errors.numberOfTravelers}
+                      icon={
+                        <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="size-5"><circle cx={9.001} cy={6} r={4} fill="currentColor"></circle><ellipse cx={9.001} cy={17.001} fill="currentColor" rx={7} ry={4}></ellipse><path fill="currentColor" d="M21 17c0 1.657-2.036 3-4.521 3c.732-.8 1.236-1.805 1.236-2.998c0-1.195-.505-2.2-1.239-3.001C18.962 14 21 15.344 21 17M18 6a3 3 0 0 1-4.029 2.82A5.7 5.7 0 0 0 14.714 6c0-1.025-.27-1.987-.742-2.819A3 3 0 0 1 18 6.001"></path></svg>}
                     />
                   </div>
                 </div>
-              ))}
+              )}
 
               {/* <div className="flex justify-end mb-8">
                 <button
@@ -564,7 +584,7 @@ export default function BookingForm() {
 
               {/* Trip Dates Section */}
               <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
-                <h4 className="text-xl font-bold text-gray-800 mb-4">Trip Dates</h4>
+                <h3 className="text-orange-600 text-lg font-medium">Trip Dates</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FormDatePicker
@@ -585,26 +605,31 @@ export default function BookingForm() {
 
                   <div className="mb-4 relative">
                     <label className="block text-gray-700 mb-1">Select Package Date *</label>
-                    <select
-                      {...register("fixedDateId")}
-                      className="w-full p-2 relative border border-gray-300 rounded-sm"
-                    >
-                      {packageData?.data?.fixedDates?.map((dateOption: any) => {
+                    <Select
+                      triggerLabel="Select a date"
+                      className="border border-gray-300 rounded-sm w-full h p-2"
+                      closeOnSelect={true}
+                      listClassName="cursor-pointer hover:bg-orange-500 hover:text-white bg-orange-100 p-2 m-0 mt-2 rounded-sm -translate-x-2 w-full"
+                      selectedOptions={packageData?.data?.fixedDates?.filter((date: any) => date._id === fixedDateId).map((date: any) => ({
+                        label: `${new Date(date.startDate).toLocaleDateString()} - ${new Date(date.endDate).toLocaleDateString()} ($${date.pricePerPerson})`,
+                        value: date._id
+                      })) || []}
+                      onSelect={(selectedOptions: SelectOption[]) => {
+                        const selectedValue = selectedOptions[0]?.value || '';
+                        setValue("fixedDateId", selectedValue as string);
+                      }}
+                      options={packageData?.data?.fixedDates?.map((dateOption: any) => {
                         const startDate = new Date(dateOption.startDate).toLocaleDateString();
                         const endDate = new Date(dateOption.endDate).toLocaleDateString();
-                        return (
-                          <option key={dateOption._id} value={dateOption._id} className="border">
-                            {startDate} - {endDate} (${dateOption.pricePerPerson})
-                          </option>
-
-                        );
-                      })}
-                    </select >
-                    {
-                      errors.fixedDateId && (
-                        <p className="text-red-500 text-sm mt-1">{errors.fixedDateId.message}</p>
-                      )
-                    }
+                        return {
+                          label: `${startDate} - ${endDate} ($${dateOption.pricePerPerson})`,
+                          value: dateOption._id
+                        };
+                      }) || []}
+                    />
+                    {errors.fixedDateId && (
+                      <p className="text-red-500 text-sm mt-1">{errors.fixedDateId.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -612,7 +637,7 @@ export default function BookingForm() {
               {/* Add-ons Section */}
               {packageData?.data?.addons && packageData.data.addons.length > 0 && (
                 <div className="sm:border border-gray-200 sm:p-6 rounded-sm mb-6">
-                  <h4 className="text-xl font-bold text-gray-800 mb-4">Add-ons</h4>
+                  <h3 className="text-orange-600 text-lg font-medium">Choose Add-ons</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {packageData.data.addons.map((addon: any) => (
                       <div key={addon._id} className="flex flex-wrap items-center  bg-white md:gap-4 border border-gray-200 rounded-sm hover:border-orange-300 transition-colors">
@@ -663,7 +688,7 @@ export default function BookingForm() {
 
               {/* Additional Notes */}
               <div className="bg-white p-6 rounded-sm border border-gray-200 mb-6">
-                <h5 className="text-xl font-bold text-gray-800 mb-4">Additional Notes</h5>
+                <h3 className="text-orange-600 text-lg font-medium">Additional Notes</h3>
 
                 <div className="mb-4">
                   <label className="block text-gray-700 mb-2">Special Requests</label>
@@ -717,20 +742,29 @@ export default function BookingForm() {
                     <span className="font-medium">{packageData?.data?.name}</span>
                   </div>
 
-                  {/* <div className="flex justify-between">
-                    <span className="text-gray-600">Adults:</span>
-                    <span className="font-medium">{totalPeopleCount}</span>
-                  </div>
-
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Children:</span>
-                    <span className="font-medium">{childrenCount}</span>
-                  </div> */}
+                    <span className="text-gray-600">Number of Travelers:</span>
+                    <span className="font-medium">{numberOfTravelers || 1}</span>
+                  </div>
 
                   <div className="flex justify-between">
                     <span className="text-gray-600">Price per traveler:</span>
                     <span className="font-medium">${pricePerPerson}</span>
                   </div>
+
+                  {/* Show discount information if applicable */}
+                  {discountPercentage > 0 && (
+                    <>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Subtotal:</span>
+                        <span className="font-medium line-through text-gray-500">${originalAmount}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-green-600">Group Discount ({discountPercentage}%):</span>
+                        <span className="font-medium text-green-600">-${discountAmount.toFixed(2)}</span>
+                      </div>
+                    </>
+                  )}
 
                   <div className="flex justify-between">
                     <span className="text-gray-600">Arrival Date:</span>
@@ -752,9 +786,14 @@ export default function BookingForm() {
                     </div>
                   )}
 
-                  <div className="flex justify-between text-lg font-bold pt-3 border-t border-gray-200">
+                  <div className={`flex justify-between text-lg font-bold pt-3 border-t border-gray-200 ${discountPercentage > 0 ? 'text-green-600' : ''}`}>
                     <span>Total:</span>
-                    <span className="text-orange-600">${totalAmount}</span>
+                    <span className={discountPercentage > 0 ? 'text-green-600' : 'text-orange-600'}>
+                      ${totalAmount.toFixed(2)}
+                      {discountPercentage > 0 && (
+                        <span className="text-sm font-normal ml-1">(Discounted)</span>
+                      )}
+                    </span>
                   </div>
                 </div>
 

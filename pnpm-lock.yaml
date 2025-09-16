@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@highlight-ui/select':
+        specifier: ^10.6.9
+        version: 10.6.9(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
@@ -190,6 +193,19 @@ packages:
   '@floating-ui/dom@1.7.4':
     resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
 
+  '@floating-ui/react-dom-interactions@0.11.0':
+    resolution: {integrity: sha512-LQh607tGyme3fFv6QQU3/v1fXGOb8XIz3AnFBXq4pAlOKFg6OrKONjhsPZCP8ZOmxTW/P29grd8D312oeEN8zA==}
+    deprecated: Package renamed to @floating-ui/react
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
+  '@floating-ui/react-dom@1.3.0':
+    resolution: {integrity: sha512-htwHm67Ji5E/pROEAr7f8IKFShuiCKHwUC/UY4vC3I5jiSvGFAYnSYiZO5MlGmads+QqvUkR9ANHEguGrDv72g==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
   '@floating-ui/react-dom@2.1.6':
     resolution: {integrity: sha512-4JX6rEatQEvlmgU80wZyq9RT96HZJa88q8hp0pBd+LrczeDI4o6uA2M+uvxngVHo4Ihr8uibXxH6+70zhAFrVw==}
     peerDependencies:
@@ -204,6 +220,97 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+
+  '@highlight-ui/avatar@6.4.8':
+    resolution: {integrity: sha512-bozIHsF3D3v5Rl0sETJFZpCgdku5eYSdJly3Qt4FlOXhFpVYxqMl30AXJrAYdY+u1+kXQS67PydglVbGnBUqgQ==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/button@12.2.9':
+    resolution: {integrity: sha512-yOdIdwd+H4MazwvkeGkyQK1+ClfvRduYek4lkVb5CqUKUmhYYhixz1RjOkilq+m8CYmF6afwT/Q4/k5Qoma9Tg==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/checkbox@5.1.15':
+    resolution: {integrity: sha512-eEP1fnvj0ue+d7MTxDC+bZOPkLRfD8Xrl5qzRmAScUPp7cc0cguvJ4A9mZVIDjHHvCXB6vx2VADT7lbxSgCtjg==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/color-picker@4.3.9':
+    resolution: {integrity: sha512-fgUdEHBOopoah1PXBO3cmfHZYkvIn2YT9LcxMGJrOGIpBkNCU/hPCmSZWyPR1xka/QlATTYtl7eG98tpu0KlFg==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/icon@5.3.7':
+    resolution: {integrity: sha512-B+65RZYknGFlXG56cFxYIiJEcKdQQQkPa7e7I+NU02dqh67ZOv0aghlv93vxHxAHyDgyC3DkgHql1jjfkgcotg==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/input@6.1.8':
+    resolution: {integrity: sha512-cTHQqECO3vGE6CngthFXTdyjMJjWvdbtq87DzFdTawJvqC8+nYxM5wzfK861vKkQwz0HbmQBkqwskqYSK+Tmtg==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/layout@0.6.8':
+    resolution: {integrity: sha512-RTO98lsJO6wsTXqcrUCqjMc127NlvQCf5rgI2L6wvby4RSAD3hqD238IpRgnlf29vjII1FBkcYCvwZe7uOQMbg==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/panel@3.2.7':
+    resolution: {integrity: sha512-ZeDkRCwOukuUp6do7XxG8FCv8h929jvTWqtJJpCm+dvs9OVapjIe5hOwKEnQZXK0ei2T/JAStWNHLPSuZWw20Q==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/select@10.6.9':
+    resolution: {integrity: sha512-0ZKooc7GBvdYSIbqgoBgZaUB+1Y8nhK3gPMy45XL+rj67tIAsk4z9LsPq0HN3FFG3O28+HFO5IY7TGS4+M9UhA==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/toggle-input@0.1.14':
+    resolution: {integrity: sha512-MDD5D+logVq6vJCMoSfd++WN7gp6S/CYpv76JpODmWHsErarPjpD1tMyARxqsM4Jy/IfxXon/EYEpCkJ830HqA==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/tokens@4.3.9':
+    resolution: {integrity: sha512-bfNEbSX7OW4tYR3WpAfEL9sTx4XBuCMJazew8Ja4dLgr0ReTyd0r8xT/J1Vyrrvzfdfb69+lmtQASRj6379SJQ==}
+
+  '@highlight-ui/tooltip@4.4.3':
+    resolution: {integrity: sha512-UPaY15Vid+iEV26a1pHxwz5GecrtQGkJkiDpzgYSuJVvFZpHLLAddSM5ABtoykzU1Us23RIqbtiplfTzlQy4vA==}
+    peerDependencies:
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/typography@6.3.8':
+    resolution: {integrity: sha512-sDBSD+q5CSBJYJ6QdhfDj3uqO7kRRS2F4wQPaE3PbArZRzS9AEeaZqsliWI7FhSF3ynUvh2uRcsRZQVAckHcEQ==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/utils-commons@2.7.1':
+    resolution: {integrity: sha512-AMnKcXQLRFTBj4G3rsKHJWli/HtdfNRpIRQdbrxcw7N0E/zUFRcx5T/FV0r2J/9NZQjqUePhIEDYsuizA2O+xw==}
+    peerDependencies:
+      lodash: ~4.17.21
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/utils-hooks@3.5.1':
+    resolution: {integrity: sha512-NbjTUmmYkRnaHyjuzpm0FdDwO1TkglkgcUyw0ycxc2xMje1wTs93ScXd+1rEz5i1Y+A4VFoLS0iJ6OdNdskCZQ==}
+    peerDependencies:
+      react: ^17.0.2 || ^18.0.0
+
+  '@highlight-ui/utils-portal-manager@3.2.0':
+    resolution: {integrity: sha512-HNUA9nvTbJ3Lnx+Sf9uTuHioybJii6sf0m2Qs+/bQrhhKsSdkM2kttCKjDTIXNzEZGahWb3E7HviQCBaxe51DA==}
+    peerDependencies:
+      classnames: ~2.3.1
+      react: ^17.0.2 || ^18.0.0
 
   '@hookform/resolvers@5.2.1':
     resolution: {integrity: sha512-u0+6X58gkjMcxur1wRWokA7XsiiBJ6aK17aPZxhkoYiK5J+HcTx0Vhu9ovXe6H+dVpO6cjrn2FkJTryXEMlryQ==}
@@ -422,6 +529,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@popperjs/core@2.9.3':
+    resolution: {integrity: sha512-xDu17cEfh7Kid/d95kB6tZsLOmSWKCZKtprnhVepjsSaCij+lM3mItSJDuuHDMbCWTh8Ejmebwb+KONcCJ0eXQ==}
 
   '@radix-ui/primitive@1.1.3':
     resolution: {integrity: sha512-JTF99U/6XIjCBo0wqkU5sK10glYe27MRRsfwoiq5zzOEZLHU3A3KCMa5X/azekYRCJ0HlwI0crAXS/5dEHTzDg==}
@@ -789,8 +899,17 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
+  '@use-it/event-listener@0.1.7':
+    resolution: {integrity: sha512-hgfExDzUU9uTRTPDCpw2s9jWTxcxmpJya3fK5ADpf5VDpSy8WYwY/kh28XE0tUcbsljeP8wfan48QvAQTSSa3Q==}
+    peerDependencies:
+      react: '>=16.8.0'
+
   abs-svg-path@0.1.1:
     resolution: {integrity: sha512-d8XPSGjfyzlXC3Xx891DJRyZfqk5JU0BJrDQcsWomFIV1/BIzPW5HDH5iDdWpqWaav0YVIEzT1RHTwWr0FFshA==}
+
+  aria-hidden@1.2.6:
+    resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
+    engines: {node: '>=10'}
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
@@ -879,6 +998,9 @@ packages:
 
   class-variance-authority@0.7.1:
     resolution: {integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg==}
+
+  classnames@2.3.3:
+    resolution: {integrity: sha512-1inzZmicIFcmUya7PGtUQeXtcF7zZpPnxtQoYOrz0uiOBGlLFa4ik4361seYL2JCcRDIyfdFHiwQolESFlw+Og==}
 
   client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -992,6 +1114,9 @@ packages:
 
   dompurify@3.2.6:
     resolution: {integrity: sha512-/2GogDQlohXPZe6D6NOgQvXLPSYBqIWMnZ8zzOhn09REE4eyAzb+Hed3jhoM9OkuaJ8P6ZGTTVWQKAi8ieIzfQ==}
+
+  dot-case@3.0.4:
+    resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -1190,6 +1315,10 @@ packages:
   hyphen@1.10.6:
     resolution: {integrity: sha512-fXHXcGFTXOvZTSkPJuGOQf5Lv5T/R2itiiCVPg9LxAje5D00O0pP83yJShFq5V89Ly//Gt6acj7z8pbBr34stw==}
 
+  imask@6.2.2:
+    resolution: {integrity: sha512-oREITqngsjD0YxO62UpVQSxLNjIcb/mNO9hX2F8xQ282Kj3X9KXEAobipbUXz5R5NgtiL6nOPrWwo+AnLuz5AQ==}
+    engines: {npm: '>=4.0.0'}
+
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
     engines: {node: '>=6'}
@@ -1349,6 +1478,25 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
+  lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+
+  lodash.groupby@4.6.0:
+    resolution: {integrity: sha512-5dcWxm23+VAoz+awKmBaiBvzox8+RqMgFhi7UvX9DHZr2HdxHXM/Wrf8cfKpsW37RNrvtPn6hSwNqurSILbmJw==}
+
+  lodash.isequal@4.5.0:
+    resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+
+  lodash.isundefined@3.0.1:
+    resolution: {integrity: sha512-MXB1is3s899/cD8jheYYE2V9qTHwKvt+npCwpD+1Sxm3Q3cECXCiYHjeHWXNwr6Q0SOBPrYUDxendrO6goVTEA==}
+
+  lodash.omitby@4.6.0:
+    resolution: {integrity: sha512-5OrRcIVR75M288p4nbI2WLAf3ndw2GD9fyNv3Bc15+WCxJDdZ4lYndSxGd7hnG6PVjiJTeJE2dHEGhIuKGicIQ==}
+
+  lodash.topairs@4.3.0:
+    resolution: {integrity: sha512-qrRMbykBSEGdOgQLJJqVSdPWMD7Q+GJJ5jMRfQYb+LTLsw3tYVIabnCzRqTJb2WTo17PG5gNzXuFaZgYH/9SAQ==}
+
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
@@ -1358,6 +1506,9 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
+
+  lower-case@2.0.2:
+    resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
 
   lucide-react@0.509.0:
     resolution: {integrity: sha512-xCJHn6Uh5qF6PGml25vveCTrHJZcqS1G1MVzWZK54ZQsOiCVJk4fwY3oyo5EXS2S+aqvTpWYIfJN+PesJ0quxg==}
@@ -1547,6 +1698,9 @@ packages:
       sass:
         optional: true
 
+  no-case@3.0.4:
+    resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
+
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
 
@@ -1642,6 +1796,9 @@ packages:
   pako@2.1.0:
     resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
 
+  param-case@3.0.4:
+    resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
+
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -1718,6 +1875,9 @@ packages:
     peerDependencies:
       react: ^19.1.1
 
+  react-fast-compare@3.2.2:
+    resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+
   react-gsap@3.2.1:
     resolution: {integrity: sha512-IX6XiN1a74hmU385yNZAYV1cFe3/Xmbg8eT99VCjmz7yzQq1qIsR47gkX5rkWeml9KmyEgiIzqArYaipPkKIbw==}
     engines: {node: '>=10'}
@@ -1744,6 +1904,12 @@ packages:
     peerDependencies:
       react: '*'
 
+  react-imask@6.1.0:
+    resolution: {integrity: sha512-wOiF9Vgce7HtWpk4mv0YOCOf6lpJdlA6RK0XTmX/XX2qZnA0+YpLIdVCq8Ym5zBxoeN07Nft3FAarHOuj+XhCA==}
+    engines: {npm: '>=4.0.0'}
+    peerDependencies:
+      react: '>=0.14.0'
+
   react-intersection-observer@9.16.0:
     resolution: {integrity: sha512-w9nJSEp+DrW9KmQmeWHQyfaP6b03v+TdXynaoA964Wxt7mdR3An11z4NNCQgL4gKSK7y1ver2Fq+JKH6CWEzUA==}
     peerDependencies:
@@ -1766,6 +1932,25 @@ packages:
     peerDependencies:
       '@types/react': '>=18'
       react: '>=18'
+
+  react-popper@2.3.0:
+    resolution: {integrity: sha512-e1hj8lL3uM+sgSR4Lxzn5h1GxBlpa4CQz0XLF8kx4MDrDRWY0Ena4c97PUeSX9i5W3UAfDP0z0FXCTQkoXUl3Q==}
+    peerDependencies:
+      '@popperjs/core': ^2.0.0
+      react: ^16.8.0 || ^17 || ^18
+      react-dom: ^16.8.0 || ^17 || ^18
+
+  react-portal@4.2.2:
+    resolution: {integrity: sha512-vS18idTmevQxyQpnde0Td6ZcUlv+pD8GTyR42n3CHUQq9OHi1C4jDE4ZWEbEsrbrLRhSECYiao58cvocwMtP7Q==}
+    peerDependencies:
+      react: ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
+      react-dom: ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
+
+  react-resize-detector@9.1.1:
+    resolution: {integrity: sha512-siLzop7i4xIvZIACE/PHTvRegA8QRCEt0TfmvJ/qCIFQJ4U+3NuYcF8tNDmDWxfIn+X1eNCyY2rauH4KRxge8w==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react@19.1.1:
     resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
@@ -1979,6 +2164,9 @@ packages:
     resolution: {integrity: sha512-t20zYkrSf868+j/p31cRIGN28Phrjm3nRSLR2fyc2tiWi4cZGVdv68yNlwnIINTkMTmPoMiSlc0OadaO7DXZaQ==}
     engines: {node: '>= 6'}
 
+  warning@4.0.3:
+    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
+
   ws@8.17.1:
     resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
     engines: {node: '>=10.0.0'}
@@ -2058,6 +2246,19 @@ snapshots:
       '@floating-ui/core': 1.7.3
       '@floating-ui/utils': 0.2.10
 
+  '@floating-ui/react-dom-interactions@0.11.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@floating-ui/react-dom': 1.3.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      aria-hidden: 1.2.6
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+
+  '@floating-ui/react-dom@1.3.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@floating-ui/dom': 1.7.4
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+
   '@floating-ui/react-dom@2.1.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
       '@floating-ui/dom': 1.7.4
@@ -2073,6 +2274,184 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.10': {}
+
+  '@highlight-ui/avatar@6.4.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/icon': 5.3.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/typography': 6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/button@12.2.9(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/icon': 5.3.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/layout': 0.6.8(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/tokens': 4.3.9
+      '@highlight-ui/typography': 6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/checkbox@5.1.15(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/layout': 0.6.8(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/toggle-input': 0.1.14(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/typography': 6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/utils-hooks': 3.5.1(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/color-picker@4.3.9(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/icon': 5.3.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/panel': 3.2.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/tokens': 4.3.9
+      '@highlight-ui/typography': 6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/icon@5.3.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/tokens': 4.3.9
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+
+  '@highlight-ui/input@6.1.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/utils-hooks': 3.5.1(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      classnames: 2.3.3
+      imask: 6.2.2
+      react: 19.1.1
+      react-imask: 6.1.0(react@19.1.1)
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/layout@0.6.8(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/tokens': 4.3.9
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+
+  '@highlight-ui/panel@3.2.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+
+  '@highlight-ui/select@10.6.9(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/avatar': 6.4.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/button': 12.2.9(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/checkbox': 5.1.15(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/color-picker': 4.3.9(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/icon': 5.3.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/input': 6.1.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/typography': 6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/utils-hooks': 3.5.1(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      classnames: 2.3.3
+      lodash.debounce: 4.0.8
+      lodash.groupby: 4.6.0
+      lodash.isequal: 4.5.0
+      lodash.isundefined: 3.0.1
+      lodash.omitby: 4.6.0
+      lodash.topairs: 4.3.0
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/toggle-input@0.1.14(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/icon': 5.3.7(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/layout': 0.6.8(classnames@2.3.3)(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/tooltip': 4.4.3(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/typography': 6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      classnames: 2.3.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/tokens@4.3.9': {}
+
+  '@highlight-ui/tooltip@4.4.3(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/utils-hooks': 3.5.1(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-portal-manager': 3.2.0(classnames@2.3.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@popperjs/core': 2.9.3
+      react: 19.1.1
+    transitivePeerDependencies:
+      - classnames
+      - lodash
+      - react-dom
+
+  '@highlight-ui/typography@6.3.8(classnames@2.3.3)(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/tokens': 4.3.9
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      '@highlight-ui/utils-hooks': 3.5.1(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      classnames: 2.3.3
+      param-case: 3.0.4
+      react: 19.1.1
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/utils-commons@2.7.1(lodash@4.17.21)(react@19.1.1)':
+    dependencies:
+      '@highlight-ui/tokens': 4.3.9
+      lodash: 4.17.21
+      react: 19.1.1
+
+  '@highlight-ui/utils-hooks@3.5.1(lodash@4.17.21)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@floating-ui/react-dom-interactions': 0.11.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@highlight-ui/utils-commons': 2.7.1(lodash@4.17.21)(react@19.1.1)
+      '@popperjs/core': 2.9.3
+      '@use-it/event-listener': 0.1.7(react@19.1.1)
+      lodash.debounce: 4.0.8
+      react: 19.1.1
+      react-popper: 2.3.0(@popperjs/core@2.9.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-resize-detector: 9.1.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+    transitivePeerDependencies:
+      - lodash
+      - react-dom
+
+  '@highlight-ui/utils-portal-manager@3.2.0(classnames@2.3.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      classnames: 2.3.3
+      react: 19.1.1
+      react-portal: 4.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+    transitivePeerDependencies:
+      - react-dom
 
   '@hookform/resolvers@5.2.1(react-hook-form@7.62.0(react@19.1.1))':
     dependencies:
@@ -2232,6 +2611,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
+
+  '@popperjs/core@2.9.3': {}
 
   '@radix-ui/primitive@1.1.3': {}
 
@@ -2612,7 +2993,15 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
+  '@use-it/event-listener@0.1.7(react@19.1.1)':
+    dependencies:
+      react: 19.1.1
+
   abs-svg-path@0.1.1: {}
+
+  aria-hidden@1.2.6:
+    dependencies:
+      tslib: 2.8.1
 
   asynckit@0.4.0: {}
 
@@ -2709,6 +3098,8 @@ snapshots:
     dependencies:
       clsx: 2.1.1
 
+  classnames@2.3.3: {}
+
   client-only@0.0.1: {}
 
   clone@2.1.2: {}
@@ -2802,6 +3193,11 @@ snapshots:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
     optional: true
+
+  dot-case@3.0.4:
+    dependencies:
+      no-case: 3.0.4
+      tslib: 2.8.1
 
   dunder-proto@1.0.1:
     dependencies:
@@ -3026,6 +3422,8 @@ snapshots:
 
   hyphen@1.10.6: {}
 
+  imask@6.2.2: {}
+
   import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
@@ -3145,6 +3543,18 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
+  lodash.debounce@4.0.8: {}
+
+  lodash.groupby@4.6.0: {}
+
+  lodash.isequal@4.5.0: {}
+
+  lodash.isundefined@3.0.1: {}
+
+  lodash.omitby@4.6.0: {}
+
+  lodash.topairs@4.3.0: {}
+
   lodash@4.17.21: {}
 
   longest-streak@3.1.0: {}
@@ -3152,6 +3562,10 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
+
+  lower-case@2.0.2:
+    dependencies:
+      tslib: 2.8.1
 
   lucide-react@0.509.0(react@19.1.1):
     dependencies:
@@ -3455,6 +3869,11 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
+  no-case@3.0.4:
+    dependencies:
+      lower-case: 2.0.2
+      tslib: 2.8.1
+
   node-releases@2.0.19: {}
 
   normalize-range@0.1.2: {}
@@ -3472,6 +3891,11 @@ snapshots:
   pako@1.0.11: {}
 
   pako@2.1.0: {}
+
+  param-case@3.0.4:
+    dependencies:
+      dot-case: 3.0.4
+      tslib: 2.8.1
 
   parent-module@1.0.1:
     dependencies:
@@ -3557,6 +3981,8 @@ snapshots:
       react: 19.1.1
       scheduler: 0.26.0
 
+  react-fast-compare@3.2.2: {}
+
   react-gsap@3.2.1(gsap@3.13.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       gsap: 3.13.0
@@ -3577,6 +4003,12 @@ snapshots:
 
   react-icons@5.5.0(react@19.1.1):
     dependencies:
+      react: 19.1.1
+
+  react-imask@6.1.0(react@19.1.1):
+    dependencies:
+      imask: 6.2.2
+      prop-types: 15.8.1
       react: 19.1.1
 
   react-intersection-observer@9.16.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
@@ -3608,6 +4040,26 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  react-popper@2.3.0(@popperjs/core@2.9.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+    dependencies:
+      '@popperjs/core': 2.9.3
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+      react-fast-compare: 3.2.2
+      warning: 4.0.3
+
+  react-portal@4.2.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+    dependencies:
+      prop-types: 15.8.1
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
+
+  react-resize-detector@9.1.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+    dependencies:
+      lodash: 4.17.21
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
 
   react@19.1.1: {}
 
@@ -3866,6 +4318,10 @@ snapshots:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
+
+  warning@4.0.3:
+    dependencies:
+      loose-envify: 1.4.0
 
   ws@8.17.1: {}
 

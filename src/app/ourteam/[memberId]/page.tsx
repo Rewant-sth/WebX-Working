@@ -152,7 +152,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
                     <div className=" ">
                         {/* Gallery Section */}
                         {member.data.gallery && member.data.gallery.length > 0 && (
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+                            <div className="grid md:grid-cols-2 lg:grid-cols- gap-4 ">
                                 {member.data.gallery.map((memb, idx) => (
                                     <div className="w-full relative aspect-square" key={idx}>
                                         <Image
@@ -166,6 +166,13 @@ export default function TeamMemberDetails({ params }: PageProps) {
                             </div>
                         )}
                     </div>
+                </div>
+
+
+                <div className="">
+                    <Link href={member.data.cvImage || "#"} target="_blank" download>
+                        <button className="bg-orange-500 text-white py-2 px-4 rounded">Download Resume</button>
+                    </Link>
                 </div>
             </div>
 

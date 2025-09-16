@@ -154,36 +154,28 @@ const AboutUsPage: React.FC = () => {
 
       {/* Values Section */}
       <section
-        className="relative py-16 px-6 bg-gradient-to-b from-white to-gray-50 overflow-hidden"
+        className="relative py-16 px-6"
       >
         <motion.div
-          className="absolute inset-0 bg-[url('/EVEREST%20REGION/NIKOND50001920.JPG')] bg-cover bg-center opacity-90"
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          viewport={{ once: true }}
+          className="absolute inset-0 bg-[url('/EVEREST%20REGION/NIKOND50001920.JPG')] bg-cover bg-center opacity-100"
+
         />
         <motion.div
-          className="container mx-auto sm:px-6 py-10"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={staggerContainer}
-          ref={ref}
+          className=" mx-auto py-10 relative z-10"
         >
           <motion.div
             className="text-center mb-16"
-            variants={fadeInUp}
           >
-            <motion.h1
-              className="text-4xl md:text-5xl font-bold text-gray-800 mb-4"
-              variants={fadeInUp}
+            <h1
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
             >
               Our Core Values
-            </motion.h1>
-            <motion.p
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
-              variants={fadeInUp}
+            </h1>
+            <p
+              className="text-xl text-gray-800 max-w-3xl mx-auto"
             >
               Discover the passion and dedication that drives our team to create unforgettable Himalayan experiences.
-            </motion.p>
+            </p>
           </motion.div>
 
           <motion.div
