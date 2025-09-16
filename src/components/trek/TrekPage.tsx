@@ -73,7 +73,7 @@ function TrekPage() {
 
   if (loading) {
     return (
-      <section className="h-full space-y-3 py-12 md:mt-20 relative">
+      <section className="h-full  space-y-3 py-12 md:mt-20 relative">
         <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
           The <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Trekking
         </h2>

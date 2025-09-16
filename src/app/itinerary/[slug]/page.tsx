@@ -82,8 +82,8 @@ const Page = () => {
         <SkeletonLoader />
       ) : (
         <>
-          <div ref={heroRef} className="relative min-h-screen overflow-hidden  ">
-            <div className="absolute bottom-0 right-0 z-[99]  flex justify-end items-end w-full h-full">
+          <div ref={heroRef} className="relative h-[60dvh] sm:min-h-screen overflow-hidden  ">
+            <div className="absolute bottom-0 right-0 z-[99] hidden md:flex justify-end items-end w-full h-full">
               <img src="/man2.png" alt="man" className="scale-110 lg:w-[60%]  translate-y-16 object-cover drop-shadow-black" />
             </div>
 

@@ -171,7 +171,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
 
                 <div className="">
                     <Link href={member.data.cvImage || "#"} target="_blank" download>
-                        <button className="bg-orange-500 text-white py-2 px-4 rounded">Download Resume</button>
+                        <button className="bg-orange-500 text-white py-2 px-4 rounded">View Resume</button>
                     </Link>
                 </div>
             </div>

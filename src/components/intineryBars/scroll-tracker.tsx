@@ -96,6 +96,12 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             condition: (data) => data?.gearInfo?.length > 0,
         },
         {
+            id: "insurance",
+            label: "Insurance",
+            icon: <Icon icon={"ph:hand-arrow-up-thin"} className="size-6" />,
+            condition: (data) => data?.insurance?.length > 0,
+        },
+        {
             id: "why-love-this",
             label: "Why Love This",
             icon: <Icon icon={"ph:heart-thin"} className="size-6" />,

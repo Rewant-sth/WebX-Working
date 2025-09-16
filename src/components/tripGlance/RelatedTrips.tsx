@@ -88,7 +88,7 @@ const RelatedTrips = ({
                   }
 
                   <div className="flex gap-3">
-                    <Link href={`/booking/${trip.id}`} className="flex-1">
+                    <Link href={`/booking/${trip._id}`} className="flex-1">
                       <button
                         className="w-full flex gap-2 items-center text-sm justify-center text-white py-2.5 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
                         style={{ backgroundColor: '#01283F' }}

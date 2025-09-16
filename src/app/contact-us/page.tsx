@@ -328,9 +328,15 @@ export default function PremiumContact() {
                         rows={5}
                         value={formData.message}
                         minLength={20}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
-                        className={`w-full  py-3 active:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
+                        onChange={(e) => {
+                          handleInputChange('message', e.target.value);
+                          // Auto-resize textarea
+                          e.target.style.height = 'auto';
+                          e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows
+                        }}
+                        className={`w-full  py-3 active:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all resize-none overflow-hidden ${errors.name ? 'border-red-400' : ''
                           }`}
+                        style={{ minHeight: '120px' }}
                       />
                     </div>
                     {errors.message && (
