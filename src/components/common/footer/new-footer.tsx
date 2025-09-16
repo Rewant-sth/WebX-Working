@@ -22,7 +22,7 @@ export default function Footer() {
 
       <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center  w-full mb-8 md:mb-24 ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
-          <div className="   w-full  mt-6">
+          <div className="   w-full px-4 mt-6">
             <TalkToExperts />
           </div>
         </div>

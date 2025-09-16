@@ -651,7 +651,7 @@ export default function Navbar() {
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 grid-rows-2 max-w-3xl max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
+              <div className="grid grid-cols-2 grid-rows-2 max-w-3xl max-h-[75dvh] xl:max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
                 {packages?.data?.slice(0, 4).map((pkg) => (
                   <Link
                     key={pkg._id}
@@ -685,7 +685,7 @@ export default function Navbar() {
             {!selectedStaticNav &&
               packages?.data &&
               packages.data.length > 4 && (
-                <div className="w-full max-w-3xl  flex justify-end items-center">
+                <div className="w-full max-w-3xl pr-2 flex justify-end items-center">
                   <Link
                     onClick={handleClose}
                     href={`/package-list/${selectedCategory?.slug}`}
