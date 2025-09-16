@@ -183,7 +183,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 250);
+      setIsScrolled(scrollY > 50);
     };
 
     const handleResize = () => {
@@ -208,7 +208,7 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed  top-0 left-0   overflow-x-hidden right-0 w-full items-start p-4 md:px-6 py-1.5 lg:py-3 flex justify-between transition-all duration-300 ${isScrolled ? "backdrop-blur-md " : "bg-transparent"
-        } ${showNav ? "min-h-screen overflow-y-auto lg:overflow-hidden items-start" : ""}`}
+        } ${showNav ? "min-h-screen overflow-y-auto lg:overflow-hidden items-start" : "overflow-hidden"}`}
       style={{
         zIndex: showNav ? 999999999 : 99999,
 

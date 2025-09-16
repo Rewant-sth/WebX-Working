@@ -16,7 +16,7 @@ export default function Footer() {
 
 
   return (
-    <footer ref={footerRef} className="p-6   w-full relative  flex flex-col justify-end items-end   ">
+    <footer ref={footerRef} className="   w-full relative  flex flex-col justify-end items-end   ">
 
       {/* footer expert part */}
 
@@ -28,18 +28,18 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="  md:bottom-20 right-0 w-screen overflow-hidden">
+      <div className="  md:bottom-20 right-0 left-0 w-screen overflow-hidden">
         <img src="/Footer/line.png" alt="mountain" className='opacity-80 brightness-90' />
       </div>
 
       {/* footer bottom part */}
-      <div className="w-full relative z-50  flex  flex-col justify-center  ">
+      <div className="w-full relative z-50   flex  flex-col justify-center  ">
         <div className="relative text-center w-full  ">
           <div className=" mx-auto h-[100px] lg:h-[200px]  overflow-hidden">
             <img src="/logo/text.svg" alt="real himalaya" className='w-full lg:-translate-y-5 2-full z-40   mx-auto invert' />
           </div>
 
-          <div className="  b pb-2 mb-2 border-zinc-300 sm:mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
+          <div className="  b p-6 pb-2 mb-2 border-zinc-300 sm:mt-8 w-full flex justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">
             <div className="flex flex-wrap gap-4 md:gap-6 items-center">
               <p className='md:text-xl shrink-0'>Recommended By : </p>
               <div className="">
@@ -64,7 +64,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="border-t border-dashed pt-4 pb-2 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
+          <div className="border-t p-6 border-dashed pt-4 pb-2 text-sm mt-4 w-full flex flex-col justify-between items-center gap-2  flex-wrap mx-auto">
 
             <div className=" w-full mx-auto">
               <div className="flex w-full justify-between items-center gap-5 md:gap-6 flex-wrap">
