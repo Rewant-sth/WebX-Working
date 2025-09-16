@@ -110,7 +110,7 @@ const AboutUsPage: React.FC = () => {
 
       {/* Intro Section */}
       <section className="min-h-screen flex items-center py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-6xl  mx-auto w-full text-justify">
+        <div className="max-w-6xl  mx-auto w-full text-center">
           <div className="mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">Our Story</h2>
             <div className="space-y-4 sm:space-y-6">

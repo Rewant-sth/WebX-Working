@@ -566,7 +566,7 @@ export default function Navbar() {
               <div className="flex-1 text-base text-gray-300">
                 {selectedStaticNav.name === "About Us" && (
                   <div className="space-y-4">
-                    {selectedStaticSubItem?.name === "About Us" && (
+                    {selectedStaticSubItem?.name === "Company" && (
                       <>
                         <p>
                           Learn more about Real Himalaya and our commitment to
