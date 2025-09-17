@@ -325,7 +325,7 @@ export default function BookingForm() {
       router.push("/booking/success");
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.error || "Error occurred during booking");
+      toast.error(error?.response?.data?.message || "Error occurred during booking");
     },
     onSettled: () => setIsLoading(false)
   });
