@@ -41,12 +41,14 @@ export default function Preloader({ onSkip }: PreloaderProps) {
                 <h1 ref={titleRef} className='text-4xl md:text-5xl uppercase font-bold text-white text-center'>Welcome To Real Himalaya</h1>
             </div>
             {onSkip && (
-                <button
-                    onClick={onSkip}
-                    className="absolute top-10 uppercase sm:bottom-8 right-8 text-white text-lg font-medium underline hover:text-gray-200 transition-colors duration-300 z-10"
-                >
-                    Skip
-                </button>
+                <div className="absolute inset-0 flex justify-end items-start md:items-end p-6">
+                    <button
+                        onClick={onSkip}
+                        className="uppercase text-white text-lg font-medium underline hover:text-gray-200 transition-colors duration-300 z-10"
+                    >
+                        Skip
+                    </button>
+                </div>
             )}
         </section>
     )
