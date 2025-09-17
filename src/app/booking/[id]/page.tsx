@@ -687,7 +687,7 @@ export default function BookingForm() {
               )}
 
               {/* Additional Notes */}
-              <div className="bg-white p-6 rounded-sm border border-gray-200 mb-6">
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
                 <h3 className="text-orange-600 text-lg font-medium">Additional Notes</h3>
 
                 <div className="mb-4">
@@ -710,7 +710,7 @@ export default function BookingForm() {
               </div>
 
               {/* Terms and Conditions */}
-              <div className="bg-white p-6 rounded-sm border border-gray-200 mb-6">
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
                 <div className="flex items-start">
                   <input
                     type="checkbox"
@@ -733,7 +733,7 @@ export default function BookingForm() {
 
             {/* Right Column - Booking Summary */}
             <div className="lg:w-96">
-              <div className="sticky top-6 bg-white p-6   rounded-sm border border-gray-200 ">
+              <div className="sticky top-6 bg-white lg:p-6   rounded-sm lg:border border-gray-200 ">
                 <h2 className="text-xl font-bold text-gray-800 mb-6">Booking Summary</h2>
 
                 <div className="space-y-3 mb-6">

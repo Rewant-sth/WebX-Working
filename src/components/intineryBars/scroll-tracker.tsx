@@ -22,6 +22,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     const [activeSection, setActiveSection] = useState<string>("major-highlights");
     const [isScrollingToSection, setIsScrollingToSection] = useState(false);
     const lastScrollY = useRef(0);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Handle scroll events for section tracking only
     useEffect(() => {
@@ -154,6 +155,53 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         }
     }, []);
 
+    // Auto-scroll active button into view on mobile/tablet
+    const scrollActiveButtonIntoView = useCallback((sectionId: string) => {
+        // Add a small delay to ensure DOM is ready
+        setTimeout(() => {
+            const scrollContainer = scrollContainerRef.current;
+            if (!scrollContainer) return;
+
+            // Only auto-scroll on mobile/tablet (when scroll container is visible)
+            const isDesktop = window.innerWidth >= 1024; // lg breakpoint
+            if (isDesktop) return;
+
+            const activeButton = scrollContainer.querySelector(`[data-section-id="${sectionId}"]`) as HTMLElement;
+            if (!activeButton) return;
+
+            const containerRect = scrollContainer.getBoundingClientRect();
+            const buttonRect = activeButton.getBoundingClientRect();
+
+            // Calculate if button is fully visible with some padding
+            const isButtonVisible =
+                buttonRect.left >= containerRect.left + 10 &&
+                buttonRect.right <= containerRect.right - 10;
+
+            if (!isButtonVisible) {
+                // Calculate scroll position to center the button
+                const containerScrollLeft = scrollContainer.scrollLeft;
+                const containerWidth = scrollContainer.clientWidth;
+                const buttonOffsetLeft = activeButton.offsetLeft;
+                const buttonWidth = activeButton.offsetWidth;
+
+                // Center the button in the container
+                const targetScrollLeft = buttonOffsetLeft - (containerWidth / 2) + (buttonWidth / 2);
+
+                scrollContainer.scrollTo({
+                    left: Math.max(0, targetScrollLeft),
+                    behavior: 'smooth'
+                });
+            }
+        }, 150); // Small delay to ensure DOM is ready
+    }, []);
+
+    // Auto-scroll to active button when activeSection changes
+    useEffect(() => {
+        // Always try to auto-scroll when section changes
+        // This ensures the mobile tab scrolls to the active section
+        scrollActiveButtonIntoView(activeSection);
+    }, [activeSection, scrollActiveButtonIntoView]);
+
     // Optimized scroll spy with throttling
     useEffect(() => {
         let ticking = false;
@@ -178,7 +226,9 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                 }
             }
 
-            setActiveSection(current);
+            if (current !== activeSection) {
+                setActiveSection(current);
+            }
             ticking = false;
         };
 
@@ -201,29 +251,27 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         <div className="w-full ">
             {/* Mobile/Tablet Layout - Horizontal Scroll */}
             <div className="lg:hidden w-full bg-white border-b border-gray-200">
-                <div className="w-full flex justify-start items-center overflow-auto">
-                    <div className="py-2 flex justify-start items-center overflow-auto">
-                        {visibleSections.length > 0 && (
-                            <div className="relative">
-                                <div className="flex overflow-x-auto z-[99] scrollbar-hide gap-2 py-2">
-                                    {visibleSections.map((section) => (
-                                        <button
-                                            key={section.id}
-                                            onClick={() => handleScrollToSection(section.id)}
-                                            className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm   transition-all duration-300 flex-shrink-0 ${activeSection === section.id
-                                                ? "bg-orange-500 text-white"
-                                                : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
-                                                }`}
-                                        >
-                                            <span className={`${activeSection === section.id ? "text-white" : ""} `}>
-                                                {section.icon}
-                                            </span>
-                                            {section.label}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                <div className="w-full overflow-hidden">
+                    <div
+                        ref={scrollContainerRef}
+                        className="flex overflow-x-auto scrollbar-hide gap-2 py-2 px-2"
+                    >
+                        {visibleSections.map((section) => (
+                            <button
+                                key={section.id}
+                                data-section-id={section.id}
+                                onClick={() => handleScrollToSection(section.id)}
+                                className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm transition-all duration-300 flex-shrink-0 ${activeSection === section.id
+                                    ? "bg-orange-500 text-white"
+                                    : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
+                                    }`}
+                            >
+                                <span className={`${activeSection === section.id ? "text-white" : ""} `}>
+                                    {section.icon}
+                                </span>
+                                {section.label}
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>

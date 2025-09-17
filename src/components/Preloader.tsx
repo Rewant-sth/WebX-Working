@@ -43,7 +43,7 @@ export default function Preloader({ onSkip }: PreloaderProps) {
             {onSkip && (
                 <button
                     onClick={onSkip}
-                    className="absolute bottom-16 sm:bottom-8 right-8 text-white text-lg font-medium underline hover:text-gray-200 transition-colors duration-300 z-10"
+                    className="absolute top-10 uppercase sm:bottom-8 right-8 text-white text-lg font-medium underline hover:text-gray-200 transition-colors duration-300 z-10"
                 >
                     Skip
                 </button>

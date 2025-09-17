@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getSubpackagesBySlug } from "@/service/packages";
 import Link from "next/link";
+import { useBookingStore } from "@/store/booking-store";
+import { ITravelPackage } from "@/types/IPackages";
 
 const RelatedTrips = ({
   subCategory,
@@ -20,6 +22,8 @@ const RelatedTrips = ({
     queryKey: ["getrelated"],
     queryFn: () => getSubpackagesBySlug(subCategory),
   });
+
+  const { setPackage } = useBookingStore()
 
   return (
     <div className="">
@@ -64,9 +68,6 @@ const RelatedTrips = ({
                     <h3 className="text-xl truncate font-bold text-gray-800 leading-tight flex-1 mr-3" style={{ color: '#3A3A3A' }}>
                       {trip.name}
                     </h3>
-                    {/* <span className="text-sm font-semibold px-3 py-1 rounded-full text-white" style={{ backgroundColor: '#01283F' }}>
-                      {trip.duration} Days
-                    </span> */}
                   </div>
 
                   <p
@@ -88,7 +89,7 @@ const RelatedTrips = ({
                   }
 
                   <div className="flex gap-3">
-                    <Link href={`/booking/${trip._id}`} className="flex-1">
+                    <Link onClick={() => setPackage(trip as ITravelPackage)} href={`/booking/${trip._id}`} className="flex-1">
                       <button
                         className="w-full flex gap-2 items-center text-sm justify-center text-white py-2.5 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
                         style={{ backgroundColor: '#01283F' }}

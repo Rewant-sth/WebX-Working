@@ -685,7 +685,7 @@ export default function Navbar() {
             {!selectedStaticNav &&
               packages?.data &&
               packages.data.length > 4 && (
-                <div className="w-full max-w-3xl pr-2 flex justify-end items-center">
+                <div className="w-full max-w-3xl pr-2 pt-4 flex justify-end items-center">
                   <Link
                     onClick={handleClose}
                     href={`/package-list/${selectedCategory?.slug}`}
