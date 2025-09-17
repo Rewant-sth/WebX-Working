@@ -570,20 +570,16 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
         </html>
       `;
 
-      // Create a new tab with the content
-      const newTab = window.open('about:blank', '_blank');
-      if (newTab) {
-        newTab.document.open();
-        newTab.document.write(content);
-        newTab.document.close();
-        // Focus the new tab
-        newTab.focus();
-      } else {
-        // Fallback to same tab if new tab is blocked
-        document.open();
-        document.write(content);
-        document.close();
-      }
+      // Create and download the HTML file
+      const blob = new Blob([content], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${data.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_itinerary.html`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
 
     } catch (error) {
       console.error('Error:', error);
