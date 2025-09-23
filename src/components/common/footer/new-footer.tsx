@@ -16,11 +16,11 @@ export default function Footer() {
 
 
   return (
-    <footer ref={footerRef} className="   w-full relative  flex flex-col justify-end items-end   ">
+    <footer ref={footerRef} className="w-screen  relative  flex flex-col justify-end items-end   ">
 
       {/* footer expert part */}
 
-      <div ref={divRef} className=" bg- text-zinc-900 border-  flex justify-center items-center  w-full mb-8 md:mb-24 ">
+      <div ref={divRef} className=" text-zinc-900 border-  flex justify-center items-center  w-full mb-8 md:mb-24 ">
         <div className="relative  w-full flex flex-col justify-center  items-center">
           <div className="   w-full px-4 mt-6">
             <TalkToExperts />
@@ -28,15 +28,15 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="  md:bottom-20 right-0 left-0 w-screen overflow-hidden">
-        <img src="/Footer/line.png" alt="mountain" className='opacity-80 brightness-90' />
+      <div className="  md:bottom-20 right-0 left-0 w-screen  overflow-hidden">
+        <img src="/Footer/line.png" alt="mountain" className='opacity-80 brightness-90 w-full' />
       </div>
 
       {/* footer bottom part */}
       <div className="w-full relative z-50   flex  flex-col justify-center   ">
         <div className="relative text-center w-full  ">
-          <div className=" mx-auto h-[100px] lg:h-[200px]  overflow-hidden">
-            <img src="/logo/text.svg" alt="real himalaya" className='w-full lg:-translate-y-5 2-full z-40   mx-auto invert' />
+          <div className=" mx-auto  px-4 lg:px-6 2xl:my-5 lg:h-full  overflow-hidden">
+            <img src="/logo/text.png" alt="real himalaya" className='w-[90%] lg:-translate-y-5 2-full z-40 mt-6 sm:mt-12   mx-auto invert' />
           </div>
 
           <div className="  b p-6 pb-2 mb-2 border-zinc-300 sm:mt-8 w-full flex justify-center md:justify-between items-center gap-4 md:gap-6 flex-wrap mx-auto">

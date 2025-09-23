@@ -31,7 +31,7 @@ export default function Divider() {
         return () => ctx.revert();
     }, [])
     return (
-        <div ref={containerRef} className='h-screen mt-10  border  flex justify-start items-center  w-dvw overflow-hidden relative'>
+        <div ref={containerRef} className='h-screen mt-10  flex justify-start items-center  w-dvw overflow-hidden relative'>
             <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent z-40"></div>
             <Image priority src={"/EXPEDITION/intro.JPG"} ref={divider2Ref} fill className='object-cover object-bottom' alt='real himalaya ' />
             <Image priority src={"/divider1.JPG"} ref={divider1Ref} fill className='object-cover object-center' alt='real himalaya ' />

@@ -2,12 +2,8 @@
 import { getTeamMember } from "@/service/Teams";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { Facebook, Instagram, Twitter, Mail, Phone, Mountain, Award, Calendar, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
-import GalleryCarousel from "./_components/GalleryCarousel";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import ShareButtons from "@/components/ShareButtons";
 import TeamMemberSkeleton from "./_components/TeamMemberSkeleton";
 
 interface PageProps {
@@ -144,8 +140,6 @@ export default function TeamMemberDetails({ params }: PageProps) {
                     </div>
                 </div>
 
-
-
                 {/* Right Column - Content */}
                 <div className=" rounded-sm space-y-4  h-fit">
                     <h2 className="text-xl lg:text-3xl font-semibold text-orange-500 mb-4 uppercase">Gallery of {member.data.name}</h2>
@@ -166,13 +160,6 @@ export default function TeamMemberDetails({ params }: PageProps) {
                             </div>
                         )}
                     </div>
-                </div>
-
-
-                <div className="">
-                    <Link href={member.data.cvImage || "#"} target="_blank" download>
-                        <button className="bg-orange-500 text-white py-2 px-4 rounded">View Resume</button>
-                    </Link>
                 </div>
             </div>
 

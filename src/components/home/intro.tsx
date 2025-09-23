@@ -73,9 +73,10 @@ export default function Intro() {
                     <p
                         className='md:text-2xl'>
                         <span className="text-orange-400 font-semibold">Real Himalaya</span> is a trusted Nepal trekking company founded by veteran mountaineers and local travel experts. With years of experience in guiding expeditions across the Himalayas, we are committed to offering authentic, safe, and life-changing journeys. Our roots in Nepalese culture give us a unique perspective, allowing us to share not only the breathtaking landscapes but also the traditions, spirituality, and hospitality of the mountain communities.                    </p>
-                    <p
-                        className='md:text-2xl pt-5'>
-                        We specialize in <strong>Himalayan treks, climbing expeditions, and cultural tours</strong> tailored to every type of traveler. From world-famous adventures like the <strong>Everest Base Camp trek, Annapurna Circuit, and Gokyo Lakes trek</strong> to hidden gems such as Manaslu and Nar Phu Valley, we create itineraries that balance challenge, discovery, and comfort. Our services include full trekking support like permits, logistics, guides, porters, and safety protocols ensuring a seamless and unforgettable Himalayan experience. Whether you’re seeking your first trek in Nepal or aiming for high-altitude expeditions, <span className='text-orange-400 font-semibold'>Real Himalaya</span> is here to turn your Himalayan dream into reality.                    </p>
+                    <p className='md:text-2xl pt-5'>
+                        We specialize in <strong className='text-orange-400'>Himalayan treks, climbing expeditions, and cultural tours</strong> tailored to every type of traveler. From world-famous adventures like the <b className='text-orange-400'>Everest Base Camp trek, Annapurna Circuit, and Gokyo Lakes</b> trek to hidden gems such as Manaslu and Nar Phu Valley, we design journeys that balance challenge, discovery, and comfort. <strong>Our strength lies in crafting personalized itineraries and flexible trip plans that fit each traveler’s needs and aspirations.</strong> We provide complete trekking support including permits, logistics, guides, porters, and safety protocols, ensuring a seamless and unforgettable Himalayan experience. Whether you’re seeking your first trek in Nepal or aiming for high-altitude expeditions, Real Himalaya is here to turn your Himalayan dream into reality.
+                    </p>
+
 
 
                     <div

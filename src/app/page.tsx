@@ -18,8 +18,8 @@ const Page = () => {
       <Hero />
       <Intro />
       <AboutUs />
-      <ExpeditionPage />
       <TrekPage />
+      <ExpeditionPage />
       <Divider />
       <TestimonialsSections />
       <CTA />

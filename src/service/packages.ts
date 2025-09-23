@@ -16,6 +16,10 @@ export async function getSubpackagesBySlug(slug: string): Promise<ITravelPackage
     const res = await api.get(`/package/subcategory/${slug}`)
     return res.data
 }
+export async function getPackagesByCategories(slug: string): Promise<ITravelPackageResponse> {
+    const res = await api.get(`/package/category/${slug}`)
+    return res.data
+}
 
 /**
  * Get expedition packages directly from the API endpoint

@@ -4,7 +4,7 @@ import React from "react";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { getSubpackagesBySlug } from "@/service/packages";
+import { getPackagesByCategory, getSubpackagesBySlug } from "@/service/packages";
 import Link from "next/link";
 import { useBookingStore } from "@/store/booking-store";
 import { ITravelPackage } from "@/types/IPackages";
@@ -20,7 +20,7 @@ const RelatedTrips = ({
 }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["getrelated"],
-    queryFn: () => getSubpackagesBySlug(subCategory),
+    queryFn: () => getPackagesByCategory(category),
   });
 
   const { setPackage } = useBookingStore()
@@ -75,17 +75,21 @@ const RelatedTrips = ({
                     className="text-gray-600 mb-4 line-clamp-2 leading-relaxed"
                   />
 
-                  {
-                    trip.fixedDates.length != 0 && (
-                      <div className="flex justify-between items-center mb-4">
-                        <div>
-                          <span className="text-sm text-gray-500 block">Starting From</span>
-                          <span className="text-2xl font-bold" style={{ color: '#01283F' }}>
-                            ${trip.fixedDates[0]?.pricePerPerson || "-"}
-                          </span>
-                        </div>
+                  {(
+                    <div className="flex justify-between items-center mb-4">
+                      <div>
+                        <span className="text-sm text-gray-500 block">Starting From</span>
+                        {
+                          trip.fixedDates.length > 0 ?
+                            (<span className="text-2xl font-bold" style={{ color: '#01283F' }}>
+                              ${trip.fixedDates[0]?.pricePerPerson || "-"}
+                            </span>) :
+                            (
+                              <h2>Pricing coming soon</h2>
+                            )}
                       </div>
-                    )
+                    </div>
+                  )
                   }
 
                   <div className="flex gap-3">

@@ -182,11 +182,11 @@ const Page = () => {
                   data={packageData.data}
                 />
               ) : null}
-              {packageData?.data?.videos?.length && (
+              {packageData?.data?.videos?.length ? (
                 <VideoReview data={packageData?.data} />
-              )}
+              ) : null}
               <RelatedTrips
-                packageId={packageData?.data?.id as string}
+                packageId={packageData?.data?._id as string}
                 category={packageData?.data?.categoryId?.slug as string}
                 subCategory={packageData?.data?.subCategoryId?.slug as string}
               />
