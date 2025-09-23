@@ -13,7 +13,7 @@ const TermsOfService = () => {
     return (
         <div className="min-h-screen  py-8 max-w-7xl mx-auto p-6">
             <button className="border px-6 py-1.5 mb-6 rounded-sm" onClick={handleGoBack}>Go Back</button>
-            <div className="bg-zinc-100 sm:p-6 rounded-sm">
+            <div className="sm:bg-zinc-100 sm:p-6 rounded-sm">
                 {/* Header */}
                 <div className=" rounded-sm   mb-4">
                     <div className="flex flex-col md:flex-row  justify-between">
