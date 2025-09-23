@@ -53,6 +53,10 @@ const navs: StaticNavItem[] = [
         name: "Certificates",
         href: "/certificate",
       },
+      {
+        name: "Terms & Condition",
+        href: "/terms-and-conditions",
+      },
     ],
   },
   {
@@ -640,6 +644,21 @@ export default function Navbar() {
                             icon="fluent:arrow-right-20-filled"
                             className="text-sm"
                           />
+                        </Link>
+                      </>
+                    )}
+                    {selectedStaticSubItem?.name === "Terms & Condition" && (
+                      <>
+                        <p>
+                          Please read our Terms & Conditions carefully before using our website or services. By accessing or using our site, you agree to be bound by these terms and all applicable laws and regulations. We reserve the right to modify or discontinue any service at any time without notice. All content is the property of Real Himalaya and may not be reproduced without permission. For full details, visit our Terms & Conditions page.
+                        </p>
+                        <Link
+                          href="/terms-and-conditions"
+                          onClick={handleClose}
+                          className="mt-2 inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-sm bg-gradient-to-r from-amber-500 to-[#F05E25] text-white transition-all duration-300 hover:shadow-md active:scale-95"
+                        >
+                          View Full Terms
+                          <Icon icon="fluent:arrow-right-20-filled" className="text-sm" />
                         </Link>
                       </>
                     )}
