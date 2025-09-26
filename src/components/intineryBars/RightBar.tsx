@@ -14,7 +14,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const pdfRef = useRef<HTMLDivElement>(null);
 
 
-  const generatePdf = () => {
+  const generatePdf = async () => {
     if (!data) return;
 
     setIsGeneratingPdf(true);
@@ -26,6 +26,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
         month: 'long',
         day: 'numeric'
       });
+
 
       // Create a professional HTML content
       const content = `
@@ -303,6 +304,27 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               font-weight: 600;
               color: #2c3e50;
             }
+
+            /* Best Sellers */
+            .best-sellers {
+              margin-top: 30px;
+            }
+            .best-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+              gap: 16px;
+            }
+            .best-card {
+              border: 1px solid #eee;
+              border-radius: 8px;
+              overflow: hidden;
+              background: #ffffff;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            }
+            .best-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
+            .best-card .info { padding: 10px 12px; }
+            .best-card .title { font-weight: 600; color: #111827; font-size: 0.98em; line-height: 1.3; margin-bottom: 6px; }
+            .best-card .meta { color: #6B7280; font-size: 0.88em; }
             
             @media print {
               body { 
@@ -454,6 +476,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               </div>
             </div>
             
+            
             <!-- Included & Excluded -->
             <div style="display: flex; gap: 30px; margin: 40px 0; flex-wrap: wrap;">
               <!-- Included -->
@@ -520,7 +543,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               <div class="contact-info">
                 <div class="contact-item">
                   <span class="contact-icon">📞</span>
-                  <span>+977-9803556169</span>
+                  <span>+977-9841240412</span>
                 </div>
                 <div class="contact-item">
                   <span class="contact-icon">✉️</span>
@@ -771,7 +794,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                     )}
 
                     <div className="text-center text-sm text-gray-500 mt-12 pt-4 border-t border-gray-200">
-                      <p>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9803556169</p>
+                      <p>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9841240412</p>
                       <p className="mt-2">www.realhimalaya.com</p>
                     </div>
                   </>
@@ -794,7 +817,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
           <h2 className="text-center text-xl">- Gokul Thapa</h2>
           <div className="text-center mt-4">
             <div className="flex items-center justify-center gap-3">
-              <Link href="tel:+977-9803556169">
+              <Link href="tel:+977-9841240412">
                 <Icon icon="mingcute:phone-fill" width="24" height="24" style={{ color: 'f05e25' }} />
               </Link>
               <Link href="https://www.instagram.com/realhimalayanp">

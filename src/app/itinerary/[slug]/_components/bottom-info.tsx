@@ -23,7 +23,7 @@ export default function BottomInfo({ isStickyVisible, isScrolled, packageData }:
                 <div className="flex justify-center items-center border-orange-200 border-r-[2px]">
                     <div className="">
                         <h2 className=" font-semibold">Talk to Experts</h2>
-                        <p>+977-9803556169</p>
+                        <p>+977-9841240412</p>
                     </div>
                 </div>
                 <div className="flex justify-center">

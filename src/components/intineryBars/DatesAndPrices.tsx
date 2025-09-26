@@ -3,9 +3,8 @@
 import React, { useState, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { IFixedDate, ITravelPackage } from "@/types/IPackages";
-import { useSelectedTrip } from "@/contexts/SelectedDateContext";
 import Link from "next/link";
-import { setPackage, useBookingStore } from "@/store/booking-store";
+import { setPackage, } from "@/store/booking-store";
 
 interface CalendarProps {
   month: number;
@@ -183,144 +182,6 @@ const BookingForm: React.FC<{
           </div>
         </div>
       </div>
-
-      {/* <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.fullName}
-              onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
-              onFocus={(e) => {
-                e.target.style.borderColor = '#F05E25';
-                e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = '#D1D5DB';
-                e.target.style.boxShadow = 'none';
-              }}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email *
-            </label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
-              onFocus={(e) => {
-                e.target.style.borderColor = '#F05E25';
-                e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = '#D1D5DB';
-                e.target.style.boxShadow = 'none';
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Phone Number *
-            </label>
-            <input
-              type="tel"
-              required
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
-              onFocus={(e) => {
-                e.target.style.borderColor = '#F05E25';
-                e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = '#D1D5DB';
-                e.target.style.boxShadow = 'none';
-              }}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Number of Travelers
-            </label>
-            <select
-              value={formData.numberOfTravelers}
-              onChange={(e) => setFormData({ ...formData, numberOfTravelers: parseInt(e.target.value) })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
-              onFocus={(e) => {
-                e.target.style.borderColor = '#F05E25';
-                e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
-              }}
-              onBlur={(e) => {
-                e.target.style.borderColor = '#D1D5DB';
-                e.target.style.boxShadow = 'none';
-              }}
-            >
-              {[...Array(10)].map((_, i) => (
-                <option key={i + 1} value={i + 1}>{i + 1}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Special Requests (Optional)
-          </label>
-          <textarea
-            rows={4}
-            value={formData.specialRequests}
-            onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-sm transition-colors duration-200 focus:outline-none"
-            placeholder="Any dietary restrictions, accessibility needs, or special requests..."
-            onFocus={(e) => {
-              e.target.style.borderColor = '#F05E25';
-              e.target.style.boxShadow = '0 0 0 2px rgba(240, 94, 37, 0.2)';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#D1D5DB';
-              e.target.style.boxShadow = 'none';
-            }}
-          />
-        </div>
-
-        <div className="flex gap-4 w-full pt-4 justify-end items-center">
-          <button
-            type="button"
-            onClick={onClose}
-            className="shrink-0 py-3 w-fit px-4 border border-gray-300 rounded-sm text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="shrink-0 w-fit py-3 px-4 text-white rounded-sm font-medium transition-colors"
-            style={{
-              backgroundColor: '#F05E25'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#D44A1F';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#F05E25';
-            }}
-          >
-            Book Now
-          </button>
-        </div>
-      </form> */}
     </div>
   );
 };

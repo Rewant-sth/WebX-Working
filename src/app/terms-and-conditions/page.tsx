@@ -1,123 +1,103 @@
 "use client"
-import { useRouter } from "next/navigation";
+import React from 'react';
 
-const TermsOfService = () => {
-
-    const router = useRouter()
-
-    const handleGoBack = () => {
-        router.back()
-    }
-
-
+export default function TermsAndConditions() {
     return (
-        <div className="min-h-screen  py-8 max-w-7xl mx-auto p-6">
-            <button className="border px-6 py-1.5 mb-6 rounded-sm" onClick={handleGoBack}>Go Back</button>
-            <div className="sm:bg-zinc-100 sm:p-6 rounded-sm">
-                {/* Header */}
-                <div className=" rounded-sm   mb-4">
-                    <div className="flex flex-col md:flex-row  justify-between">
-                        <div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Terms of Service</h1>
-                            <p className="text-gray-600 mt-2">Last updated: September 05, 2025</p>
-                        </div>
-                        <div className="mt-4 md:mt-0">
-                            <img src="/logo/main.svg" alt="real himalaya logo" className=' w-28' />
-                        </div>
+        <main className="min-h-screen  text-gray-800 py-12 pt-[5rem] px-4 sm:px-6 lg:px-24">
+            <div className="max-w-5xl mx-auto">
+                <header className="mb-8">
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">Terms &amp; Conditions</h1>
                     </div>
-                </div>
+                    <p className="mt-3 text-xl text-gray-600">A clear, user-friendly summary of booking rules, payments, cancellations and responsibilities.</p>
+                </header>
 
-                <div className="flex flex-col lg:flex-row gap-4">
 
 
-                    {/* Main Content */}
-                    <div className="">
-                        <div className=" rounded-sm">
-                            {/* Agreement Section */}
-                            <section id="agreement" className="mb-10 scroll-mt-20">
-                                <h2 className="text-2xl font-bold text-gray-800 mb-4">1. AGREEMENT TO OUR LEGAL TERMS</h2>
-                                <p className="text-gray-700 mb-4">
-                                    We are <span className="font-semibold">REAL Himalaya Pvt. Ltd.</span> ("Company," "we," "us," "our").
-                                    We operate the website <a href="https://realhimalaya.webxnepal.com" className="text-blue-600 hover:underline">https://realhimalaya.webxnepal.com</a>
-                                    (the "Site"), as well as any other related products and services that refer or link to these legal terms
-                                    (the "Legal Terms") (collectively, the "Services").
-                                </p>
-                                <p className="text-gray-700 mb-4">
-                                    You can contact us by email at <span className="font-semibold">info@realhimalaya.com</span> or by mail to
-                                    <span className="font-semibold"> kathmandu, Nepal, kathmandu, Bagmati 44600, Nepal</span>.
-                                </p>
-                                <p className="text-gray-700 mb-4">
-                                    These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf
-                                    of an entity ("you"), and REAL Himalaya Pvt. Ltd., concerning your access to and use of the Services.
-                                    You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these
-                                    Legal Terms. <strong>IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN WE WILL NOT BE RESPONSIBLE FOR ANY DAMAGES OR LOSSES RESULTING FROM YOUR USE OF THE SERVICES.</strong>
-                                </p>
-                            </section>
+                <article className="space-y-8">
 
-                            {/* Our Services Section */}
-                            <section id="services" className="mb-10 scroll-mt-20">
-                                <h2 className="text-2xl font-bold text-gray-800 mb-4">2. OUR SERVICES</h2>
-                                <p className="text-gray-700">
-                                    The information provided when using the Services is not intended for distribution to or use by any person
-                                    or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation
-                                    or which would subject us to any registration requirement within such jurisdiction or country. Accordingly,
-                                    those persons who choose to access the Services from other locations do so on their own initiative and are
-                                    solely responsible for compliance with local laws, if and to the extent local laws are applicable.
-                                </p>
-                            </section>
+                    <section id="booking" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Booking process</h2>
+                        <div className="grid  gap-6">
+                            <div>
+                                <h3 className="font-semibold text-2xl">How to book</h3>
+                                <p className="text-xl text-gray-700">Book online through our site or via authorised partners. We issue a confirmation email with a booking form and a local contact for questions.</p>
+                            </div>
 
-                            {/* Intellectual Property Section */}
-                            <section id="ip" className="mb-10 scroll-mt-20">
-                                <h2 className="text-2xl font-bold text-gray-800 mb-4">3. INTELLECTUAL PROPERTY RIGHTS</h2>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-3">Our intellectual property</h3>
-                                <p className="text-gray-700 mb-4">
-                                    We are the owner or the licensee of all intellectual property rights in our Services, including all source
-                                    code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics
-                                    in the Services (collectively, the "Content"), as well as the trademarks, service marks, and logos contained
-                                    therein (the "Marks").
-                                </p>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-3">Your use of our Services</h3>
-                                <p className="text-gray-700 mb-4">
-                                    Subject to your compliance with these Legal Terms, we grant you a non-exclusive, non-transferable, revocable
-                                    license to:
-                                </p>
-                                <ul className="list-disc pl-5 text-gray-700 mb-4 space-y-2">
-                                    <li>Access the Services</li>
-                                    <li>Download or print a copy of any portion of the Content to which you have properly gained access</li>
-                                </ul>
-                                <p className="text-gray-700">
-                                    solely for your personal, non-commercial use.
-                                </p>
-                            </section>
-
-                            {/* Additional sections would follow the same pattern */}
-
-                            {/* Contact Section */}
-                            <section id="contact" className="scroll-mt-20">
-                                <h2 className="text-2xl font-bold text-gray-800 mb-4">3. CONTACT US</h2>
-                                <p className="text-gray-700 mb-4">
-                                    In order to resolve a complaint regarding the Services or to receive further information regarding use of
-                                    the Services, please contact us at:
-                                </p>
-                                <div className="bg-gray-100 p-4 rounded-lg">
-                                    <p className="font-semibold">REAL Himalaya Pvt. Ltd.</p>
-                                    <p>kathmandu, Nepal</p>
-                                    <p>kathmandu, Bagmati 44600</p>
-                                    <p>Nepal</p>
-                                    <p className="mt-2">Email: info@realhimalaya.com</p>
-                                </div>
-                            </section>
+                            <div>
+                                <h3 className="font-semibold text-2xl">Deposit &amp; currency</h3>
+                                <p className="text-xl text-gray-700">Trip prices are shown in USD. If you pay in another currency we convert at the Nepal Central Bank rate on the day of payment. A deposit is required to secure your space (see the relevant trip type for deposit amount). Deposits are non-refundable unless explicitly stated otherwise in a supplementary agreement.</p>
+                            </div>
                         </div>
+                    </section>
 
-                        {/* Acceptance Footer */}
-                        <div className="mt-4  rounded-sm text-center">
-                            <p className="text-gray-700 mb-4">By using our services, you acknowledge that you have read and agree to these Terms of Service.</p>
+                    <section id="payment" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Payment methods</h2>
+                        <ul className="list-disc ml-5 space-y-2 text-xl text-gray-700">
+                            <li><strong>Online platform:</strong> We use a secure payment gateway that accepts multiple currencies. Processing fees may apply depending on card type.</li>
+                            <li><strong>Bank transfer / wire:</strong> Bank details provided on request. Clients cover any transfer fees charged by their bank.</li>
+                            <li><strong>Credit card:</strong> We accept major cards; a small card-processing surcharge may be applied.</li>
+                            <li><strong>Cash:</strong> Cash payments are accepted in major currencies; notes must be clean and recent series as required for authenticity checks.</li>
+                        </ul>
+                    </section>
+
+                    <section id="cancellation" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Cancellation &amp; refund policy</h2>
+
+                        <div className="space-y-4 text-xl text-gray-700">
+                            <div>
+                                <p>If you cancel at least <strong>20 days</strong> before departure, we will retain the deposit (or deduct a percentage of the total trip cost as stated in your booking confirmation) and refund any remaining balance. Cancellations made with less than 20 days' notice are subject to full payment and are non-refundable.</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </section>
+
+                    <section id="reschedule" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Rescheduling &amp; transfers</h2>
+                        <p className="text-xl text-gray-700">If you need to move your trip dates, notify us in writing within the timeframes listed in your booking confirmation. A rescheduling fee applies per person. If you wish to transfer your booking to another person, you are responsible for finding a suitable replacement; additional fees may apply.</p>
+                        <ul className="mt-3 text-xl text-gray-700 list-disc ml-5">
+                            <li>Rescheduling fees vary by destination and the notice period.</li>
+                            <li>If the new departure is more expensive, you are responsible for the price difference.</li>
+                        </ul>
+                    </section>
+
+                    <section id="visa" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Passports &amp; visas</h2>
+                        <p className="text-xl text-gray-700">Travelers must hold passports valid for at least six months beyond their planned return date. For some destinations we handle permits and visas on your behalf — see the trip description for details and the documents we will request at booking.</p>
+                    </section>
+
+                    <section id="insurance" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Travel insurance</h2>
+                        <p className="text-xl text-gray-700">Comprehensive travel insurance is mandatory. Policies should cover medical costs, evacuation, trip cancellation, helicopter rescue, baggage loss and other risks common in mountain travel. Clients must ensure their policy covers the activities in the itinerary.</p>
+                    </section>
+
+                    <section id="risk" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Risk, behaviour &amp; responsibilities</h2>
+                        <p className="text-xl text-gray-700">Mountain travel involves inherent risks including injury, illness, and natural hazards. By booking you accept these risks and agree that Real Himalaya and its staff are not liable for personal injury, loss or damage to property except where caused by proven negligence.</p>
+                        <p className="mt-3 text-xl text-gray-700">We reserve the right to remove any participant whose behaviour endangers others or violates local laws. No refunds or claims for unused services will be made in such cases.</p>
+                    </section>
+
+                    <section id="helicopter" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Domestic flight disruptions &amp; helicopter rescue</h2>
+                        <p className="text-xl text-gray-700">Weather can disrupt mountain flights. If flights are cancelled and a helicopter is required to start or finish a trek, the client will cover helicopter costs. We recommend allowing extra buffer days in your schedule and ensuring your insurance covers emergency evacuation.</p>
+                    </section>
+
+                    <section id="publicity" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Photography &amp; publicity</h2>
+                        <p className="text-xl text-gray-700">By joining a Real Himalaya trip you give permission for us to use photos or videos taken during the trip for promotional purposes, unless you advise us otherwise in writing before departure.</p>
+                    </section>
+
+                    <section id="complaints" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Complaints</h2>
+                        <p className="text-xl text-gray-700">Please raise any complaints with our staff during the trip so we can try to resolve them immediately. For unresolved matters, submit a written complaint within 30 days of trip completion.</p>
+                    </section>
+
+                    <section id="jurisdiction" className=" ">
+                        <h2 className="text-3xl font-semibold mb-2">Governing law &amp; jurisdiction</h2>
+                        <p className="text-xl text-gray-700">These terms are governed by the laws of Nepal. Any disputes will be handled in Kathmandu courts. This clause does not prevent either party from seeking urgent injunctive relief in other competent courts if necessary.</p>
+                    </section>
+
+                </article>
             </div>
-        </div>
+        </main>
     );
-};
-
-export default TermsOfService;
+}

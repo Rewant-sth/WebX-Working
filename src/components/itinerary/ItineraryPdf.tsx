@@ -88,8 +88,8 @@ export const ItineraryPdf = ({ data }: { data: ITravelPackage }) => (
       </View>
 
       {data.coverImage && (
-        <Image 
-          src={data.coverImage} 
+        <Image
+          src={data.coverImage}
           style={styles.image}
         />
       )}
@@ -114,7 +114,7 @@ export const ItineraryPdf = ({ data }: { data: ITravelPackage }) => (
       </View>
 
       <View style={styles.footer}>
-        <Text>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9803556169</Text>
+        <Text>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9841240412</Text>
       </View>
     </Page>
   </Document>

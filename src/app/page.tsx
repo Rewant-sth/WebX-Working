@@ -3,6 +3,7 @@ import ExpeditionPage from "@/components/expedition/ExpeditionPage";
 import Hero from "@/components/hero/Hero";
 import SnapSections from "@/components/hero/HeroCarousel";
 import AboutUs from "@/components/home/aboutus";
+import BestSeller from "@/components/home/best-seller";
 import CTA from "@/components/home/cta-with-gallery.tsx";
 import Divider from "@/components/home/divider";
 import Intro from "@/components/home/intro";
@@ -19,6 +20,7 @@ const Page = () => {
       <Intro />
       <AboutUs />
       <TrekPage />
+      <BestSeller />
       <ExpeditionPage />
       <Divider />
       <TestimonialsSections />

@@ -30,6 +30,7 @@ import RouteMapModal from "./_components/RouteMapModal";
 import ImagePreviewModal from "./_components/ImagePreviewModal";
 import RouteMap from "@/components/tripGlance/RouteMap";
 import Image from "next/image";
+import EmblaCarousel from "@/components/ui/embla-carousel";
 import VideoReview from "./_components/video-review";
 
 const Page = () => {
@@ -130,9 +131,29 @@ const Page = () => {
                 <MajorHighlight data={packageData?.data} />
               ) : null}
 
-              <div className="h-[60dvh] w-full relative mb-14 rounded-sm overflow-hidden">
-                <Image src={packageData?.data?.coverImage || "/placeholder.png"} alt="Manaslu" layout="fill" objectFit="cover" className="object-top" />
-              </div>
+              {/* add carousel here as well and have autoplay */}
+              {packageData?.data?.gallery && packageData?.data?.gallery.length > 0 ? (
+                <div className="h-[60dvh] w-full relative mb-14">
+                  <EmblaCarousel
+                    rounded
+                    className="h-full w-full"
+                    images={packageData.data.gallery.map((g: any) => ({
+                      src: g.imageUrl || "/placeholder.png",
+                      alt: g.caption || "Gallery image",
+                    }))}
+                    options={{ loop: true, align: "start" }}
+                  />
+                </div>
+              ) : (
+                <div className="h-[60dvh] w-full relative mb-14 rounded-sm overflow-hidden">
+                  <Image
+                    src={packageData?.data?.coverImage || "/placeholder.png"}
+                    alt="Manaslu"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+              )}
 
               {/* Overview Section */}
               <OverviewSection packageData={packageData?.data as ITravelPackage} />

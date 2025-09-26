@@ -116,7 +116,7 @@ export default function LayoutWrapper({
   }, [notificationCount]);
 
   // Hide navbar on pages that start with /booking
-  const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/test");
+  const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/test");
 
   // Don't render anything until initialization is complete
   if (!isInitialized) {

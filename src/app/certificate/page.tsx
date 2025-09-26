@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getCertificates } from "@/service/certificates";
 import Skeleton from "react-loading-skeleton";
+//@ts-ignore
 import "react-loading-skeleton/dist/skeleton.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -118,6 +119,19 @@ const milestonesData: Milestone[] = [
 
 
 const CertificatesPage = () => {
+  // Logo path for download override
+  const logoPath = "/logo/logo.png";
+
+  // Intercept download attempts
+  const handleDownload = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    const link = document.createElement("a");
+    link.href = logoPath;
+    link.download = "logo.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   const [selectedCertificate, setSelectedCertificate] = useState<Certificate | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -265,11 +279,14 @@ const CertificatesPage = () => {
                   key={cert._id}
                   className="group transition-all border border-gray-200 duration-500 transform"
                 >
-                  <div className="relative w-full  md:w-[350px] md:h-[400px] overflow-hidden rounded-sm">
-                    <img
+                  <div className="relative w-full  md:w-[350px] md:h-[500px] overflow-hidden rounded-sm">
+                    <Image
+                      fill
                       src={cert.image}
                       alt={cert.name}
-                      className="w-full h-full transition-transform duration-500"
+                      className="w-full h-full transition-transform duration-500 select-none"
+                      onContextMenu={handleDownload}
+                      draggable={false}
                     />
 
                     <div className=" absolute backdrop-blur-sm z-30 flex justify-center items-center opacity-0 hover:opacity-100 transition-all duration-300 inset-0">
@@ -302,7 +319,9 @@ const CertificatesPage = () => {
           <img
             src={selectedCertificate.image}
             alt={selectedCertificate.name}
-            className="max-w-[90%] max-h-[80%] object-contain rounded-sm"
+            className="max-w-[90%] max-h-[80%] object-contain rounded-sm select-none"
+            onContextMenu={handleDownload}
+            draggable={false}
           />
         </div>
       )}
