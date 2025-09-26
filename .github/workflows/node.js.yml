@@ -1,0 +1,62 @@
+name: Next.js CI/CD (VPS)
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+      # 1️⃣ Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # 3️⃣ Install pnpm globally
+      - name: Install pnpm
+        run: npm install -g pnpm@9
+
+      # 4️⃣ Deploy to VPS via SSH
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: |
+            echo "✅ SSH connection successful!"
+            whoami
+            pwd
+            ls -la
+
+            # 1️⃣ Navigate to project
+            cd /var/www/real-himalaya/real-himalaya
+
+            # 2️⃣ Pull latest code safely
+            echo "📦 Pulling latest code..."
+            git fetch origin main
+            git reset --hard origin/main
+
+            # 3️⃣ Install dependencies
+            echo "📥 Installing dependencies..."
+            pnpm install --frozen-lockfile
+
+            # 4️⃣ Build the project
+            echo "🛠 Building the project..."
+            pnpm build
+
+            # 5️⃣ Restart PM2 process (match existing name)
+            echo "🔄 Restarting PM2 process..."
+            pm2 restart real-himalaya-frontend-3000 || pm2 start pnpm --name "real-himalaya-frontend-3000" -- run start
