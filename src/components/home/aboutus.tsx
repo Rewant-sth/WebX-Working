@@ -66,10 +66,11 @@ export default function AboutUs() {
   return (
     <section ref={sectionRef}
       style={{
-        backgroundImage: "url('/EXPEDITION/intro.JPG')",
+        backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('/EXPEDITION/intro.JPG')",
         backgroundSize: "cover",
         backgroundPosition: "bottom",
-        backgroundAttachment: "fixed"
+        backgroundAttachment: "fixed",
+
       }}
       className="h-screen overflow-hidden relative snap-start flex justify-end items-center bg-fixed-fallback">
       <motion.div

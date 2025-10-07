@@ -522,3 +522,42 @@ input[type=number] {
     list-style-type: disc !important;
     margin-left: 18px !important;
 }
+
+@keyframes moveright {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes moveleft {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+.left-cloud {
+    animation: moveright 50s ease-in-out infinite;
+}
+
+.right-cloud {
+    animation: moveleft 50s ease-in-out infinite;
+}

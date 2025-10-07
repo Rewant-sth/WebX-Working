@@ -1,0 +1,702 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Rafting - Complete Itinerary</title>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+            
+            body { 
+              font-family: 'Montserrat', Arial, sans-serif; 
+              line-height: 1.8; 
+              color: #333; 
+              max-width: 1400px; 
+              margin: 0 auto; 
+              padding: 40px;
+              background-color: #f9f9f9;
+            }
+            
+            .container {
+              background: white;
+              border-radius: 8px;
+              box-shadow: 0 0 30px rgba(0,0,0,0.1);
+              padding: 50px;
+              margin: 20px auto;
+              position: relative;
+              overflow: hidden;
+            }
+            
+            .header { 
+              text-align: center; 
+              margin-bottom: 10px;
+              padding-bottom: 20px;
+            }
+            
+            h1 { 
+              color: #f05e25; 
+              font-size: 2.2em;
+              margin: 0 0 10px 0;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            }
+            
+            .trip-info {
+              color: #666;
+              font-size: 1.1em;
+              margin-bottom: 15px;
+              font-weight: 500;
+            }
+            
+            .cover-image { 
+              width: 100%; 
+              object-fit: cover;
+              border-radius: 8px;
+              margin: 30px 0;
+              box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+            
+            .section {
+              margin-bottom: 20px;
+            }
+            
+            h2 { 
+              color: #2c3e50; 
+              font-size: 1.5em;
+              padding-bottom: 10px;
+              margin: 40px 0 25px 0;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            
+            .overview {
+              font-size: 1.05em;
+              color: #444;
+              line-height: 1.8;
+            }
+            
+            .itinerary-day {
+              margin-bottom: 30px;
+              padding: 5px;
+              background: #fff9f7;
+              border-radius: 0 8px 8px 0;
+              position: relative;
+            }
+            
+            .day-title { 
+              color: #f05e25; 
+              font-weight: 600;
+              font-size: 1.2em;
+              margin-bottom: 15px;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+            
+            .day-title:before {
+              content: '📅';
+              font-size: 1.2em;
+            }
+            
+            .day-description {
+              color: #555;
+              line-height: 1.8;
+              padding-left: 15px;
+              margin-left: 4px;
+            }
+            
+            .highlight-box {
+              background: #f8f9fa;
+              border-left: 4px solid #f05e25;
+              padding: 20px;
+              margin: 25px 0;
+              border-radius: 0 6px 6px 0;
+            }
+            
+            .highlights-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 15px;
+              margin-top: 15px;
+            }
+            
+            .highlight-item {
+              display: flex;
+              align-items: flex-start;
+              gap: 10px;
+              padding: 10px;
+              background: white;
+              border-radius: 6px;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+            
+            .highlight-icon {
+              color: #f05e25;
+              font-size: 1.2em;
+              margin-top: 2px;
+            }
+            
+            .included-items, .excluded-items {
+              margin: 20px 0;
+              flex: 1;
+              min-width: 280px;
+            }
+            
+            .included-items h3, .excluded-items h3 {
+              color: #2c3e50;
+              margin-bottom: 15px;
+              font-size: 1.2em;
+              padding-bottom: 8px;
+              border-bottom: 2px solid;
+            }
+            
+            .included-items h3 {
+              color: #28a745;
+              border-color: #28a745;
+            }
+            
+            .excluded-items h3 {
+              color: #dc3545;
+              border-color: #dc3545;
+            }
+            
+            .included-list, .excluded-list {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+            }
+            
+            .included-list li, .excluded-list li {
+              padding: 10px 0;
+              display: flex;
+              align-items: flex-start;
+              gap: 10px;
+              border-bottom: 1px dashed #eee;
+            }
+            
+            .included-list li:before {
+              content: '✓';
+              color: #28a745;
+              font-weight: bold;
+              flex-shrink: 0;
+            }
+            
+            .excluded-list li:before {
+              content: '✗';
+              color: #dc3545;
+              font-weight: bold;
+              flex-shrink: 0;
+            }
+            
+            .page-break {
+              page-break-before: always;
+              padding-top: 40px;
+            }
+            
+            .footer { 
+              margin-top: 60px; 
+              padding-top: 30px; 
+              border-top: 1px solid #eee; 
+              text-align: center; 
+              color: #666;
+              font-size: 0.95em;
+            }
+            
+            .contact-info {
+              margin: 15px 0;
+              display: flex;
+              justify-content: center;
+              gap: 20px;
+              flex-wrap: wrap;
+            }
+            
+            .contact-item {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-weight: 500;
+            }
+            
+            .contact-icon {
+              color: #f05e25;
+            }
+            
+            .print-button {
+              margin: 30px auto 0;
+              padding: 12px 30px;
+              background: #f05e25;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              font-size: 1em;
+              font-weight: 600;
+              cursor: pointer;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              transition: all 0.3s ease;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              box-shadow: 0 2px 5px rgba(240, 94, 37, 0.3);
+            }
+            
+            .print-button:hover {
+              background: #e04a1b;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 8px rgba(240, 94, 37, 0.4);
+            }
+            
+            .quick-facts {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+              gap: 15px;
+              margin: 20px 0 30px;
+            }
+            
+            .fact-item {
+              background: #f8f9fa;
+              padding: 15px;
+            }
+            
+            .fact-label {
+              font-size: 0.85em;
+              color: #666;
+              margin-bottom: 5px;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            
+            .fact-value {
+              font-weight: 600;
+              color: #2c3e50;
+            }
+
+            /* Best Sellers */
+            .best-sellers {
+              margin-top: 30px;
+            }
+            .best-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+              gap: 16px;
+            }
+            .best-card {
+              border: 1px solid #eee;
+              border-radius: 8px;
+              overflow: hidden;
+              background: #ffffff;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            }
+            .best-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
+            .best-card .info { padding: 10px 12px; }
+            .best-card .title { font-weight: 600; color: #111827; font-size: 0.98em; line-height: 1.3; margin-bottom: 6px; }
+            .best-card .meta { color: #6B7280; font-size: 0.88em; }
+            
+            @media print {
+              body { 
+                padding: 0;
+                background: white;
+                font-size: 12px;
+              }
+              
+              .container {
+                box-shadow: none;
+                padding: 20px;
+                margin: 0;
+              }
+              
+              .no-print { 
+                display: none; 
+              }
+              
+              .page-break {
+                page-break-before: always;
+                padding-top: 20px;
+              }
+              
+              .itinerary-day {
+                page-break-inside: avoid;
+              }
+              
+              h2 {
+                page-break-after: avoid;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <!-- Header Section -->
+            <div class="header">
+              <h1>Rafting</h1>
+              <div class="trip-info">
+                Nepal • 9 Days • Generated on September 26, 2025
+              </div>
+              <div style="color: #f05e25; font-weight: 600;">Moderate Difficulty</div>
+            </div>
+            
+            <!-- Cover Image -->
+            
+              <div style="text-align: center;">
+                <img src="http://res.cloudinary.com/dqrilifew/image/upload/v1757847820/travel-packages/river-1094617_1280_jsif7n.jpg" alt="Rafting" class="cover-image">
+              </div>
+            
+            
+            <!-- Quick Facts -->
+            <div class="section">
+              <h2>Quick Facts</h2>
+              <div class="quick-facts">
+                
+                  <div class="fact-item">
+                    <div class="fact-label">Duration</div>
+                    <div class="fact-value">9 Days</div>
+                  </div>
+                
+                
+                
+                  <div class="fact-item">
+                    <div class="fact-label">Difficulty</div>
+                    <div class="fact-value">Moderate</div>
+                  </div>
+                
+                
+                
+                  <div class="fact-item">
+                    <div class="fact-label">Group Size</div>
+                    <div class="fact-value">10-18</div>
+                  </div>
+                
+                
+                
+                
+                
+              </div>
+            </div>
+            
+            <!-- Trip Overview -->
+            <div class="section">
+              <h2>Trip Overview</h2>
+              <div class="overview">
+                <p>The <strong>Nepal White Water Rafting Adventure</strong> combines multiple river systems to provide the ultimate white water experience, flowing from the Himalayan foothills through subtropical valleys to the Terai plains.</p><p></p><p style="text-align: justify;">Your adventure begins in <strong>Kathmandu (1,400 m)</strong>, where equipment is checked and final preparations made. A scenic drive brings you to <strong>Charaudi (600 m)</strong>, the traditional put-in point for <strong>Trishuli River</strong> expeditions. This legendary river, flowing from the glaciers of <strong>Langtang Himal</strong>, provides consistent Grade II-III rapids through terraced landscapes dotted with traditional villages.</p><p style="text-align: justify;"></p><p style="text-align: justify;">The <strong>Trishuli River</strong> section includes famous rapids like <strong>"Ladies Delight,"</strong> <strong>"Upset,"</strong> and <strong>"Surprise"</strong>, each offering unique challenges and thrills. Between rapids, peaceful stretches allow for wildlife observation, photography, and cultural interactions with riverside communities.</p><p style="text-align: justify;">Transitioning to the <strong>Seti River</strong> system, you experience Nepal's "white river," renowned for its remarkably clear, warm waters flowing through pristine subtropical valleys. The Seti offers technical rapids including <strong>"Pinball,"</strong> <strong>"Ram's Horn,"</strong> and <strong>"Washing Machine,"</strong> each requiring teamwork and precision paddling.</p><p style="text-align: justify;"></p><p style="text-align: justify;">The multi-day format includes:</p><ul><li><p style="text-align: justify;"><strong>River camping</strong> under star-filled skies with traditional Nepali meals</p></li><li><p style="text-align: justify;"><strong>Cultural village visits</strong> to experience authentic rural life</p></li><li><p style="text-align: justify;"><strong>Wildlife observation</strong> including river dolphins, kingfishers, and otters</p></li><li><p style="text-align: justify;"><strong>Optional extensions</strong> to Chitwan National Park for elephant safaris</p><p style="text-align: justify;"></p></li></ul><p style="text-align: justify;">Safety remains paramount throughout, with certified guides, comprehensive safety briefings, and top-quality equipment ensuring your adventure is both thrilling and secure.</p><p><br></p>
+              </div>
+            </div>
+            
+            <!-- Trip Highlights -->
+            
+            
+            <!-- Detailed Itinerary -->
+            <div class="section">
+              <h2>Detailed Itinerary</h2>
+              <div class="itinerary-days">
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 1: Arrival in Kathmandu at Tribhuvan International Airport</div>
+                    <div class="day-description">
+                      <p></p><p style="text-align: justify;">Namaste and welcome to Nepal! Upon arrival at <strong>Tribhuvan International Airport</strong>, you are greeted by our team and transferred to your hotel in Thamel. The bustling streets, vibrant prayer flags, and adventure energy prepare you for your thrilling rafting expedition. In the evening, enjoy a <strong>welcome dinner</strong> with traditional Nepali cuisine and a comprehensive briefing about your white water adventure.</p><p><br></p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Welcome Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Hotel in Kathmandu
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Hotel Transfer</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 3: Trishuli River Rafting to Kurintar</div>
+                    <div class="day-description">
+                      <p></p><p>Your adventure begins with Grade II-III rapids as you navigate the <strong>Trishuli River's</strong> crystal-clear waters. Thunder through exciting rapids like <strong>"Ladies Delight"</strong> and <strong>"Upset Rapids"</strong> while surrounded by terraced hills and subtropical forests. Between the adrenaline rushes, enjoy peaceful stretches where you can spot kingfishers, eagles, and playful river otters. Overnight camping by the riverside under starlit skies.</p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Breakfast, Lunch and Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Resort
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Rafting</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 2: Drive from Kathmandu to Charaudi</div>
+                    <div class="day-description">
+                      <p></p><p style="text-align: justify;">After breakfast, embark on a scenic drive west along the Prithvi Highway toward the rafting put-in point. The road winds past terraced hillsides, rushing tributaries, and traditional villages. You arrive at <strong>Charaudi</strong>, where the mighty <strong>Trishuli River</strong> beckons. Here, expert guides provide safety briefings, equipment fitting, and paddling instructions before launching into your first rapids.</p><p><br></p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Breakfast, Lunch and Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Resort
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Drive</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  <div class="page-break"></div>
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 5: Seti River Rafting to Saranghat</div>
+                    <div class="day-description">
+                      <p></p><p>Launch into the pristine waters of the <strong>Seti River</strong>, known for its warm, clear waters and consistent Grade II-III rapids. Navigate through <strong>"Pinball Rapids"</strong> and <strong>"Ram's Horn"</strong> while surrounded by dense forests and terraced hillsides. The Seti offers perfect swimming opportunities in calm sections, and you might spot freshwater dolphins in deeper pools. Beach camping with traditional Nepali dinner around a campfire.</p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Breakfast, Lunch and Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Resort
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Rafting</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 4: Continue to Seti River and  Drive to Damauli</div>
+                    <div class="day-description">
+                      <p>After breakfast by the river, drive through scenic countryside to reach the <strong>Seti River</strong> system. The landscape transforms into lush valleys dotted with traditional Gurung and Magar villages. Upon arrival at <strong>Damauli</strong>, enjoy lunch while guides prepare equipment for the next phase of your multi-river adventure.</p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Breakfast, Lunch and Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Res
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Rafting and Drive</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 6: Seti River to Chitwan - Wildlife Extension</div>
+                    <div class="day-description">
+                      <p style="text-align: justify;">Your final day on the Seti includes thrilling morning rapids before reaching the confluence with larger river systems. After lunch by the river, transfer to <strong>Chitwan National Park</strong> for an optional wildlife extension. If choosing the wildlife package, enjoy elephant safari preparation; otherwise, continue toward Kathmandu with stops at local villages for cultural interactions.</p><p><br></p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Breakfast, Lunch and Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Resort
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Rafting and Wildlife Explore</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  <div class="page-break"></div>
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 7: Drive Back to Kathmandu</div>
+                    <div class="day-description">
+                      <p></p><p>After breakfast, begin the scenic journey back to <strong>Kathmandu</strong>, traveling through the heart of Nepal's middle hills. Stop at traditional pottery villages and local markets where you can purchase handicrafts. Upon arrival in Kathmandu, transfer to your hotel and enjoy a <strong>celebration dinner</strong> with your rafting team, sharing stories of your white water adventure.</p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Breakfast, Lunch and Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Hotel in Kathmandu
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Drive</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 8: Contingency Day in Kathmandu</div>
+                    <div class="day-description">
+                      <p></p><p>Reserved for weather delays, road conditions, or personal exploration. Spend the day visiting <strong>UNESCO World Heritage Sites</strong> like Kathmandu Durbar Square, Swayambhunath (Monkey Temple), or Boudhanath Stupa. Alternatively, explore Thamel's vibrant markets for souvenirs and adventure gear.</p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Farewell Dinner
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <strong>🏨 Accommodation:</strong> Hotel in Kathmandu
+                        </div>
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Sightseen</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  
+                
+                  <div class="itinerary-day">
+                    <div class="day-title">Day 9: Final Departure from Kathmandu</div>
+                    <div class="day-description">
+                      <p></p><p style="text-align: justify;">After breakfast, transfer to <strong>Tribhuvan International Airport</strong> for your onward journey. As your plane climbs above the Himalayas, you carry memories of <strong>Nepal's rushing rivers, warm hospitality, and the thrill of conquering white water rapids</strong>.</p><p><br></p>
+                      
+                      
+                        <div style="margin-top: 15px;  display: inline-block;">
+                          <strong>🍽️ Meals:</strong> Complementary Breakfast
+                        </div>
+                      
+                      
+                      
+                      
+                      
+                        <div style="margin-top: 15px;">
+                          <div style="font-weight: 600; color: #2c3e50; margin-bottom: 8px;">🏃‍♂️‍➡️ Activities: <span style="font-weight: 500;">Departure day</span></div>
+                        </div>
+                      
+                    </div>
+                  </div>
+                  <div class="page-break"></div>
+                
+              </div>
+            </div>
+            
+            
+            <!-- Included & Excluded -->
+            <div style="display: flex; gap: 30px; margin: 40px 0; flex-wrap: wrap;">
+              <!-- Included -->
+              
+              
+              <!-- Excluded -->
+              
+            </div>
+            
+            <!-- Additional Information -->
+            
+            
+            <!-- FAQ Section -->
+            
+            
+            <!-- Footer -->
+            <div class="footer">
+              <h3 style="color: #f05e25; margin: 0 0 15px 0;">Ready to Book Your Adventure?</h3>
+              <p style="margin: 0 0 20px 0; color: #555; font-size: 1.05em;">
+                Contact our travel experts to start planning your perfect trip
+              </p>
+              
+              <div class="contact-info">
+                <div class="contact-item">
+                  <span class="contact-icon">📞</span>
+                  <span>+977 985-1026840</span>
+                </div>
+                <div class="contact-item">
+                  <span class="contact-icon">✉️</span>
+                  <span>info@realhimalaya.com</span>
+                </div>
+                <div class="contact-item">
+                  <span class="contact-icon">🌐</span>
+                  <span>www.realhimalaya.com</span>
+                </div>
+              </div>
+              
+              <div style="margin-top: 30px; color: #777; font-size: 0.9em;">
+                <p>Thank you for considering Real Himalaya for your adventure!</p>
+                <p style="margin: 5px 0 0 0;">
+                  &copy; 2025 Real Himalaya. All rights reserved.
+                </p>
+              </div>
+              
+              <button onclick="window.print()" class="print-button no-print">
+                <span>Print Itinerary</span>
+              </button>
+            </div>
+          </div>
+          
+          <script>
+            // Auto-scroll to top when printing
+            window.onbeforeprint = function() {
+              window.scrollTo(0, 0);
+            };
+            
+            // Add page breaks for printing
+            document.addEventListener('DOMContentLoaded', function() {
+              const printButton = document.querySelector('.print-button');
+              if (printButton) {
+                printButton.addEventListener('click', function() {
+                  window.print();
+                });
+              }
+            });
+          </script>
+        </body>
+        </html>
+          </div>
+          
+          
+        </body>
+        </html>
+      

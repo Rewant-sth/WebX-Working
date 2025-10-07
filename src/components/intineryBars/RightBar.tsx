@@ -543,7 +543,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
               <div class="contact-info">
                 <div class="contact-item">
                   <span class="contact-icon">📞</span>
-                  <span>+977-9841240412</span>
+                  <span>+977 985-1026840</span>
                 </div>
                 <div class="contact-item">
                   <span class="contact-icon">✉️</span>
@@ -794,7 +794,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
                     )}
 
                     <div className="text-center text-sm text-gray-500 mt-12 pt-4 border-t border-gray-200">
-                      <p>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9841240412</p>
+                      <p>Thank you for choosing Real Himalaya. For any queries, contact us at +977 985-1026840</p>
                       <p className="mt-2">www.realhimalaya.com</p>
                     </div>
                   </>
@@ -817,7 +817,7 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
           <h2 className="text-center text-xl">- Gokul Thapa</h2>
           <div className="text-center mt-4">
             <div className="flex items-center justify-center gap-3">
-              <Link href="tel:+977-9841240412">
+              <Link href="tel:+977 985-1026840">
                 <Icon icon="mingcute:phone-fill" width="24" height="24" style={{ color: 'f05e25' }} />
               </Link>
               <Link href="https://www.instagram.com/realhimalayanp">

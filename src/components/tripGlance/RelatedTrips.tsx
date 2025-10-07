@@ -20,7 +20,7 @@ const RelatedTrips = ({
 }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["getrelated"],
-    queryFn: () => getPackagesByCategory(category),
+    queryFn: () => getSubpackagesBySlug(category),
   });
 
   const { setPackage } = useBookingStore()

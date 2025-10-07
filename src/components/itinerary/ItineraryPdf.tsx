@@ -114,7 +114,7 @@ export const ItineraryPdf = ({ data }: { data: ITravelPackage }) => (
       </View>
 
       <View style={styles.footer}>
-        <Text>Thank you for choosing Real Himalaya. For any queries, contact us at +977-9841240412</Text>
+        <Text>Thank you for choosing Real Himalaya. For any queries, contact us at +977 985-1026840</Text>
       </View>
     </Page>
   </Document>

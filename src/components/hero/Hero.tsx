@@ -11,6 +11,8 @@ export default function Hero() {
   const rightSectionRef = React.useRef<HTMLDivElement>(null);
   const mainRef = React.useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
 
   // Carousel setup
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -68,6 +70,31 @@ export default function Hero() {
           ease: "none"
         }, 0);
 
+
+
+
+      // timeline.fromTo(leftRef.current,
+      //   {
+      //     left: "0%"
+      //   },
+      //   {
+      //     left: "30%",
+      //     duration: 0.3,
+      //     ease: "none"
+
+      //   }, 0);
+
+      // timeline.fromTo(rightRef.current,
+      //   {
+      //     left: "0%"
+      //   },
+      //   {
+      //     left: "30%",
+      //     duration: 0.3,
+      //     ease: "none"
+
+      //   }, 0);
+
     });
 
     return () => ctx.revert();
@@ -83,7 +110,7 @@ export default function Hero() {
       </div>
       {/* hero first */}
       <div ref={sectionRef} className="h-screen   sticky top-30 lg:flex gap-6 lg:gap-16 p-6 ">
-        <h2 className='text-[10dvw] sm:text-[6dvw] font-bold uppercase text-center mx-auto flex flex-col  leading-12 lg:leading-24'><span className="text-[#01283F]">Explore  The</span> <span className="text-[#F05E25]">Real Himalaya</span></h2>
+        <h2 className='text-[10dvw] sm:text-[6dvw] font-bold uppercase text-center mx-auto   leading-12 lg:leading-24'><span className="text-[#01283F]">Explore  The</span> <span className="text-[#F05E25]">Real Himalaya</span></h2>
       </div>
 
       {/* hero second */}
@@ -105,15 +132,15 @@ export default function Hero() {
         className="absolute top-[20%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
       >
         <div className="relative h-full max-w-screen  ">
-          <img src="/hero-front.png" alt="hero" className="w-full h-full object-cover object-top" />
+          <img src="/new-hero.png" alt="hero" className="w-full h-full object-cover object-top" />
         </div>
       </div>
 
 
-      <div className="absolute bottom-10 left-0 -translate-x-1/2  z-[70]">
+      <div ref={leftRef} className="absolute left-cloud bottom-10 left-0 -translate-x-1/2  z-[70]">
         <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20 z-[70]' />
       </div>
-      <div className="absolute bottom-10   right-0 translate-x-1/2  z-[70]">
+      <div ref={rightRef} className="absolute right-cloud bottom-10   right-0 translate-x-1/2  z-[70]">
         <img src="/cloud_2.webp" alt="cloud" className='translate-x-16' />
       </div>
 

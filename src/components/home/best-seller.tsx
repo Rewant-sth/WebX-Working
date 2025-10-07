@@ -136,11 +136,11 @@ function BestSeller() {
                     {bestSellingPackage.length > 0 ? (
                         bestSellingPackage.map((pkg, index) => (
                             <div
-                                key={pkg._id || index}
+                                key={pkg._id}
                                 className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:pr-[0.5rem]"
                             // style={{ paddingRight: '0.5rem' }}
                             >
-                                <Link key={pkg._id || index} href={`/itinerary/${pkg.slug}`}>
+                                <Link key={pkg.slug || pkg._id} href={`/itinerary/${pkg.slug}`}>
 
                                     <div className="relative group cursor-pointer rounded-sm overflow-hidden h-[60dvh]">
                                         <div className="absolute inset-0 group-hover:translate-y-0 transition-all translate-y-full bg-[#01283F]/40 z-40"></div>
