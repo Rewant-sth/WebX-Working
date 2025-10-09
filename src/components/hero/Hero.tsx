@@ -105,6 +105,13 @@ export default function Hero() {
   return (
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
 
+      <div ref={leftRef} className="absolute left-cloud top-10 lg:top-[25%] left-0 -translate-x-1/2  z-[50]">
+        <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20 scale-75 z-[70]' />
+      </div>
+      <div ref={rightRef} className="absolute right-cloud top-10 lg:top-[25%]   right-0 translate-x-1/2  z-[50]">
+        <img src="/cloud_2.webp" alt="cloud" className='translate-x-16 scale-75 z-[70]' />
+      </div>
+
       <div className="absolute inset-0">
         <img src="/hero-back.jpeg" alt="Real Himalaya" className='w-full h-full brightness-50 opacity-40' />
       </div>
@@ -117,7 +124,7 @@ export default function Hero() {
       <section ref={rightSectionRef} className="h-screen text-justify overflow-hidden  absolute top-0 left-0 w-full translate-y-full text-white  gap-14 z-[60] flex flex-col justify-center items-center">
         <div className="h-full relative w-full space-y-4 flex flex-col justify-center items-center">
           <img src="logo/white.svg" alt="Real Himalaya" className="w-28 lg:w-80" />
-          <h2 className="relative z-50 text-xl md:text-3xl mt-6 max-w-6xl mx-auto px-4 ">
+          <h2 className="relative z-50 text-xl md:text-3xl mt-6 lg:translate-y-6 max-w-6xl mx-auto px-4 ">
             “Step into the realm of the world’s highest peaks, where every path whispers adventure and every journey becomes a memory etched forever.”
           </h2>
 
