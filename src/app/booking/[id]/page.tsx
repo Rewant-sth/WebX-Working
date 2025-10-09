@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowLeft, Trash, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Banner from "@/components/bookingBanner/Banner";
-import { useController, useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -35,8 +35,8 @@ const travelerSchema = z.object({
 
 const formSchema = z.object({
   personalInfo: z.array(travelerSchema),
-  arrivalDate: z.date({ required_error: "Arrival date required" }),
-  departureDate: z.date({ required_error: "Departure date required" }),
+  arrivalDate: z.string().min(1, "Arrival date required"),
+  departureDate: z.string().min(1, "Departure date required"),
   numberOfTravelers: z.number().min(1, "Required"),
   package: z.string().min(1, "Package is required"),
   message: z.string().optional(),
@@ -96,6 +96,7 @@ interface FormDateInputProps {
   max?: string;
   required?: boolean;
   disabled?: boolean;
+  asDateObject?: boolean; // New prop to control if value should be a Date object
 }
 
 const FormDateInput = ({
@@ -106,7 +107,8 @@ const FormDateInput = ({
   min,
   max,
   required = true,
-  disabled = false
+  disabled = false,
+  asDateObject = false, // Default to false (keep as string)
 }: FormDateInputProps) => {
   return (
     <div className="mb-4 w-full">
@@ -116,7 +118,9 @@ const FormDateInput = ({
       <div className="relative w-full">
         <input
           type="date"
-          {...register(name)}
+          {...register(name, asDateObject ? {
+            setValueAs: (value: string) => value ? new Date(value) : null,
+          } : {})}
           min={min}
           max={max}
           disabled={disabled}
@@ -196,8 +200,8 @@ export default function BookingForm() {
         passportExpiry: null as unknown as Date,
         isChild: false,
       }],
-      arrivalDate: null as unknown as Date,
-      departureDate: null as unknown as Date,
+      arrivalDate: "",
+      departureDate: "",
       numberOfTravelers: 1,
       package: selectedPackage?._id,
       message: "",
@@ -250,10 +254,12 @@ export default function BookingForm() {
       setPricePerPerson(price);
       setValue("fixedDateId", dateId);
 
-      // Set dates from fixedDate selection
+      // Set dates from fixedDate selection - format as YYYY-MM-DD
       if (firstDate) {
-        setValue("arrivalDate", new Date(firstDate.startDate));
-        setValue("departureDate", new Date(firstDate.endDate));
+        const arrivalDateFormatted = new Date(firstDate.startDate).toISOString().split('T')[0];
+        const departureDateFormatted = new Date(firstDate.endDate).toISOString().split('T')[0];
+        setValue("arrivalDate", arrivalDateFormatted);
+        setValue("departureDate", departureDateFormatted);
       }
     }
   }, [packageData, setValue]);
@@ -267,9 +273,11 @@ export default function BookingForm() {
       if (selectedDate) {
         setPricePerPerson(selectedDate.pricePerPerson);
 
-        // Update dates when fixedDate changes
-        setValue("arrivalDate", new Date(selectedDate.startDate));
-        setValue("departureDate", new Date(selectedDate.endDate));
+        // Update dates when fixedDate changes - format as YYYY-MM-DD
+        const arrivalDateFormatted = new Date(selectedDate.startDate).toISOString().split('T')[0];
+        const departureDateFormatted = new Date(selectedDate.endDate).toISOString().split('T')[0];
+        setValue("arrivalDate", arrivalDateFormatted);
+        setValue("departureDate", departureDateFormatted);
       }
     }
   }, [fixedDateId, packageData, setValue]);
@@ -512,6 +520,7 @@ export default function BookingForm() {
                       min="1900-01-01"
                       max={new Date().toISOString().split('T')[0]}
                       error={errors.personalInfo?.[0]?.dateOfBirth}
+                      asDateObject={true}
                     />
 
                     <FormInput
@@ -546,6 +555,7 @@ export default function BookingForm() {
                       label="Passport Expiry Date"
                       min={new Date().toISOString().split('T')[0]}
                       error={errors.personalInfo?.[0]?.passportExpiry}
+                      asDateObject={true}
                     />
 
                     <FormInput
@@ -761,7 +771,9 @@ export default function BookingForm() {
 
                   <div className="flex justify-between">
                     <span className="text-gray-600">Arrival Date:</span>
-                    <span className="font-medium">{watch("arrivalDate")?.toLocaleDateString()}</span>
+                    <span className="font-medium">
+                      {arrivalDate ? new Date(arrivalDate).toLocaleDateString() : 'Not selected'}
+                    </span>
                   </div>
 
                   {/* Selected Add-ons */}
