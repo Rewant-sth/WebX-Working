@@ -129,10 +129,10 @@ export default function Hero() {
 
       <div
         ref={imageRef}
-        className="absolute top-[20%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
+        className="absolute top-[0%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
       >
         <div className="relative h-full max-w-screen  ">
-          <img src="/new-hero.png" alt="hero" className="w-full h-full object-cover object-top" />
+          <img src="/himal.png" alt="hero" className="w-full h-full object-cover object-top" />
         </div>
       </div>
 

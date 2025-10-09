@@ -12,7 +12,6 @@ const safeArray = (arr: any[] | undefined | null): any[] => {
 
 export const generateItineraryPDF = async (data: ITravelPackage): Promise<void> => {
     // Debug: Log the data to see what's available
-    console.log('PDF Data:', data);
 
     // Create a container element
     const element = document.createElement('div');

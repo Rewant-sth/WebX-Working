@@ -13,8 +13,6 @@ import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { getPackage } from "@/store/booking-store";
 import Link from "next/link";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import BookingFormSkeleton from "./_components/Skeleton";
 import { Select, SelectOption } from '@highlight-ui/select';
 
@@ -89,6 +87,52 @@ const FormInput = ({
   </div>
 );
 
+interface FormDateInputProps {
+  register: any;
+  name: string;
+  label: string;
+  error?: any;
+  min?: string;
+  max?: string;
+  required?: boolean;
+  disabled?: boolean;
+}
+
+const FormDateInput = ({
+  register,
+  name,
+  label,
+  error,
+  min,
+  max,
+  required = true,
+  disabled = false
+}: FormDateInputProps) => {
+  return (
+    <div className="mb-4 w-full">
+      <label className="block text-gray-700 mb-1">
+        {label} {required && "*"}
+      </label>
+      <div className="relative w-full">
+        <input
+          type="date"
+          {...register(name)}
+          min={min}
+          max={max}
+          disabled={disabled}
+          className={`w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+        />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+          </svg>
+        </div>
+      </div>
+      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+    </div>
+  );
+};
+
 const FormSelect = ({ register, name, label, error, icon, options, required = true }: any) => (
   <div className="mb-4">
     <label className="block text-gray-700 mb-1">
@@ -130,53 +174,6 @@ interface FormDatePickerProps {
   required?: boolean;
   disabled?: boolean;
 }
-
-const FormDatePicker = ({
-  control,
-  name,
-  label,
-  error,
-  minDate,
-  maxDate,
-  validate,
-  required = true,
-  disabled = false
-}: FormDatePickerProps) => {
-  const { field } = useController({
-    name,
-    control,
-    rules: { validate },
-  });
-
-  return (
-    <div className="mb-4 w-full">
-      <label className="block text-gray-700 mb-1">
-        {label} {required && "*"}
-      </label>
-      <div className="relative w-full">
-        <DatePicker
-          selected={field.value}
-          onChange={field.onChange}
-          maxDate={maxDate}
-          minDate={new Date(1950, 0, 1)} // 👈 allow past dates
-          showYearDropdown // 👈 This enables year dropdown
-          scrollableYearDropdown // 👈 Optional: makes year list scrollable
-          yearDropdownItemNumber={100} // 👈 Optional: number of years to show
-          dateFormat="yyyy-MM-dd"
-          wrapperClassName="w-full"
-          className={`w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-          disabled={disabled}
-        />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-          </svg>
-        </div>
-      </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-    </div>
-  );
-};
 
 export default function BookingForm() {
   const params = useParams();
@@ -431,7 +428,6 @@ export default function BookingForm() {
 
         <form onSubmit={handleSubmit(onSubmit, (errors) => {
           const errorMessages = getAllErrorMessages(errors);
-          console.log("Form errors:", errors);
           toast.error(errorMessages[0] || "Please fill all required fields correctly");
         })}>
           <input type="hidden" {...register("package")} />
@@ -509,16 +505,13 @@ export default function BookingForm() {
                       ]}
                     />
 
-                    <FormDatePicker
-                      control={control}
+                    <FormDateInput
+                      register={register}
                       name={`personalInfo.0.dateOfBirth`}
                       label="Date of Birth"
-                      minDate={new Date(1900, 0, 1)}
-                      maxDate={new Date()}
+                      min="1900-01-01"
+                      max={new Date().toISOString().split('T')[0]}
                       error={errors.personalInfo?.[0]?.dateOfBirth}
-                      validate={(dob: Date) =>
-                        validateBirthDate(dob, personalInfo[0]?.isChild as boolean)
-                      }
                     />
 
                     <FormInput
@@ -547,13 +540,12 @@ export default function BookingForm() {
                       }
                     />
 
-                    <FormDatePicker
-                      control={control}
+                    <FormDateInput
+                      register={register}
                       name={`personalInfo.0.passportExpiry`}
                       label="Passport Expiry Date"
-                      minDate={new Date()}
+                      min={new Date().toISOString().split('T')[0]}
                       error={errors.personalInfo?.[0]?.passportExpiry}
-                      validate={validatePassportExpiry}
                     />
 
                     <FormInput
@@ -587,16 +579,17 @@ export default function BookingForm() {
                 <h3 className="text-orange-600 text-lg font-medium">Trip Dates</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <FormDatePicker
-                    control={control}
+                  <FormDateInput
+                    register={register}
                     name="arrivalDate"
                     label="Arrival Date"
                     disabled
                     error={errors.arrivalDate}
                   />
 
-                  <FormDatePicker
-                    control={control}
+
+                  <FormDateInput
+                    register={register}
                     name="departureDate"
                     label="Departure Date"
                     disabled

@@ -145,12 +145,7 @@ const BookingForm: React.FC<{
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission here
-    console.log('Booking form submitted:', {
-      ...formData,
-      startDate: selectedDate,
-      endDate,
-      tripDuration
-    });
+
   };
 
   return (

@@ -15,14 +15,11 @@ const VisitTracker = () => {
 
   const getUserId = ():string => {
     let userId = localStorage.getItem('userId') as string
-    console.log("userId before",userId);
     
     if (!userId) {
       userId = Math.random().toString(36).substring(2) + Date.now().toString(36);
       localStorage.setItem('userId', userId);
-      console.log("userId after set",userId);
     }
-    console.log("userId after",userId);
     
     return userId;
   };
@@ -71,7 +68,6 @@ const VisitTracker = () => {
       });
   
       socket.on("connect_error", (err) => {
-        console.log("Connection error:", err.message);
       });
   
       // Update to listen for user_statistics instead of activeUsers

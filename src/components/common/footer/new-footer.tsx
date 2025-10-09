@@ -49,7 +49,11 @@ export default function Footer() {
                       <img src="https://uploads-ssl.webflow.com/5ee4030d6fd7285009fe05f5/625835dc5e9a3877c49e9bb7_tripadvisor-logo-5-p-2600.png" alt="trip advisor real himalaya" />
                     </Link>
                   </li>
-                  <li className="size-7 md:size-10 bg-gray-200 rounded-full flex justify-center items-center"><Icon icon={"flat-color-icons:google"} className='text-4xl' /></li>
+                  <li className="size-7 md:size-10 bg-gray-200 rounded-full flex justify-center items-center">
+                    <Link target='_blank' href="https://search.google.com/local/writereview?placeid=ChIJ89wmosehrQQRjBvwmVKp064&source=g.page.m.ia._&utm_source=gbp&laa=nmx-review-solicitation-ia2" >
+                      <Icon icon={"flat-color-icons:google"} className='text-4xl' />
+                    </Link>
+                  </li>
                   {/* <li className='w-24 md:w-32   translate-y-2 '><img src="https://framerusercontent.com/images/ZV0ieMLPHcyWwiRRZTPzNijd0.png" alt="Real Himalaya" /></li> */}
                 </ul>
               </div>
@@ -76,7 +80,7 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link target='_blank' href="https://instagram.com/realhimalayanp">
+                    <Link target='_blank' href="https://www.instagram.com/thapastar/">
                       <Icon className='size-7' icon="mdi:instagram" />
                     </Link>
                   </li>
@@ -86,7 +90,7 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link target='_blank' href="https://twitter.com/realhimalayanp">
+                    <Link target='_blank' href="https://x.com/RealHimalaya">
                       <Icon className='size-7' icon="mdi:twitter" />
                     </Link>
                   </li>

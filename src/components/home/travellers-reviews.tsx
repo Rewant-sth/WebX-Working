@@ -16,8 +16,6 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
         ?.filter((testimonial: Testimonial) => testimonial.isActive)
         ?.sort((a: Testimonial, b: Testimonial) => a.sortOrder - b.sortOrder) || [];
 
-    console.log('Active testimonials:', activeTestimonials);
-    console.log('Testimonials data:', testimonialsData);
 
     // Fallback reviews for loading or error states
     const fallbackReviews: Partial<Testimonial>[] = [

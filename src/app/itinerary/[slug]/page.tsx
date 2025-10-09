@@ -56,7 +56,6 @@ const Page = () => {
   }, []);
 
   useEffect(() => {
-    console.log("params", params.slug);
     if (typeof window === "undefined") return;
     if (
       params.slug === undefined ||

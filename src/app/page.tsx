@@ -19,8 +19,8 @@ const Page = () => {
       <Hero />
       <Intro />
       <AboutUs />
-      <TrekPage />
       <BestSeller />
+      <TrekPage />
       <ExpeditionPage />
       <Divider />
       <TestimonialsSections />

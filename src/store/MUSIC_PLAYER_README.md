@@ -73,7 +73,6 @@ function MyComponent() {
 
   const handleGetState = () => {
     const state = getMusicPlayerState();
-    console.log('Current playing:', state.isPlaying);
   };
 
   return (

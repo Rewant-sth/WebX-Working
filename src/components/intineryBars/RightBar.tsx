@@ -5,6 +5,11 @@ import { ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const [price, setPrice] = useState<number | null>(null);
@@ -12,6 +17,27 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
+
+  // Experts data
+  const experts = [
+    {
+      name: "Gokul Thapa",
+      image: "/Avtar/gokul2.jpg",
+      phone: "+977 985-1026840",
+      email: "info@realhimalaya.com",
+      instagram: "https://www.instagram.com/realhimalayanp",
+      facebook: "https://www.facebook.com/dayula.sherpa"
+    },
+    {
+      name: "Dyaula Sherpa",
+      image: "/Avtar/dyaula.jpg",
+      phone: "+977 985-1026840",
+      email: "info@realhimalaya.com",
+      instagram: "https://www.instagram.com/realhimalayanp",
+      facebook: "https://www.facebook.com/dayula.sherpa"
+    },
+    // Add more experts as needed
+  ];
 
 
   const generatePdf = async () => {
@@ -805,34 +831,95 @@ const RightBar = ({ data }: { data: ITravelPackage | undefined }) => {
         </div>
       </div>
 
-      {/* Talk to Expert Section */}
-      <div className="border-t py-4 md:py-6 rounded-sm bg-orange-100 border-gray-200" >
-        <div className=" size-20 lg:size-28 rounded-full flex  justify-center items-center overflow-hidden mx-auto bg-black relative">
-          <Image src="/Avtar/gokul2.jpg" fill alt="gokul thapa" className="object-cover object-top" />
-        </div>
-        <div className="px-8 py-4">
-          <h3 className="text-xl uppercase font-bold  text-center" style={{ color: '#3A3A3A' }}>
-            Talk To Expert
-          </h3>
-          <h2 className="text-center text-xl">- Gokul Thapa</h2>
-          <div className="text-center mt-4">
-            <div className="flex items-center justify-center gap-3">
-              <Link href="tel:+977 985-1026840">
-                <Icon icon="mingcute:phone-fill" width="24" height="24" style={{ color: 'f05e25' }} />
-              </Link>
-              <Link href="https://www.instagram.com/realhimalayanp">
-                <Icon icon="skill-icons:instagram" width="24" height="24" style={{ color: '#f05e25' }} />
-              </Link>
-              <Link href="https://www.facebook.com/dayula.sherpa">
-                <Icon icon="logos:facebook" width="24" height="24" style={{ color: '#f05e25' }} />
-              </Link>
-              <Link href="mailto:info@realhimalaya.com mail">
-                <Icon icon="skill-icons:gmail-light" width="28" height="28" style={{ color: '#f05e25' }} />
-              </Link>
-            </div>
+      {/* Talk to Expert Section - Slider */}
+      <div className="border-t py-4 md:py-6 rounded-sm bg-orange-100 border-gray-200">
+        <h3 className="text-xl uppercase font-bold text-center mb-4" style={{ color: '#3A3A3A' }}>
+          Talk To Expert
+        </h3>
 
-          </div>
-        </div>
+        <Swiper
+          modules={[Autoplay, Navigation, Pagination]}
+          spaceBetween={20}
+          slidesPerView={1}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            bulletClass: 'swiper-pagination-bullet',
+            bulletActiveClass: 'swiper-pagination-bullet-active',
+          }}
+          loop={experts.length > 1}
+          className="expert-swiper"
+        >
+          {experts.map((expert, index) => (
+            <SwiperSlide key={index}>
+              <div className="px-8 pb-8">
+                <div className="size-20 lg:size-28 rounded-full flex justify-center items-center overflow-hidden mx-auto bg-black relative mb-4">
+                  <Image
+                    src={expert.image}
+                    fill
+                    alt={expert.name}
+                    className="object-cover object-top"
+                  />
+                </div>
+
+                <h2 className="text-center text-xl font-semibold mb-4">
+                  {expert.name}
+                </h2>
+
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-3">
+                    <Link href={`tel:${expert.phone}`}>
+                      <Icon
+                        icon="mingcute:phone-fill"
+                        width="24"
+                        height="24"
+                        style={{ color: '#f05e25' }}
+                      />
+                    </Link>
+                    <Link href={expert.instagram} target="_blank" rel="noopener noreferrer">
+                      <Icon
+                        icon="skill-icons:instagram"
+                        width="24"
+                        height="24"
+                      />
+                    </Link>
+                    <Link href={expert.facebook} target="_blank" rel="noopener noreferrer">
+                      <Icon
+                        icon="logos:facebook"
+                        width="24"
+                        height="24"
+                      />
+                    </Link>
+                    <Link href={`mailto:${expert.email}`}>
+                      <Icon
+                        icon="skill-icons:gmail-light"
+                        width="28"
+                        height="28"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <style jsx global>{`
+          .expert-swiper .swiper-pagination {
+            position: relative;
+            margin-top: 1rem;
+          }
+          .expert-swiper .swiper-pagination-bullet {
+            background: #ccc;
+            opacity: 1;
+          }
+          .expert-swiper .swiper-pagination-bullet-active {
+            background: #f05e25;
+          }
+        `}</style>
       </div>
     </div>
   );
