@@ -216,17 +216,6 @@ export default function PremiumContact() {
                     <div title='Your Goal' aria-label='Your Goal' className="relative  rounded-sm overflow-hidden">
                       <h2 className='text-xl font-semibold mb-6'>Your Goal</h2>
                       <div className="flex gap-5 items-center flex-wrap">
-                        <div className="flex gap-2 text-lg">
-                          <label className="container border border-orange-500">
-                            <input
-                              type="checkbox"
-                              checked={selectedGoals.includes('Peak Climbing')}
-                              onChange={() => handleGoalChange('Peak Climbing')}
-                            />
-                            <div className="checkmark"></div>
-                          </label>
-                          <label htmlFor="" className='shrink-0'>Peak Climbing</label>
-                        </div>
 
                         <div className="flex gap-2 text-lg">
                           <label className="container border border-orange-500">
@@ -239,6 +228,20 @@ export default function PremiumContact() {
                           </label>
                           <label htmlFor="" className='shrink-0'>Trekking</label>
                         </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container border border-orange-500">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Peak Climbing')}
+                              onChange={() => handleGoalChange('Peak Climbing')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Peak Climbing</label>
+                        </div>
+
+
 
                         <div className="flex gap-2 text-lg">
                           <label className="container border border-orange-500">
