@@ -5,6 +5,9 @@ import { Icon } from "@iconify/react";
 import { IFixedDate, ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
 import { setPackage, setSelectedFixedDateId } from "@/store/booking-store";
+import Select from "react-select";
+import { bookPrivateTrip } from "@/service/booking";
+import SuccessModal from "@/components/common/SuccessModal";
 
 interface CalendarProps {
   month: number;
@@ -255,6 +258,17 @@ const PrivateTripForm: React.FC = () => {
     captchaAnswer: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Generate random captcha values
+  const [captcha] = useState(() => {
+    const num1 = Math.floor(Math.random() * 50) + 10;
+    const num2 = Math.floor(Math.random() * 50) + 10;
+    return { num1, num2, answer: num1 + num2 };
+  });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     if (type === 'checkbox') {
@@ -263,17 +277,73 @@ const PrivateTripForm: React.FC = () => {
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
+    // Clear error when user types
+    if (errorMessage) setErrorMessage(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     // Validate captcha
-    if (formData.captchaAnswer !== '11') {
-      alert('Please answer the captcha correctly');
+    const userAnswer = parseInt(formData.captchaAnswer);
+    if (isNaN(userAnswer) || userAnswer !== captcha.answer) {
+      setErrorMessage('Please answer the captcha correctly');
       return;
     }
-    // Handle form submission
-    console.log('Form submitted:', formData);
+
+    // Validate terms agreement
+    if (!formData.agreeToTerms) {
+      setErrorMessage('Please agree to the Terms and Conditions');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      // Prepare data according to API schema
+      const privateTripData = {
+        date: formData.startDate,
+        leadTravellerName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        numberOfTraveller: parseInt(formData.numberOfTravelers),
+        country: formData.country,
+        howDidYouReachUs: formData.howDidYouFind,
+        message: formData.comments,
+        termsAndAgreement: formData.agreeToTerms,
+        captchaToken: `${captcha.num1}+${captcha.num2}`,
+        captchaAnswer: captcha.answer
+      };
+
+      // Call API
+      const response = await bookPrivateTrip(privateTripData);
+
+      // Show success modal
+      setShowSuccessModal(true);
+
+      // Reset form
+      setFormData({
+        startDate: '',
+        fullName: '',
+        email: '',
+        phone: '',
+        numberOfTravelers: '',
+        country: '',
+        howDidYouFind: '',
+        comments: '',
+        agreeToTerms: false,
+        captchaAnswer: ''
+      });
+    } catch (error: any) {
+      console.error('Error submitting private trip request:', error);
+      setErrorMessage(
+        error.response?.data?.message ||
+        'Failed to submit your request. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -284,7 +354,15 @@ const PrivateTripForm: React.FC = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg border border-gray-200 p-6 gap-3 grid lg:grid-cols-2">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:border border-gray-200 sm:p-6 gap-3 lg:grid lg:grid-cols-2">
+        {/* Error Message */}
+        {errorMessage && (
+          <div className="col-span-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md flex items-center gap-2">
+            <Icon icon="mdi:alert-circle" width="20" height="20" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
         {/* Date Field */}
         <div>
           <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-2">
@@ -297,7 +375,8 @@ const PrivateTripForm: React.FC = () => {
             value={formData.startDate}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="MM/DD/YYYY"
           />
         </div>
@@ -314,7 +393,8 @@ const PrivateTripForm: React.FC = () => {
             value={formData.fullName}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Full Name"
           />
         </div>
@@ -331,7 +411,8 @@ const PrivateTripForm: React.FC = () => {
             value={formData.email}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Email"
           />
         </div>
@@ -348,7 +429,8 @@ const PrivateTripForm: React.FC = () => {
             value={formData.phone}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Phone Number"
           />
         </div>
@@ -366,7 +448,8 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             min="1"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="No. of Travellers"
           />
         </div>
@@ -382,7 +465,8 @@ const PrivateTripForm: React.FC = () => {
             name="country"
             value={formData.country}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Country"
           />
         </div>
@@ -390,7 +474,7 @@ const PrivateTripForm: React.FC = () => {
         {/* How did you find us */}
         <div className="col-span-2">
           <label htmlFor="howDidYouFind" className="block text-sm font-medium text-gray-700 mb-2">
-            How did you find Ace the Himalaya?*
+            How did you find Real Himalaya?*
           </label>
           <select
             id="howDidYouFind"
@@ -398,15 +482,16 @@ const PrivateTripForm: React.FC = () => {
             value={formData.howDidYouFind}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none bg-white"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
           >
-            <option value="">How did you find Ace the Himalaya?</option>
-            <option value="google">Google Search</option>
-            <option value="social-media">Social Media</option>
-            <option value="friend">Friend/Family Referral</option>
-            <option value="travel-agent">Travel Agent</option>
-            <option value="previous-customer">Previous Customer</option>
-            <option value="other">Other</option>
+            <option value="">How did you find Real Himalaya?</option>
+            <option value="Google Search">Google Search</option>
+            <option value="Social Media">Social Media</option>
+            <option value="Friend/Family Referral">Friend/Family Referral</option>
+            <option value="Travel Agent">Travel Agent</option>
+            <option value="Previous Customer">Previous Customer</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
@@ -421,7 +506,8 @@ const PrivateTripForm: React.FC = () => {
             value={formData.comments}
             onChange={handleInputChange}
             rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none"
+            disabled={isSubmitting}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Any special requirements or questions..."
           />
         </div>
@@ -435,10 +521,11 @@ const PrivateTripForm: React.FC = () => {
             checked={formData.agreeToTerms}
             onChange={handleInputChange}
             required
-            className="mt-1 w-4 h-4 text-[#F05E25] border-gray-300 rounded focus:ring-[#F05E25]"
+            disabled={isSubmitting}
+            className="mt-1 w-4 h-4 text-[#F05E25] border-gray-300 rounded focus:ring-[#F05E25] disabled:cursor-not-allowed"
           />
           <label htmlFor="agreeToTerms" className="text-sm text-gray-700">
-            I agree to Ace the Himalaya{' '}
+            I agree to Real Himalaya{' '}
             <a href="/terms-and-conditions" className="text-[#F05E25] hover:underline">
               Terms and Conditions
             </a>
@@ -448,7 +535,7 @@ const PrivateTripForm: React.FC = () => {
         {/* Captcha */}
         <div className="col-span-2 flex gap-4 flex-wrap items-center mt-5 mb-3">
           <label htmlFor="captchaAnswer" className="block text-sm font-medium text-gray-700 mb-2">
-            Prove your humanity: Ninety5 + twenty2 = *
+            Prove your humanity: {captcha.num1} + {captcha.num2} = *
           </label>
           <input
             type="text"
@@ -457,7 +544,8 @@ const PrivateTripForm: React.FC = () => {
             value={formData.captchaAnswer}
             onChange={handleInputChange}
             required
-            className=" px-4 w-fit py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            disabled={isSubmitting}
+            className="px-4 w-fit py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Answer"
           />
         </div>
@@ -466,13 +554,31 @@ const PrivateTripForm: React.FC = () => {
         <div>
           <button
             type="submit"
-            className="w-full bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2"
+            disabled={isSubmitting}
+            className="w-full bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
-            <Icon icon="mdi:send" width="20" height="20" />
-            Submit Request
+            {isSubmitting ? (
+              <>
+                <Icon icon="mdi:loading" className="animate-spin" width="20" height="20" />
+                Submitting...
+              </>
+            ) : (
+              <>
+                <Icon icon="mdi:send" width="20" height="20" />
+                Submit Request
+              </>
+            )}
           </button>
         </div>
       </form>
+
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title="Booking Request Submitted!"
+        message="Thank you for your interest! We have received your private trip request and our team will get back to you shortly with a customized itinerary."
+      />
     </div>
   );
 };
@@ -625,25 +731,67 @@ const DatesAndPrices = ({
 
           {/* Calendar Section */}
           <div className="mt-8 max-w-4xl">
-            <div className="flex justify-between items-center  mb-2">
-              <h3 className=" font-semibold text-gray-800 ">Select Your Start Date</h3>
+            <div className="flex justify-between items-center mb-2 gap-4 flex-wrap">
+              <h3 className="font-semibold text-gray-800">Select Your Start Date</h3>
 
-              {/* Navigation arrows */}
+              {/* Navigation dropdowns */}
               <div className="flex items-center gap-2">
-                <button
-                  onClick={handlePrevMonth}
-                  className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-                  aria-label="Previous months"
-                >
-                  <Icon icon="mdi:chevron-left" width="24" height="24" className="text-orange-500" />
-                </button>
-                <button
-                  onClick={handleNextMonth}
-                  className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-                  aria-label="Next months"
-                >
-                  <Icon icon="mdi:chevron-right" width="24" height="24" className="text-orange-500" />
-                </button>
+                <Select
+                  value={{ value: firstMonth, label: new Date(firstYear, firstMonth).toLocaleString('default', { month: 'long' }) }}
+                  onChange={(option) => {
+                    if (option) {
+                      setCurrentDisplayMonth(new Date(firstYear, option.value, 1));
+                    }
+                  }}
+                  options={Array.from({ length: 12 }, (_, i) => ({
+                    value: i,
+                    label: new Date(2000, i).toLocaleString('default', { month: 'long' })
+                  }))}
+                  className="min-w-[140px]"
+                  classNamePrefix="react-select"
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      borderColor: '#d1d5db',
+                      '&:hover': { borderColor: '#F05E25' },
+                      boxShadow: 'none'
+                    }),
+                    option: (base, state) => ({
+                      ...base,
+                      backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
+                      color: state.isSelected ? 'white' : '#1f2937',
+                      '&:active': { backgroundColor: '#F05E25' }
+                    })
+                  }}
+                />
+                <Select
+                  value={{ value: firstYear, label: firstYear.toString() }}
+                  onChange={(option) => {
+                    if (option) {
+                      setCurrentDisplayMonth(new Date(option.value, firstMonth, 1));
+                    }
+                  }}
+                  options={Array.from({ length: 5 }, (_, i) => {
+                    const year = currentYear + i;
+                    return { value: year, label: year.toString() };
+                  })}
+                  className="min-w-[100px]"
+                  classNamePrefix="react-select"
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      borderColor: '#d1d5db',
+                      '&:hover': { borderColor: '#F05E25' },
+                      boxShadow: 'none'
+                    }),
+                    option: (base, state) => ({
+                      ...base,
+                      backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
+                      color: state.isSelected ? 'white' : '#1f2937',
+                      '&:active': { backgroundColor: '#F05E25' }
+                    })
+                  }}
+                />
               </div>
             </div>
 

@@ -1,4 +1,5 @@
 import { IBookingData } from "@/types/IBooking";
+import { IPrivateTripData, IPrivateTripResponse } from "@/types/IPrivateTrip";
 import api from "./api";
 
 
@@ -7,4 +8,9 @@ export async function bookTraveller({ bookingData }: { bookingData: IBookingData
         bookingData
     )
     return req.data
+}
+
+export async function bookPrivateTrip(privateTripData: IPrivateTripData): Promise<IPrivateTripResponse> {
+    const req = await api.post(`/api/v1/private-trip`, privateTripData);
+    return req.data;
 }
