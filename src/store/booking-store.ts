@@ -7,7 +7,9 @@ import { persist, PersistStorage, StorageValue } from 'zustand/middleware';
 
 interface PackageStoreState {
     package: ITravelPackage | null;
+    selectedFixedDateId: string | null;
     setPackage: (pkg: ITravelPackage) => void;
+    setSelectedFixedDateId: (dateId: string) => void;
     removePackage: () => void;
 }
 
@@ -28,8 +30,10 @@ export const useBookingStore = create<PackageStoreState>()(
     persist(
         (set) => ({
             package: null,
+            selectedFixedDateId: null,
             setPackage: (pkg) => set({ package: pkg }),
-            removePackage: () => set({ package: null }),
+            setSelectedFixedDateId: (dateId) => set({ selectedFixedDateId: dateId }),
+            removePackage: () => set({ package: null, selectedFixedDateId: null }),
         }),
         {
             name: 'travel-package-storage',
@@ -43,8 +47,16 @@ export const getPackage = (): ITravelPackage | null => {
     return useBookingStore.getState().package;
 };
 
+export const getSelectedFixedDateId = (): string | null => {
+    return useBookingStore.getState().selectedFixedDateId;
+};
+
 export const setPackage = (pkg: ITravelPackage): void => {
     useBookingStore.getState().setPackage(pkg);
+};
+
+export const setSelectedFixedDateId = (dateId: string): void => {
+    useBookingStore.getState().setSelectedFixedDateId(dateId);
 };
 
 export const removePackage = (): void => {

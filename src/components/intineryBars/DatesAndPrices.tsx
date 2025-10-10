@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { IFixedDate, ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
-import { setPackage, } from "@/store/booking-store";
+import { setPackage, setSelectedFixedDateId } from "@/store/booking-store";
 
 interface CalendarProps {
   month: number;
@@ -15,6 +15,7 @@ interface CalendarProps {
   tripDuration: number;
   hoveredDate: Date | null;
   onDateHover: (date: Date | null) => void;
+  fixedDates: IFixedDate[];
 }
 
 const Calendar: React.FC<CalendarProps> = ({
@@ -26,6 +27,7 @@ const Calendar: React.FC<CalendarProps> = ({
   tripDuration,
   hoveredDate,
   onDateHover,
+  fixedDates,
 }) => {
 
   const monthNames = [
@@ -37,9 +39,19 @@ const Calendar: React.FC<CalendarProps> = ({
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const today = new Date();
 
+  // Helper function to check if a date is a valid fixed date start date
+  const isFixedDateStart = (date: Date) => {
+    return fixedDates.some(fd => {
+      const fixedStart = new Date(fd.startDate);
+      return fixedStart.getDate() === date.getDate() &&
+        fixedStart.getMonth() === date.getMonth() &&
+        fixedStart.getFullYear() === date.getFullYear();
+    });
+  };
+
   // Calculate hovered duration dates
   const hoveredDurationDates = useMemo(() => {
-    if (!hoveredDate) return [];
+    if (!hoveredDate || !isFixedDateStart(hoveredDate)) return [];
     const dates = [];
     for (let i = 0; i < tripDuration; i++) {
       const date = new Date(hoveredDate);
@@ -74,12 +86,16 @@ const Calendar: React.FC<CalendarProps> = ({
 
   const handleDateClick = (day: number) => {
     const clickedDate = new Date(year, month, day);
-    onDateSelect(clickedDate);
+    if (isFixedDateStart(clickedDate)) {
+      onDateSelect(clickedDate);
+    }
   };
 
   const handleDateHover = (day: number) => {
     const hoveredDate = new Date(year, month, day);
-    onDateHover(hoveredDate);
+    if (isFixedDateStart(hoveredDate)) {
+      onDateHover(hoveredDate);
+    }
   };
 
   const handleDateLeave = () => {
@@ -102,30 +118,36 @@ const Calendar: React.FC<CalendarProps> = ({
       const isSelected = isDateSelected(date);
       const isHighlighted = isDateHighlighted(date);
       const isHovered = isDateHovered(date);
+      const isValidFixedDate = isFixedDateStart(date);
 
       days.push(
         <button
           key={day}
-          onClick={() => !isPast && handleDateClick(day)}
-          onMouseEnter={() => !isPast && handleDateHover(day)}
+          onClick={() => !isPast && isValidFixedDate && handleDateClick(day)}
+          onMouseEnter={() => !isPast && isValidFixedDate && handleDateHover(day)}
           onMouseLeave={handleDateLeave}
-          disabled={isPast}
+          disabled={isPast || !isValidFixedDate}
           className={`
-            p-2 border hover:bg-[#F05E25]/30 hover:text-[#F05E25] relative  text-sm font-medium rounded-sm transition-all duration-200
-            ${isPast
-              ? ' cursor-not-allowed'
+            p-2 border  relative text-sm font-medium rounded-sm transition-all duration-200
+            ${isPast || !isValidFixedDate
+              ? ' cursor-not-allowed   border-gray-300'
               : 'hover:cursor-pointer'
             }
             ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
-            ${isHighlighted && !isSelected ? 'text-white bg-[#F05E25]' : ''}
-            ${isHovered && !isSelected && !isHighlighted ? 'text-[#F05E25] border-[#F05E25]' : ''}
-            ${!isHighlighted && !isSelected && !isHovered ? 'border-white' : ''}
+            ${isHighlighted && !isSelected ? '!text-white  border-[#F05E25] bg-[#F05E25]' : ''}
+            ${isHovered && !isSelected && !isHighlighted ? '!text-[#F05E25] !border-[#F05E25] ' : ''}
+            ${!isHighlighted && !isSelected && !isHovered ? '' : ''}
+            ${isValidFixedDate && !isPast && !isSelected ? ' border-gray-400' : ''}
           `}
+
+          style={{
+            color: isPast || !isValidFixedDate ? '#9CA3AF' : isSelected || isHighlighted ? '#FFFFFF' : isHovered ? '#F05E25' : '#1F2937',
+          }}
         >
           {
-            isPast && (
+            !isValidFixedDate && !isHighlighted && !isHovered && (
               <>
-                <div className="absolute -rotate-45 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-red-500 flex justify-center items-center w-[60%] h-[2px] ">
+                <div className="absolute  left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-gray-500 flex justify-center items-center w-[60%] h-[1px] ">
                 </div>
                 {/* <div className="absolute rotate-45 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-red-500 flex justify-center items-center w-[60%] h-[2px] ">
                 </div> */}
@@ -305,7 +327,20 @@ const DatesAndPrices = ({
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
     setShowForm(false); // Reset form visibility
-    // Don't reset currentDisplayMonth - keep the calendar view stable
+
+    // Find the matching fixed date and store its ID
+    if (data) {
+      const matchingFixedDate = data.find(fd => {
+        const fixedStart = new Date(fd.startDate);
+        return fixedStart.getDate() === date.getDate() &&
+          fixedStart.getMonth() === date.getMonth() &&
+          fixedStart.getFullYear() === date.getFullYear();
+      });
+
+      if (matchingFixedDate) {
+        setSelectedFixedDateId(matchingFixedDate._id);
+      }
+    }
   };
 
   const handleDateHover = (date: Date | null) => {
@@ -325,7 +360,7 @@ const DatesAndPrices = ({
       </h2>
 
       <p className="text-zinc-600   leading-relaxed ">
-        Choose your preferred travel date from the calendars below. Select any available date and we'll show you the complete trip duration.
+        Choose your preferred travel date from the calendars below. Dates with a green ring are available fixed departure dates. Select any available date to see the complete trip duration and proceed to booking.
       </p>
 
       {/* Calendar Section */}
@@ -362,6 +397,7 @@ const DatesAndPrices = ({
             tripDuration={tripDuration}
             hoveredDate={hoveredDate}
             onDateHover={handleDateHover}
+            fixedDates={data || []}
           />
 
           <Calendar
@@ -373,16 +409,15 @@ const DatesAndPrices = ({
             tripDuration={tripDuration}
             hoveredDate={hoveredDate}
             onDateHover={handleDateHover}
+            fixedDates={data || []}
           />
         </div>
-
-        {/* Legend */}
 
 
         {/* Selected Date Info and Book Button */}
         {selectedDate && (
           <>
-            <div className="flex flex-wrap gap-6 mb-6 text-sm">
+            {/* <div className="flex flex-wrap gap-6 mb-6 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-[#F05E25] rounded"></div>
                 <span>Selected Start Date</span>
@@ -391,7 +426,7 @@ const DatesAndPrices = ({
                 <div className="w-4 h-4 bg-[#F05E25]/20 rounded border border-[#F05E25]/20"></div>
                 <span>Trip Duration ({tripDuration} days)</span>
               </div>
-            </div>
+            </div> */}
             <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
               <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
                 <div>

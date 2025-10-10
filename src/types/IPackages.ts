@@ -125,7 +125,7 @@ export interface IFixedDate {
   pricePerPerson: number,
   createdAt: string,
   updatedAt: string,
-  id: string
+  _id: string
   availableSeats: number
 }
 
