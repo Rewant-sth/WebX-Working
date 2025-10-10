@@ -63,31 +63,47 @@ const FormInput = ({
   min,
   required = true,
   onChange
-}: any) => (
-  <div className="mb-4">
-    <label className="block text-gray-700 mb-1">
-      {label} {required && "*"}
-    </label>
-    <div className="relative">
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-        {icon}
+}: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only accept input if it's from a trusted user event
+    if (!e.isTrusted) {
+      e.preventDefault();
+      e.target.value = '';
+      return;
+    }
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
+  return (
+    <div className="mb-4">
+      <label className="block text-gray-700 mb-1">
+        {label} {required && "*"}
+      </label>
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+          {icon}
+        </div>
+        <input
+          {...register(name, {
+            ...(type === "number" && {
+              valueAsNumber: true,
+            }),
+            onChange: handleInputChange
+          })}
+          min={min}
+          type={type}
+          placeholder={placeholder}
+          autoComplete="off"
+          data-form-type="other"
+          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm"
+        />
       </div>
-      <input
-        {...register(name, {
-          ...(type === "number" && {
-            valueAsNumber: true,
-            onChange: onChange
-          })
-        })}
-        min={min}
-        type={type}
-        placeholder={placeholder}
-        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm"
-      />
+      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
     </div>
-    {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-  </div>
-);
+  );
+};
 
 interface FormDateInputProps {
   register: any;
@@ -112,6 +128,15 @@ const FormDateInput = ({
   disabled = false,
   asDateObject = false, // Default to false (keep as string)
 }: FormDateInputProps) => {
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only accept input if it's from a trusted user event
+    if (!e.isTrusted) {
+      e.preventDefault();
+      e.target.value = '';
+      return;
+    }
+  };
+
   return (
     <div className="mb-4 w-full">
       <label className="block text-gray-700 mb-1">
@@ -122,10 +147,15 @@ const FormDateInput = ({
           type="date"
           {...register(name, asDateObject ? {
             setValueAs: (value: string) => value ? new Date(value) : null,
-          } : {})}
+            onChange: handleDateChange
+          } : {
+            onChange: handleDateChange
+          })}
           min={min}
           max={max}
           disabled={disabled}
+          autoComplete="off"
+          data-form-type="other"
           className={`w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
         />
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
@@ -139,35 +169,48 @@ const FormDateInput = ({
   );
 };
 
-const FormSelect = ({ register, name, label, error, icon, options, required = true }: any) => (
-  <div className="mb-4">
-    <label className="block text-gray-700 mb-1">
-      {label} {required && "*"}
-    </label>
-    <div className="relative">
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-        {icon}
+const FormSelect = ({ register, name, label, error, icon, options, required = true }: any) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // Only accept input if it's from a trusted user event
+    if (!e.isTrusted) {
+      e.preventDefault();
+      e.target.value = '';
+      return;
+    }
+  };
+
+  return (
+    <div className="mb-4">
+      <label className="block text-gray-700 mb-1">
+        {label} {required && "*"}
+      </label>
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+          {icon}
+        </div>
+        <select
+          {...register(name, { onChange: handleSelectChange })}
+          autoComplete="off"
+          data-form-type="other"
+          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm appearance-none bg-white"
+        >
+          <option value="">Select {label}</option>
+          {options.map((option: any) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          </svg>
+        </div>
       </div>
-      <select
-        {...register(name)}
-        className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm appearance-none bg-white"
-      >
-        <option value="">Select {label}</option>
-        {options.map((option: any) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-        </svg>
-      </div>
+      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
     </div>
-    {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-  </div>
-);
+  );
+};
 
 
 
@@ -577,11 +620,13 @@ export default function BookingForm() {
                                 <select
                                   value={selectedCount}
                                   onChange={(e) => {
-                                    const newCount = parseInt(e.target.value);
-                                    setPaxSelections(prev => ({
-                                      ...prev,
-                                      [paxOption._id]: newCount
-                                    }));
+                                    if (e.isTrusted) {
+                                      const newCount = parseInt(e.target.value);
+                                      setPaxSelections(prev => ({
+                                        ...prev,
+                                        [paxOption._id]: newCount
+                                      }));
+                                    }
                                   }}
                                   disabled={isDisabled}
                                   className={`w-full relative text-center z-50 px-2 font-medium ${isDisabled
@@ -878,8 +923,17 @@ export default function BookingForm() {
                 <div className="mb-4">
                   <label className="block text-gray-700 mb-2">Special Requests</label>
                   <textarea
-                    {...register("specialRequirements")}
+                    {...register("specialRequirements", {
+                      onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                        if (!e.isTrusted) {
+                          e.preventDefault();
+                          e.target.value = '';
+                        }
+                      }
+                    })}
                     placeholder="Dietary needs, accessibility requirements, etc."
+                    autoComplete="off"
+                    data-form-type="other"
                     className="w-full p-3 border border-gray-300 rounded-sm min-h-[120px]"
                   />
                 </div>

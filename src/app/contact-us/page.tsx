@@ -34,7 +34,10 @@ export default function PremiumContact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.isTrusted) {
+      return;
+    }
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
@@ -150,7 +153,7 @@ export default function PremiumContact() {
                           type="text"
                           placeholder="Your Name"
                           value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
+                          onChange={(e) => handleInputChange('name', e.target.value, e)}
                           className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
@@ -173,7 +176,7 @@ export default function PremiumContact() {
                           type="email"
                           placeholder="Email Address"
                           value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
+                          onChange={(e) => handleInputChange('email', e.target.value, e)}
                           className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
@@ -195,7 +198,7 @@ export default function PremiumContact() {
                           type="tel"
                           placeholder="Phone number"
                           value={formData.number}
-                          onChange={(e) => handleInputChange('number', e.target.value)}
+                          onChange={(e) => handleInputChange('number', e.target.value, e)}
                           className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
@@ -332,7 +335,7 @@ export default function PremiumContact() {
                         value={formData.message}
                         minLength={20}
                         onChange={(e) => {
-                          handleInputChange('message', e.target.value);
+                          handleInputChange('message', e.target.value, e as any);
                           // Auto-resize textarea
                           e.target.style.height = 'auto';
                           e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows

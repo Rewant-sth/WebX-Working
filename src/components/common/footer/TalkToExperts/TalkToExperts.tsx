@@ -18,6 +18,7 @@ interface Expert {
   designation: string;
   addToHome?: boolean;
   gallery: string[];
+  countryCode: string;
 }
 
 interface TeamMemberResponse {
@@ -51,7 +52,6 @@ const TalkToExperts: React.FC = () => {
       </h1>
       <div className="flex mt-8 justify-center items-center flex-wrap gap-4 ">
         {data.data
-          // .filter((expert) => expert.memberType === "fieldhero")
           .filter((expert) =>
             expert.addToHome == true
           )
@@ -78,7 +78,7 @@ const TalkToExperts: React.FC = () => {
                     <div
                       className=" font-medium md:text-md text-sm lg:text-md"
                     >
-                      {expert.phoneNumber}
+                      {expert.countryCode}-{expert.phoneNumber}
                     </div>
                     <div className="flex gap-4 mt-4">
                       {

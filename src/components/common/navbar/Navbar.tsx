@@ -288,7 +288,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex  text-white min-h-[calc(100dvh-4rem)] ">
-          <div className="w-full lg:max-w-[16rem] 2xl:text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
+          <div className="w-full lg:max-w-[16rem] text-lg 2xl:text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
             <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
@@ -515,7 +515,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="w-full 2xl:text-xl p-6 space-y-1  2xl:space-y-4 border-white/20 col-span-2 max-w-[22rem] hidden lg:block">
+          <div className="w-full text-lg 2xl:text-xl p-6 space-y-1  2xl:space-y-4 border-white/20 col-span-2 max-w-[22rem] hidden lg:block">
             <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               SUB Categories
             </h2>
@@ -670,7 +670,7 @@ export default function Navbar() {
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 max-w-3xl max-h-[75dvh] xl:max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
+              <div className="grid grid-cols-2 max-w-3xl  gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
                 {packages?.data?.slice(0, 4).map((pkg) => (
                   <Link
                     key={pkg._id}
@@ -678,7 +678,7 @@ export default function Navbar() {
                     onClick={handleClose}
                     className="w-full h-[180px] 2xl:h-[220px] border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 ] relative cursor-pointer group"
                   >
-                    <div className="w-full h-full group  rounded-sm   group-hover:opacity-70 transition-opacity duration-300 ">
+                    <div className="w-full h-full group  rounded-sm    transition-opacity duration-300 ">
                       <div className="absolute inset-0 group-hover:backdrop-blur-sm z-50 p-4 flex items-end">
                         <h2
                           style={{
@@ -694,7 +694,7 @@ export default function Navbar() {
                         quality={80}
                         src={pkg.coverImage}
                         alt={pkg.name}
-                        className="w-full h-full object-cover "
+                        className="w-full h-full object-cover group-hover:brightness-75"
                       />
                     </div>
                   </Link>

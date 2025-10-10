@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { MapPin, Clock, Star, Calendar } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { useParams } from "next/navigation";
 import api from "@/service/api";
 import CardSkeleton from "./_components/cardSkeleton";
-import Image from "next/image";
 import Link from "next/link";
+import { setPackage, setSelectedFixedDateId } from "@/store/booking-store";
 
 const ExpeditionCards: React.FC = () => {
   const { slug } = useParams();
@@ -400,6 +400,10 @@ const ExpeditionCards: React.FC = () => {
                           {/* Action Buttons */}
                           <div className="flex  flex-wrap gap-2 sm:gap-3">
                             <Link
+                              onClick={() => {
+                                setSelectedFixedDateId(card.fixedDates?.[0]?._id || null)
+                                setPackage(card as any)
+                              }}
                               href={`/booking/${card._id}`}
                               className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-xs sm:text-sm"
                             >

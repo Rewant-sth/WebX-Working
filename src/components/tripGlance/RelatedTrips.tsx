@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getPackagesByCategory, getSubpackagesBySlug } from "@/service/packages";
 import Link from "next/link";
-import { useBookingStore } from "@/store/booking-store";
+import { setSelectedFixedDateId, useBookingStore } from "@/store/booking-store";
 import { ITravelPackage } from "@/types/IPackages";
 
 const RelatedTrips = ({
@@ -93,7 +93,10 @@ const RelatedTrips = ({
                   }
 
                   <div className="flex gap-3">
-                    <Link onClick={() => setPackage(trip as ITravelPackage)} href={`/booking/${trip._id}`} className="flex-1">
+                    <Link onClick={() => {
+                      setSelectedFixedDateId(trip.fixedDates?.[0]?._id || null as any)
+                      setPackage(trip as ITravelPackage)
+                    }} href={`/booking/${trip._id}`} className="flex-1">
                       <button
                         className="w-full flex gap-2 items-center text-sm justify-center text-white py-2.5 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
                         style={{ backgroundColor: '#01283F' }}

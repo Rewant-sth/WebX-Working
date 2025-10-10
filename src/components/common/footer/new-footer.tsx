@@ -84,11 +84,7 @@ export default function Footer() {
                       <Icon className='size-7' icon="mdi:instagram" />
                     </Link>
                   </li>
-                  <li>
-                    <Link target='_blank' href="https://www.linkedin.com/company/realhimalaya">
-                      <Icon className='size-7' icon="mdi:linkedin" />
-                    </Link>
-                  </li>
+                
                   <li>
                     <Link target='_blank' href="https://x.com/RealHimalaya">
                       <Icon className='size-7' icon="mdi:twitter" />
