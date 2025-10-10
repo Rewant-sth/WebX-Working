@@ -278,11 +278,18 @@ export default function BookingForm() {
       if (selectedDate) {
         setPricePerPerson(selectedDate.pricePerPerson);
 
+        // Only set dates if they haven't been manually set
         // Update dates when fixedDate changes - format as YYYY-MM-DD
         const arrivalDateFormatted = new Date(selectedDate.startDate).toISOString().split('T')[0];
         const departureDateFormatted = new Date(selectedDate.endDate).toISOString().split('T')[0];
-        setValue("arrivalDate", arrivalDateFormatted);
-        setValue("departureDate", departureDateFormatted);
+
+        // Only update if current values are empty
+        if (!arrivalDate) {
+          setValue("arrivalDate", arrivalDateFormatted);
+        }
+        if (!departureDate) {
+          setValue("departureDate", departureDateFormatted);
+        }
       }
     }
   }, [fixedDateId, packageData, setValue]);
@@ -768,7 +775,7 @@ export default function BookingForm() {
                     register={register}
                     name="arrivalDate"
                     label="Arrival Date"
-                    disabled
+                    min={new Date().toISOString().split('T')[0]}
                     error={errors.arrivalDate}
                   />
 
@@ -777,7 +784,7 @@ export default function BookingForm() {
                     register={register}
                     name="departureDate"
                     label="Departure Date"
-                    disabled
+                    min={arrivalDate || new Date().toISOString().split('T')[0]}
                     error={errors.departureDate}
                   />
 
