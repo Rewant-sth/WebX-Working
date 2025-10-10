@@ -32,6 +32,7 @@ import RouteMap from "@/components/tripGlance/RouteMap";
 import Image from "next/image";
 import EmblaCarousel from "@/components/ui/embla-carousel";
 import VideoReview from "./_components/video-review";
+import ContactModal from "@/app/test/page";
 
 const Page = () => {
   const router = useRouter();
@@ -75,9 +76,13 @@ const Page = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImg] = useState("/TrekImages/manaslu.png");
+  const [showContactModal, setShowContactModal] = useState(false);
 
   return (
-    <div className="w-full">
+    <div className="w-full relative h-full">
+
+      {showContactModal && <ContactModal onClose={() => setShowContactModal(false)} packageName={packageData?.data?.name || "Real Himalaya Package"} />}
+
       {isLoading ? (
         <SkeletonLoader />
       ) : (
@@ -216,7 +221,7 @@ const Page = () => {
             {/* Right Sidebar */}
             <div className="w-[25%] shrink-0">
               <div className="lg:sticky top-20 ">
-                <RightBar data={packageData?.data} />
+                <RightBar onShowContact={() => setShowContactModal(true)} data={packageData?.data} />
               </div>
             </div>
           </div>

@@ -241,6 +241,242 @@ const BookingForm: React.FC<{
   );
 };
 
+const PrivateTripForm: React.FC = () => {
+  const [formData, setFormData] = useState({
+    startDate: '',
+    fullName: '',
+    email: '',
+    phone: '',
+    numberOfTravelers: '',
+    country: '',
+    howDidYouFind: '',
+    comments: '',
+    agreeToTerms: false,
+    captchaAnswer: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked;
+      setFormData(prev => ({ ...prev, [name]: checked }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Validate captcha
+    if (formData.captchaAnswer !== '11') {
+      alert('Please answer the captcha correctly');
+      return;
+    }
+    // Handle form submission
+    console.log('Form submitted:', formData);
+  };
+
+  return (
+    <div className="mt-6">
+      <div className="mb-6">
+        <p className="text-gray-700 leading-relaxed">
+          Looking for personalized experience? We organize privately guided journey which is mainly designed to fit your taste and interest. Please fill out the form below to get started.
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg border border-gray-200 p-6 gap-3 grid lg:grid-cols-2">
+        {/* Date Field */}
+        <div>
+          <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-2">
+            Choose your own date*
+          </label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="MM/DD/YYYY"
+          />
+        </div>
+
+        {/* Full Name */}
+        <div>
+          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+            Lead Traveler's Full Name*
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="Full Name"
+          />
+        </div>
+
+        {/* Email */}
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            Email*
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="Email"
+          />
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+            Phone*
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="Phone Number"
+          />
+        </div>
+
+        {/* Number of Travelers */}
+        <div>
+          <label htmlFor="numberOfTravelers" className="block text-sm font-medium text-gray-700 mb-2">
+            No. of Travellers*
+          </label>
+          <input
+            type="number"
+            id="numberOfTravelers"
+            name="numberOfTravelers"
+            value={formData.numberOfTravelers}
+            onChange={handleInputChange}
+            required
+            min="1"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="No. of Travellers"
+          />
+        </div>
+
+        {/* Country */}
+        <div>
+          <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+            Country
+          </label>
+          <input
+            type="text"
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="Country"
+          />
+        </div>
+
+        {/* How did you find us */}
+        <div className="col-span-2">
+          <label htmlFor="howDidYouFind" className="block text-sm font-medium text-gray-700 mb-2">
+            How did you find Ace the Himalaya?*
+          </label>
+          <select
+            id="howDidYouFind"
+            name="howDidYouFind"
+            value={formData.howDidYouFind}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none bg-white"
+          >
+            <option value="">How did you find Ace the Himalaya?</option>
+            <option value="google">Google Search</option>
+            <option value="social-media">Social Media</option>
+            <option value="friend">Friend/Family Referral</option>
+            <option value="travel-agent">Travel Agent</option>
+            <option value="previous-customer">Previous Customer</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        {/* Comments */}
+        <div className="col-span-2">
+          <label htmlFor="comments" className="block text-sm font-medium text-gray-700 mb-2">
+            Place your comments here
+          </label>
+          <textarea
+            id="comments"
+            name="comments"
+            value={formData.comments}
+            onChange={handleInputChange}
+            rows={4}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none"
+            placeholder="Any special requirements or questions..."
+          />
+        </div>
+
+        {/* Terms and Conditions */}
+        <div className="flex items-start gap-2">
+          <input
+            type="checkbox"
+            id="agreeToTerms"
+            name="agreeToTerms"
+            checked={formData.agreeToTerms}
+            onChange={handleInputChange}
+            required
+            className="mt-1 w-4 h-4 text-[#F05E25] border-gray-300 rounded focus:ring-[#F05E25]"
+          />
+          <label htmlFor="agreeToTerms" className="text-sm text-gray-700">
+            I agree to Ace the Himalaya{' '}
+            <a href="/terms-and-conditions" className="text-[#F05E25] hover:underline">
+              Terms and Conditions
+            </a>
+          </label>
+        </div>
+
+        {/* Captcha */}
+        <div className="col-span-2 flex gap-4 flex-wrap items-center mt-5 mb-3">
+          <label htmlFor="captchaAnswer" className="block text-sm font-medium text-gray-700 mb-2">
+            Prove your humanity: Ninety5 + twenty2 = *
+          </label>
+          <input
+            type="text"
+            id="captchaAnswer"
+            name="captchaAnswer"
+            value={formData.captchaAnswer}
+            onChange={handleInputChange}
+            required
+            className=" px-4 w-fit py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none"
+            placeholder="Answer"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div>
+          <button
+            type="submit"
+            className="w-full bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2"
+          >
+            <Icon icon="mdi:send" width="20" height="20" />
+            Submit Request
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
 const DatesAndPrices = ({
   data,
   packageId,
@@ -254,6 +490,7 @@ const DatesAndPrices = ({
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date | null>(null);
+  const [tripType, setTripType] = useState<'group' | 'private'>('group');
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -355,125 +592,142 @@ const DatesAndPrices = ({
     >
       <h2 className="text-2xl  text-orange-500 text-left ">
         <span className="w-fit   font-semibold " >
-          Dates & Prices
+          Bookings & Availability
         </span>
       </h2>
 
-      <p className="text-zinc-600   leading-relaxed ">
-        Choose your preferred travel date from the calendars below. Dates with a green ring are available fixed departure dates. Select any available date to see the complete trip duration and proceed to booking.
-      </p>
+      <div className="flex  items-center mt-6">
+        <button
+          onClick={() => setTripType('group')}
+          className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'group'
+            ? 'border-[#01283F] bg-[#01283F] text-white'
+            : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+            }`}
+        >
+          Group Departure
+        </button>
+        <button
+          onClick={() => setTripType('private')}
+          className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'private'
+            ? 'border-[#01283F] bg-[#01283F] text-white'
+            : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+            }`}
+        >
+          Private Trip
+        </button>
+      </div>
 
-      {/* Calendar Section */}
-      <div className="mt-8 max-w-4xl">
-        <div className="flex justify-between items-center  mb-2">
-          <h3 className=" font-semibold text-gray-800 ">Select Your Start Date</h3>
+      {tripType === 'group' ? (
+        <>
+          <p className="text-zinc-600  mt-6   leading-relaxed ">
+            Choose your preferred travel date from the calendars below. Dates with a green ring are available fixed departure dates. Select any available date to see the complete trip duration and proceed to booking.
+          </p>
 
-          {/* Navigation arrows */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handlePrevMonth}
-              className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-              aria-label="Previous months"
-            >
-              <Icon icon="mdi:chevron-left" width="24" height="24" className="text-orange-500" />
-            </button>
-            <button
-              onClick={handleNextMonth}
-              className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-              aria-label="Next months"
-            >
-              <Icon icon="mdi:chevron-right" width="24" height="24" className="text-orange-500" />
-            </button>
-          </div>
-        </div>
+          {/* Calendar Section */}
+          <div className="mt-8 max-w-4xl">
+            <div className="flex justify-between items-center  mb-2">
+              <h3 className=" font-semibold text-gray-800 ">Select Your Start Date</h3>
 
-        <div className="grid grid-cols-1 max-w-4xl lg:grid-cols-2 gap-6 mb-8">
-          <Calendar
-            month={firstMonth}
-            year={firstYear}
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            highlightedDates={highlightedDates}
-            tripDuration={tripDuration}
-            hoveredDate={hoveredDate}
-            onDateHover={handleDateHover}
-            fixedDates={data || []}
-          />
-
-          <Calendar
-            month={secondMonth}
-            year={secondYear}
-            selectedDate={selectedDate}
-            onDateSelect={handleDateSelect}
-            highlightedDates={highlightedDates}
-            tripDuration={tripDuration}
-            hoveredDate={hoveredDate}
-            onDateHover={handleDateHover}
-            fixedDates={data || []}
-          />
-        </div>
-
-
-        {/* Selected Date Info and Book Button */}
-        {selectedDate && (
-          <>
-            {/* <div className="flex flex-wrap gap-6 mb-6 text-sm">
+              {/* Navigation arrows */}
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#F05E25] rounded"></div>
-                <span>Selected Start Date</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#F05E25]/20 rounded border border-[#F05E25]/20"></div>
-                <span>Trip Duration ({tripDuration} days)</span>
-              </div>
-            </div> */}
-            <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
-              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                    Selected Trip Details
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                    <div>
-                      <span className="text-gray-800 font-medium">Start Date:</span>
-                      <p className="text-gray-800">{selectedDate.toDateString()}</p>
-                    </div>
-                    <div>
-                      <span className="text-gray-800 font-medium">End Date:</span>
-                      <p className="text-gray-800">
-                        {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
-                      </p>
-                    </div>
-                    <div>
-                      <span className="text-gray-800 font-medium">Duration:</span>
-                      <p className="text-gray-800">{tripDuration} days</p>
-                    </div>
-                  </div>
-                </div>
-
-                <Link onClick={() => setPackage(pkg as ITravelPackage)} href={`/booking/${pkg?.slug}`} >
-                  <button
-                    className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
-                  >
-                    <Icon icon="mdi:calendar-check" width="20" height="20" />
-                    Book This Trip
-                  </button>
-                </Link>
+                <button
+                  onClick={handlePrevMonth}
+                  className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                  aria-label="Previous months"
+                >
+                  <Icon icon="mdi:chevron-left" width="24" height="24" className="text-orange-500" />
+                </button>
+                <button
+                  onClick={handleNextMonth}
+                  className="p-2 rounded-sm bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                  aria-label="Next months"
+                >
+                  <Icon icon="mdi:chevron-right" width="24" height="24" className="text-orange-500" />
+                </button>
               </div>
             </div>
-          </>
-        )}
 
-        {/* Booking Form */}
-        {showForm && selectedDate && (
-          <BookingForm
-            selectedDate={selectedDate}
-            tripDuration={tripDuration}
-            packageId={packageId}
-            onClose={() => setShowForm(false)}
-          />
-        )}
-      </div>
+            <div className="grid grid-cols-1 max-w-4xl lg:grid-cols-2 gap-6 mb-8">
+              <Calendar
+                month={firstMonth}
+                year={firstYear}
+                selectedDate={selectedDate}
+                onDateSelect={handleDateSelect}
+                highlightedDates={highlightedDates}
+                tripDuration={tripDuration}
+                hoveredDate={hoveredDate}
+                onDateHover={handleDateHover}
+                fixedDates={data || []}
+              />
+
+              <Calendar
+                month={secondMonth}
+                year={secondYear}
+                selectedDate={selectedDate}
+                onDateSelect={handleDateSelect}
+                highlightedDates={highlightedDates}
+                tripDuration={tripDuration}
+                hoveredDate={hoveredDate}
+                onDateHover={handleDateHover}
+                fixedDates={data || []}
+              />
+            </div>
+
+
+            {/* Selected Date Info and Book Button */}
+            {selectedDate && (
+              <>
+                <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
+                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                        Selected Trip Details
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <span className="text-gray-800 font-medium">Start Date:</span>
+                          <p className="text-gray-800">{selectedDate.toDateString()}</p>
+                        </div>
+                        <div>
+                          <span className="text-gray-800 font-medium">End Date:</span>
+                          <p className="text-gray-800">
+                            {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
+                          </p>
+                        </div>
+                        <div>
+                          <span className="text-gray-800 font-medium">Duration:</span>
+                          <p className="text-gray-800">{tripDuration} days</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Link onClick={() => setPackage(pkg as ITravelPackage)} href={`/booking/${pkg?.slug}`} >
+                      <button
+                        className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
+                      >
+                        <Icon icon="mdi:calendar-check" width="20" height="20" />
+                        Book This Trip
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Booking Form */}
+            {showForm && selectedDate && (
+              <BookingForm
+                selectedDate={selectedDate}
+                tripDuration={tripDuration}
+                packageId={packageId}
+                onClose={() => setShowForm(false)}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <PrivateTripForm />
+      )}
 
       {/* Original Fixed Dates Table (for reference) */}
 
