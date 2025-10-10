@@ -13,6 +13,8 @@ interface CalendarProps {
   onDateSelect: (date: Date) => void;
   highlightedDates: Date[];
   tripDuration: number;
+  hoveredDate: Date | null;
+  onDateHover: (date: Date | null) => void;
 }
 
 const Calendar: React.FC<CalendarProps> = ({
@@ -21,7 +23,11 @@ const Calendar: React.FC<CalendarProps> = ({
   selectedDate,
   onDateSelect,
   highlightedDates,
+  tripDuration,
+  hoveredDate,
+  onDateHover,
 }) => {
+
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -30,6 +36,18 @@ const Calendar: React.FC<CalendarProps> = ({
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const today = new Date();
+
+  // Calculate hovered duration dates
+  const hoveredDurationDates = useMemo(() => {
+    if (!hoveredDate) return [];
+    const dates = [];
+    for (let i = 0; i < tripDuration; i++) {
+      const date = new Date(hoveredDate);
+      date.setDate(hoveredDate.getDate() + i);
+      dates.push(date);
+    }
+    return dates;
+  }, [hoveredDate, tripDuration]);
 
   const isDateHighlighted = (date: Date) => {
     return highlightedDates.some(d =>
@@ -46,9 +64,26 @@ const Calendar: React.FC<CalendarProps> = ({
       selectedDate.getFullYear() === date.getFullYear();
   };
 
+  const isDateHovered = (date: Date) => {
+    return hoveredDurationDates.some(d =>
+      d.getDate() === date.getDate() &&
+      d.getMonth() === date.getMonth() &&
+      d.getFullYear() === date.getFullYear()
+    );
+  };
+
   const handleDateClick = (day: number) => {
     const clickedDate = new Date(year, month, day);
     onDateSelect(clickedDate);
+  };
+
+  const handleDateHover = (day: number) => {
+    const hoveredDate = new Date(year, month, day);
+    onDateHover(hoveredDate);
+  };
+
+  const handleDateLeave = () => {
+    onDateHover(null);
   };
 
   const renderCalendarDays = () => {
@@ -66,22 +101,25 @@ const Calendar: React.FC<CalendarProps> = ({
       const isPast = date < today;
       const isSelected = isDateSelected(date);
       const isHighlighted = isDateHighlighted(date);
+      const isHovered = isDateHovered(date);
 
       days.push(
         <button
           key={day}
           onClick={() => !isPast && handleDateClick(day)}
-          // onMouseOver={() => !isPast && !isSelected && handleDateClick(day)}
+          onMouseEnter={() => !isPast && handleDateHover(day)}
+          onMouseLeave={handleDateLeave}
           disabled={isPast}
           className={`
-            p-2 border relative  text-sm font-medium rounded-sm transition-all duration-200
+            p-2 border hover:bg-[#F05E25]/30 hover:text-[#F05E25] relative  text-sm font-medium rounded-sm transition-all duration-200
             ${isPast
               ? ' cursor-not-allowed'
               : 'hover:cursor-pointer'
             }
             ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
             ${isHighlighted && !isSelected ? 'text-white bg-[#F05E25]' : ''}
-            ${!isHighlighted && !isSelected ? 'border-white' : ''}
+            ${isHovered && !isSelected && !isHighlighted ? 'text-[#F05E25] border-[#F05E25]' : ''}
+            ${!isHighlighted && !isSelected && !isHovered ? 'border-white' : ''}
           `}
         >
           {
@@ -191,6 +229,7 @@ const DatesAndPrices = ({
   pkg: ITravelPackage | null;
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date | null>(null);
 
@@ -269,6 +308,9 @@ const DatesAndPrices = ({
     // Don't reset currentDisplayMonth - keep the calendar view stable
   };
 
+  const handleDateHover = (date: Date | null) => {
+    setHoveredDate(date);
+  };
 
 
   return (
@@ -318,6 +360,8 @@ const DatesAndPrices = ({
             onDateSelect={handleDateSelect}
             highlightedDates={highlightedDates}
             tripDuration={tripDuration}
+            hoveredDate={hoveredDate}
+            onDateHover={handleDateHover}
           />
 
           <Calendar
@@ -327,6 +371,8 @@ const DatesAndPrices = ({
             onDateSelect={handleDateSelect}
             highlightedDates={highlightedDates}
             tripDuration={tripDuration}
+            hoveredDate={hoveredDate}
+            onDateHover={handleDateHover}
           />
         </div>
 

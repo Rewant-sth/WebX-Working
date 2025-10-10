@@ -288,11 +288,11 @@ export default function Navbar() {
         </div>
 
         <div className="flex  text-white min-h-[calc(100dvh-4rem)] ">
-          <div className="w-full lg:max-w-[16rem] text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
-            <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
+          <div className="w-full lg:max-w-[16rem] 2xl:text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
+            <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
-            <div className="grid gap-3">
+            <div className="grid gap-1 2xl:gap-3">
               {categories?.data?.map((category) => {
                 if (category.subCategories.length === 0) return null;
                 return (
@@ -339,7 +339,7 @@ export default function Navbar() {
                             setExpandedSubcategory(null);
                           }
                         }}
-                        className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${expandedCategory === category._id
+                        className={`cursor-pointer px-2  transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${expandedCategory === category._id
                           ? "text-amber-300 bg-amber-500/5 "
                           : ""
                           }`}
@@ -515,7 +515,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="w-full text-xl p-6  space-y-4  border-white/20 col-span-2 max-w-[22rem] hidden lg:block">
+          <div className="w-full 2xl:text-xl p-6 space-y-1  2xl:space-y-4 border-white/20 col-span-2 max-w-[22rem] hidden lg:block">
             <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
               SUB Categories
             </h2>
@@ -670,13 +670,13 @@ export default function Navbar() {
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 grid-rows-2 max-w-3xl max-h-[75dvh] xl:max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
+              <div className="grid grid-cols-2 max-w-3xl max-h-[75dvh] xl:max-h-[80dvh] gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
                 {packages?.data?.slice(0, 4).map((pkg) => (
                   <Link
                     key={pkg._id}
                     href={`/itinerary/${pkg.slug}`}
                     onClick={handleClose}
-                    className="w-full h-[220px]   border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 ] relative cursor-pointer group"
+                    className="w-full h-[180px] 2xl:h-[220px] border border-white/20 rounded-sm  transition-all duration-300 hover:border-amber-400/50 ] relative cursor-pointer group"
                   >
                     <div className="w-full h-full group  rounded-sm   group-hover:opacity-70 transition-opacity duration-300 ">
                       <div className="absolute inset-0 group-hover:backdrop-blur-sm z-50 p-4 flex items-end">
@@ -684,7 +684,7 @@ export default function Navbar() {
                           style={{
                             textShadow: "2px 2px 2px rgba(0, 0, 0, 1)",
                           }}
-                          className="text-xl font-bold text-white"
+                          className="text-xl  font-bold text-white"
                         >
                           {pkg.name}
                         </h2>
