@@ -32,7 +32,7 @@ import RouteMap from "@/components/tripGlance/RouteMap";
 import Image from "next/image";
 import EmblaCarousel from "@/components/ui/embla-carousel";
 import VideoReview from "./_components/video-review";
-import ContactModal from "@/app/test/page";
+import ContactModal from "@/components/contact-modal";
 
 const Page = () => {
   const router = useRouter();
