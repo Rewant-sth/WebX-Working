@@ -8,8 +8,8 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import useEmblaCarousel from 'embla-carousel-react';
 import Link from "next/link";
 
-function BestSeller() {
-    const [bestSellingPackage, setBestSellingPackage] = useState<ITravelPackage[]>([]);
+function PeaKClimbing() {
+    const [expeditionPackages, setExpeditionPackages] = useState<ITravelPackage[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -35,15 +35,28 @@ function BestSeller() {
     }, [emblaApi])
 
     // Direct fetch API implementation
-    const fetchbestSellingPackage = async () => {
+    const fetchExpeditionPackages = async () => {
         try {
             setLoading(true);
-            const response = await fetch('https://rhapi.webxnepal.com/api/v1/get-best-seller', { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error('Failed to fetch best-selling packages');
+            const baseURL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+            if (!baseURL) {
+                throw new Error("Backend URL is not configured");
             }
+
+            const response = await fetch(`${baseURL}/package/category/peak-climbing`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data: ITravelPackageResponse = await response.json();
-            setBestSellingPackage(data.data || []);
+            setExpeditionPackages(data.data || []);
             setError(null);
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : 'Failed to fetch expedition packages';
@@ -54,21 +67,18 @@ function BestSeller() {
         }
     };
 
-
-
     useEffect(() => {
-        fetchbestSellingPackage();
+        fetchExpeditionPackages();
     }, []);
 
     if (loading) {
         return (
-            <section className="h-full space-y-3 py-12 md:py-24  mx-auto snap-start relative">
-                <h2 className="text-2xl md:text-4xl text-center font-semibold uppercase">
-                    Our <span className="bg-orange-500  px-2 text-white">Best </span> Selling Packages
-                    {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
+            <section className="h-full  space-y-3 py-12 md:mt-20 relative">
+                <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+                    Himalayan  <span className="bg-orange-500  px-2 text-white">Peak Climbing</span> Adventures
                 </h2>
                 <p className="text-lg max-w-xl text-center mx-auto">
-                    Loading best-selling packages...
+                    Loading expedition packages...
                 </p>
                 <div className="mt-10 grid grid-cols-4 gap-3">
                     {[...Array(4)].map((_, index) => (
@@ -84,10 +94,9 @@ function BestSeller() {
 
     if (error) {
         return (
-            <section className="h-full space-y-3 py-12 md:py-24 max-w-7xl mx-auto snap-start relative">
-                <h2 className="text-2xl md:text-4xl text-center font-semibold uppercase">
-                    Our <span className="bg-orange-500  px-2 text-white">Best </span> Selling Packages
-                    {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
+            <section className="h-full space-y-3 py-12 md:mt-28 max-w-7xl mx-auto  relative">
+                <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+                    Himalayan  <span className="bg-orange-500  px-2 text-white">Peak Climbing</span> Adventures
                 </h2>
                 <p className="text-lg max-w-xl text-center mx-auto text-red-600">
                     Error: {error}
@@ -98,16 +107,15 @@ function BestSeller() {
 
     return (
         <section
-            className="  space-y-3 py-16 md:pt-12 lg:pt-20 p-4 sm:p-6 mx-auto  relative"
+            className=" h-full space-y-3 mt-10 md:mt-16 p-4 sm:p-6 mx-auto snap-start relative"
         >
             <div className="md:flex justify-between  items-center mb-6">
                 <div className="text-center flex-1">
-                    <h2 className="text-2xl md:text-4xl text-center font-semibold uppercase">
-                        Our <span className="bg-orange-500  px-2 text-white">Best Selling</span> Packages
-                        {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
+                    <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+                        Himalayan  <span className="bg-orange-500  px-2 text-white">Peak Climbing</span> Adventures
                     </h2>
                     <p className="text-lg max-w-4xl mx-auto mt-2">
-                        Explore our most popular and highly rated travel packages, curated for unforgettable adventures.
+                        Adventures designed to challenge your spirit and create memories that stay with you for a lifetime.
                     </p>
                 </div>
 
@@ -133,14 +141,13 @@ function BestSeller() {
             {/* Embla carousel */}
             <div className="embla" ref={emblaRef}>
                 <div className="embla__container flex">
-                    {bestSellingPackage.length > 0 ? (
-                        bestSellingPackage.map((pkg, index) => (
+                    {expeditionPackages.length > 0 ? (
+                        expeditionPackages.map((pkg, index) => (
                             <div
-                                key={pkg._id}
+                                key={pkg._id || index}
                                 className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:pr-[0.5rem]"
-                            // style={{ paddingRight: '0.5rem' }}
                             >
-                                <Link key={pkg.slug || pkg._id} href={`/itinerary/${pkg.slug}`}>
+                                <Link key={pkg._id || index} href={`/itinerary/${pkg.slug}`}>
 
                                     <div className="relative group cursor-pointer rounded-sm overflow-hidden h-[60dvh]">
                                         <div className="absolute inset-0 group-hover:translate-y-0 transition-all translate-y-full bg-[#01283F]/40 z-40"></div>
@@ -188,4 +195,4 @@ function BestSeller() {
     );
 }
 
-export default BestSeller;
+export default PeaKClimbing;

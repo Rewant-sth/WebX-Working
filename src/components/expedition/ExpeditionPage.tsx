@@ -114,7 +114,7 @@ function TrekPage() {
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
           <h2 className="text-2xl md:text-4xl text-center font-semibold uppercase">
-            Step into the <span className="bg-orange-500  px-2 text-white">Realm</span> of the Giants
+            <span className="bg-orange-500  px-2 text-white">Himalayan Expeditions</span> - Conquer the Giants
             {/* The  <span className="bg-orange-500  px-2 text-white">Ultimate</span> Himalayan Challenge */}
           </h2>
           <p className="text-lg max-w-2xl mx-auto mt-2">
