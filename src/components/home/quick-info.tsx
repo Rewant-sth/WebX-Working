@@ -41,7 +41,7 @@ export default function QuickInfo() {
             Your Mountain
             <span className="bg-orange-500 ml-2 text-white px-2">Guidebook</span>
           </h2>
-          <p className="max-w-4xl mx-auto text-center">
+          <p className="max-w-4xl lg:text-lg mx-auto text-center">
             Discover stories, tips, and experiences from the heart of the Himalayas.
             From mountaineering expeditions to cultural journeys, our blogs bring you closer
             to the mountains, the people, and the adventures that make every trip unforgettable.

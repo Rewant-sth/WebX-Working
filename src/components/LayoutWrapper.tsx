@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import Preloader from "./Preloader";
 import AudioConfirmation from "./AudioConfirmation";
 import { useMusicPlayerStore } from "@/store/music-player-store";
+import { useBookingStore } from "@/store/booking-store";
 
 export default function LayoutWrapper({
   children,
@@ -12,6 +13,7 @@ export default function LayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const isBookingModalOpen = useBookingStore((state) => state.isBookingModalOpen);
   const [notificationCount, setNotificationCount] = React.useState(false);
   const [showAudioConfirmation, setShowAudioConfirmation] = React.useState(false);
   const [audioEnabled, setAudioEnabled] = React.useState(false);
@@ -115,8 +117,8 @@ export default function LayoutWrapper({
     document.title = notificationCount ? "1 New Message" : "Real Himalaya | Your real expedition partner";
   }, [notificationCount]);
 
-  // Hide navbar on pages that start with /booking
-  const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/test");
+  // Hide navbar on pages that start with /booking or when booking modal is open
+const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/test");
 
   // Don't render anything until initialization is complete
   if (!isInitialized) {

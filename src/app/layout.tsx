@@ -9,8 +9,9 @@ import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
 import { Dancing_Script } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
-import Footer from "@/components/common/footer/new-footer";
+import FooterWrapper from "@/components/FooterWrapper";
 import WhatsappBtn from "@/components/awesome-btn";
+import Footer from "@/components/common/footer/new-footer";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],

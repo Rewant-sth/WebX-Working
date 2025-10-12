@@ -8,185 +8,9 @@ import { setPackage, setSelectedFixedDateId } from "@/store/booking-store";
 import Select from "react-select";
 import { bookPrivateTrip } from "@/service/booking";
 import SuccessModal from "@/components/common/SuccessModal";
-
-interface CalendarProps {
-  month: number;
-  year: number;
-  selectedDate: Date | null;
-  onDateSelect: (date: Date) => void;
-  highlightedDates: Date[];
-  tripDuration: number;
-  hoveredDate: Date | null;
-  onDateHover: (date: Date | null) => void;
-  fixedDates: IFixedDate[];
-}
-
-const Calendar: React.FC<CalendarProps> = ({
-  month,
-  year,
-  selectedDate,
-  onDateSelect,
-  highlightedDates,
-  tripDuration,
-  hoveredDate,
-  onDateHover,
-  fixedDates,
-}) => {
-
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = new Date(year, month, 1).getDay();
-  const today = new Date();
-
-  // Helper function to check if a date is a valid fixed date start date
-  const isFixedDateStart = (date: Date) => {
-    return fixedDates.some(fd => {
-      const fixedStart = new Date(fd.startDate);
-      return fixedStart.getDate() === date.getDate() &&
-        fixedStart.getMonth() === date.getMonth() &&
-        fixedStart.getFullYear() === date.getFullYear();
-    });
-  };
-
-  // Calculate hovered duration dates
-  const hoveredDurationDates = useMemo(() => {
-    if (!hoveredDate || !isFixedDateStart(hoveredDate)) return [];
-    const dates = [];
-    for (let i = 0; i < tripDuration; i++) {
-      const date = new Date(hoveredDate);
-      date.setDate(hoveredDate.getDate() + i);
-      dates.push(date);
-    }
-    return dates;
-  }, [hoveredDate, tripDuration]);
-
-  const isDateHighlighted = (date: Date) => {
-    return highlightedDates.some(d =>
-      d.getDate() === date.getDate() &&
-      d.getMonth() === date.getMonth() &&
-      d.getFullYear() === date.getFullYear()
-    );
-  };
-
-  const isDateSelected = (date: Date) => {
-    if (!selectedDate) return false;
-    return selectedDate.getDate() === date.getDate() &&
-      selectedDate.getMonth() === date.getMonth() &&
-      selectedDate.getFullYear() === date.getFullYear();
-  };
-
-  const isDateHovered = (date: Date) => {
-    return hoveredDurationDates.some(d =>
-      d.getDate() === date.getDate() &&
-      d.getMonth() === date.getMonth() &&
-      d.getFullYear() === date.getFullYear()
-    );
-  };
-
-  const handleDateClick = (day: number) => {
-    const clickedDate = new Date(year, month, day);
-    if (isFixedDateStart(clickedDate)) {
-      onDateSelect(clickedDate);
-    }
-  };
-
-  const handleDateHover = (day: number) => {
-    const hoveredDate = new Date(year, month, day);
-    if (isFixedDateStart(hoveredDate)) {
-      onDateHover(hoveredDate);
-    }
-  };
-
-  const handleDateLeave = () => {
-    onDateHover(null);
-  };
-
-  const renderCalendarDays = () => {
-    const days = [];
-
-    // Empty cells for days before the first day of the month
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      days.push(<div key={`empty-${i}`} className="p-2"></div>);
-    }
-
-    // Days of the month
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const isToday = today.toDateString() === date.toDateString();
-      const isPast = date < today;
-      const isSelected = isDateSelected(date);
-      const isHighlighted = isDateHighlighted(date);
-      const isHovered = isDateHovered(date);
-      const isValidFixedDate = isFixedDateStart(date);
-
-      days.push(
-        <button
-          key={day}
-          onClick={() => !isPast && isValidFixedDate && handleDateClick(day)}
-          onMouseEnter={() => !isPast && isValidFixedDate && handleDateHover(day)}
-          onMouseLeave={handleDateLeave}
-          disabled={isPast || !isValidFixedDate}
-          className={`
-            p-2 border  relative text-sm font-medium rounded-sm transition-all duration-200
-            ${isPast || !isValidFixedDate
-              ? ' cursor-not-allowed   border-gray-300'
-              : 'hover:cursor-pointer'
-            }
-            ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
-            ${isHighlighted && !isSelected ? '!text-white  border-[#F05E25] bg-[#F05E25]' : ''}
-            ${isHovered && !isSelected && !isHighlighted ? '!text-[#F05E25] !border-[#F05E25] ' : ''}
-            ${!isHighlighted && !isSelected && !isHovered ? '' : ''}
-            ${isValidFixedDate && !isPast && !isSelected ? ' border-gray-400' : ''}
-          `}
-
-          style={{
-            color: isPast || !isValidFixedDate ? '#9CA3AF' : isSelected || isHighlighted ? '#FFFFFF' : isHovered ? '#F05E25' : '#1F2937',
-          }}
-        >
-          {
-            !isValidFixedDate && !isHighlighted && !isHovered && (
-              <>
-                <div className="absolute  left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-gray-500 flex justify-center items-center w-[60%] h-[1px] ">
-                </div>
-                {/* <div className="absolute rotate-45 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-red-500 flex justify-center items-center w-[60%] h-[2px] ">
-                </div> */}
-              </>
-            )
-          }
-          {day}
-        </button>
-      );
-    }
-
-    return days;
-  };
-
-  return (
-    <div className="bg-white rounded-sm border border-gray-400 p-4">
-      <h3 className="text-lg font-semibold text-center mb-4 text-gray-800">
-        {monthNames[month]} {year}
-      </h3>
-
-      {/* Day headers */}
-      <div className="grid grid-cols-7 gap-1 mb-2">
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-          <div key={day} className="p-2 text-xs font-medium text-gray-900 text-center">
-            {day}
-          </div>
-        ))}
-      </div>
-
-      {/* Calendar days */}
-      <div className="grid grid-cols-7 gap-1">
-        {renderCalendarDays()}
-      </div>
-    </div>
-  );
-};
+import Calendar from "./Calendar";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCaptchaToken } from "@/service/captcha";
 
 const BookingForm: React.FC<{
   selectedDate: Date;
@@ -245,18 +69,61 @@ const BookingForm: React.FC<{
 };
 
 const PrivateTripForm: React.FC = () => {
+
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['captcha'],
+    queryFn: fetchCaptchaToken
+  })
+
   const [formData, setFormData] = useState({
     startDate: '',
     fullName: '',
     email: '',
     phone: '',
+    countryCode: '+977',
     numberOfTravelers: '',
     country: '',
     howDidYouFind: '',
     comments: '',
     agreeToTerms: false,
+    captchaToken: data?.data.token || "",
     captchaAnswer: ''
   });
+
+  // Country codes for phone dropdown
+  const countryCodeOptions = [
+    { value: '+1', label: 'US/Canada', flag: '🇺🇸' },
+    { value: '+44', label: 'UK', flag: '🇬🇧' },
+    { value: '+91', label: 'India', flag: '🇮🇳' },
+    { value: '+977', label: 'Nepal', flag: '🇳🇵' },
+    { value: '+86', label: 'China', flag: '🇨🇳' },
+    { value: '+81', label: 'Japan', flag: '🇯🇵' },
+    { value: '+82', label: 'South Korea', flag: '🇰🇷' },
+    { value: '+61', label: 'Australia', flag: '🇦🇺' },
+    { value: '+49', label: 'Germany', flag: '🇩🇪' },
+    { value: '+33', label: 'France', flag: '🇫🇷' },
+    { value: '+39', label: 'Italy', flag: '🇮🇹' },
+    { value: '+34', label: 'Spain', flag: '🇪🇸' },
+    { value: '+31', label: 'Netherlands', flag: '🇳🇱' },
+    { value: '+41', label: 'Switzerland', flag: '🇨🇭' },
+    { value: '+46', label: 'Sweden', flag: '🇸🇪' },
+    { value: '+47', label: 'Norway', flag: '🇳🇴' },
+    { value: '+45', label: 'Denmark', flag: '🇩🇰' },
+    { value: '+65', label: 'Singapore', flag: '🇸🇬' },
+    { value: '+852', label: 'Hong Kong', flag: '🇭🇰' },
+    { value: '+64', label: 'New Zealand', flag: '🇳🇿' },
+  ];
+
+  // Options for "How did you find us"
+  const howDidYouFindOptions = [
+    { value: 'Google Search', label: 'Google Search' },
+    { value: 'Social Media', label: 'Social Media' },
+    { value: 'Friend/Family Referral', label: 'Friend/Family Referral' },
+    { value: 'Travel Agent', label: 'Travel Agent' },
+    { value: 'Previous Customer', label: 'Previous Customer' },
+    { value: 'Other', label: 'Other' },
+  ];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -284,13 +151,6 @@ const PrivateTripForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate captcha
-    const userAnswer = parseInt(formData.captchaAnswer);
-    if (isNaN(userAnswer) || userAnswer !== captcha.answer) {
-      setErrorMessage('Please answer the captcha correctly');
-      return;
-    }
-
     // Validate terms agreement
     if (!formData.agreeToTerms) {
       setErrorMessage('Please agree to the Terms and Conditions');
@@ -306,14 +166,14 @@ const PrivateTripForm: React.FC = () => {
         date: formData.startDate,
         leadTravellerName: formData.fullName,
         email: formData.email,
-        phone: formData.phone,
+        phone: `${formData.countryCode}${formData.phone}`, // Combine country code and phone
         numberOfTraveller: parseInt(formData.numberOfTravelers),
         country: formData.country,
         howDidYouReachUs: formData.howDidYouFind,
         message: formData.comments,
         termsAndAgreement: formData.agreeToTerms,
-        captchaToken: `${captcha.num1}+${captcha.num2}`,
-        captchaAnswer: captcha.answer
+        captchaToken: data?.data.token || "",
+        captchaAnswer: parseInt(formData.captchaAnswer)
       };
 
       // Call API
@@ -328,11 +188,13 @@ const PrivateTripForm: React.FC = () => {
         fullName: '',
         email: '',
         phone: '',
+        countryCode: '+977',
         numberOfTravelers: '',
         country: '',
         howDidYouFind: '',
         comments: '',
         agreeToTerms: false,
+        captchaToken: "",
         captchaAnswer: ''
       });
     } catch (error: any) {
@@ -368,17 +230,19 @@ const PrivateTripForm: React.FC = () => {
           <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-2">
             Choose your own date*
           </label>
-          <input
-            type="date"
-            id="startDate"
-            name="startDate"
-            value={formData.startDate}
-            onChange={handleInputChange}
-            required
-            disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-            placeholder="MM/DD/YYYY"
-          />
+          <div className="relative">
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleInputChange}
+              required
+              disabled={isSubmitting}
+              className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              placeholder="MM/DD/YYYY"
+            />
+          </div>
         </div>
 
         {/* Full Name */}
@@ -394,7 +258,7 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Full Name"
           />
         </div>
@@ -412,7 +276,7 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Email"
           />
         </div>
@@ -422,17 +286,51 @@ const PrivateTripForm: React.FC = () => {
           <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
             Phone*
           </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            required
-            disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-            placeholder="Phone Number"
-          />
+          <div className="flex gap-2">
+            <Select
+              value={countryCodeOptions.find(opt => opt.value === formData.countryCode)}
+              onChange={(option) => {
+                if (option) {
+                  setFormData(prev => ({ ...prev, countryCode: option.value }));
+                }
+              }}
+              options={countryCodeOptions}
+              isDisabled={isSubmitting}
+              className="min-w-[100px]"
+              classNamePrefix="react-select"
+              formatOptionLabel={(option) => (
+                <div className="">
+                  <span>{option.value}</span>
+                </div>
+              )}
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  borderColor: '#d1d5db',
+                  '&:hover': { borderColor: '#F05E25' },
+                  boxShadow: 'none',
+                  minHeight: '42px'
+                }),
+                option: (base, state) => ({
+                  ...base,
+                  backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
+                  color: state.isSelected ? 'white' : '#1f2937',
+                  '&:active': { backgroundColor: '#F05E25' }
+                })
+              }}
+            />
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+              disabled={isSubmitting}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              placeholder="Phone Number"
+            />
+          </div>
         </div>
 
         {/* Number of Travelers */}
@@ -449,7 +347,7 @@ const PrivateTripForm: React.FC = () => {
             required
             min="1"
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="No. of Travellers"
           />
         </div>
@@ -466,7 +364,7 @@ const PrivateTripForm: React.FC = () => {
             value={formData.country}
             onChange={handleInputChange}
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Country"
           />
         </div>
@@ -476,23 +374,33 @@ const PrivateTripForm: React.FC = () => {
           <label htmlFor="howDidYouFind" className="block text-sm font-medium text-gray-700 mb-2">
             How did you find Real Himalaya?*
           </label>
-          <select
-            id="howDidYouFind"
-            name="howDidYouFind"
-            value={formData.howDidYouFind}
-            onChange={handleInputChange}
-            required
-            disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
-          >
-            <option value="">How did you find Real Himalaya?</option>
-            <option value="Google Search">Google Search</option>
-            <option value="Social Media">Social Media</option>
-            <option value="Friend/Family Referral">Friend/Family Referral</option>
-            <option value="Travel Agent">Travel Agent</option>
-            <option value="Previous Customer">Previous Customer</option>
-            <option value="Other">Other</option>
-          </select>
+          <Select
+            value={howDidYouFindOptions.find(opt => opt.value === formData.howDidYouFind)}
+            onChange={(option) => {
+              if (option) {
+                setFormData(prev => ({ ...prev, howDidYouFind: option.value }));
+              }
+            }}
+            options={howDidYouFindOptions}
+            isDisabled={isSubmitting}
+            placeholder="How did you find Real Himalaya?"
+            classNamePrefix="react-select"
+            styles={{
+              control: (base) => ({
+                ...base,
+                borderColor: '#d1d5db',
+                '&:hover': { borderColor: '#F05E25' },
+                boxShadow: 'none',
+                minHeight: '42px'
+              }),
+              option: (base, state) => ({
+                ...base,
+                backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
+                color: state.isSelected ? 'white' : '#1f2937',
+                '&:active': { backgroundColor: '#F05E25' }
+              })
+            }}
+          />
         </div>
 
         {/* Comments */}
@@ -507,7 +415,7 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             rows={4}
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Any special requirements or questions..."
           />
         </div>
@@ -534,8 +442,8 @@ const PrivateTripForm: React.FC = () => {
 
         {/* Captcha */}
         <div className="col-span-2 flex gap-4 flex-wrap items-center mt-5 mb-3">
-          <label htmlFor="captchaAnswer" className="block text-sm font-medium text-gray-700 mb-2">
-            Prove your humanity: {captcha.num1} + {captcha.num2} = *
+          <label htmlFor="captchaAnswer" className="flex gap-4 items-center flex-wrap text-sm  font-medium text-gray-700 mb-2">
+            <span>Prove your humanity: </span><span className="text-orange-500">{isLoading ? 'Loading...' : data?.data.question} = *</span>
           </label>
           <input
             type="text"
@@ -545,17 +453,17 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="px-4 w-fit py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="px-4 w-fit py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="Answer"
           />
         </div>
 
         {/* Submit Button */}
-        <div>
+        <div className="w-full col-span-2 flex justify-end items-center">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-fit bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
@@ -586,11 +494,13 @@ const PrivateTripForm: React.FC = () => {
 const DatesAndPrices = ({
   data,
   packageId,
-  pkg
+  pkg,
+  onShowBooking
 }: {
   data: IFixedDate[] | null;
   packageId: string;
   pkg: ITravelPackage | null;
+  onShowBooking: () => void;
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
@@ -849,7 +759,10 @@ const DatesAndPrices = ({
                       </div>
                     </div>
 
-                    <Link onClick={() => setPackage(pkg as ITravelPackage)} href={`/booking/${pkg?.slug}`} >
+                    <Link onClick={() => {
+                      setPackage(pkg as ITravelPackage);
+                      onShowBooking();
+                    }} href={`#booking-modal`} >
                       <button
                         className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
                       >

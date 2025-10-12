@@ -12,9 +12,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { experts } from "@/static/expert";
 
-const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, onShowContact: () => void }) => {
+const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
-  const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | null>(null);
+  const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
 
@@ -719,13 +719,13 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                   onClick={scrollToDateSection}
                   onMouseEnter={() => setHovered("date")}
                   onMouseLeave={() => setHovered(null)}
-                  className="w-full px-6 py-2 rounded-sm font-semibold  transition-all duration-300 text-white border-2"
+                  className="w-full px-6 py-2 rounded-sm font-semibold capitalize  transition-all duration-300 text-white border-2"
                   style={{
                     backgroundColor: '#f05e25',
-                    borderColor: '#f05e25'
+                    borderColor: '#f05e25',
                   }}
                 >
-                  Choose Your Date
+                  Book this trip Now
                 </button>
               ) : null}
 
@@ -824,7 +824,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
               delay: 3000,
               disableOnInteraction: false,
             }}
-       
+
             loop={experts.length > 1}
             className="expert-swiper"
           >

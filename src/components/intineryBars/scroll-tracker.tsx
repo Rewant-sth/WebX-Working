@@ -56,21 +56,17 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             label: "Overview",
             icon: <Icon icon="qlementine-icons:info-32" className="size-6" />,
         },
-        // {
-        //     id: "trip-glance",
-        //     label: "Trip Info",
-        //     icon: <Compass className="size-6" />,
-        // },
-        // {
-        //     id: "route-map",
-        //     label: "Route",
-        //     icon: <MapPinned className="size-6" />,
-        // },
         {
             id: "itinerary",
             label: "Itinerary",
             icon: <Icon icon={"guidance:calendar"} className="size-6" />,
             condition: (data) => data?.itinerary?.length > 0,
+        },
+        {
+            id: "date-&-prices",
+            label: "Dates & Prices",
+            icon: <Icon icon={"ph:calendar-dots-thin"} className="size-6 scale-110" />,
+            condition: (data) => data?.fixedDates?.length > 0,
         },
         {
             id: "inclusion-&-exclusion",
@@ -114,12 +110,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             icon: <Icon icon={"guidance:alert-triangle"} className="size-6" />,
             condition: (data) => data?.importantNotice?.length > 0,
         },
-        {
-            id: "date-&-prices",
-            label: "Dates & Prices",
-            icon: <Icon icon={"ph:calendar-dots-thin"} className="size-6 scale-110" />,
-            condition: (data) => data?.fixedDates?.length > 0,
-        },
+
         {
             id: "traveller-review",
             label: "Reviews",

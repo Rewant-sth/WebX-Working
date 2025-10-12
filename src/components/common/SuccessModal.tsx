@@ -24,14 +24,14 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
             onClick={onClose}
         >
             <div
-                className="relative bg-white rounded-lg shadow-2xl max-w-md w-full mx-4 p-8 animate-fadeIn"
+                className="relative bg-white rounded-lg shadow-2xl max-w-xl w-full mx-4 p-8 animate-fadeIn"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Success Icon */}
                 <div className="flex justify-center mb-6">
                     <div className="bg-green-100 rounded-full p-4">
                         <Icon
-                            icon="mdi:check-circle"
+                            icon="garden:check-badge-fill-12"
                             className="text-green-600"
                             width="64"
                             height="64"
@@ -52,10 +52,9 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="w-full bg-[#F05E25] text-white px-6 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2"
+                    className="w-fit mx-auto border border-[#F05E25] text-[#F05E25] px-6 py-2 rounded-md font-semibold hover:bg-[#F05E25] hover:text-white transition-colors duration-200 flex items-center justify-center gap-2"
                 >
-                    <Icon icon="mdi:check" width="20" height="20" />
-                    Close
+                    Okay
                 </button>
 
                 {/* Close Icon Button */}

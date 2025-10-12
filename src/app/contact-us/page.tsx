@@ -2,16 +2,9 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
   ArrowRight,
   CheckCircle,
-  Headset,
-  Clock10,
 } from 'lucide-react';
-import { FaSmile } from 'react-icons/fa';
 import { useMutation } from '@tanstack/react-query';
 import { sendContact } from '@/service/contact';
 import toast from 'react-hot-toast';
@@ -244,8 +237,6 @@ export default function PremiumContact() {
                           <label htmlFor="" className='shrink-0'>Peak Climbing</label>
                         </div>
 
-
-
                         <div className="flex gap-2 text-lg">
                           <label className="container border border-orange-500">
                             <input
@@ -262,68 +253,40 @@ export default function PremiumContact() {
                           <label className="container border border-orange-500">
                             <input
                               type="checkbox"
-                              checked={selectedGoals.includes('Others')}
-                              onChange={() => handleGoalChange('Others')}
+                              checked={selectedGoals.includes('Expedition')}
+                              onChange={() => handleGoalChange('Expedition')}
                             />
                             <div className="checkmark"></div>
                           </label>
-                          <label htmlFor="" className='shrink-0'>Others</label>
+                          <label htmlFor="" className='shrink-0'>Expedition</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container border border-orange-500">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Helicopter tour')}
+                              onChange={() => handleGoalChange('Helicopter tour')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Helicopter tour</label>
+                        </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container border border-orange-500">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Volunteer projects')}
+                              onChange={() => handleGoalChange('Volunteer projects')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Volunteer projects</label>
                         </div>
                       </div>
                     </div>
 
-                    {/* <div className="relative  rounded-sm overflow-hidden">
-                      <h2 className='text-xl font-semibold mb-6'>Your Budget</h2>
-                      <div className="flex gap-3 items-center flex-wrap">
-                        <div className="flex gap-2 text-lg">
-                          <label className="container border border-orange-500">
-                            <input
-                              type="checkbox"
-                              checked={selectedBudget === 'Above $25,000'}
-                              onChange={() => handleBudgetChange('Above $25,000')}
-                            />
-                            <div className="checkmark"></div>
-                          </label>
-                          <label htmlFor="" className='shrink-0'>Above $25,000</label>
-                        </div>
-
-                        <div className="flex gap-2 text-lg">
-                          <label className="container border border-orange-500">
-                            <input
-                              type="checkbox"
-                              checked={selectedBudget === 'Above $50,000'}
-                              onChange={() => handleBudgetChange('Above $50,000')}
-                            />
-                            <div className="checkmark"></div>
-                          </label>
-                          <label htmlFor="" className='shrink-0'>Above $50,000</label>
-                        </div>
-
-                        <div className="flex gap-2 text-lg">
-                          <label className="container border border-orange-500">
-                            <input
-                              type="checkbox"
-                              checked={selectedBudget === 'Above $75,000'}
-                              onChange={() => handleBudgetChange('Above $75,000')}
-                            />
-                            <div className="checkmark"></div>
-                          </label>
-                          <label htmlFor="" className='shrink-0'>Above $75,000</label>
-                        </div>
-
-                        <div className="flex gap-2 text-lg">
-                          <label className="container border border-orange-500">
-                            <input
-                              type="checkbox"
-                              checked={selectedBudget === 'Above $100,000'}
-                              onChange={() => handleBudgetChange('Above $100,000')}
-                            />
-                            <div className="checkmark"></div>
-                          </label>
-                          <label htmlFor="" className='shrink-0'>Above $100,000</label>
-                        </div>
-                      </div>
-                    </div> */}
                   </div>
 
                   <div title='Your Message' aria-label='Your Message' className="relative ">
