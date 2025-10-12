@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import Title from "../../../components/intineryBars/Title";
 import TripGlance from "../../../components/tripGlance/TripGlance";
 import SeasonalInfo from "../../../components/tripGlance/SeasonalInfo";
 import MajorHighlight from "../../../components/tripGlance/MajorHighlight";
@@ -23,7 +22,6 @@ import SkeletonLoader from "./_components/SkeletonLoader";
 import { useRouter } from "next/navigation";
 import ScrollTracker from "@/components/intineryBars/scroll-tracker";
 import GalleryCarousel from "@/components/intineryBars/gallery/gallery-carousel";
-
 import RightBar from "@/components/intineryBars/RightBar";
 import OverviewSection from "./_components/OverviewSection";
 import RouteMapModal from "./_components/RouteMapModal";
@@ -167,6 +165,15 @@ const Page = () => {
               {packageData?.data?.itinerary.length ? (
                 <Itinerary data={packageData?.data.itinerary} />
               ) : null}
+
+              {packageData?.data.fixedDates?.length ? (
+                <DatesAndPrices
+                  pkg={packageData.data}
+                  data={packageData?.data?.fixedDates}
+                  packageId={packageData?.data._id}
+                />
+              ) : null}
+
               {packageData?.data?.inclusion.length ? (
                 <Cost data={packageData?.data} />
               ) : null}
@@ -192,13 +199,7 @@ const Page = () => {
               {packageData?.data?.importantNotice.length ? (
                 <ImportantNotice data={packageData?.data} />
               ) : null}
-              {packageData?.data.fixedDates?.length ? (
-                <DatesAndPrices
-                  pkg={packageData.data}
-                  data={packageData?.data?.fixedDates}
-                  packageId={packageData?.data._id}
-                />
-              ) : null}
+
               {packageData?.data?.faq.length ? (
                 <Faq faq={packageData?.data?.faq} />
               ) : null}

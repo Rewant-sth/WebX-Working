@@ -11,6 +11,6 @@ export async function bookTraveller({ bookingData }: { bookingData: IBookingData
 }
 
 export async function bookPrivateTrip(privateTripData: IPrivateTripData): Promise<IPrivateTripResponse> {
-    const req = await api.post(`/api/v1/private-trip`, privateTripData);
+    const req = await api.post(`/private-trip`, privateTripData);
     return req.data;
 }

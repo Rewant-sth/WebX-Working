@@ -35,9 +35,9 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
         "route-overview",
         "route-map",
         "itinerary",
+        "date-&-prices",
         "inclusion-&-exclusion",
         "requirements",
-        "date-&-prices",
         "traveller-review",
         "faqs",
       ];
@@ -158,6 +158,25 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
             </li>
           ) : null}
 
+
+          {data?.fixedDates.length ? (
+            <li
+              onClick={() => handleScroll("Date & Prices")}
+              className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("date-&-prices")
+                ? "bg-blue-50 text-blue-500 font-medium"
+                : "hover:translate-x-1"
+                }`}
+            >
+              <div className="p-1.5 bg-blue-50 rounded-md">
+                <CalendarDays
+                  className="w-4 h-4"
+                  style={{ color: "#3B82F6" }}
+                />
+              </div>
+              Date & Prices
+            </li>
+          ) : null}
+
           {data?.inclusion.length ? (
             <li
               onClick={() => handleScroll("Inclusion & Exclusion")}
@@ -188,23 +207,6 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
             </li>
           ) : null}
 
-          {data?.fixedDates.length ? (
-            <li
-              onClick={() => handleScroll("Date & Prices")}
-              className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("date-&-prices")
-                ? "bg-blue-50 text-blue-500 font-medium"
-                : "hover:translate-x-1"
-                }`}
-            >
-              <div className="p-1.5 bg-blue-50 rounded-md">
-                <CalendarDays
-                  className="w-4 h-4"
-                  style={{ color: "#3B82F6" }}
-                />
-              </div>
-              Date & Prices
-            </li>
-          ) : null}
 
           {data?.testimonial.length ? (
             <li

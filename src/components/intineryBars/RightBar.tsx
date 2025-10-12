@@ -11,14 +11,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { experts } from "@/static/expert";
-import ContactModal from "@/app/test/page";
 
 const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, onShowContact: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
-  const [showContctform, setShowContactform] = useState(false);
 
 
   const generatePdf = async () => {

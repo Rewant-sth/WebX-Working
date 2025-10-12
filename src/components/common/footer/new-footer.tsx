@@ -16,7 +16,7 @@ export default function Footer() {
 
 
   return (
-    <footer ref={footerRef} className="w-screen  relative  flex flex-col justify-end items-end   ">
+    <footer id='footer' ref={footerRef} className="w-screen  relative  flex flex-col justify-end items-end   ">
 
       {/* footer expert part */}
 
@@ -73,7 +73,7 @@ export default function Footer() {
             <div className=" w-full mx-auto">
               <div className="flex w-full justify-center md:justify-between items-center gap-5 md:gap-6 flex-wrap">
                 <p>&copy; Copy Right {new Date().getFullYear()} - Real Himalaya Pvt. Ltd</p>
-                <ul className="flex gap-4 md:gap-6">
+                <ul className="flex gap-4 ">
                   <li>
                     <Link target='_blank' href="https://www.facebook.com/dayula.sherpa">
                       <Icon className='size-7' icon="mdi:facebook" />
@@ -84,10 +84,10 @@ export default function Footer() {
                       <Icon className='size-7' icon="mdi:instagram" />
                     </Link>
                   </li>
-                
+
                   <li>
                     <Link target='_blank' href="https://x.com/RealHimalaya">
-                      <Icon className='size-7' icon="mdi:twitter" />
+                      <Icon className='size-7' icon="streamline-logos:x-twitter-logo-block" />
                     </Link>
                   </li>
                 </ul>

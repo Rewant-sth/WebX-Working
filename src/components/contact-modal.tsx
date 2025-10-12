@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Select, { SingleValue, StylesConfig } from 'react-select';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -30,6 +30,21 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Hide footer when modal is shown, show it when modal is hidden
+    useEffect(() => {
+        const footer = document.getElementById('footer');
+        if (footer) {
+            footer.style.display = 'none';
+        }
+
+        // Cleanup: show footer when component unmounts
+        return () => {
+            if (footer) {
+                footer.style.display = 'block';
+            }
+        };
+    }, []);
 
     const handleInputChange = (field: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.isTrusted) {
@@ -119,16 +134,18 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                             <div
                                 className="space-y-8 col-span-2 w-full   rounded-sm  p-4 md:p-6"
                             >
-                                <div className=' pb-6 '>
-                                    <h3 className="text-2xl  font-bold  mb-2 uppercase">Your enquiry about <span className="text-orange-500">{packageName}</span>
-                                    </h3>
-                                    <p className=" text-lg">
-                                        Tell us about your enquiry and we'll get back to you within 24 hours.
-                                    </p>
-                                </div>
+
 
                                 <AnimatePresence >
-                                    {!isSubmitted ? (
+                                    {!isSubmitted ? (<>
+
+                                        <div className=' pb-2 '>
+                                            <h3 className="text-2xl  font-bold  mb-2 uppercase">Your enquiry about <span className="text-orange-500">{packageName}</span>
+                                            </h3>
+                                            <p className=" text-lg">
+                                                Tell us about your enquiry and we'll get back to you within 24 hours.
+                                            </p>
+                                        </div>
                                         <motion.form
                                             key="form"
                                             onSubmit={handleSubmit}
@@ -319,12 +336,13 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                 </motion.button>
                                             </div>
                                         </motion.form>
+                                    </>
                                     ) : (
                                         <motion.div
                                             key="success"
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            className="text- py-8 rounded-sm w-full max-w-xl text-center"
+                                            className="text- py-8 rounded-sm flex flex-col justify-center items-center w-full   text-center"
                                         >
                                             <motion.div
                                                 className="w-20 h-20 rounded-full bg-green-500/20 border border-green-400/30 mx-auto flex items-center justify-center  mb-6"
