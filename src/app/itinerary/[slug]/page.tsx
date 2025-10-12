@@ -31,6 +31,7 @@ import Image from "next/image";
 import EmblaCarousel from "@/components/ui/embla-carousel";
 import VideoReview from "./_components/video-review";
 import ContactModal from "@/components/contact-modal";
+import BookingModal from "@/components/booking-modal";
 
 const Page = () => {
   const router = useRouter();
@@ -78,6 +79,10 @@ const Page = () => {
 
   return (
     <div className="w-full relative h-full">
+
+      {/* <div className="absolute inset-0 ">
+        <BookingModal />
+      </div> */}
 
       {showContactModal && <ContactModal onClose={() => setShowContactModal(false)} packageName={packageData?.data?.name || "Real Himalaya Package"} />}
 

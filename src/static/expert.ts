@@ -2,7 +2,7 @@
 export const experts = [
     {
         name: "Gokul Thapa",
-        image: "/Avtar/gokul2.jpg",
+        image: "/Avtar/gokulthapa.jpeg",
         phone: "+977 985-1026840",
         email: "info@realhimalaya.com",
         instagram: "https://www.instagram.com/realhimalayanp",

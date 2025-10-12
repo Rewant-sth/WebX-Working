@@ -824,23 +824,19 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
               delay: 3000,
               disableOnInteraction: false,
             }}
-            pagination={{
-              clickable: true,
-              bulletClass: 'swiper-pagination-bullet',
-              bulletActiveClass: 'swiper-pagination-bullet-active',
-            }}
+       
             loop={experts.length > 1}
             className="expert-swiper"
           >
             {experts.map((expert, index) => (
               <SwiperSlide key={index}>
-                <div className="px-8 pb-8">
+                <div className="px-8 ">
                   <div className="size-20 lg:size-28 rounded-full flex justify-center items-center overflow-hidden mx-auto bg-black relative mb-4">
                     <Image
                       src={expert.image}
                       fill
                       alt={expert.name}
-                      className="object-cover object-top"
+                      className="object-cover object-center"
                     />
                   </div>
 
