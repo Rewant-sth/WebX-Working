@@ -598,16 +598,15 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
         </html>
       `;
 
-      // Create and download the HTML file
+      // Open the HTML content in a new tab
       const blob = new Blob([content], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${data.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_itinerary.html`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      window.open(url, '_blank');
+
+      // Clean up the URL after a short delay to ensure the tab opens
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1000);
 
     } catch (error) {
       console.error('Error:', error);
@@ -754,7 +753,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
 
                 >
 
-                  {isGeneratingPdf ? 'Downloading...' : 'Download Info'}
+                  {isGeneratingPdf ? 'Downloading...' : 'View Dossier Online'}
                 </button>
               </div>
 

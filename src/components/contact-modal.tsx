@@ -309,7 +309,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     title='Send Message'
                                                     aria-label='Send Message'
                                                     disabled={isPending}
-                                                    className="w-fit  bg-white sm:bg-transparent relative group sm:border overflow-hidden   font-medium py-2 px-6 rounded-sm transition-all disabled:opacity-50"
+                                                    className="w-fit  bg-[#F05E25]/80 hover:bg-[#F05E25] text-white relative group sm:border overflow-hidden   font-medium py-2 px-6 rounded-sm transition-all disabled:opacity-50"
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                 >
@@ -322,7 +322,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     <span className="relative flex items-center justify-center gap-2">
                                                         {isPending ? (
                                                             <motion.div
-                                                                className="w-5 h-5  border-2 /30 border-t-white rounded-full"
+                                                                className="w-5 h-5  border-2 /30 border-t-white  rounded-full"
                                                                 animate={{ rotate: 360 }}
                                                                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                                                             />

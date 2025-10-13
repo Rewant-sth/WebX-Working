@@ -1189,18 +1189,18 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                         <div className="bg-zinc-100/70 p-4 ">
                             <div className=" lg:h-fit sticky top-4 ">
                                 <div className=" rounded-md p-4 sticky top-4">
-                                    <h2 className='text-xl font-semibold mb-4'>Booking Summary</h2>
+                                    <h2 className='text-2xl font-bold mb-6'>Booking Summary</h2>
 
                                     <div className="space-y-3">
                                         <div className="flex justify-between">
-                                            <span className="text-gray-600">Package:</span>
-                                            <span className="font-medium text-right">{packageData.name}</span>
+                                            <span className="text-zinc-900 font-semibold">Package:</span>
+                                            <span className="font-medium text-right text-[#F05E25]">{packageData.name}</span>
                                         </div>
 
                                         {selectedDate && (
                                             <div className="flex justify-between">
-                                                <span className="text-gray-600">Duration:</span>
-                                                <span className="font-medium">
+                                                <span className="text-zinc-900 font-semibold">Duration:</span>
+                                                <span className="font-medium text-[#F05E25]">
                                                     {Math.ceil((new Date(selectedDate.endDate).getTime() - new Date(selectedDate.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
                                                 </span>
                                             </div>
@@ -1208,14 +1208,14 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
                                         {!selectedDate && (
                                             <div className="flex justify-between">
-                                                <span className="text-gray-600">Duration:</span>
-                                                <span className="font-medium">Select date</span>
+                                                <span className="text-zinc-900 font-semibold">Duration:</span>
+                                                <span className="font-medium text-[#F05E25]">Select date</span>
                                             </div>
                                         )}
 
                                         <div className="flex justify-between">
-                                            <span className="text-gray-600">Travel Dates:</span>
-                                            <span className="font-medium text-right text-sm">
+                                            <span className="text-zinc-900 font-semibold">Travel Dates:</span>
+                                            <span className="font-medium text-right text-sm text-[#F05E25]">
                                                 {selectedDate ? (
                                                     <>
                                                         {new Date(selectedDate.startDate).toLocaleString('en-US', { month: 'short', day: 'numeric' })} - {new Date(selectedDate.endDate).toLocaleString('en-US', { month: 'short', day: 'numeric' })}
@@ -1226,14 +1226,14 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
                                         {selectedDate && (
                                             <div className="flex justify-between">
-                                                <span className="text-gray-600">Seats Available:</span>
-                                                <span className="font-medium">{selectedDate.availableSeats || 0}</span>
+                                                <span className="text-zinc-900 font-semibold">Seats Available:</span>
+                                                <span className="font-medium text-[#F05E25]">{selectedDate.availableSeats || 0}</span>
                                             </div>
                                         )}
 
                                         <div className="flex justify-between">
-                                            <span className="text-gray-600">Participants:</span>
-                                            <span className="font-medium">{participants} {participants === 1 ? 'person' : 'people'}</span>
+                                            <span className="text-zinc-900 font-semibold">Participants:</span>
+                                            <span className="font-medium text-[#F05E25]">{participants} {participants === 1 ? 'person' : 'people'}</span>
                                         </div>
 
                                         <hr className="my-3 text-gray-200" />
@@ -1242,10 +1242,10 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             <>
                                                 <div className="flex justify-between">
                                                     <div className="flex flex-col">
-                                                        <span className="text-gray-600">Base Price:</span>
-                                                        <span className='text-gray-400'>(USD {selectedDate.pricePerPerson} * {participants})</span>
+                                                        <span className="text-zinc-900 font-semibold">Base Price:</span>
+                                                        <span className='text-gray-500'>(USD {selectedDate.pricePerPerson} * {participants})</span>
                                                     </div>
-                                                    <span className="font-medium">${basePriceDetails.basePrice.toFixed(2)}</span>
+                                                    <span className="font-medium text-[#F05E25]">${basePriceDetails.basePrice.toFixed(2)}</span>
                                                 </div>
 
                                                 {basePriceDetails.discountAmount > 0 && (
