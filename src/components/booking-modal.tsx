@@ -10,7 +10,6 @@ import React, { useState, useMemo, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import CalendarComponent from '@/components/intineryBars/Calendar'
 import Select from 'react-select'
-import { setSelectedFixedDateId } from '@/store/booking-store'
 
 type TravelerInfo = {
     fullName: string
@@ -546,7 +545,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             termsAccepted: boolean
             addons: string[]
         }) => {
-            const res = await fetch('https://flyeastapi.webxnepal.com/api/v1/booking', {
+            const res = await fetch('https://rhapi.webxnepal.com/api/v1/booking', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -573,6 +572,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         const bookingData = {
             personalInfo: travelerInfo,
             adults: participants,
+            totalPeople: participants,
             totalAmount,
             //@ts-ignore
             fixedDateId: selectedDate._id,
@@ -974,41 +974,43 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                         className="w-4 h-4 lg:size-5 mt-1"
                                                     />
                                                     <div className="flex-1">
-                                                        <h3 className="font-semibold">{addon.name}</h3>
-                                                        <p className="text-sm text-gray-600 mt-1">{addon.description}</p>
+                                                        <h3 className="font-semibold capitalize">{addon.name}</h3>
+                                                        <div dangerouslySetInnerHTML={{ __html: addon.description }} className="text-sm text-gray-600 mt-1"></div>
                                                         <p className="text-[#F05E25] font-medium mt-2">${addon.price} per person</p>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {isSelected && (
-                                                <div className="mt-4 flex items-center gap-4">
-                                                    <span className="text-sm font-medium">Quantity:</span>
-                                                    <div className="flex items-center">
-                                                        <button
-                                                            className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-l-lg hover:bg-gray-50"
-                                                            onClick={() => handleAddonQuantityChange(addon._id, (selectedAddon?.quantity || 1) - 1)}
-                                                        >
-                                                            <Minus className="size-4" />
-                                                        </button>
-                                                        <input
-                                                            type="text"
-                                                            value={selectedAddon?.quantity || 1}
-                                                            readOnly
-                                                            className="w-12 h-8 text-center border-y border-gray-200"
-                                                        />
-                                                        <button
-                                                            className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-r-lg hover:bg-gray-50"
-                                                            onClick={() => handleAddonQuantityChange(addon._id, (selectedAddon?.quantity || 1) + 1)}
-                                                        >
-                                                            <Plus className="size-4" />
-                                                        </button>
+                                            {
+                                                isSelected && (
+                                                    <div className="mt-4 flex items-center gap-4">
+                                                        <span className="text-sm font-medium">Quantity:</span>
+                                                        <div className="flex items-center">
+                                                            <button
+                                                                className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-l-lg hover:bg-gray-50"
+                                                                onClick={() => handleAddonQuantityChange(addon._id, (selectedAddon?.quantity || 1) - 1)}
+                                                            >
+                                                                <Minus className="size-4" />
+                                                            </button>
+                                                            <input
+                                                                type="text"
+                                                                value={selectedAddon?.quantity || 1}
+                                                                readOnly
+                                                                className="w-12 h-8 text-center border-y border-gray-200"
+                                                            />
+                                                            <button
+                                                                className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-r-lg hover:bg-gray-50"
+                                                                onClick={() => handleAddonQuantityChange(addon._id, (selectedAddon?.quantity || 1) + 1)}
+                                                            >
+                                                                <Plus className="size-4" />
+                                                            </button>
+                                                        </div>
+                                                        <span className="text-sm text-gray-600 ml-auto">
+                                                            Total: ${((selectedAddon?.quantity || 1) * addon.price).toFixed(2)}
+                                                        </span>
                                                     </div>
-                                                    <span className="text-sm text-gray-600 ml-auto">
-                                                        Total: ${((selectedAddon?.quantity || 1) * addon.price).toFixed(2)}
-                                                    </span>
-                                                </div>
-                                            )}
+                                                )
+                                            }
                                         </div>
                                     )
                                 })}
@@ -1029,7 +1031,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div >
                 )
 
             case 4:
@@ -1135,13 +1137,16 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         return (
             <div className=" rounded-md visible relative flex justify-center items-center  max-w-5xl overflow-hidden h-screen w-full mx-auto">
 
-                <div className="max-w-5xl overflow-hidden relative  mx-auto pointer-events-auto flex justify-center items-center h-[60dvh] text-center bg-white rounded-md ">
-                    <button onClick={onClose} className="absolute cursor-pointer size-5 md:size-8 lg:size-12 rounded-full text-black hover:bg-orange-500 hover:text-white transition-colors duration-200 flex justify-center items-center border z-[999] top-4 right-4">
+                <div className="max-w-3xl w-full overflow-hidden relative  mx-auto pointer-events-auto flex justify-center items-center h-[60dvh] text-center bg-white rounded-md ">
+                    <button onClick={onClose} className="absolute cursor-pointer size-5 md:size-8 lg:size-12 rounded-full text-black/50 hover:text-black   transition-colors duration-200 flex justify-center items-center  z-[999] top-4 right-4">
                         <X className="size-4 md:size-5 lg:size-6" />
                     </button>
                     <div className="p-6 relative">
-                        <h2 className="text-2xl font-bold mb-4">No Available Dates</h2>
-                        <p className="text-gray-700">We're sorry, but there are currently no available dates for this package. Please check back later or contact our support team for assistance.</p>
+                        <div className="flex justify-center items-center text-[#F05E25] mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} className='size-20 lg:size-36' viewBox="0 0 48 48"><g fill="currentColor"><path d="M31.425 38.177A15.9 15.9 0 0 1 24 40c-8.837 0-16-7.163-16-16S15.163 8 24 8s16 7.163 16 16q0 .25-.008.5h2.001Q42 24.25 42 24c0-9.941-8.059-18-18-18S6 14.059 6 24s8.059 18 18 18a17.9 17.9 0 0 0 8.379-2.065z"></path><path d="M13.743 23.35c-.12.738.381 1.445 1.064 1.883c.714.457 1.732.707 2.93.53a3.8 3.8 0 0 0 2.654-1.665c.504-.764.711-1.693.48-2.382a.5.5 0 0 0-.818-.203c-1.796 1.704-3.824 2.123-5.642 1.448a.5.5 0 0 0-.668.39m20.076-.001c.119.738-.382 1.445-1.065 1.883c-.714.457-1.731.707-2.93.53a3.8 3.8 0 0 1-2.653-1.665c-.504-.764-.712-1.693-.48-2.382a.5.5 0 0 1 .818-.203c1.796 1.704 3.824 2.123 5.642 1.448a.5.5 0 0 1 .668.39"></path><path fillRule="evenodd" d="M36 36a4 4 0 0 0 4-4c0-3.5-4-7-4-7s-4 3.5-4 7a4 4 0 0 0 4 4m0-2a2 2 0 0 0 2-2c0-1.066-.654-2.37-1.59-3.6q-.207-.27-.41-.512q-.203.241-.41.512C34.655 29.63 34 30.934 34 32a2 2 0 0 0 2 2" clipRule="evenodd"></path><path d="M20.8 33.6c1.6-2.133 4.8-2.133 6.4 0a1 1 0 0 0 1.6-1.2c-2.4-3.2-7.2-3.2-9.6 0a1 1 0 0 0 1.6 1.2"></path></g></svg>
+                        </div>
+                        <h2 className="text-2xl font-bold mb-4">No Seats Available</h2>
+                        <p className="text-gray-700 text-lg">The seats for this package are currently fully booked. Please check back later or contact our support team for assistance.</p>
                     </div>
                 </div>
             </div>

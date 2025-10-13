@@ -562,6 +562,13 @@ input[type=number] {
     animation: moveleft 50s ease-in-out infinite;
 }
 
+.left-cloud2 {
+    animation: moveright 70s ease-in-out infinite;
+}
+
+.right-cloud2 {
+    animation: moveleft 70s ease-in-out infinite;
+}
 
 
 
