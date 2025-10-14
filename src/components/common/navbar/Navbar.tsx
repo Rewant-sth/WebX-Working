@@ -293,7 +293,7 @@ export default function Navbar() {
             <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
-            <div className="grid gap-1 2xl:gap-3 divide-y divide-white/10">
+            <div className="grid gap-1 2xl:gap-3 divide-y lg:divide-y-0 divide-white/10">
               {categories?.data?.map((category) => {
                 if (category.subCategories.length === 0) return null;
                 return (
