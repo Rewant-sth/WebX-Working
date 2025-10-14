@@ -96,27 +96,27 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
                             key={slide._id || idx}
                             className="embla__slide flex-none px-3 w-full md:w-1/2 lg:w-1/3"
                         >
-                            <div className="min-h-96  border border-green-500 bg-green-50 py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
+                            <div className="min-h-96 pb-2 md:pb-0  border border-green-500 bg-green-50  md:py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
                                 {/* Signature */}
-                                <p className="absolute   text-4xl  max-w-[150px] text-center -rotate-[20deg] top-10 left-20 z-[99] font-semibold" style={{ fontFamily: "var(--font-dancing-script), 'Brush Script MT', cursive" }}>
+                                <p className="absolute   text-4xl w-full md:max-w-[150px] text-center -rotate-[20deg] top-10 left-0 md:left-20 z-[99] font-semibold" style={{ fontFamily: "var(--font-dancing-script), 'Brush Script MT', cursive" }}>
                                     {slide.fullName}
                                 </p>
                                 <img
                                     src={slide.image || `/placeholder.webp`}
                                     alt={slide.fullName || `Testimonial ${idx + 1}`}
-                                    className='h-64 overflow-hidden object-cover -100 relative z-[50]'
+                                    className='h-64 w-full md:w-auto overflow-hidden object-cover -100 relative z-[50]'
                                     onError={(e) => {
                                         const target = e.target as HTMLImageElement;
                                         target.src = `/placeholder.webp`;
                                     }}
                                 />
-                                <h2 className='text-2xl font-semibold mt-6 '>{slide.fullName}</h2>
+                                <h2 className='md:text-2xl text-xl font-semibold  mt-3 md:mt-6 '>{slide.fullName}</h2>
                                 <div className="flex gap-1 mt-2 items-center justify-center">
                                     {[...Array(5)].map((_, i) => {
                                         return <div className=" size-3 lg:size-4 bg-[#199143] rounded-full"></div>
                                     })}
                                 </div>
-                                <p className='mt-8 px-4 text-lg line-clamp-3 text-justify' dangerouslySetInnerHTML={{ __html: slide.comment || "" }}></p>
+                                <p className='mt-6 leading-tight  md:pb-0 md:mt-8 px-4 text-lg line-clamp-3 md:text-justify' dangerouslySetInnerHTML={{ __html: slide.comment || "" }}></p>
                             </div>
                         </div>
                     ))}

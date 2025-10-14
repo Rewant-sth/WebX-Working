@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { experts } from "@/static/expert";
+import ExpertCard from "./expertSlider";
 
 const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
@@ -674,7 +675,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
                     <div className="mt-4 bg-orange-200 p-4">
                       <div className="flex justify-between items-center border-b pb-2 border-orange-500">
                         <h2 className="font-semibold text-orange-500">Group Size</h2>
-                        <h2 className="font-semibold text-orange-500">Discount</h2>
+                        <h2 className="font-semibold text-orange-500">Price/Per Person</h2>
                       </div>
                       {data.pax
                         .sort((a, b) => a.sortOrder - b.sortOrder)
@@ -697,7 +698,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
                               <div className="w-full border border-orange-500 border-dashed"></div>
                               <div className="text-right shrink-0">
                                 <div className="font-semibold ">
-                                  {paxItem.discount} % Off
+                                  USD {paxItem.discount}
                                 </div>
                                 {/* <div className="text-xs text-gray-500">per person</div> */}
                               </div>
@@ -810,90 +811,8 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
         </div>
 
         {/* Talk to Expert Section - Slider */}
-        <div className="border-t py-4 md:py-6 rounded-sm bg-orange-100 border-gray-200">
-          <h3 className="text-xl uppercase font-bold text-center mb-4" style={{ color: '#3A3A3A' }}>
-            Talk To Expert
-          </h3>
-
-          <Swiper
-            modules={[Autoplay, Navigation, Pagination]}
-            spaceBetween={20}
-            slidesPerView={1}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-
-            loop={experts.length > 1}
-            className="expert-swiper"
-          >
-            {experts.map((expert, index) => (
-              <SwiperSlide key={index}>
-                <div className="px-8 ">
-                  <div className="size-20 lg:size-28 rounded-full flex justify-center items-center overflow-hidden mx-auto bg-black relative mb-4">
-                    <Image
-                      src={expert.image}
-                      fill
-                      alt={expert.name}
-                      className="object-cover object-center"
-                    />
-                  </div>
-
-                  <h2 className="text-center text-xl font-semibold mb-4">
-                    {expert.name}
-                  </h2>
-
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-3">
-                      <Link href={`tel:${expert.phone}`}>
-                        <Icon
-                          icon="mingcute:phone-fill"
-                          width="24"
-                          height="24"
-                          style={{ color: '#f05e25' }}
-                        />
-                      </Link>
-                      <Link href={expert.instagram} target="_blank" rel="noopener noreferrer">
-                        <Icon
-                          icon="skill-icons:instagram"
-                          width="24"
-                          height="24"
-                        />
-                      </Link>
-                      <Link href={expert.facebook} target="_blank" rel="noopener noreferrer">
-                        <Icon
-                          icon="logos:facebook"
-                          width="24"
-                          height="24"
-                        />
-                      </Link>
-                      <Link href={`mailto:${expert.email}`}>
-                        <Icon
-                          icon="skill-icons:gmail-light"
-                          width="28"
-                          height="28"
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          <style jsx global>{`
-          .expert-swiper .swiper-pagination {
-            position: relative;
-            margin-top: 1rem;
-          }
-          .expert-swiper .swiper-pagination-bullet {
-            background: #ccc;
-            opacity: 1;
-          }
-          .expert-swiper .swiper-pagination-bullet-active {
-            background: #f05e25;
-          }
-        `}</style>
+        <div className="">
+          <ExpertCard />
         </div>
       </div>
 

@@ -49,29 +49,30 @@ export default function QuickInfo() {
         </div>
 
         {/* Right Side Custom Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  lg:mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div key={idx} className="lg:col-span-3 relative border border-gray-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 md:gap-6 grid lg:grid-cols-2  w-full">
+              <div key={idx} className="lg:col-span-3 relative border border-gray-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 lg:gap-6 grid lg:grid-cols-2  w-full">
                 <div className="w-full lg:h-full h-[40dvh]  relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover object-center" />
                 </div>
-                <div className="flex flex-col justify-center p-4">
+                <div className="flex flex-col lg:justify-center lg:p-4">
                   <div className="">
-                    <h2 className="text-xl lg:text-2xl md:text-3xl font-semibold">{data?.title}</h2>
-                    <p className="md:text-xl  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
+                    <h2 className="text-xl lg:text-2xl md:text-xl font-semibold">{data?.title}</h2>
+                    <p className="md:text-lg hidden lg:block  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
                   </div>
 
-                  <div className="flex pt-10 justify-between">
+                  <div className="flex lg:pt-10 justify-between">
                     <div className="">
-                      <h2 className="uppercase font-semibold">Author</h2>
-                      <p className="  mt-1">{data?.author}</p>
+                      <h2 className="uppercase hidden lg:block font-semibold">Author</h2>
+                      <p className="  lg:mt-1">{data?.author}</p>
                     </div>
 
                     <div className="">
                       <Link href={`/blogs/${data?.slug}`} className="flex items-center gap-3 cursor-pointer">
-                        <div className="w-12 h-12 rounded-full border flex items-center justify-center border-gray-900">
-                          <Play size={22} className="text-gray-900" />
+                        <div className="size-7 lg:size-12 rounded-full border flex items-center justify-center border-gray-900">
+                          <Play size={22} className="text-gray-900 hidden md:block" />
+                          <Play size={11} className="text-gray-900 block md:hidden" />
                         </div>
                         <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
                           READ MORE

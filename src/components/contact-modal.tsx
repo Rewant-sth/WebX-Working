@@ -27,6 +27,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
     const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
     const [selectedBudget, setSelectedBudget] = useState<string>('');
     const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(null);
+    const [selectedCountryCode, setSelectedCountryCode] = useState<CountryCodeOption | null>({ value: '+977', label: '+977 (Nepal)', flag: '🇳🇵' });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSubmitted, setIsSubmitted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -99,8 +100,13 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
         e.preventDefault();
         if (!validateForm()) return;
 
+        const phoneWithCode = selectedCountryCode
+            ? `${selectedCountryCode.value}${formData.number}`
+            : formData.number;
+
         const submitData = {
             ...formData,
+            number: phoneWithCode,
             goal: selectedGoals.join(', '),
             budget: selectedBudget,
             country: selectedCountry?.label || formData.country || ''
@@ -212,16 +218,38 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     <label htmlFor="phone-input" className="block text-sm font-medium mb-2">
                                                         Phone Number
                                                     </label>
-                                                    <div className="relative  rounded-sm overflow-hidden">
-                                                        <input
-                                                            id="phone-input"
-                                                            type="tel"
-                                                            placeholder="Phone number"
-                                                            value={formData.number}
-                                                            onChange={(e) => handleInputChange('number', e.target.value, e)}
-                                                            className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-sm focus:outline-none transition-all ${errors.number ? 'border-red-400' : ''
-                                                                }`}
-                                                        />
+                                                    <div className="flex gap-2">
+                                                        <div className="w-[100px] flex-shrink-0">
+                                                            <Select
+                                                                instanceId="country-code-select"
+                                                                placeholder="+977"
+                                                                options={countryCodeOptions}
+                                                                value={selectedCountryCode}
+                                                                isClearable={false}
+                                                                isSearchable
+                                                                onChange={(opt: SingleValue<CountryCodeOption>) => {
+                                                                    setSelectedCountryCode(opt ?? null);
+                                                                }}
+                                                                styles={countryCodeSelectStyles}
+                                                                classNamePrefix="rh-code"
+                                                                formatOptionLabel={(option) => (
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span>{option.value}</span>
+                                                                    </div>
+                                                                )}
+                                                            />
+                                                        </div>
+                                                        <div className="relative flex-1 rounded-sm overflow-hidden">
+                                                            <input
+                                                                id="phone-input"
+                                                                type="tel"
+                                                                placeholder="Phone number"
+                                                                value={formData.number}
+                                                                onChange={(e) => handleInputChange('number', e.target.value, e)}
+                                                                className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-sm focus:outline-none transition-all ${errors.number ? 'border-red-400' : ''
+                                                                    }`}
+                                                            />
+                                                        </div>
                                                     </div>
                                                     {errors.number && (
                                                         <motion.p
@@ -363,8 +391,9 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     setSelectedGoals([]);
                                                     setSelectedBudget('');
                                                     setSelectedCountry(null);
+                                                    setSelectedCountryCode({ value: '+977', label: '+977 (Nepal)', flag: '🇳🇵' });
                                                 }}
-                                                className="px-6 py-2  border border-black/[0.15] rounded-sm bg-orange-500 text-white  hover:bg-white/[0.12] transition-all"
+                                                className="px-6 py-2  border border-black/[0.15] rounded-sm bg-orange-500 text-white   transition-all"
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
                                             >
@@ -385,6 +414,116 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
 
 // Types and data for react-select (countries)
 type CountryOption = { value: string; label: string };
+type CountryCodeOption = { value: string; label: string; flag: string };
+
+const countryCodeOptions: CountryCodeOption[] = [
+    { value: '+93', label: '+93 (Afghanistan)', flag: '🇦🇫' },
+    { value: '+355', label: '+355 (Albania)', flag: '🇦🇱' },
+    { value: '+213', label: '+213 (Algeria)', flag: '🇩🇿' },
+    { value: '+1684', label: '+1684 (American Samoa)', flag: '🇦🇸' },
+    { value: '+376', label: '+376 (Andorra)', flag: '🇦🇩' },
+    { value: '+244', label: '+244 (Angola)', flag: '🇦🇴' },
+    { value: '+54', label: '+54 (Argentina)', flag: '🇦🇷' },
+    { value: '+374', label: '+374 (Armenia)', flag: '🇦🇲' },
+    { value: '+61', label: '+61 (Australia)', flag: '🇦🇺' },
+    { value: '+43', label: '+43 (Austria)', flag: '🇦🇹' },
+    { value: '+994', label: '+994 (Azerbaijan)', flag: '🇦🇿' },
+    { value: '+880', label: '+880 (Bangladesh)', flag: '🇧🇩' },
+    { value: '+375', label: '+375 (Belarus)', flag: '🇧🇾' },
+    { value: '+32', label: '+32 (Belgium)', flag: '🇧🇪' },
+    { value: '+975', label: '+975 (Bhutan)', flag: '🇧🇹' },
+    { value: '+591', label: '+591 (Bolivia)', flag: '🇧🇴' },
+    { value: '+387', label: '+387 (Bosnia and Herzegovina)', flag: '🇧🇦' },
+    { value: '+55', label: '+55 (Brazil)', flag: '🇧🇷' },
+    { value: '+359', label: '+359 (Bulgaria)', flag: '🇧🇬' },
+    { value: '+855', label: '+855 (Cambodia)', flag: '🇰🇭' },
+    { value: '+1', label: '+1 (Canada)', flag: '🇨🇦' },
+    { value: '+56', label: '+56 (Chile)', flag: '🇨🇱' },
+    { value: '+86', label: '+86 (China)', flag: '🇨🇳' },
+    { value: '+57', label: '+57 (Colombia)', flag: '🇨🇴' },
+    { value: '+506', label: '+506 (Costa Rica)', flag: '🇨🇷' },
+    { value: '+385', label: '+385 (Croatia)', flag: '🇭🇷' },
+    { value: '+53', label: '+53 (Cuba)', flag: '🇨🇺' },
+    { value: '+357', label: '+357 (Cyprus)', flag: '🇨🇾' },
+    { value: '+420', label: '+420 (Czechia)', flag: '🇨🇿' },
+    { value: '+45', label: '+45 (Denmark)', flag: '🇩🇰' },
+    { value: '+1809', label: '+1809 (Dominican Republic)', flag: '🇩🇴' },
+    { value: '+593', label: '+593 (Ecuador)', flag: '🇪🇨' },
+    { value: '+20', label: '+20 (Egypt)', flag: '🇪🇬' },
+    { value: '+503', label: '+503 (El Salvador)', flag: '🇸🇻' },
+    { value: '+372', label: '+372 (Estonia)', flag: '🇪🇪' },
+    { value: '+251', label: '+251 (Ethiopia)', flag: '🇪🇹' },
+    { value: '+358', label: '+358 (Finland)', flag: '🇫🇮' },
+    { value: '+33', label: '+33 (France)', flag: '🇫🇷' },
+    { value: '+995', label: '+995 (Georgia)', flag: '🇬🇪' },
+    { value: '+49', label: '+49 (Germany)', flag: '🇩🇪' },
+    { value: '+233', label: '+233 (Ghana)', flag: '🇬🇭' },
+    { value: '+30', label: '+30 (Greece)', flag: '🇬🇷' },
+    { value: '+852', label: '+852 (Hong Kong)', flag: '🇭🇰' },
+    { value: '+36', label: '+36 (Hungary)', flag: '🇭🇺' },
+    { value: '+354', label: '+354 (Iceland)', flag: '🇮🇸' },
+    { value: '+91', label: '+91 (India)', flag: '🇮🇳' },
+    { value: '+62', label: '+62 (Indonesia)', flag: '🇮🇩' },
+    { value: '+98', label: '+98 (Iran)', flag: '🇮🇷' },
+    { value: '+964', label: '+964 (Iraq)', flag: '🇮🇶' },
+    { value: '+353', label: '+353 (Ireland)', flag: '🇮🇪' },
+    { value: '+972', label: '+972 (Israel)', flag: '🇮🇱' },
+    { value: '+39', label: '+39 (Italy)', flag: '🇮🇹' },
+    { value: '+81', label: '+81 (Japan)', flag: '🇯🇵' },
+    { value: '+962', label: '+962 (Jordan)', flag: '🇯🇴' },
+    { value: '+7', label: '+7 (Kazakhstan)', flag: '🇰🇿' },
+    { value: '+254', label: '+254 (Kenya)', flag: '🇰🇪' },
+    { value: '+965', label: '+965 (Kuwait)', flag: '🇰🇼' },
+    { value: '+856', label: '+856 (Laos)', flag: '🇱🇦' },
+    { value: '+371', label: '+371 (Latvia)', flag: '🇱🇻' },
+    { value: '+961', label: '+961 (Lebanon)', flag: '🇱🇧' },
+    { value: '+370', label: '+370 (Lithuania)', flag: '🇱🇹' },
+    { value: '+352', label: '+352 (Luxembourg)', flag: '🇱🇺' },
+    { value: '+60', label: '+60 (Malaysia)', flag: '🇲🇾' },
+    { value: '+960', label: '+960 (Maldives)', flag: '🇲🇻' },
+    { value: '+356', label: '+356 (Malta)', flag: '🇲🇹' },
+    { value: '+52', label: '+52 (Mexico)', flag: '🇲🇽' },
+    { value: '+373', label: '+373 (Moldova)', flag: '🇲🇩' },
+    { value: '+377', label: '+377 (Monaco)', flag: '🇲🇨' },
+    { value: '+976', label: '+976 (Mongolia)', flag: '🇲🇳' },
+    { value: '+212', label: '+212 (Morocco)', flag: '🇲🇦' },
+    { value: '+95', label: '+95 (Myanmar)', flag: '🇲🇲' },
+    { value: '+977', label: '+977 (Nepal)', flag: '🇳🇵' },
+    { value: '+31', label: '+31 (Netherlands)', flag: '🇳🇱' },
+    { value: '+64', label: '+64 (New Zealand)', flag: '🇳🇿' },
+    { value: '+234', label: '+234 (Nigeria)', flag: '🇳🇬' },
+    { value: '+47', label: '+47 (Norway)', flag: '🇳🇴' },
+    { value: '+968', label: '+968 (Oman)', flag: '🇴🇲' },
+    { value: '+92', label: '+92 (Pakistan)', flag: '🇵🇰' },
+    { value: '+507', label: '+507 (Panama)', flag: '🇵🇦' },
+    { value: '+51', label: '+51 (Peru)', flag: '🇵🇪' },
+    { value: '+63', label: '+63 (Philippines)', flag: '🇵🇭' },
+    { value: '+48', label: '+48 (Poland)', flag: '🇵🇱' },
+    { value: '+351', label: '+351 (Portugal)', flag: '🇵🇹' },
+    { value: '+974', label: '+974 (Qatar)', flag: '🇶🇦' },
+    { value: '+40', label: '+40 (Romania)', flag: '🇷🇴' },
+    { value: '+7', label: '+7 (Russia)', flag: '🇷🇺' },
+    { value: '+966', label: '+966 (Saudi Arabia)', flag: '🇸🇦' },
+    { value: '+381', label: '+381 (Serbia)', flag: '🇷🇸' },
+    { value: '+65', label: '+65 (Singapore)', flag: '🇸🇬' },
+    { value: '+421', label: '+421 (Slovakia)', flag: '🇸🇰' },
+    { value: '+386', label: '+386 (Slovenia)', flag: '🇸🇮' },
+    { value: '+27', label: '+27 (South Africa)', flag: '🇿🇦' },
+    { value: '+82', label: '+82 (South Korea)', flag: '🇰🇷' },
+    { value: '+34', label: '+34 (Spain)', flag: '🇪🇸' },
+    { value: '+94', label: '+94 (Sri Lanka)', flag: '🇱🇰' },
+    { value: '+46', label: '+46 (Sweden)', flag: '🇸🇪' },
+    { value: '+41', label: '+41 (Switzerland)', flag: '🇨🇭' },
+    { value: '+886', label: '+886 (Taiwan)', flag: '🇹🇼' },
+    { value: '+66', label: '+66 (Thailand)', flag: '🇹🇭' },
+    { value: '+90', label: '+90 (Türkiye)', flag: '🇹🇷' },
+    { value: '+380', label: '+380 (Ukraine)', flag: '🇺🇦' },
+    { value: '+971', label: '+971 (United Arab Emirates)', flag: '🇦🇪' },
+    { value: '+44', label: '+44 (United Kingdom)', flag: '🇬🇧' },
+    { value: '+1', label: '+1 (United States)', flag: '🇺🇸' },
+    { value: '+84', label: '+84 (Vietnam)', flag: '🇻🇳' }
+];
+
 
 const countryOptions: CountryOption[] = [
     { value: 'AF', label: 'Afghanistan' },
@@ -507,4 +646,22 @@ const reactSelectStyles: StylesConfig<CountryOption, false> = {
     valueContainer: (base) => ({ ...base, paddingLeft: '0.75rem' }),
     indicatorsContainer: (base) => ({ ...base, paddingRight: '0.5rem' }),
     placeholder: (base) => ({ ...base, color: '#6b7280' })
+};
+
+// Styles for country code select (more compact)
+const countryCodeSelectStyles: StylesConfig<CountryCodeOption, false> = {
+    control: (base, state) => ({
+        ...base,
+        border: `1px solid ${state.isFocused ? '#f97316' : '#01283F'}`,
+        boxShadow: 'none',
+        borderRadius: '0.125rem',
+        paddingTop: '0.25rem',
+        paddingBottom: '0.25rem',
+        minHeight: '38px'
+    }),
+    valueContainer: (base) => ({ ...base, paddingLeft: '0.5rem' }),
+    indicatorsContainer: (base) => ({ ...base, paddingRight: '0.25rem' }),
+    placeholder: (base) => ({ ...base, color: '#6b7280' }),
+    menu: (base) => ({ ...base, zIndex: 9999 }),
+    option: (base) => ({ ...base, fontSize: '0.875rem' })
 };
