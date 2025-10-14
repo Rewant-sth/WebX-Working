@@ -71,7 +71,7 @@ export default function ExpertCard() {
 
     if (!(expertData.length > 2)) {
         return (
-            <div className="hidden md:block bg-orange-100 rounded-2xl shadow-md p-6 w-full max-w-2xl mx-auto text-center">
+            <div className=" bg-orange-100 rounded-2xl shadow-md p-6 w-full max-w-2xl mx-auto text-center">
                 <h3 className="text-xl font-bold text-zinc-900 mb-4">Speak to an Expert</h3>
 
                 {/* Carousel */}

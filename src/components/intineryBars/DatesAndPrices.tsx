@@ -705,7 +705,7 @@ const DatesAndPrices = ({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 max-w-4xl lg:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 max-w-4xl md:grid-cols-2 gap-6 mb-8">
               <Calendar
                 month={firstMonth}
                 year={firstYear}

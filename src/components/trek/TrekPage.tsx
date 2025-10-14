@@ -95,7 +95,7 @@ function TrekPage() {
   if (error) {
     return (
       <section className="h-full space-y-3 py-12 md:mt-28 max-w-7xl mx-auto  relative">
-         <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+        <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
           The Ultimate Himalayan <span className="bg-orange-500  px-2 text-white">Trekking</span>
         </h2>
         <p className="text-lg max-w-xl text-center mx-auto text-red-600">
@@ -111,9 +111,9 @@ function TrekPage() {
     >
       <div className="md:flex justify-between  items-center mb-6">
         <div className="text-center flex-1">
-           <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
-          The Ultimate Himalayan <span className="bg-orange-500  px-2 text-white">Trekking</span>
-        </h2>
+          <h2 className="text-2xl max-w-7xl mx-auto leading-snug md:text-4xl text-center font-semibold uppercase">
+            The Ultimate Himalayan <span className="bg-orange-500  px-2 text-white">Trekking</span>
+          </h2>
           <p className="text-lg max-w-4xl mx-auto mt-2">
             Adventures designed to challenge your spirit and create memories that stay with you for a lifetime.
           </p>
@@ -145,7 +145,7 @@ function TrekPage() {
             expeditionPackages.map((pkg, index) => (
               <div
                 key={pkg._id || index}
-                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:pr-[0.5rem]"
+                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 pr-[0.5rem]"
               >
                 <Link key={pkg._id || index} href={`/itinerary/${pkg.slug}`}>
 

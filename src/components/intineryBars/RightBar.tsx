@@ -2,18 +2,13 @@
 
 import { useState, useRef } from "react";
 import { ITravelPackage } from "@/types/IPackages";
-import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { experts } from "@/static/expert";
 import ExpertCard from "./expertSlider";
 
-const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
+const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
@@ -626,9 +621,9 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
 
   return (
     <>
-      <div className=" hidden lg:block rounded-sm  space-y-4  sticky  h-full">
+      <div className="  rounded-sm md:grid md:grid-cols-2 gap-4 lg:gap-0 lg:grid-cols-1  space-y-4  lg:sticky  h-full">
 
-        <div className="bg-orange-100 rounded-2xl shadow">
+        <div className="md:bg-orange-100 md:rounded-2xl md:shadow">
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-200" >
             {data?.name && (
@@ -811,7 +806,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
         </div>
 
         {/* Talk to Expert Section - Slider */}
-        <div className="">
+        <div className="px-4 md:px-0">
           <ExpertCard />
         </div>
       </div>

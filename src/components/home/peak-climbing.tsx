@@ -145,7 +145,7 @@ function PeaKClimbing() {
                         expeditionPackages.map((pkg, index) => (
                             <div
                                 key={pkg._id || index}
-                                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:pr-[0.5rem]"
+                                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 pr-[0.5rem]"
                             >
                                 <Link key={pkg._id || index} href={`/itinerary/${pkg.slug}`}>
 

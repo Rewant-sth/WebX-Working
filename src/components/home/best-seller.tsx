@@ -137,7 +137,7 @@ function BestSeller() {
                         bestSellingPackage.map((pkg, index) => (
                             <div
                                 key={pkg._id}
-                                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 sm:pr-[0.5rem]"
+                                className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 pr-[0.5rem]"
                             // style={{ paddingRight: '0.5rem' }}
                             >
                                 <Link key={pkg.slug || pkg._id} href={`/itinerary/${pkg.slug}`}>

@@ -162,6 +162,8 @@ const Page = () => {
                   </div>
                 </div>
 
+
+
                 <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
                   {/* Left Sidebar - Scroll Tracker */}
@@ -174,6 +176,14 @@ const Page = () => {
                   {/* Mobile Scroll Tracker - Sticky Top */}
                   <div className="lg:hidden sticky top-0 z-[99999]">
                     <ScrollTracker data={packageData?.data as ITravelPackage} />
+                  </div>
+
+                  <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
+                    <RightBar
+                      onShowContact={() => setShowContactModal(true)}
+                      onShowBooking={handleOpenBookingModal}
+                      data={packageData?.data}
+                    />
                   </div>
 
                   {/* Center Content */}
@@ -274,7 +284,7 @@ const Page = () => {
                   </div>
 
                   {/* Right Sidebar */}
-                  <div className="w-[25%] shrink-0">
+                  <div className="hidden lg:block w-[25%] shrink-0">
                     <div className="lg:sticky top-20 ">
                       <RightBar
                         onShowContact={() => setShowContactModal(true)}
