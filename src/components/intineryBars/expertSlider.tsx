@@ -89,7 +89,7 @@ export default function ExpertCard() {
                             <div
                                 key={`${expert.id}`}
                                 onClick={() => setCurrentIndex(i)}
-                                className={`relative cursor-pointer  ${i == currentIndex ? "z-[999]" : "z-10"}`}
+                                className={`relative cursor-pointer  ${i == currentIndex ? "z-[999] scale-125" : "z-10"}`}
                             >
                                 <img
                                     src={expert.image}

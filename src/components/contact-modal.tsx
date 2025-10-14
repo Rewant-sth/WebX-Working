@@ -120,7 +120,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
 
 
     return (
-        <section className="absolute z-[999999]  backdrop-blur-md inset-0 h-full bg-black/40   min-h-screen w-full lg:flex justify-center items-center ">
+        <section className="backdrop-blur-md inset-0 h-full bg-black/40   min-h-screen w-full lg:flex justify-center items-center ">
             <div className="w-full h-full  relative">
 
                 <div className="lg:sticky top-4 lg:top-8 relative   w-full  ">
@@ -138,7 +138,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
 
                             {/* Contact Form */}
                             <div
-                                className="space-y-8 col-span-2 w-full   rounded-sm  p-4 md:p-6"
+                                className="space-y-8 col-span-2 w-full   rounded-[2px]  p-4 md:p-6"
                             >
 
 
@@ -165,14 +165,14 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     <label htmlFor="name-input" className="block text-sm font-medium mb-2">
                                                         Your Name
                                                     </label>
-                                                    <div className="relative  rounded-sm overflow-hidden">
+                                                    <div className="relative  rounded-[2px] overflow-hidden">
                                                         <input
                                                             id="name-input"
                                                             type="text"
                                                             placeholder="Your Name"
                                                             value={formData.name}
                                                             onChange={(e) => handleInputChange('name', e.target.value, e)}
-                                                            className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-sm focus:outline-none transition-all ${errors.name ? 'border-red-400' : ''
+                                                            className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-[2px] focus:outline-none transition-all ${errors.name ? 'border-red-400' : ''
                                                                 }`}
                                                         />
                                                     </div>
@@ -191,7 +191,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     <label htmlFor="email-input" className="block text-sm font-medium mb-2">
                                                         Email Address
                                                     </label>
-                                                    <div className="relative  rounded-sm overflow-hidden">
+                                                    <div className="relative  rounded-[2px] overflow-hidden">
 
                                                         <input
                                                             id="email-input"
@@ -199,7 +199,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                             placeholder="Email Address"
                                                             value={formData.email}
                                                             onChange={(e) => handleInputChange('email', e.target.value, e)}
-                                                            className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-sm focus:outline-none transition-all ${errors.email ? 'border-red-400' : ''
+                                                            className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-[2px] focus:outline-none transition-all ${errors.email ? 'border-red-400' : ''
                                                                 }`}
                                                         />
                                                     </div>
@@ -218,8 +218,8 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     <label htmlFor="phone-input" className="block text-sm font-medium mb-2">
                                                         Phone Number
                                                     </label>
-                                                    <div className="flex gap-2">
-                                                        <div className="w-[100px] flex-shrink-0">
+                                                    <div className="flex gap-1">
+                                                        <div className="w-[100px]  flex-shrink-0">
                                                             <Select
                                                                 instanceId="country-code-select"
                                                                 placeholder="+977"
@@ -232,6 +232,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                                 }}
                                                                 styles={countryCodeSelectStyles}
                                                                 classNamePrefix="rh-code"
+                                                                className='!rounded-xl'
                                                                 formatOptionLabel={(option) => (
                                                                     <div className="flex items-center gap-2">
                                                                         <span>{option.value}</span>
@@ -239,14 +240,14 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                                 )}
                                                             />
                                                         </div>
-                                                        <div className="relative flex-1 rounded-sm overflow-hidden">
+                                                        <div className="relative flex-1 rounded-[2px] overflow-hidden">
                                                             <input
                                                                 id="phone-input"
                                                                 type="tel"
                                                                 placeholder="Phone number"
                                                                 value={formData.number}
                                                                 onChange={(e) => handleInputChange('number', e.target.value, e)}
-                                                                className={`w-full px-3 py-2 focus:border-orange-500 border border-[#01283F] rounded-sm focus:outline-none transition-all ${errors.number ? 'border-red-400' : ''
+                                                                className={`w-full px-3 py-2.5 focus:border-orange-500 border border-[#01283F]  rounded-[2px] focus:outline-none transition-all ${errors.number ? 'border-red-400' : ''
                                                                     }`}
                                                             />
                                                         </div>
@@ -302,7 +303,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                 <label htmlFor="message-input" className="block text-sm font-medium mb-2">
                                                     Your Message
                                                 </label>
-                                                <div className="relative  rounded-sm overflow-hidden">
+                                                <div className="relative  rounded-[2px] overflow-hidden">
                                                     <textarea
                                                         id="message-input"
                                                         placeholder="Tell us about your enquiry..."
@@ -315,7 +316,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                             e.target.style.height = 'auto';
                                                             e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows
                                                         }}
-                                                        className={`w-full px-3 py-2 active:border-orange-500 border border-[#01283F] rounded-sm focus:outline-none transition-all resize-none overflow-hidden ${errors.message ? 'border-red-400' : ''
+                                                        className={`w-full px-3 py-2 active:border-orange-500 border border-[#01283F] rounded-[2px] focus:outline-none transition-all resize-none overflow-hidden ${errors.message ? 'border-red-400' : ''
                                                             }`}
                                                         style={{ minHeight: '120px' }}
                                                     />
@@ -337,7 +338,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     title='Send Message'
                                                     aria-label='Send Message'
                                                     disabled={isPending}
-                                                    className="w-fit  bg-[#F05E25]/80 hover:bg-[#F05E25] text-white relative group sm:border overflow-hidden   font-medium py-2 px-6 rounded-sm transition-all disabled:opacity-50"
+                                                    className="w-fit  bg-[#F05E25]/80 hover:bg-[#F05E25] text-white relative group sm:border overflow-hidden   font-medium py-2 px-6 rounded-[2px] transition-all disabled:opacity-50"
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                 >
@@ -370,7 +371,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                             key="success"
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            className="text- py-8 rounded-sm flex flex-col justify-center items-center w-full   text-center"
+                                            className="text- py-8 rounded-[2px] flex flex-col justify-center items-center w-full   text-center"
                                         >
                                             <motion.div
                                                 className="w-20 h-20 rounded-full bg-green-500/20 border border-green-400/30 mx-auto flex items-center justify-center  mb-6"
@@ -393,7 +394,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                     setSelectedCountry(null);
                                                     setSelectedCountryCode({ value: '+977', label: '+977 (Nepal)', flag: '🇳🇵' });
                                                 }}
-                                                className="px-6 py-2  border border-black/[0.15] rounded-sm bg-orange-500 text-white   transition-all"
+                                                className="px-6 py-2  border border-black/[0.15] rounded-[2px] bg-orange-500 text-white   transition-all"
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
                                             >

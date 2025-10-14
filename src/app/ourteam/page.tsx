@@ -54,7 +54,7 @@ const OurTeam: React.FC = () => {
                               )}
                               {member.twitter && (
                                 <Link href={member.twitter} target="_blank" rel="noopener noreferrer">
-                                  <Icon icon="arcticons:x-twitter" className="size-6 text-white" />
+                                  <Icon icon="streamline-logos:x-twitter-logo-block" className="size-6 text-white" />
                                 </Link>
                               )}
                               {member.instagram && (
@@ -108,7 +108,7 @@ const OurTeam: React.FC = () => {
                   <div key={member._id} className="h-[60dvh] w-full  rounded-sm relative group overflow-hidden">
                     <Image src={member.image} fill alt={member.name} className="object-cover object-top -100 group-hover:-0 group-hover:scale-105 transition-all duration-300" />
                     <div className="absolute flex w-full items-end inset-0 bg-black/10">
-                      <div className="flex p-6 w-full justify-between  items-end">
+                      <div className="flex px-6 w-full justify-between  items-end">
                         <div className=" text-white flex w-full justify-end gap-6 flex-col h-full">
                           <div className="">
                             <h2 className="text-2xl uppercase font-semibold">{member.name}</h2>
@@ -123,7 +123,7 @@ const OurTeam: React.FC = () => {
                             )}
                             {member.twitter && (
                               <Link href={member.twitter} target="_blank" rel="noopener noreferrer">
-                                <Icon icon="arcticons:x-twitter" className="size-6 text-white" />
+                                <Icon icon="streamline-logos:x-twitter-logo-block" className="size-6 text-white" />
                               </Link>
                             )}
                             {member.instagram && (
@@ -133,7 +133,7 @@ const OurTeam: React.FC = () => {
                             )}
                             {member.linkedin && (
                               <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                                <Icon icon="logos:linkedin" className="size-6 text-white" />
+                                <Icon icon="devicon:linkedin" className="size-6 text-white" />
                               </Link>
                             )}
                           </div>

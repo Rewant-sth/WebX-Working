@@ -90,7 +90,8 @@ const Page = () => {
     if (showBookingModal) {
       if (footer) footer.style.display = "none";
       if (navbar) navbar.style.display = "none";
-    } else {
+    }
+    else {
       if (footer) footer.style.display = "";
       if (navbar) navbar.style.display = "";
     }
@@ -101,6 +102,26 @@ const Page = () => {
       if (navbar) navbar.style.display = "";
     };
   }, [showBookingModal]);
+
+  useEffect(() => {
+    const footer = document.getElementById("footer");
+    const navbar = document.getElementById("navbar");
+
+    if (showContactModal) {
+      if (footer) footer.style.display = "none";
+      if (navbar) navbar.style.display = "none";
+    }
+    else {
+      if (footer) footer.style.display = "";
+      if (navbar) navbar.style.display = "";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (footer) footer.style.display = "";
+      if (navbar) navbar.style.display = "";
+    };
+  }, [showContactModal]);
 
   const handleOpenBookingModal = () => {
     setIsBookingModalOpen(true);
@@ -131,186 +152,203 @@ const Page = () => {
           </div>
         </div>)
         : (
-          <div className="w-full relative h-full">
-            {showContactModal && <ContactModal onClose={() => setShowContactModal(false)} packageName={packageData?.data?.name || "Real Himalaya Package"} />}
-
-            {isLoading ? (
-              <SkeletonLoader />
+          <>
+            {showContactModal ? (
+              <div className="min-h-screen"
+                style={{
+                  backgroundImage: "url('/screenshot.png')",
+                  backgroundAttachment: "fixed",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "contain",
+                }}
+              >
+                <div className="h-full min-h-screen w-full bg-black/40 backdrop-blur-lg flex items-center justify-center ">
+                  <ContactModal onClose={() => setShowContactModal(false)} packageName={packageData?.data?.name || "Real Himalaya Package"} />
+                </div>
+              </div>
             ) : (
-              <>
-                <div ref={heroRef} className="relative h-[60dvh] sm:min-h-screen overflow-hidden  ">
-                  <div className="absolute bottom-0 right-0 z-[99] hidden md:flex justify-end items-end w-full h-full">
-                    <img src="/man2.png" alt="man" className="scale-110 lg:w-[60%]  translate-y-16 object-cover drop-shadow-black" />
-                  </div>
+              <div className="w-full relative h-full">
 
-                  {/* <Title data={packageData?.data as ITravelPackage} /> */}
-                  <div className="  z-[80]">
-                    {packageData?.data?.gallery?.length !== 0 && (
-                      <GalleryCarousel slides={packageData?.data?.gallery} />
-                    )}
-
-                    {packageData?.data?.gallery?.length === 0 && (
-                      <div className="h-dvh w-dvw relative">
-                        <Image
-                          src={"/EVEREST REGION/NIKOND50001920.JPG"}
-                          alt={`No images available`}
-                          fill
-                          className="object-cover object-top"
-                        />
+                {isLoading ? (
+                  <SkeletonLoader />
+                ) : (
+                  <>
+                    <div ref={heroRef} className="relative h-[60dvh] sm:min-h-screen overflow-hidden  ">
+                      <div className="absolute bottom-0 right-0 z-[99] hidden md:flex justify-end items-end w-full h-full">
+                        <img src="/man2.png" alt="man" className="scale-110 lg:w-[60%]  translate-y-16 object-cover drop-shadow-black" />
                       </div>
-                    )}
-                  </div>
-                </div>
 
+                      {/* <Title data={packageData?.data as ITravelPackage} /> */}
+                      <div className="  z-[80]">
+                        {packageData?.data?.gallery?.length !== 0 && (
+                          <GalleryCarousel slides={packageData?.data?.gallery} />
+                        )}
 
-
-                <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
-
-                  {/* Left Sidebar - Scroll Tracker */}
-                  <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
-                    <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
-                      <ScrollTracker data={packageData?.data as ITravelPackage} />
+                        {packageData?.data?.gallery?.length === 0 && (
+                          <div className="h-dvh w-dvw relative">
+                            <Image
+                              src={"/EVEREST REGION/NIKOND50001920.JPG"}
+                              alt={`No images available`}
+                              fill
+                              className="object-cover object-top"
+                            />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Mobile Scroll Tracker - Sticky Top */}
-                  <div className="lg:hidden sticky top-0 z-[99999]">
-                    <ScrollTracker data={packageData?.data as ITravelPackage} />
-                  </div>
 
-                  <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
-                    <RightBar
-                      onShowContact={() => setShowContactModal(true)}
-                      onShowBooking={handleOpenBookingModal}
-                      data={packageData?.data}
-                    />
-                  </div>
 
-                  {/* Center Content */}
-                  <div className="w-full lg:border-l border-zinc-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
-                    {packageData && <TripGlance data={packageData?.data} />}
+                    <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
-                    {packageData && <SeasonalInfo data={packageData.data} />}
+                      {/* Left Sidebar - Scroll Tracker */}
+                      <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
+                        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+                          <ScrollTracker data={packageData?.data as ITravelPackage} />
+                        </div>
+                      </div>
 
-                    {packageData?.data?.attraction.length ? (
-                      <MajorHighlight data={packageData?.data} />
-                    ) : null}
+                      {/* Mobile Scroll Tracker - Sticky Top */}
+                      <div className="lg:hidden sticky top-0 z-[99999]">
+                        <ScrollTracker data={packageData?.data as ITravelPackage} />
+                      </div>
 
-                    {/* add carousel here as well and have autoplay */}
-                    {packageData?.data?.gallery && packageData?.data?.gallery.length > 0 ? (
-                      <div className="h-[60dvh] w-full relative mb-14">
-                        <EmblaCarousel
-                          rounded
-                          className="h-full w-full"
-                          images={packageData.data.gallery.map((g: any) => ({
-                            src: g.imageUrl || "/placeholder.png",
-                            alt: g.caption || "Gallery image",
-                          }))}
-                          options={{ loop: true, align: "start" }}
+                      <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
+                        <RightBar
+                          onShowContact={() => setShowContactModal(true)}
+                          onShowBooking={handleOpenBookingModal}
+                          data={packageData?.data}
                         />
                       </div>
-                    ) : (
-                      <div className="h-[60dvh] w-full relative mb-14 rounded-sm overflow-hidden">
-                        <Image
-                          src={packageData?.data?.coverImage || "/placeholder.png"}
-                          alt="Manaslu"
-                          fill
-                          className="object-cover object-top"
+
+                      {/* Center Content */}
+                      <div className="w-full lg:border-l border-zinc-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
+                        {packageData && <TripGlance data={packageData?.data} />}
+
+                        {packageData && <SeasonalInfo data={packageData.data} />}
+
+                        {packageData?.data?.attraction.length ? (
+                          <MajorHighlight data={packageData?.data} />
+                        ) : null}
+
+                        {/* add carousel here as well and have autoplay */}
+                        {packageData?.data?.gallery && packageData?.data?.gallery.length > 0 ? (
+                          <div className="h-[60dvh] w-full relative mb-14">
+                            <EmblaCarousel
+                              rounded
+                              className="h-full w-full"
+                              images={packageData.data.gallery.map((g: any) => ({
+                                src: g.imageUrl || "/placeholder.png",
+                                alt: g.caption || "Gallery image",
+                              }))}
+                              options={{ loop: true, align: "start" }}
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-[60dvh] w-full relative mb-14 rounded-sm overflow-hidden">
+                            <Image
+                              src={packageData?.data?.coverImage || "/placeholder.png"}
+                              alt="Manaslu"
+                              fill
+                              className="object-cover object-top"
+                            />
+                          </div>
+                        )}
+
+                        {/* Overview Section */}
+                        <OverviewSection packageData={packageData?.data as ITravelPackage} />
+
+                        {/* <Places data={packageData} /> */}
+                        {/* <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} /> */}
+                        {packageData?.data?.itinerary.length ? (
+                          <Itinerary data={packageData?.data.itinerary} />
+                        ) : null}
+
+                        {packageData?.data.fixedDates?.length ? (
+                          <DatesAndPrices
+                            onShowBooking={handleOpenBookingModal}
+                            pkg={packageData.data}
+                            data={packageData?.data?.fixedDates}
+                            packageId={packageData?.data._id}
+                          />
+                        ) : null}
+
+                        {packageData?.data?.inclusion.length ? (
+                          <Cost data={packageData?.data} />
+                        ) : null}
+
+                        <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} />
+                        {packageData?.data?.requirements.length ? (
+                          <Requirements data={packageData?.data} />
+                        ) : null}
+
+
+                        {packageData?.data?.insurance.length ? (
+                          <Insurance data={packageData?.data} />
+                        ) : null}
+
+                        {/* <Divider images={packageData?.data?.gallery as IGallery[]} /> */}
+
+                        {packageData?.data?.gearInfo.length ? (
+                          <Gear data={packageData?.data} />
+                        ) : null}
+                        {packageData?.data?.whyLoveThisTrek.length ? (
+                          <WhyLoveThis data={packageData?.data} />
+                        ) : null}
+                        {packageData?.data?.importantNotice.length ? (
+                          <ImportantNotice data={packageData?.data} />
+                        ) : null}
+
+                        {packageData?.data?.faq.length ? (
+                          <Faq faq={packageData?.data?.faq} />
+                        ) : null}
+                        {packageData?.data?.testimonial.length ? (
+                          <TravellerReview
+                            data={packageData.data}
+                          />
+                        ) : null}
+                        {packageData?.data?.videos?.length ? (
+                          <VideoReview data={packageData?.data} />
+                        ) : null}
+                        <RelatedTrips
+                          packageId={packageData?.data?._id as string}
+                          category={packageData?.data?.categoryId?.slug as string}
+                          subCategory={packageData?.data?.subCategoryId?.slug as string}
                         />
+
                       </div>
-                    )}
 
-                    {/* Overview Section */}
-                    <OverviewSection packageData={packageData?.data as ITravelPackage} />
-
-                    {/* <Places data={packageData} /> */}
-                    {/* <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} /> */}
-                    {packageData?.data?.itinerary.length ? (
-                      <Itinerary data={packageData?.data.itinerary} />
-                    ) : null}
-
-                    {packageData?.data.fixedDates?.length ? (
-                      <DatesAndPrices
-                        onShowBooking={handleOpenBookingModal}
-                        pkg={packageData.data}
-                        data={packageData?.data?.fixedDates}
-                        packageId={packageData?.data._id}
-                      />
-                    ) : null}
-
-                    {packageData?.data?.inclusion.length ? (
-                      <Cost data={packageData?.data} />
-                    ) : null}
-
-                    <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} />
-                    {packageData?.data?.requirements.length ? (
-                      <Requirements data={packageData?.data} />
-                    ) : null}
-
-
-                    {packageData?.data?.insurance.length ? (
-                      <Insurance data={packageData?.data} />
-                    ) : null}
-
-                    {/* <Divider images={packageData?.data?.gallery as IGallery[]} /> */}
-
-                    {packageData?.data?.gearInfo.length ? (
-                      <Gear data={packageData?.data} />
-                    ) : null}
-                    {packageData?.data?.whyLoveThisTrek.length ? (
-                      <WhyLoveThis data={packageData?.data} />
-                    ) : null}
-                    {packageData?.data?.importantNotice.length ? (
-                      <ImportantNotice data={packageData?.data} />
-                    ) : null}
-
-                    {packageData?.data?.faq.length ? (
-                      <Faq faq={packageData?.data?.faq} />
-                    ) : null}
-                    {packageData?.data?.testimonial.length ? (
-                      <TravellerReview
-                        data={packageData.data}
-                      />
-                    ) : null}
-                    {packageData?.data?.videos?.length ? (
-                      <VideoReview data={packageData?.data} />
-                    ) : null}
-                    <RelatedTrips
-                      packageId={packageData?.data?._id as string}
-                      category={packageData?.data?.categoryId?.slug as string}
-                      subCategory={packageData?.data?.subCategoryId?.slug as string}
-                    />
-
-                  </div>
-
-                  {/* Right Sidebar */}
-                  <div className="hidden lg:block w-[25%] shrink-0">
-                    <div className="lg:sticky top-20 ">
-                      <RightBar
-                        onShowContact={() => setShowContactModal(true)}
-                        onShowBooking={handleOpenBookingModal}
-                        data={packageData?.data}
-                      />
+                      {/* Right Sidebar */}
+                      <div className="hidden lg:block w-[25%] shrink-0">
+                        <div className="lg:sticky top-20 ">
+                          <RightBar
+                            onShowContact={() => setShowContactModal(true)}
+                            onShowBooking={handleOpenBookingModal}
+                            data={packageData?.data}
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Route Map Modal */}
-                <RouteMapModal
-                  isVisible={isVisible}
-                  onClose={() => setIsVisible(false)}
-                  routeMap={packageData?.data?.routeMap}
-                />
+                    {/* Route Map Modal */}
+                    <RouteMapModal
+                      isVisible={isVisible}
+                      onClose={() => setIsVisible(false)}
+                      routeMap={packageData?.data?.routeMap}
+                    />
 
-                {/* Image Preview Modal */}
-                <ImagePreviewModal
-                  modalOpen={modalOpen}
-                  selectedImg={selectedImg}
-                  onClose={() => setModalOpen(false)}
-                />
-              </>
+                    {/* Image Preview Modal */}
+                    <ImagePreviewModal
+                      modalOpen={modalOpen}
+                      selectedImg={selectedImg}
+                      onClose={() => setModalOpen(false)}
+                    />
+                  </>
+                )}
+              </div>
             )}
-          </div>
+          </>
         )
       }
 

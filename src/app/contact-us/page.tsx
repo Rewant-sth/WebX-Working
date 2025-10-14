@@ -141,13 +141,14 @@ export default function PremiumContact() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div title='Your Name' aria-label='Your Name' className="relative">
-                      <div className="relative  rounded-sm overflow-hidden">
+                      <label htmlFor="name" className='text-lg  '>Full Name</label>
+                      <div className="relative mt-1  rounded-sm overflow-hidden">
                         <input
                           type="text"
                           placeholder="Your Name"
                           value={formData.name}
                           onChange={(e) => handleInputChange('name', e.target.value, e)}
-                          className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  p-3 bg-zinc-100 border border-gray-400 rounded-sm focus:border-orange-500 focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -163,14 +164,14 @@ export default function PremiumContact() {
                     </div>
 
                     <div title='Your Email' aria-label='Your Email' className="relative">
-                      <div className="relative  rounded-sm overflow-hidden">
-
+                      <label htmlFor="email" className='text-lg  '>Email Address</label>
+                      <div className="relative mt-1 rounded-sm overflow-hidden">
                         <input
                           type="email"
-                          placeholder="Email Address"
+                          placeholder="example@gmail.com"
                           value={formData.email}
                           onChange={(e) => handleInputChange('email', e.target.value, e)}
-                          className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  p-3 bg-zinc-100 border border-gray-400 rounded-sm focus:border-orange-500 focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -186,13 +187,16 @@ export default function PremiumContact() {
                     </div>
 
                     <div title='Your Phone Number' aria-label='Your Phone Number' className="relative">
-                      <div className="relative  rounded-sm overflow-hidden">
+                      <label htmlFor="name" className='text-lg  '>Full Name</label>
+
+                      <div className="relative mt-1  rounded-sm overflow-hidden">
+
                         <input
                           type="tel"
                           placeholder="Phone number"
                           value={formData.number}
                           onChange={(e) => handleInputChange('number', e.target.value, e)}
-                          className={`w-full  py-3 focus:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
+                          className={`w-full  p-3 bg-zinc-100 border border-gray-400 rounded-sm focus:border-orange-500 focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
                             }`}
                         />
                       </div>
@@ -208,10 +212,40 @@ export default function PremiumContact() {
                     </div>
                   </div>
 
+                  <div title='Your Message' aria-label='Your Message' className="relative ">
+                    <label htmlFor="email" className='text-lg  '>Email Address</label>
+                    <div className="relative mt-1 rounded-sm overflow-hidden">
+                      <textarea
+                        placeholder="Tell us about your enquiry..."
+                        rows={5}
+                        value={formData.message}
+                        minLength={20}
+                        onChange={(e) => {
+                          handleInputChange('message', e.target.value, e as any);
+                          // Auto-resize textarea
+                          e.target.style.height = 'auto';
+                          e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows
+                        }}
+                        className={`w-full  p-3 bg-zinc-100 border border-gray-400 rounded-sm focus:border-orange-500 focus:outline-none  transition-all ${errors.name ? 'border-red-400' : ''
+                          }`}
+                        style={{ minHeight: '120px' }}
+                      />
+                    </div>
+                    {errors.message && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-400 text-sm mt-2"
+                      >
+                        {errors.message}
+                      </motion.p>
+                    )}
+                  </div>
+
                   <div className="">
                     <div title='Your Goal' aria-label='Your Goal' className="relative  rounded-sm overflow-hidden">
-                      <h2 className='text-xl font-semibold mb-6'>Your Goal</h2>
-                      <div className="flex gap-5 items-center flex-wrap">
+                      <label htmlFor="email" className='text-lg  '>Your Goal</label>
+                      <div className="flex gap-5 lg:gap-x-7 mt-4 items-center flex-wrap">
 
                         <div className="flex gap-2 text-lg">
                           <label className="container border border-orange-500">
@@ -284,48 +318,32 @@ export default function PremiumContact() {
                           </label>
                           <label htmlFor="" className='shrink-0'>Volunteer projects</label>
                         </div>
+
+                        <div className="flex gap-2 text-lg">
+                          <label className="container border border-orange-500">
+                            <input
+                              type="checkbox"
+                              checked={selectedGoals.includes('Other')}
+                              onChange={() => handleGoalChange('Other')}
+                            />
+                            <div className="checkmark"></div>
+                          </label>
+                          <label htmlFor="" className='shrink-0'>Other</label>
+                        </div>
                       </div>
                     </div>
 
                   </div>
 
-                  <div title='Your Message' aria-label='Your Message' className="relative ">
 
-                    <div className="relative  rounded-sm overflow-hidden">
-                      <textarea
-                        placeholder="Tell us about your enquiry..."
-                        rows={5}
-                        value={formData.message}
-                        minLength={20}
-                        onChange={(e) => {
-                          handleInputChange('message', e.target.value, e as any);
-                          // Auto-resize textarea
-                          e.target.style.height = 'auto';
-                          e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows
-                        }}
-                        className={`w-full  py-3 active:border-orange-500  border-b border-[#01283F]    focus:outline-none  transition-all resize-none overflow-hidden ${errors.name ? 'border-red-400' : ''
-                          }`}
-                        style={{ minHeight: '120px' }}
-                      />
-                    </div>
-                    {errors.message && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-400 text-sm mt-2"
-                      >
-                        {errors.message}
-                      </motion.p>
-                    )}
-                  </div>
 
-                  <div className="flex justify-end text-[#01283F]">
+                  <div className="flex !pt-5 text-[#01283F]">
                     <motion.button
                       type="submit"
                       title='Send Message'
                       aria-label='Send Message'
                       disabled={isPending}
-                      className="w-fit  bg-white sm:bg-transparent relative group sm:border overflow-hidden   font-medium py-3 px-6 rounded-sm transition-all disabled:opacity-50"
+                      className="w-fit  bg-[#F97316] text-white relative group  overflow-hidden   font-medium py-3 px-6 rounded-sm transition-all disabled:opacity-50"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
