@@ -25,15 +25,15 @@ export const MusicControlExample: React.FC = () => {
     // Method 2: Getting state without hooks (useful for non-React contexts)
     const handleGetCurrentState = () => {
         const state = getMusicPlayerState();
-      
+
     };
 
     return (
-        <div className="p-4 border rounded-lg bg-gray-50">
+        <div className="p-4 border rounded-lg bg-zinc-50">
             <h3 className="text-lg font-semibold mb-4">Music Control Example</h3>
 
             <div className="space-y-2">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-zinc-600">
                     Status: {isPlaying ? 'Playing' : 'Paused'}
                 </p>
 
@@ -61,7 +61,7 @@ export const MusicControlExample: React.FC = () => {
 
                     <button
                         onClick={handleGetCurrentState}
-                        className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+                        className="px-3 py-1 bg-zinc-500 text-white rounded hover:bg-zinc-600"
                     >
                         Log State
                     </button>

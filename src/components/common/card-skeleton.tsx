@@ -4,9 +4,9 @@ export default function CardSkeleton({ idx }: { idx: number }) {
     return (
         <div
             key={idx}
-            className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm bg-white animate-pulse"
+            className="border border-zinc-200 rounded-2xl overflow-hidden shadow-sm bg-white animate-pulse"
         >
-            <div className="w-full aspect-video relative bg-gray-200">
+            <div className="w-full aspect-video relative bg-zinc-200">
                 {/* Price badge */}
                 <div className="absolute top-2 left-2 z-10 h-10 w-28 bg-white rounded-full"></div>
 
@@ -19,13 +19,13 @@ export default function CardSkeleton({ idx }: { idx: number }) {
             </div>
 
             <div className="p-4 space-y-4">
-                <div className="h-6 bg-gray-300 w-3/4 rounded"></div>
-                <div className="h-4 bg-gray-300 w-full rounded"></div>
-                <div className="h-4 bg-gray-300 w-5/6 rounded"></div>
+                <div className="h-6 bg-zinc-300 w-3/4 rounded"></div>
+                <div className="h-4 bg-zinc-300 w-full rounded"></div>
+                <div className="h-4 bg-zinc-300 w-5/6 rounded"></div>
 
                 <div className="flex gap-4 mt-6">
-                    <div className="h-10 w-32 bg-gray-300 rounded-sm"></div>
-                    <div className="h-10 w-24 bg-gray-300 rounded-sm"></div>
+                    <div className="h-10 w-32 bg-zinc-300 rounded-sm"></div>
+                    <div className="h-10 w-24 bg-zinc-300 rounded-sm"></div>
                 </div>
             </div>
         </div>

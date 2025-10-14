@@ -58,7 +58,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
   return (
     <>
-      <main className="bg-gray-50 min-h-screen">
+      <main className="bg-zinc-50 min-h-screen">
         {/* Hero Section with Banner */}
         <div className="relative">
           <div className="aspect-square md:aspect-[21/8] w-full overflow-hidden">
@@ -90,35 +90,35 @@ export default async function BlogPage({ params }: BlogPageProps) {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-zinc-900 leading-tight">
                 {data?.data?.title}
               </h1>
 
               {/* Description */}
               <div
                 id="editor" dangerouslySetInnerHTML={{ __html: data?.data?.description }}
-                className="text-xl text-gray-600 leading-relaxed mb-8 space-y-3"
+                className="text-xl text-zinc-600 leading-relaxed mb-8 space-y-3"
               />
 
               {/* Author & Meta Info */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-6  border-gray-200">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-6  border-zinc-200">
                 <div className="flex items-center space-x-4 mb-4 sm:mb-0">
                   <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm flex items-center justify-center">
                     <img src="/logo/logo.svg" alt="Real Himalaya" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 text-xl">REAL HIMALAYA</p>
-                    <p className="text-sm text-gray-500">Adventure Specialists</p>
+                    <p className="font-semibold text-zinc-900 text-xl">REAL HIMALAYA</p>
+                    <p className="text-sm text-zinc-500">Adventure Specialists</p>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-zinc-500">
                   <time>{data?.data?.date}</time>
                 </div>
               </div>
             </header>
 
             {/* Content */}
-            <article className="prose prose-lg prose-gray max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-orange-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-l-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg">
+            <article className="prose prose-lg prose-gray max-w-none prose-headings:text-zinc-900 prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-zinc-700 prose-p:leading-relaxed prose-a:text-orange-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-zinc-900 prose-blockquote:border-l-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg">
               <ReactMarkdown>{data?.data?.content}</ReactMarkdown>
             </article>
 

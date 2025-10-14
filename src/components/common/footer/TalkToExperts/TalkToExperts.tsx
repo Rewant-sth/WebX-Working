@@ -39,7 +39,7 @@ const TalkToExperts: React.FC = () => {
 
   if (!data || data.data.length === 0) {
     return (
-      <p className="text-center text-gray-500 py-10">
+      <p className="text-center text-zinc-500 py-10">
         Our experts will be listed here soon. Please check back later!
       </p>
     );
@@ -47,7 +47,7 @@ const TalkToExperts: React.FC = () => {
 
   return (
     <section className=" z-[99] relative mx-auto max-w-6xl">
-      <h1 className="text-2xl sm:text-4xl uppercase lg:text-4xl font-bold mb-6 text-gray-800 text-center">
+      <h1 className="text-2xl sm:text-4xl uppercase lg:text-4xl font-bold mb-6 text-zinc-800 text-center">
         Talk to Our Experts
       </h1>
       <div className="flex mt-8 justify-center items-center flex-wrap gap-4 ">

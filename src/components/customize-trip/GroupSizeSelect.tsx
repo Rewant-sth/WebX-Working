@@ -60,9 +60,9 @@ export default function GroupSizeSelect({
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="border-b pb-4 border-gray-200">
+            <div className="border-b pb-4 border-zinc-200">
                 <h2 className="text-2xl font-semibold">Select Group Size</h2>
-                <p className="mt-2 max-w-2xl text-gray-600">
+                <p className="mt-2 max-w-2xl text-zinc-600">
                     Choose the type of travel experience that suits you best. Each option offers unique benefits and pricing.
                 </p>
             </div>
@@ -74,7 +74,7 @@ export default function GroupSizeSelect({
                         key={option.id}
                         className={`relative border-2 rounded-lg p-6 cursor-pointer transition-all duration-300 hover:shadow-lg ${selectedGroupSize === option.id
                             ? 'border-orange-500 bg-orange-50 ring-2 ring-orange-500 ring-opacity-20'
-                            : 'border-gray-200 hover:border-orange-300'
+                            : 'border-zinc-200 hover:border-orange-300'
                             }`}
                         onClick={() => handleGroupSizeChange(option.id, option.travelers)}
                     >
@@ -92,8 +92,8 @@ export default function GroupSizeSelect({
                             <div className="mx-auto mb-2 size-14 relative">
                                 <Image src={option.icon} alt={option.name} fill className='object-cover mx-auto' />
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900">{option.name}</h3>
-                            <p className="text-gray-600">{option.description}</p>
+                            <h3 className="text-xl font-semibold text-zinc-900">{option.name}</h3>
+                            <p className="text-zinc-600">{option.description}</p>
                         </div>
 
                     </div>
@@ -102,10 +102,10 @@ export default function GroupSizeSelect({
 
             {/* Custom Number of Travelers for Group */}
             {selectedGroupSize === 'group' && (
-                <div className="bg-gray-50 rounded-lg p-6">
+                <div className="bg-zinc-50 rounded-lg p-6">
                     <h4 className="text-lg font-medium mb-4">Number of Travelers</h4>
                     <div className="flex items-center space-x-4">
-                        <label className="text-gray-700">How many people will be traveling?</label>
+                        <label className="text-zinc-700">How many people will be traveling?</label>
                         <div className="flex items-center ">
                             <button
                                 type="button"
@@ -124,7 +124,7 @@ export default function GroupSizeSelect({
                                 max="20"
                                 value={customTravelers}
                                 onChange={(e) => handleTravelersChange(e.target.value)}
-                                className="w-16 h-10  text-center border border-gray-300  px-2 py-1 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                className="w-16 h-10  text-center border border-zinc-300  px-2 py-1 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                             />
                             <button
                                 type="button"
@@ -139,7 +139,7 @@ export default function GroupSizeSelect({
                             </button>
                         </div>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">
+                    <p className="text-sm text-zinc-500 mt-2">
                         Group pricing applies for 3 or more travelers. Maximum 20 travelers per group.
                     </p>
                 </div>

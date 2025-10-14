@@ -127,14 +127,14 @@ const Calendar: React.FC<CalendarProps> = ({
                     className={`
             p-2 border  relative text-sm font-medium rounded-sm transition-all duration-200
             ${isPast || !isValidFixedDate
-                            ? ' cursor-not-allowed   border-gray-300'
+                            ? ' cursor-not-allowed   border-zinc-300'
                             : 'hover:cursor-pointer'
                         }
             ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
             ${isHighlighted && !isSelected ? '!text-white  border-[#F05E25] bg-[#F05E25]' : ''}
             ${isHovered && !isSelected && !isHighlighted ? '!text-[#F05E25] !border-[#F05E25] ' : ''}
             ${!isHighlighted && !isSelected && !isHovered ? '' : ''}
-            ${isValidFixedDate && !isPast && !isSelected ? ' border-gray-400' : ''}
+            ${isValidFixedDate && !isPast && !isSelected ? ' border-zinc-400' : ''}
           `}
 
                     style={{
@@ -160,15 +160,15 @@ const Calendar: React.FC<CalendarProps> = ({
     };
 
     return (
-        <div className="bg-white rounded-sm border border-gray-200 p-4">
-            <h3 className="text-lg font-semibold text-center mb-4 text-gray-800">
+        <div className="bg-white rounded-sm border border-zinc-200 p-4">
+            <h3 className="text-lg font-semibold text-center mb-4 text-zinc-800">
                 {monthNames[month]} {year}
             </h3>
 
             {/* Day headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="p-2 text-xs font-medium text-gray-900 text-center">
+                    <div key={day} className="p-2 text-xs font-medium text-zinc-900 text-center">
                         {day}
                     </div>
                 ))}

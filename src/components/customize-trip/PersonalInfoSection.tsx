@@ -20,7 +20,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Full Name */}
                 <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="fullName" className="block text-sm font-medium text-zinc-700 mb-2">
                         Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -29,7 +29,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.fullName}
                         onChange={(e) => onChange('fullName', e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.fullName ? 'border-red-500' : 'border-zinc-300'}`}
                         placeholder="Enter your full name"
                     />
                     {errors.fullName && (
@@ -39,7 +39,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
 
                 {/* Email */}
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-2">
                         Email Address <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -48,7 +48,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.email}
                         onChange={(e) => onChange('email', e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-4 py-3 border rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500' : 'border-zinc-300'}`}
                         placeholder="your.email@example.com"
                     />
                     {errors.email && (
@@ -58,7 +58,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
 
                 {/* Country */}
                 <div>
-                    <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="country" className="block text-sm font-medium text-zinc-700 mb-2">
                         Country <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -66,7 +66,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.country}
                         onChange={(e) => onChange('country', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     >
                         <option value="">Select your country</option>
                         {countries.map((country) => (
@@ -79,7 +79,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
 
                 {/* Phone Number */}
                 <div>
-                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-zinc-700 mb-2">
                         Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -88,7 +88,7 @@ export default function PersonalInfoSection({ personalInfo, onChange, errors = {
                         required
                         value={personalInfo.phoneNumber}
                         onChange={(e) => onChange('phoneNumber', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                         placeholder="+977 98xxxxxxxx"
                     />
                 </div>

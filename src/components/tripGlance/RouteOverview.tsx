@@ -4,8 +4,8 @@ const RouteOverview = () => {
   return (
     <div id="route-overview" className="mt-10">
       <h2 className="text-3xl font-semibold ">Route Overview</h2>
-      {}
-      <p className="mt-4 text-gray-700">
+      { }
+      <p className="mt-4 text-zinc-700">
         As the climbers ascend toward base camp, the scene shifts. High above,
         it is a land of glaciers, icy rivers, and endless fields of snow, where
         raw mountain power starts to reveal itself. The towering Khumbu Icefall

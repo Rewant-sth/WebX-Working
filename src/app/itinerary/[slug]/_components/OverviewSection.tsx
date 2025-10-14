@@ -15,7 +15,7 @@ const OverviewSection = ({ packageData }: OverviewSectionProps) => {
                 <h2 className="text-2xl font-semibold text-orange-500 text-left mb-6">
                     Trip Overview
                 </h2>
-                <div className="rounded-sm bg-gray-25 transition-all duration-200">
+                <div className="rounded-sm bg-zinc-25 transition-all duration-200">
                     <div
                         className="prose space-y-4   "
                         id="editor"

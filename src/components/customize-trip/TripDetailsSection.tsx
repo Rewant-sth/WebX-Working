@@ -18,9 +18,9 @@ export default function TripDetailsSection({ formData, packages, onChange }: Tri
             <FormSummary formData={formData} packages={packages} />
 
             {/* Header */}
-            <div className="border-b pb-4 border-gray-200">
+            <div className="border-b pb-4 border-zinc-200">
                 <h2 className="text-2xl font-semibold">Trip Details</h2>
-                <p className="mt-2 max-w-2xl text-gray-600">
+                <p className="mt-2 max-w-2xl text-zinc-600">
                     When would you like to travel? Please select your preferred dates.
                 </p>
             </div>
@@ -28,7 +28,7 @@ export default function TripDetailsSection({ formData, packages, onChange }: Tri
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Arrival Date */}
                 <div>
-                    <label htmlFor="arrivalDate" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="arrivalDate" className="block text-sm font-medium text-zinc-700 mb-2">
                         Arrival Date <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -38,13 +38,13 @@ export default function TripDetailsSection({ formData, packages, onChange }: Tri
                         min={today}
                         value={formData.arrivalDate}
                         onChange={(e) => onChange('arrivalDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     />
                 </div>
 
                 {/* Departure Date */}
                 <div>
-                    <label htmlFor="departureDate" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="departureDate" className="block text-sm font-medium text-zinc-700 mb-2">
                         Departure Date <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -54,7 +54,7 @@ export default function TripDetailsSection({ formData, packages, onChange }: Tri
                         min={formData.arrivalDate || today}
                         value={formData.departureDate}
                         onChange={(e) => onChange('departureDate', e.target.value)}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                     />
                 </div>
             </div>

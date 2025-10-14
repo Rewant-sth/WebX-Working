@@ -55,9 +55,9 @@ export default function FormNavigation({
                     <button
                         type="button"
                         onClick={handlePrevious}
-                        className="group flex bg-transparent items-center px-6 py-3 text-[#01283F] border font-medium transition-all  rounded-sm hover:bg-[#01283F] hover:shadow-md hover:text-white hover:border-gray-200"
+                        className="group flex bg-transparent items-center px-6 py-3 text-[#01283F] border font-medium transition-all  rounded-sm hover:bg-[#01283F] hover:shadow-md hover:text-white hover:border-zinc-200"
                     >
-                        <div className="flex items-center text-[#01283F] justify-center w-8 h-8 rounded-full bg-gray-100 group-hover:bg-gray-300 transition-colors duration-300 mr-3">
+                        <div className="flex items-center text-[#01283F] justify-center w-8 h-8 rounded-full bg-zinc-100 group-hover:bg-zinc-300 transition-colors duration-300 mr-3">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
@@ -75,7 +75,7 @@ export default function FormNavigation({
                             type="button"
                             onClick={handleSubmit}
                             disabled={isSubmitting}
-                            className="group relative flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold rounded-sm transition-all duration-300 transform hover:scale-[1.02] hover:shadow-sm disabled:hover:scale-100 disabled:cursor-not-allowed min-w-[160px] justify-center"
+                            className="group relative flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-zinc-400 disabled:to-zinc-500 text-white font-bold rounded-sm transition-all duration-300 transform hover:scale-[1.02] hover:shadow-sm disabled:hover:scale-100 disabled:cursor-not-allowed min-w-[160px] justify-center"
                         >
                             {isSubmitting ? (
                                 <>

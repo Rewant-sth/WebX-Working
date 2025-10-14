@@ -30,7 +30,7 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
     }
 
     return (
-        <div className="bg-orange-100 rounded-sm p-6 border border-gray-200">
+        <div className="bg-orange-100 rounded-sm p-6 border border-zinc-200">
             <h3 className="text-lg text-orange-500 font-semibold  mb-4 flex items-center">
                 Your Trip Summary
             </h3>
@@ -39,11 +39,11 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
                 {/* Package Selection */}
                 {selectedPackage && (
                     <div className="bg-white rounded-sm p-4 shadow-sm">
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center">
+                        <h4 className="font-medium text-zinc-900 mb-2 flex items-center">
                             Selected Package
                         </h4>
                         <div className="flex items-start space-x-3">
-                            <div className="relative w-16 h-16 shrink-0 rounded-sm overflow-hidden bg-gray-200">
+                            <div className="relative w-16 h-16 shrink-0 rounded-sm overflow-hidden bg-zinc-200">
                                 <Image
                                     src={selectedPackage.coverImage || '/placeholder.webp'}
                                     alt={selectedPackage.name}
@@ -52,8 +52,8 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
                                 />
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-900 text-sm">{selectedPackage.name}</p>
-                                <div id="editor" dangerouslySetInnerHTML={{ __html: selectedPackage.overview }} className="text-xs text-gray-600 mt-1 line-clamp-2">
+                                <p className="font-semibold text-zinc-900 text-sm">{selectedPackage.name}</p>
+                                <div id="editor" dangerouslySetInnerHTML={{ __html: selectedPackage.overview }} className="text-xs text-zinc-600 mt-1 line-clamp-2">
 
                                 </div>
                             </div>
@@ -64,11 +64,11 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
                 {/* Group Size */}
                 {formData.groupSize && selectedGroupSize && (
                     <div className="bg-white rounded-sm p-4 shadow-sm">
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center">
+                        <h4 className="font-medium text-zinc-900 mb-2 flex items-center">
                             Group Size
                         </h4>
-                        <p className="font-semibold text-gray-900">{selectedGroupSize.name}</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="font-semibold text-zinc-900">{selectedGroupSize.name}</p>
+                        <p className="text-sm text-zinc-600">
                             {formData.numberOfTravelers} {formData.numberOfTravelers === 1 ? 'traveler' : 'travelers'}
                         </p>
                     </div>
@@ -77,18 +77,18 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
                 {/* Budget */}
                 {formData.budget && selectedBudget && (
                     <div className="bg-white rounded-sm p-4 shadow-sm">
-                        <h4 className="font-medium text-gray-900 mb-2 flex items-center">
+                        <h4 className="font-medium text-zinc-900 mb-2 flex items-center">
                             Budget
                         </h4>
-                        <p className="font-semibold text-gray-900">{selectedBudget.name}</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="font-semibold text-zinc-900">{selectedBudget.name}</p>
+                        <p className="text-sm text-zinc-600">
                             {formData.budget === 'custom' && formData.customBudget > 0
                                 ? `$${formData.customBudget.toLocaleString()} per person`
                                 : selectedBudget.range
                             }
                         </p>
                         {formData.budget === 'custom' && formData.customBudget > 0 && formData.numberOfTravelers > 1 && (
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-zinc-500 mt-1">
                                 Total: ${(formData.customBudget * formData.numberOfTravelers).toLocaleString()}
                             </p>
                         )}
@@ -98,26 +98,26 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
 
             {/* Personal Info Preview */}
             {formData.personalInfo[0]?.fullName && (
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                    <h4 className="font-medium text-gray-900 mb-2">Contact Information</h4>
+                <div className="mt-4 pt-4 border-t border-zinc-200">
+                    <h4 className="font-medium text-zinc-900 mb-2">Contact Information</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div>
-                            <span className="text-gray-600">Name:</span>
+                            <span className="text-zinc-600">Name:</span>
                             <span className="ml-2 font-medium">{formData.personalInfo[0].fullName}</span>
                         </div>
                         <div>
-                            <span className="text-gray-600">Email:</span>
+                            <span className="text-zinc-600">Email:</span>
                             <span className="ml-2 font-medium">{formData.personalInfo[0].email}</span>
                         </div>
                         {formData.personalInfo[0].country && (
                             <div>
-                                <span className="text-gray-600">Country:</span>
+                                <span className="text-zinc-600">Country:</span>
                                 <span className="ml-2 font-medium">{formData.personalInfo[0].country}</span>
                             </div>
                         )}
                         {formData.personalInfo[0].phoneNumber && (
                             <div>
-                                <span className="text-gray-600">Phone:</span>
+                                <span className="text-zinc-600">Phone:</span>
                                 <span className="ml-2 font-medium">{formData.personalInfo[0].phoneNumber}</span>
                             </div>
                         )}
@@ -127,12 +127,12 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
 
             {/* Trip Dates */}
             {(formData.arrivalDate || formData.departureDate) && (
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                    <h4 className="font-medium text-gray-900 mb-2">Trip Dates</h4>
+                <div className="mt-4 pt-4 border-t border-zinc-200">
+                    <h4 className="font-medium text-zinc-900 mb-2">Trip Dates</h4>
                     <div className="flex flex-wrap gap-4 text-sm">
                         {formData.arrivalDate && (
                             <div>
-                                <span className="text-gray-600">Arrival:</span>
+                                <span className="text-zinc-600">Arrival:</span>
                                 <span className="ml-2 font-medium">
                                     {new Date(formData.arrivalDate).toLocaleDateString()}
                                 </span>
@@ -140,7 +140,7 @@ export default function FormSummary({ formData, packages }: FormSummaryProps) {
                         )}
                         {formData.departureDate && (
                             <div>
-                                <span className="text-gray-600">Departure:</span>
+                                <span className="text-zinc-600">Departure:</span>
                                 <span className="ml-2 font-medium">
                                     {new Date(formData.departureDate).toLocaleDateString()}
                                 </span>

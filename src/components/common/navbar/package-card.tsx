@@ -8,7 +8,7 @@ export const PackageCard: React.FC<{
     onClose: () => void;
 }> = ({ package: pkg, onClose }) => (
     <Link href={`/itinerary/${pkg.slug}`} onClick={onClose}>
-        <li className="bg-gray-100/50 group rounded-2xl hover:bg-gray-100 cursor-pointer transition-transform duration-75">
+        <li className="bg-zinc-100/50 group rounded-2xl hover:bg-zinc-100 cursor-pointer transition-transform duration-75">
             <div className="w-full group  transition-all duration-300 h-[65dvh] relative  overflow-hidden rounded-sm bg-blue-100 flex items-center justify-center">
                 <Image
                     src={pkg.coverImage || "/placeholder.webp"}

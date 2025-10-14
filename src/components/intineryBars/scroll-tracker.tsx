@@ -241,7 +241,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     return (
         <div className="w-full ">
             {/* Mobile/Tablet Layout - Horizontal Scroll */}
-            <div className="lg:hidden w-full bg-white border-b border-gray-200">
+            <div className="lg:hidden w-full bg-white border-b border-zinc-200">
                 <div className="w-full overflow-hidden">
                     <div
                         ref={scrollContainerRef}
@@ -254,7 +254,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                 onClick={() => handleScrollToSection(section.id)}
                                 className={`flex border items-center gap-2 px-3 py-2 rounded-sm whitespace-nowrap text-sm transition-all duration-300 flex-shrink-0 ${activeSection === section.id
                                     ? "bg-orange-500 text-white"
-                                    : " border-transparent bg-gray-50 hover:bg-orange-500 hover:text-white text-gray-800 "
+                                    : " border-transparent bg-zinc-50 hover:bg-orange-500 hover:text-white text-zinc-800 "
                                     }`}
                             >
                                 <span className={`${activeSection === section.id ? "text-white" : ""} `}>
@@ -270,7 +270,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             {/* Desktop Layout - Vertical Sidebar */}
             <div className="hidden lg:block">
                 <div className="bg-white  rounded-sm  ">
-                    <h3 className=" b  uppercase text-orange-500 font-semibold lg:text-xl  mb-4 pb-2 border-b border-gray-200">
+                    <h3 className=" b  uppercase text-orange-500 font-semibold lg:text-xl  mb-4 pb-2 border-b border-zinc-200">
                         Table of Contents
                     </h3>
                     {visibleSections.length > 0 && (
@@ -281,7 +281,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                     onClick={() => handleScrollToSection(section.id)}
                                     className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-sm  font-medium transition-all duration-300 text-left ${activeSection === section.id
                                         ? "bg-orange-500 text-white "
-                                        : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
+                                        : "text-zinc-700 hover:bg-orange-50 hover:text-orange-600"
                                         }`}
                                 >
                                     <span className={`flex-shrink-0 ${activeSection === section.id ? "text-white" : ""}`}>

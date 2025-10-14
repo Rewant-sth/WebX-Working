@@ -71,7 +71,7 @@ const Team = () => {
 
   return (
     <>
-      <div className="min-h-screen w-full  bg-gradient-to-b from-gray-50 to-gray-100">
+      <div className="min-h-screen w-full  bg-gradient-to-b from-zinc-50 to-zinc-100">
         <div className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 ">
           <div
             ref={titleRef}
@@ -80,10 +80,10 @@ const Team = () => {
             <span className="text-blue-600 font-semibold tracking-wider text-sm uppercase mb-3">
               Meet Our High Five
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-700">
               Our Leaders
             </h1>
-            <p className="text-gray-600 text-xl mt-6 max-w-2xl">
+            <p className="text-zinc-600 text-xl mt-6 max-w-2xl">
               Passionate experts dedicated to excellence and innovation in every
               project we undertake.
             </p>
@@ -138,7 +138,7 @@ const Team = () => {
                             : "max-h-0 opacity-0"
                             }`}
                         >
-                          <p className="text-gray-300 line-clamp-2 text-sm mb-4">
+                          <p className="text-zinc-300 line-clamp-2 text-sm mb-4">
                             {team.description ||
                               "Bringing expertise and creativity to every project."}
                           </p>

@@ -68,10 +68,10 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
             >
               <div className="p-2 size-9 sm:size-12  shrink-0 bg-white/80 rounded-sm">
                 <img src={item.icon} alt="Real Himalaya" className="" />
-            </div>
+              </div>
               <div className="flex flex-col  gap-1">
-                <h3 className="font-semibold  capitalize text-gray-800">{item.title}</h3>
-                <p className="text-gray-700 text-xs sm:text-base line-clamp-2 ">
+                <h3 className="font-semibold  capitalize text-zinc-800">{item.title}</h3>
+                <p className="text-zinc-700 text-xs sm:text-base line-clamp-2 ">
                   {item.value || "N/A"}
                 </p>
               </div>

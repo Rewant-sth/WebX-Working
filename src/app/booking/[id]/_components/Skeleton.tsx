@@ -5,10 +5,10 @@ import "react-loading-skeleton/dist/skeleton.css";
 const BookingFormSkeleton = () => {
   return (
     <>
-      <div className="h-60 bg-gray-200 animate-pulse mb-6" />{" "}
+      <div className="h-60 bg-zinc-200 animate-pulse mb-6" />{" "}
       {/* Banner Skeleton */}
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mx-auto p-4 md:p-6 bg-white">
-        <div className="flex items-center text-gray-400 mb-3">
+        <div className="flex items-center text-zinc-400 mb-3">
           <ArrowLeft className="w-6 h-6 mr-2" />
           <span> Back to itenerary</span>
           {/* <Skeleton width={150} height={20} /> */}
@@ -25,7 +25,7 @@ const BookingFormSkeleton = () => {
             {[1, 2].map((i) => (
               <div
                 key={i}
-                className="bg-white p-6 rounded-sm shadow-sm mb-6 border border-gray-200"
+                className="bg-white p-6 rounded-sm shadow-sm mb-6 border border-zinc-200"
               >
                 <Skeleton width={150} height={22} className="mb-4" />
                 <div className="flex items-center mb-4">

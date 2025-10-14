@@ -290,7 +290,7 @@ export default function Navbar() {
 
         <div className="flex  text-white min-h-[calc(100dvh-4rem)] ">
           <div className="w-full lg:max-w-[16rem] text-lg 2xl:text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
-            <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
+            <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
             <div className="grid gap-1 2xl:gap-3">
@@ -375,7 +375,7 @@ export default function Navbar() {
                                 }}
                                 className={`cursor-pointer text-base md:text-lg transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1 pr-2 ${expandedSubcategory === subCategory._id
                                   ? "text-amber-300"
-                                  : "text-gray-300"
+                                  : "text-zinc-300"
                                   }`}
                               >
                                 {subCategory.name}
@@ -394,7 +394,7 @@ export default function Navbar() {
                                 {expandedSubcategory === subCategory._id && (
                                   <div className="pl-4 py-2 space-y-1">
                                     {packagesLoading && selectedSubcategoryId === subCategory._id ? (
-                                      <div className="text-sm text-gray-400">Loading packages...</div>
+                                      <div className="text-sm text-zinc-400">Loading packages...</div>
                                     ) : packages?.data && selectedSubcategoryId === subCategory._id ? (
                                       <>
                                         {packages.data.slice(0, 5).map((pkg) => (
@@ -402,7 +402,7 @@ export default function Navbar() {
                                             key={pkg._id}
                                             href={`/itinerary/${pkg.slug}`}
                                             onClick={handleClose}
-                                            className="block text-sm md:text-base text-gray-400 hover:text-amber-300 transition-colors duration-300 py-1"
+                                            className="block text-sm md:text-base text-zinc-400 hover:text-amber-300 transition-colors duration-300 py-1"
                                           >
                                             {pkg.name}
                                           </Link>
@@ -418,9 +418,9 @@ export default function Navbar() {
                                         )}
                                       </>
                                     ) : selectedSubcategoryId === subCategory._id ? (
-                                      <div className="text-sm text-gray-400">No packages available</div>
+                                      <div className="text-sm text-zinc-400">No packages available</div>
                                     ) : (
-                                      <div className="text-sm text-gray-400">Click to load packages</div>
+                                      <div className="text-sm text-zinc-400">Click to load packages</div>
                                     )}
                                   </div>
                                 )}
@@ -494,7 +494,7 @@ export default function Navbar() {
                               key={subIdx}
                               href={subItem.href!}
                               onClick={handleClose}
-                              className="block pl-6 py-2 text-base text-gray-300 hover:text-amber-300 transition-colors duration-300"
+                              className="block pl-6 py-2 text-base text-zinc-300 hover:text-amber-300 transition-colors duration-300"
                             >
                               {subItem.name}
                             </Link>
@@ -517,7 +517,7 @@ export default function Navbar() {
           </div>
 
           <div className="w-full text-lg 2xl:text-xl p-6 space-y-1  2xl:space-y-4 border-white/20 col-span-2 max-w-[22rem] hidden lg:block">
-            <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
+            <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               SUB Categories
             </h2>
             {selectedCategory?.subCategories.map((subCategory) => (
@@ -564,11 +564,11 @@ export default function Navbar() {
           </div>
 
           <div className="p-6 w-full hidden lg:flex flex-col h-[calc(100dvh-8rem)] ">
-            <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-6">
+            <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               {selectedStaticNav ? "Information" : "Packages"}
             </h2>
             {selectedStaticNav ? (
-              <div className="flex-1 text-base text-gray-300">
+              <div className="flex-1 text-base text-zinc-300">
                 {selectedStaticNav.name === "About Us" && (
                   <div className="space-y-4">
                     {selectedStaticSubItem?.name === "Company" && (

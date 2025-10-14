@@ -5,7 +5,7 @@ const ExpertSkeleton = () => {
     <>
       <section className="py-8 mx-auto max-w-6xl">
         <div>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-800 text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-zinc-800 text-center">
             Talk to Our Experts
           </h2>
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4">

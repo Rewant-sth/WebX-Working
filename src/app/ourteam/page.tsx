@@ -94,9 +94,9 @@ const OurTeam: React.FC = () => {
         <h2 className="text-4xl lg:text-6xl font-semibold  ">Our Heroes <br /> Who Made it  Possible</h2>
         <p className="max-w-7xl text-xl mt-4">Our field heroes are the backbone of every Himalayan journey. From expert Sherpa mountaineers and licensed trekking guides to hardworking porters and support staff, they are the ones who make each trek possible. Their strength, knowledge of the mountains, and dedication to client safety ensure that every adventure is not only successful but also deeply memorable. At Real Himalaya, we honor our field heroes as the true champions who turn Himalayan dreams into reality.</p>
         {!data?.data || data.data.filter(member => member.memberType.toLowerCase() !== "boardmember").length === 0 ? (
-          <div className="flex flex-col h-[60dvh] items-center justify-center mt-10 py-16 px-4 border-2 border-dashed border-gray-300 rounded-sm">
+          <div className="flex flex-col h-[60dvh] items-center justify-center mt-10 py-16 px-4 border-2 border-dashed border-zinc-300 rounded-sm">
             <h3 className="text-xl font-semibold mb-2 uppercase">No Team Members Found</h3>
-            <p className="text-gray-500 text-center max-w-md">
+            <p className="text-zinc-500 text-center max-w-md">
               Our team information is currently being updated. Please check back later.
             </p>
           </div>

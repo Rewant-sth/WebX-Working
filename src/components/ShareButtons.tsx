@@ -77,9 +77,9 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
     };
 
     return (
-        <div className="mt-6 pt-8 border-t mb-10 border-gray-200">
+        <div className="mt-6 pt-8 border-t mb-10 border-zinc-200">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 sm:mb-0">
+                <h3 className="text-lg font-semibold text-zinc-900 mb-4 sm:mb-0">
                     Share this article
                 </h3>
                 <div className="flex flex-wrap gap-3">
@@ -87,7 +87,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                     {canShare && (
                         <button
                             onClick={handleNativeShare}
-                            className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-sm hover:bg-gray-700 transition-colors"
+                            className="flex items-center px-4 py-2 bg-zinc-600 text-white rounded-sm hover:bg-zinc-700 transition-colors"
                             aria-label="Share article"
                         >
                             <Share2 className="w-4 h-4 mr-2" />
@@ -148,7 +148,7 @@ export default function ShareButtons({ url, title, description = '' }: ShareButt
                         onClick={handleCopyLink}
                         className={`flex items-center px-4 text-sm sm:text-base py-2 transition-colors rounded-sm ${copied
                             ? 'bg-green-600 text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            : 'bg-zinc-200 text-zinc-700 hover:bg-zinc-300'
                             }`}
                         aria-label="Copy link"
                     >

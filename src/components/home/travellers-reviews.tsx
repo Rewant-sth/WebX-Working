@@ -82,7 +82,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
             {error && !isLoading && (
                 <div className="text-center py-8">
                     <p className="text-red-500 mb-4">Failed to load testimonials</p>
-                    <p className="text-gray-600">Showing sample reviews instead</p>
+                    <p className="text-zinc-600">Showing sample reviews instead</p>
                 </div>
             )}
 

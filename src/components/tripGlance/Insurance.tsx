@@ -30,7 +30,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                                 </h3>
                                 <div
                                     id="editor"
-                                    className="space-y-2 leading-relaxed text-gray-800"
+                                    className="space-y-2 leading-relaxed text-zinc-800"
                                     dangerouslySetInnerHTML={{ __html: item.description }}
                                 />
                             </div>

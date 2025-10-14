@@ -640,9 +640,9 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                 <div className="text-center mb-4">
                   <div className="flex items-baseline justify-center  mb-3">
                     <span className="text-4xl font-bold" style={{ color: '#f05e25' }}>
-                      ${data?.fixedDates[0]?.pricePerPerson || "N/A"}/
+                      US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/
                     </span>
-                    <span className="text-xl font-medium text-gray-600">per person</span>
+                    <span className="text-xl font-medium text-zinc-600">per person</span>
                   </div>
                 </div>
               )
@@ -655,7 +655,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                   onClick={() => setShowPaxDropdown(!showPaxDropdown)}
                   className="w-full  flex items-center justify-between rounded-sm   transition-colors duration-200"
                 >
-                  <span className="font-medium text-gray-700">Group Booking Discount</span>
+                  <span className="font-medium text-zinc-700">Group Booking Discount</span>
                   <Icon
                     icon={showPaxDropdown ? "mdi:chevron-up" : "mdi:chevron-down"}
                     width="20"
@@ -677,12 +677,12 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                         .map((paxItem, index) => (
                           <div
                             key={paxItem._id}
-                            className={`py-2 ${index !== data.pax.length - 1 ? 'border-b border-gray-100' : ''}  transition-colors duration-150`}
+                            className={`py-2 ${index !== data.pax.length - 1 ? 'border-b border-zinc-100' : ''}  transition-colors duration-150`}
                           >
                             <div className="flex gap-2  items-center">
                               <div className="flex shrink-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <span className="font-medium text-sm text-gray-800">
+                                  <span className="font-medium text-sm text-zinc-800">
                                     {paxItem.min === paxItem.max
                                       ? `${paxItem.min} Person${paxItem.min > 1 ? 's' : ''}`
                                       : `${paxItem.min}-${paxItem.max} Persons`
@@ -693,9 +693,9 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                               <div className="w-full border border-orange-500 border-dashed"></div>
                               <div className="text-right shrink-0">
                                 <div className="font-semibold ">
-                                  USD {paxItem.discount}
+                                  US$ {paxItem.discount}
                                 </div>
-                                {/* <div className="text-xs text-gray-500">per person</div> */}
+                                {/* <div className="text-xs text-zinc-500">per person</div> */}
                               </div>
                             </div>
                           </div>
@@ -760,7 +760,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                     <>
                       <div className="text-center mb-8">
                         <h1 className="text-3xl font-bold text-orange-500 mb-2">{data.name}</h1>
-                        <p className="text-lg text-gray-600">{data.location} • {data.duration} Days</p>
+                        <p className="text-lg text-zinc-600">{data.location} • {data.duration} Days</p>
                       </div>
 
                       {data.coverImage && (
@@ -772,19 +772,19 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                       )}
 
                       <div className="mb-8">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Trip Overview</h2>
-                        <p className="text-gray-700">{data.overview || 'No overview available.'}</p>
+                        <h2 className="text-2xl font-bold text-zinc-800 mb-4 border-b pb-2">Trip Overview</h2>
+                        <p className="text-zinc-700">{data.overview || 'No overview available.'}</p>
                       </div>
 
                       {data.itinerary?.length > 0 && (
                         <div className="mb-8">
-                          <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Detailed Itinerary</h2>
+                          <h2 className="text-2xl font-bold text-zinc-800 mb-4 border-b pb-2">Detailed Itinerary</h2>
                           <div className="space-y-6">
                             {data.itinerary.map((day, index) => (
-                              <div key={index} className="border-b border-gray-200 pb-4">
+                              <div key={index} className="border-b border-zinc-200 pb-4">
                                 <h3 className="text-xl font-semibold text-orange-500 mb-2">Day {day.day}: {day.title}</h3>
                                 <div
-                                  className="text-gray-700"
+                                  className="text-zinc-700"
                                   dangerouslySetInnerHTML={{ __html: day.description || 'No description available.' }}
                                 />
                               </div>
@@ -793,7 +793,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                         </div>
                       )}
 
-                      <div className="text-center text-sm text-gray-500 mt-12 pt-4 border-t border-gray-200">
+                      <div className="text-center text-sm text-zinc-500 mt-12 pt-4 border-t border-zinc-200">
                         <p>Thank you for choosing Real Himalaya. For any queries, contact us at +977 985-1026840</p>
                         <p className="mt-2">www.realhimalaya.com</p>
                       </div>

@@ -144,7 +144,7 @@ export function Features({
                 >
                   <div
                     className={`flex flex-row justify-start items-center border border-black/5 rounded-sm p-4 md:p-6 transition-all duration-300 ${isActive
-                      ? "bg-white dark:bg-black/5 dark:drop-shadow-lg rounded-xl md:border dark:border-none border-gray-200"
+                      ? "bg-white dark:bg-black/5 dark:drop-shadow-lg rounded-xl md:border dark:border-none border-zinc-200"
                       : ""
                       }`}
                   >
@@ -152,7 +152,7 @@ export function Features({
                     <div
                       className={`p-3 hidden md:block mr-4 flex-shrink-0  rounded-full transition-all duration-300 ${isActive
                         ? `bg-blue-500 text-white`
-                        : `bg-blue-500/10 dark:bg-gray-200/80 text-blue-500`
+                        : `bg-blue-500/10 dark:bg-zinc-200/80 text-blue-500`
                         }`}
                     >
                       <Icon size={24} />
@@ -160,13 +160,13 @@ export function Features({
 
                     {/* Content */}
                     <div className="flex-1 w-full">
-                      <h3 className="text-lg font-semibold mb-2 transition-colors duration-300 text-gray-900">
+                      <h3 className="text-lg font-semibold mb-2 transition-colors duration-300 text-zinc-900">
                         {feature.title}
                       </h3>
                       <p
                         className={`transition-colors duration-300 text-sm ${isActive
-                          ? "text-gray-600"
-                          : "text-gray-500 dark:text-gray-400"
+                          ? "text-zinc-600"
+                          : "text-zinc-500 dark:text-zinc-400"
                           }`}
                       >
                         {feature.description}
@@ -199,7 +199,7 @@ export function Features({
               className="relative"
             >
               <img
-                className="rounded-2xl max-h-[40rem] object-contain border dark:border-none border-gray-50"
+                className="rounded-2xl max-h-[40rem] object-contain border dark:border-none border-zinc-50"
                 src={features[currentFeature].image}
                 alt={features[currentFeature].title}
                 width={600}

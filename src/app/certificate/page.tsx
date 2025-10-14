@@ -190,7 +190,7 @@ const CertificatesPage = () => {
               <h2 className="text-3xl uppercase md:text-4xl font-bold text-orange-500 mb-4">
                 Our Milestones
               </h2>
-              <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+              <p className="text-lg text-zinc-600 max-w-4xl mx-auto">
                 These milestones represent years of dedication, expertise, and commitment to excellence in adventure tourism.
               </p>
             </div>
@@ -199,7 +199,7 @@ const CertificatesPage = () => {
               {milestonesData.map((milestone) => (
                 <div
                   key={milestone.id}
-                  className=" rounded-sm group hover:bg-orange-100 hover:border-orange-200 p-3 md:p-6 border border-gray-300 transition-all duration-300 group"
+                  className=" rounded-sm group hover:bg-orange-100 hover:border-orange-200 p-3 md:p-6 border border-zinc-300 transition-all duration-300 group"
                 >
                   <div className="flex flex-col text-center items-center mb-2">
                     <div className="icon ">
@@ -231,7 +231,7 @@ const CertificatesPage = () => {
             <h2 className="text-3xl uppercase md:text-4xl font-bold text-orange-500 mb-4">
               Our Certifications
             </h2>
-            <p className="text-lg text-gray-600 max-w-7xl mx-auto">
+            <p className="text-lg text-zinc-600 max-w-7xl mx-auto">
               These certifications validate our expertise and commitment to providing world-class adventure tourism services.
             </p>
           </div>
@@ -239,7 +239,7 @@ const CertificatesPage = () => {
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={`skeleton-${i}`} className="bg-white rounded-sm overflow-hidden border border-gray-200">
+                <div key={`skeleton-${i}`} className="bg-white rounded-sm overflow-hidden border border-zinc-200">
                   <Skeleton height={250} />
                   <div className="p-6">
                     <Skeleton height={24} className="mb-4" />
@@ -253,22 +253,22 @@ const CertificatesPage = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
                 <X className="w-8 h-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-zinc-900 mb-2">
                 Failed to Load Certificates
               </h3>
-              <p className="text-gray-600">
+              <p className="text-zinc-600">
                 We're having trouble loading our certifications. Please try again later.
               </p>
             </div>
           ) : certificates.length === 0 ? (
             <div className="text-center py-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
-                <Award className="w-8 h-8 text-gray-400" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-zinc-100 rounded-full mb-4">
+                <Award className="w-8 h-8 text-zinc-400" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-zinc-900 mb-2">
                 No Certificates Available
               </h3>
-              <p className="text-gray-600">
+              <p className="text-zinc-600">
                 Certificates will be displayed here once they become available.
               </p>
             </div>
@@ -277,7 +277,7 @@ const CertificatesPage = () => {
               {certificates.map((cert: Certificate, index: number) => (
                 <div
                   key={cert._id}
-                  className="group transition-all border border-gray-200 duration-500 transform"
+                  className="group transition-all border border-zinc-200 duration-500 transform"
                 >
                   <div className="relative w-full  md:w-[350px] md:h-[500px] overflow-hidden rounded-sm">
                     <Image
@@ -292,7 +292,7 @@ const CertificatesPage = () => {
                     <div className=" absolute backdrop-blur-sm z-30 flex justify-center items-center opacity-0 hover:opacity-100 transition-all duration-300 inset-0">
                       <button
                         onClick={() => openModal(cert)}
-                        className="flex items-center gap-2 bg-white/90 backdrop-blur-sm text-gray-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors"
+                        className="flex items-center gap-2 bg-white/90 backdrop-blur-sm text-zinc-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-white transition-colors"
                       >
                         <ZoomIn className="w-4 h-4" />
                         View Details
@@ -312,7 +312,7 @@ const CertificatesPage = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99999] flex justify-center items-center">
           <button
             onClick={closeModal}
-            className="absolute top-8 right-6 text-white hover:text-gray-300"
+            className="absolute top-8 right-6 text-white hover:text-zinc-300"
           >
             <X className="w-8 h-8" />
           </button>

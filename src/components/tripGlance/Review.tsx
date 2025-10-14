@@ -58,7 +58,7 @@ export default function TravellerReview({
             size={30}
             className={`${star <= rating
               ? "fill-yellow-400 text-yellow-400"
-              : "text-gray-300"
+              : "text-zinc-300"
               }`}
           />
         ))}
@@ -69,7 +69,7 @@ export default function TravellerReview({
   // If no testimonials, show empty state
   if (!data?.testimonial || data.testimonial.length === 0) {
     return (
-      <div className="border-b border-gray-200 mb-8 pb-10">
+      <div className="border-b border-zinc-200 mb-8 pb-10">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-orange-500 text-left ">
             <span className="w-fit  font-semibold">
@@ -81,7 +81,7 @@ export default function TravellerReview({
             rating across all platforms.
           </p>
         </div>
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-zinc-500">
           <Quote className="mx-auto mb-4" size={48} />
           <p>No reviews available yet.</p>
         </div>
@@ -92,10 +92,10 @@ export default function TravellerReview({
   return (
     <div
       id="traveller-review"
-      className="border-b border-gray-200 mb-8 pb-10"
+      className="border-b border-zinc-200 mb-8 pb-10"
     >
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+        <h2 className="text-2xl font-semibold text-zinc-800 text-center sm:text-left">
           <span className="w-fit text-2xl font-semibold">
             Traveller Reviews
           </span>
@@ -116,16 +116,16 @@ export default function TravellerReview({
                 <button
                   onClick={scrollPrev}
                   disabled={!canScrollPrev}
-                  className="p-2 rounded-full bg-white border border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 rounded-full bg-white border border-zinc-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <ChevronLeft size={20} className="text-gray-600" />
+                  <ChevronLeft size={20} className="text-zinc-600" />
                 </button>
                 <button
                   onClick={scrollNext}
                   disabled={!canScrollNext}
-                  className="p-2 rounded-full bg-white border border-gray-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="p-2 rounded-full bg-white border border-zinc-300 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <ChevronRight size={20} className="text-gray-600" />
+                  <ChevronRight size={20} className="text-zinc-600" />
                 </button>
               </div>
 
@@ -144,7 +144,7 @@ export default function TravellerReview({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="bg-white rounded-sm border border-gray-200 p-6 h-full hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-white rounded-sm border border-zinc-200 p-6 h-full hover:shadow-lg transition-shadow duration-300">
 
                   {/* Rating */}
                   <div className="mb-4">
@@ -152,7 +152,7 @@ export default function TravellerReview({
                   </div>
 
                   {/* Comment */}
-                  <p className="text-gray-700 leading-relaxed mb-6 text-sm">
+                  <p className="text-zinc-700 leading-relaxed mb-6 text-sm">
                     "{testimonial.comment}"
                   </p>
 
@@ -162,7 +162,7 @@ export default function TravellerReview({
                       <img
                         src={(testimonial as any).image}
                         alt={testimonial.fullName}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-gray-200"
+                        className="w-14 h-14 rounded-full object-cover border-2 border-zinc-200"
                       />
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold">
@@ -170,10 +170,10 @@ export default function TravellerReview({
                       </div>
                     )}
                     <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">
+                      <h4 className="font-semibold text-zinc-900 text-sm">
                         {testimonial.fullName}
                       </h4>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-zinc-500">
                         {new Date(testimonial.createdAt).toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'short'

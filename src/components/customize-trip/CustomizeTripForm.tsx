@@ -210,14 +210,14 @@ export default function CustomizeTripForm() {
                             onChange={(field, value) => handleInputChange(`personalInfo.${field}`, value, 0)}
                             errors={validationErrors}
                         />
-                        <div className="border-t pt-8 border-gray-200">
+                        <div className="border-t pt-8 border-zinc-200">
                             <TripDetailsSection
                                 formData={formData}
                                 packages={packagesData?.data || []}
                                 onChange={handleInputChange}
                             />
                         </div>
-                        <div className="border-t pt-8 border-gray-200">
+                        <div className="border-t pt-8 border-zinc-200">
                             <AdditionalInfoSection
                                 message={formData.message}
                                 specialRequirements={formData.specialRequirements}
@@ -252,10 +252,10 @@ export default function CustomizeTripForm() {
                         className="relative z-50 bg-black/25 w-full h-full flex justify-center items-center flex-col">
                         <h1
 
-                            className="text-4xl  uppercase font-bold text-gray-100 mb-2 leading-tight">
+                            className="text-4xl  uppercase font-bold text-zinc-100 mb-2 leading-tight">
                             Customize Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">Dream Trip</span>
                         </h1>
-                        <p className="text-xl text-gray-100 text-center max-w-3xl  leading-relaxed">
+                        <p className="text-xl text-zinc-100 text-center max-w-3xl  leading-relaxed">
                             Create your perfect adventure in the Himalayas. Tell us about your preferences,
                             and we'll craft an unforgettable journey just for you.
                         </p>

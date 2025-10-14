@@ -83,10 +83,10 @@ body {
     --event-danger: #ef4444;
 
     /* Neutral Palette */
-    --event-gray-50: #f8fafc;
-    --event-gray-100: #f1f5f9;
-    --event-gray-600: #475569;
-    --event-gray-900: #0f172a;
+    --event-zinc-50: #f8fafc;
+    --event-zinc-100: #f1f5f9;
+    --event-zinc-600: #475569;
+    --event-zinc-900: #0f172a;
 
     /* Background Gradients */
     --event-bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
@@ -446,16 +446,16 @@ body {
 
 /* tailwind-variables.css */
 :root {
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
+    --zinc-50: #f9fafb;
+    --zinc-100: #f3f4f6;
+    --zinc-200: #e5e7eb;
+    --zinc-300: #d1d5db;
+    --zinc-400: #9ca3af;
+    --zinc-500: #6b7280;
+    --zinc-600: #4b5563;
+    --zinc-700: #374151;
+    --zinc-800: #1f2937;
+    --zinc-900: #111827;
 
     --sky-50: #f0f9ff;
     --sky-100: #e0f2fe;

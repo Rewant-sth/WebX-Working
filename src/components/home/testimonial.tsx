@@ -21,7 +21,7 @@ const TestimonialsSections = () => {
         ))}
       </div>
       <div className="flex flex-col gap-6 justify-center lg:-translate-y-44 items-center">
-        <span className="bg-gray-100 px-4 text-gray-800 rounded-full">Testimonials</span>
+        <span className="bg-zinc-100 px-4 text-zinc-800 rounded-full">Testimonials</span>
         <h2 className="text-2xl md:text-4xl text-center font-semibold  sm:max-w-xl uppercase"><span className="bg-orange-500 text-white px-2">Preferred</span> by  thousands  around the <span className="bg-orange-500 text-white px-2">world</span></h2>
         <p className="max-w-[45rem] text-center px-4 xl:px-0">Over the years, Real Himalaya has become the trusted choice of trekkers and climbers from across the globe. Our commitment to safety, authentic experiences, and expert guidance has earned us the loyalty of thousands who return to the Himalayas with us time and again. Each journey is crafted with care, ensuring that every traveler takes home not just memories, but a lifelong connection to the mountains.</p>
         <Link href={"https://www.tripadvisor.com/Attraction_Review-g293890-d10100922-Reviews-Real_Himalaya_Private_Day_Tour-Kathmandu_Kathmandu_Valley_Bagmati_Zone_Central_R.html"} target="_blank" rel="noopener noreferrer">

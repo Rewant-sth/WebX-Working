@@ -84,7 +84,7 @@ function TrekPage() {
           {[...Array(4)].map((_, index) => (
             <div
               key={index}
-              className="relative aspect-square rounded-sm overflow-hidden bg-gray-200 animate-pulse"
+              className="relative aspect-square rounded-sm overflow-hidden bg-zinc-200 animate-pulse"
             />
           ))}
         </div>
@@ -123,14 +123,14 @@ function TrekPage() {
         <div className="flex justify-end mt-4 md:mt-0 gap-2 md:ml-4">
           <button
             onClick={scrollPrev}
-            className="p-2 rounded-sm border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
+            className="p-2 rounded-sm border border-zinc-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={scrollNext}
-            className="p-2 rounded-sm border border-gray-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
+            className="p-2 rounded-sm border border-zinc-300 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-200"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5" />
@@ -185,7 +185,7 @@ function TrekPage() {
           ) : (
             <div className="embla__slide flex-none w-full" style={{ paddingRight: '0.5rem' }}>
               <div className="text-center py-12">
-                <p className="text-lg text-gray-600">No expedition packages available at the moment.</p>
+                <p className="text-lg text-zinc-600">No expedition packages available at the moment.</p>
               </div>
             </div>
           )}

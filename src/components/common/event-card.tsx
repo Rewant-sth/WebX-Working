@@ -30,7 +30,7 @@ export const EventCard: React.FC<{
           <div className="p-8 md:w-2/3">
             <h3 className="text-2xl font-bold mb-2">{event.name}</h3>
             <p
-              className="text-gray-600 mb-4 line-clamp-2"
+              className="text-zinc-600 mb-4 line-clamp-2"
               id="editor" dangerouslySetInnerHTML={{ __html: event.overview }}
             />
             <div className="flex flex-wrap gap-4 mb-6">
@@ -52,7 +52,7 @@ export const EventCard: React.FC<{
                 <span className="text-xl font-bold text-blue-600">
                   ${event?.fixedDates?.[0]?.pricePerPerson}
                 </span>
-                <span className="text-gray-500 ml-2">per person</span>
+                <span className="text-zinc-500 ml-2">per person</span>
               </div>
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-sm font-medium transition-colors duration-75">
                 Book Now

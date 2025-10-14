@@ -40,12 +40,12 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                 </div>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
+                <h2 className="text-2xl font-bold text-zinc-800 text-center mb-4">
                     {title}
                 </h2>
 
                 {/* Message */}
-                <p className="text-gray-600 text-center mb-8 leading-relaxed">
+                <p className="text-zinc-600 text-center mb-8 leading-relaxed">
                     {message}
                 </p>
 
@@ -60,7 +60,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                 {/* Close Icon Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                    className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 transition-colors duration-200"
                 >
                     <Icon icon="mdi:close" width="24" height="24" />
                 </button>

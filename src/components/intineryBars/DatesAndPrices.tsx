@@ -36,18 +36,18 @@ const BookingForm: React.FC<{
   };
 
   return (
-    <div className="bg-white rounded-sm border border-gray-200 p-6 mt-6">
+    <div className="bg-white rounded-sm border border-zinc-200 p-6 mt-6">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-bold text-gray-800">Complete Your Booking</h3>
+        <h3 className="text-xl font-bold text-zinc-800">Complete Your Booking</h3>
         <button
           onClick={onClose}
-          className="text-gray-500 hover:text-gray-700"
+          className="text-zinc-500 hover:text-zinc-700"
         >
           <Icon icon="mdi:close" width="24" height="24" />
         </button>
       </div>
 
-      <div className="mb-6 p-4 bg-gray-100 rounded-sm text-gray-800">
+      <div className="mb-6 p-4 bg-zinc-100 rounded-sm text-zinc-800">
         <h4 className="font-semibold  mb-2">Selected Trip Details</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
@@ -211,12 +211,12 @@ const PrivateTripForm: React.FC = () => {
   return (
     <div className="mt-6">
       <div className="mb-6">
-        <p className="text-gray-700 leading-relaxed">
+        <p className="text-zinc-700 leading-relaxed">
           Looking for personalized experience? We organize privately guided journey which is mainly designed to fit your taste and interest. Please fill out the form below to get started.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:border border-gray-200 sm:p-6 gap-3 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:border border-zinc-200 sm:p-6 gap-3 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2">
         {/* Error Message */}
         {errorMessage && (
           <div className="col-span-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md flex items-center gap-2">
@@ -227,7 +227,7 @@ const PrivateTripForm: React.FC = () => {
 
         {/* Date Field */}
         <div>
-          <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="startDate" className="block text-sm font-medium text-zinc-700 mb-2">
             Choose your own date*
           </label>
           <div className="relative">
@@ -239,7 +239,7 @@ const PrivateTripForm: React.FC = () => {
               onChange={handleInputChange}
               required
               disabled={isSubmitting}
-              className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-4 py-2 pl-10 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
               placeholder="MM/DD/YYYY"
             />
           </div>
@@ -247,7 +247,7 @@ const PrivateTripForm: React.FC = () => {
 
         {/* Full Name */}
         <div>
-          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="fullName" className="block text-sm font-medium text-zinc-700 mb-2">
             Lead Traveler's Full Name*
           </label>
           <input
@@ -258,14 +258,14 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
             placeholder="Full Name"
           />
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-2">
             Email*
           </label>
           <input
@@ -276,14 +276,14 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
             placeholder="Email"
           />
         </div>
 
         {/* Phone */}
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="phone" className="block text-sm font-medium text-zinc-700 mb-2">
             Phone*
           </label>
           <div className="flex gap-2">
@@ -327,7 +327,7 @@ const PrivateTripForm: React.FC = () => {
               onChange={handleInputChange}
               required
               disabled={isSubmitting}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
               placeholder="Phone Number"
             />
           </div>
@@ -335,7 +335,7 @@ const PrivateTripForm: React.FC = () => {
 
         {/* Number of Travelers */}
         <div>
-          <label htmlFor="numberOfTravelers" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="numberOfTravelers" className="block text-sm font-medium text-zinc-700 mb-2">
             No. of Travellers*
           </label>
           <input
@@ -347,14 +347,14 @@ const PrivateTripForm: React.FC = () => {
             required
             min="1"
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
             placeholder="No. of Travellers"
           />
         </div>
 
         {/* Country */}
         <div>
-          <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="country" className="block text-sm font-medium text-zinc-700 mb-2">
             Country
           </label>
           <input
@@ -364,14 +364,14 @@ const PrivateTripForm: React.FC = () => {
             value={formData.country}
             onChange={handleInputChange}
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
             placeholder="Country"
           />
         </div>
 
         {/* How did you find us */}
         <div className="col-span-2">
-          <label htmlFor="howDidYouFind" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="howDidYouFind" className="block text-sm font-medium text-zinc-700 mb-2">
             How did you find Real Himalaya?*
           </label>
           <Select
@@ -405,7 +405,7 @@ const PrivateTripForm: React.FC = () => {
 
         {/* Comments */}
         <div className="col-span-2">
-          <label htmlFor="comments" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="comments" className="block text-sm font-medium text-zinc-700 mb-2">
             Place your comments here
           </label>
           <textarea
@@ -415,7 +415,7 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             rows={4}
             disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none resize-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
             placeholder="Any special requirements or questions..."
           />
         </div>
@@ -430,9 +430,9 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="mt-1 w-4 h-4 text-[#F05E25] border-gray-300 rounded focus:ring-[#F05E25] disabled:cursor-not-allowed"
+            className="mt-1 w-4 h-4 text-[#F05E25] border-zinc-300 rounded focus:ring-[#F05E25] disabled:cursor-not-allowed"
           />
-          <label htmlFor="agreeToTerms" className="text-sm text-gray-700">
+          <label htmlFor="agreeToTerms" className="text-sm text-zinc-700">
             I agree to Real Himalaya{' '}
             <a href="/terms-and-conditions" className="text-[#F05E25] hover:underline">
               Terms and Conditions
@@ -442,7 +442,7 @@ const PrivateTripForm: React.FC = () => {
 
         {/* Captcha */}
         <div className="col-span-2 flex gap-4 flex-wrap items-center mt-5 mb-3">
-          <label htmlFor="captchaAnswer" className="flex gap-4 items-center flex-wrap text-sm  font-medium text-gray-700 mb-2">
+          <label htmlFor="captchaAnswer" className="flex gap-4 items-center flex-wrap text-sm  font-medium text-zinc-700 mb-2">
             <span>Prove your humanity: </span><span className="text-orange-500">{isLoading ? 'Loading...' : data?.data.question} = *</span>
           </label>
           <input
@@ -453,7 +453,7 @@ const PrivateTripForm: React.FC = () => {
             onChange={handleInputChange}
             required
             disabled={isSubmitting}
-            className="px-4 w-fit py-2 border border-gray-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="px-4 w-fit py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
             placeholder="Answer"
           />
         </div>
@@ -463,7 +463,7 @@ const PrivateTripForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-fit bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="w-fit bg-[#F05E25] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center justify-center gap-2 disabled:bg-zinc-400 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
@@ -617,7 +617,7 @@ const DatesAndPrices = ({
           onClick={() => setTripType('group')}
           className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'group'
             ? 'border-[#01283F] bg-[#01283F] text-white'
-            : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+            : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50'
             }`}
         >
           Group Departure
@@ -626,7 +626,7 @@ const DatesAndPrices = ({
           onClick={() => setTripType('private')}
           className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'private'
             ? 'border-[#01283F] bg-[#01283F] text-white'
-            : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+            : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50'
             }`}
         >
           Private Trip
@@ -642,7 +642,7 @@ const DatesAndPrices = ({
           {/* Calendar Section */}
           <div className="mt-8 max-w-4xl">
             <div className="flex justify-between items-center mb-2 gap-4 flex-wrap">
-              <h3 className="font-semibold text-gray-800">Select Your Start Date</h3>
+              <h3 className="font-semibold text-zinc-800">Select Your Start Date</h3>
 
               {/* Navigation dropdowns */}
               <div className="flex items-center gap-2">
@@ -738,23 +738,23 @@ const DatesAndPrices = ({
                 <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
                   <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                      <h4 className="text-lg font-semibold text-zinc-800 mb-2">
                         Selected Trip Details
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                         <div>
-                          <span className="text-gray-800 font-medium">Start Date:</span>
-                          <p className="text-gray-800">{selectedDate.toDateString()}</p>
+                          <span className="text-zinc-800 font-medium">Start Date:</span>
+                          <p className="text-zinc-800">{selectedDate.toDateString()}</p>
                         </div>
                         <div>
-                          <span className="text-gray-800 font-medium">End Date:</span>
-                          <p className="text-gray-800">
+                          <span className="text-zinc-800 font-medium">End Date:</span>
+                          <p className="text-zinc-800">
                             {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
                           </p>
                         </div>
                         <div>
-                          <span className="text-gray-800 font-medium">Duration:</span>
-                          <p className="text-gray-800">{tripDuration} days</p>
+                          <span className="text-zinc-800 font-medium">Duration:</span>
+                          <p className="text-zinc-800">{tripDuration} days</p>
                         </div>
                       </div>
                     </div>

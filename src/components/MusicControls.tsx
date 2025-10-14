@@ -22,7 +22,7 @@ export const MusicControls: React.FC = () => {
     } = useMusicPlayer();
 
     return (
-        <div className="flex items-center gap-3 p-3 bg-gray-100 rounded-lg">
+        <div className="flex items-center gap-3 p-3 bg-zinc-100 rounded-lg">
             {/* Play/Pause Button */}
             <button
                 onClick={toggle}
@@ -40,15 +40,15 @@ export const MusicControls: React.FC = () => {
 
             {/* Current Track Info */}
             <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-gray-900 truncate">
+                <div className="text-sm font-medium text-zinc-900 truncate">
                     {currentTrack ? currentTrack.split('/').pop() : 'No track'}
                 </div>
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-zinc-500">
                     {formattedCurrentTime} / {formattedDuration}
                 </div>
 
                 {/* Progress Bar */}
-                <div className="w-full h-1 bg-gray-300 rounded-full mt-1">
+                <div className="w-full h-1 bg-zinc-300 rounded-full mt-1">
                     <div
                         className="h-full bg-blue-500 rounded-full transition-all duration-300"
                         style={{ width: `${progress}%` }}
@@ -58,7 +58,7 @@ export const MusicControls: React.FC = () => {
 
             {/* Volume Control */}
             <div className="flex items-center gap-2">
-                <Volume2 size={16} className="text-gray-600" />
+                <Volume2 size={16} className="text-zinc-600" />
                 <input
                     type="range"
                     min="0"
@@ -66,7 +66,7 @@ export const MusicControls: React.FC = () => {
                     step="0.01"
                     value={volume}
                     onChange={(e) => setVolume(parseFloat(e.target.value))}
-                    className="w-16 h-1 bg-gray-300 rounded-lg appearance-none cursor-pointer"
+                    className="w-16 h-1 bg-zinc-300 rounded-lg appearance-none cursor-pointer"
                 />
             </div>
         </div>

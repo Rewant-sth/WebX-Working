@@ -419,7 +419,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
         // Only apply discount if participants are within min-max range
         if (applicablePax) {
-            const discountPerPerson = applicablePax.discount || 0 // Discount in $ per person
+            const discountPerPerson = applicablePax.discount || 0 // Discount in US$ per person
             const totalDiscountAmount = discountPerPerson * participants // Total discount for all participants
             const discountedPrice = basePrice - totalDiscountAmount
 
@@ -597,12 +597,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                         <div className="bg-white rounded-md ">
                             <h2 className='text-xl font-medium '>Select Arrival Date</h2>
                             {selectedDate ? (
-                                <p className="text-gray-600 mb-4">
+                                <p className="text-zinc-600 mb-4">
                                     Trip Duration: {Math.ceil((new Date(selectedDate.endDate).getTime() - new Date(selectedDate.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
                                     <span className="ml-2 text-sm">({new Date(selectedDate.startDate).toLocaleDateString()} - {new Date(selectedDate.endDate).toLocaleDateString()})</span>
                                 </p>
                             ) : (
-                                <p className="text-gray-600 mb-4">Select a date to see trip duration</p>
+                                <p className="text-zinc-600 mb-4">Select a date to see trip duration</p>
                             )}
 
                             {validationErrors.date && (
@@ -684,12 +684,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                             {packageData.pax && packageData.pax.length >= 1 ? (
                                 <div className="mt-3">
                                     <h2 className='text-xl font-medium'>Select Package</h2>
-                                    <div className="mt-4 divide-y divide-gray-200">
+                                    <div className="mt-4 divide-y divide-zinc-200">
                                         {packageData.pax.map((pax, index) => (
-                                            <div key={index} className='flex gap-4 border border-gray-100 p-3 rounded-sm md:gap-10 pb-4 items-center'>
+                                            <div key={index} className='flex gap-4 border border-zinc-100 p-3 rounded-sm md:gap-10 pb-4 items-center'>
                                                 <div className="flex items-center">
                                                     <button
-                                                        className="w-10 rounded-full h-10 flex items-center justify-center border border-gray-200 hover:bg-gray-50"
+                                                        className="w-10 rounded-full h-10 flex items-center justify-center border border-zinc-200 hover:bg-zinc-50"
                                                         onClick={() => setParticipants(Math.max(1, participants - 1))}
                                                     >
                                                         <Minus className="size-4" />
@@ -701,7 +701,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                         className='w-12 h-10 text-center border-none outline-none ring-0'
                                                     />
                                                     <button
-                                                        className="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-full hover:bg-gray-50"
+                                                        className="w-10 h-10 flex items-center justify-center border border-zinc-200 rounded-full hover:bg-zinc-50"
                                                         onClick={() => setParticipants(participants + 1)}
                                                     >
                                                         <Plus className="size-4" />
@@ -710,11 +710,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                 <div className="flex justify-between items-center w-full">
                                                     <div>
                                                         <h2 className='text-lg font-semibold'>{pax.min} - {pax.max} Pax</h2>
-                                                        <p className="text-gray-600">Best for {pax.max < 2 ? 'solo travelers' : 'group travelers'}</p>
+                                                        <p className="text-zinc-600">Best for {pax.max < 2 ? 'solo travelers' : 'group travelers'}</p>
                                                     </div>
                                                     <div className="text-right">
-                                                        <h2 className='text-lg font-semibold'>$ {pax.discount}</h2>
-                                                        <p className="text-sm text-gray-600">per person</p>
+                                                        <h2 className='text-lg font-semibold'>US$ {pax.discount}</h2>
+                                                        <p className="text-sm text-zinc-600">per person</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -722,11 +722,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     </div>
                                 </div>
                             ) : (
-                                <div className="bg-white rounded-md border border-gray-200 p-4">
+                                <div className="bg-white rounded-md border border-zinc-200 p-4">
                                     <h2 className='text-xl font-medium'>Select Number of Travelers</h2>
                                     <div className="flex items-center gap-4 py-4">
                                         <button
-                                            className="w-10 rounded-full h-10 flex items-center justify-center border border-gray-200 hover:bg-gray-50"
+                                            className="w-10 rounded-full h-10 flex items-center justify-center border border-zinc-200 hover:bg-zinc-50"
                                             onClick={() => setParticipants(Math.max(1, participants - 1))}
                                         >
                                             <Minus className="size-4" />
@@ -738,7 +738,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             className='w-12 h-10 text-center'
                                         />
                                         <button
-                                            className="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-full hover:bg-gray-50"
+                                            className="w-10 h-10 flex items-center justify-center border border-zinc-200 rounded-full hover:bg-zinc-50"
                                             onClick={() => setParticipants(participants + 1)}
                                         >
                                             <Plus className="size-4" />
@@ -747,11 +747,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     <div className="flex justify-between w-full">
                                         <div>
                                             <h2 className='text-lg font-semibold'>1 Pax</h2>
-                                            <p className="text-gray-600">Best for solo travelers</p>
+                                            <p className="text-zinc-600">Best for solo travelers</p>
                                         </div>
                                         <div className="text-right">
-                                            <h2 className='text-lg font-semibold'>$ 0</h2>
-                                            <p className="text-sm text-gray-600">No discount</p>
+                                            <h2 className='text-lg font-semibold'>US$ 0</h2>
+                                            <p className="text-sm text-zinc-600">No discount</p>
                                         </div>
                                     </div>
                                 </div>
@@ -773,12 +773,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                     <div className="space-y-6">
                         <div className="bg-white ">
                             <h2 className='text-xl font-medium'>Traveler Information</h2>
-                            <p className="text-gray-600">Enter details of Traveller's representative</p>
+                            <p className="text-zinc-600">Enter details of Traveller's representative</p>
 
-                            <div className="mt-6  border-gray-200 first:mt-0 first:pt-0 first:border-t-0">
+                            <div className="mt-6  border-zinc-200 first:mt-0 first:pt-0 first:border-t-0">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className='relative'>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Full Name *</label>
                                         <input
                                             type="text"
                                             required
@@ -786,7 +786,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             autoComplete='name'
                                             value={travelerInfo.fullName}
                                             onChange={(e) => handleTravelerInfoChange('fullName', e.target.value)}
-                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_fullName`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_fullName`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             placeholder="John Doe"
                                         />
                                         {validationErrors[`traveler_fullName`] && (
@@ -794,7 +794,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div className='relative'>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Email *</label>
                                         <input
                                             type="email"
                                             required
@@ -802,7 +802,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             autoComplete='email'
                                             value={travelerInfo.email}
                                             onChange={(e) => handleTravelerInfoChange('email', e.target.value)}
-                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_email`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_email`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             placeholder="john@example.com"
                                         />
                                         {validationErrors[`traveler_email`] && (
@@ -810,7 +810,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Country *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Country *</label>
                                         <input
                                             type="text"
                                             required
@@ -818,7 +818,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             autoComplete='country'
                                             value={travelerInfo.country}
                                             onChange={(e) => handleTravelerInfoChange('country', e.target.value)}
-                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_country`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_country`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             placeholder="Nepal"
                                         />
                                         {validationErrors[`traveler_country`] && (
@@ -826,12 +826,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Phone Number *</label>
                                         <div className="flex gap-2">
                                             <select
                                                 value={travelerInfo.phoneCountryCode}
                                                 onChange={(e) => handleTravelerInfoChange('phoneCountryCode', e.target.value)}
-                                                className={`w-1/3 p-2 border rounded-md ${validationErrors[`traveler_phone`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                                className={`w-1/3 p-2 border rounded-md ${validationErrors[`traveler_phone`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             >
                                                 {countries.map(country => (
                                                     <option key={country.code} value={country.dialCode}>
@@ -846,7 +846,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                 onChange={(e) => handleTravelerInfoChange('phoneNumber', e.target.value)}
                                                 name='phoneNumber'
                                                 autoComplete='tel'
-                                                className={`w-2/3 p-2 border rounded-md ${validationErrors[`traveler_phone`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                                className={`w-2/3 p-2 border rounded-md ${validationErrors[`traveler_phone`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                                 placeholder="1234567890"
                                             />
                                         </div>
@@ -855,12 +855,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Gender *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Gender *</label>
                                         <select
                                             required
                                             value={travelerInfo.gender}
                                             onChange={(e) => handleTravelerInfoChange('gender', e.target.value)}
-                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_gender`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_gender`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                         >
                                             <option value="">Select Gender</option>
                                             <option value="male">Male</option>
@@ -872,14 +872,14 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div className='relative booking '>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Date of Birth *</label>
                                         <div className="relative">
                                             <input
                                                 type="date"
                                                 required
                                                 value={travelerInfo.dateOfBirth}
                                                 onChange={(e) => handleTravelerInfoChange('dateOfBirth', e.target.value)}
-                                                className={`w-full  p-2 pl-10 border rounded-md ${validationErrors[`traveler_dob`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                                className={`w-full  p-2 pl-10 border rounded-md ${validationErrors[`traveler_dob`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             />
                                         </div>
                                         {validationErrors[`traveler_dob`] && (
@@ -887,7 +887,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Passport Number *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Passport Number *</label>
                                         <input
                                             type="text"
                                             required
@@ -895,7 +895,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             autoComplete='passportNumber'
                                             value={travelerInfo.passportNumber}
                                             onChange={(e) => handleTravelerInfoChange('passportNumber', e.target.value)}
-                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_passport`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                            className={`w-full p-2 border rounded-md ${validationErrors[`traveler_passport`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             placeholder="A12345678"
                                         />
                                         {validationErrors[`traveler_passport`] && (
@@ -903,7 +903,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
                                     </div>
                                     <div className='relative booking'>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">Passport Expiry Date *</label>
+                                        <label className="block text-sm font-medium text-zinc-700 mb-1">Passport Expiry Date *</label>
                                         <div className="relative">
                                             <input
                                                 type="date"
@@ -911,7 +911,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                 name='passportExpiryDate'
                                                 value={travelerInfo.passportExpiryDate}
                                                 onChange={(e) => handleTravelerInfoChange('passportExpiryDate', e.target.value)}
-                                                className={`w-full p-2 pl-10 border rounded-md ${validationErrors[`traveler_passportExpiry`] ? 'border-[#F05E25]' : 'border-gray-200'}`}
+                                                className={`w-full p-2 pl-10 border rounded-md ${validationErrors[`traveler_passportExpiry`] ? 'border-[#F05E25]' : 'border-zinc-200'}`}
                                             />
                                         </div>
                                         {validationErrors[`traveler_passportExpiry`] && (
@@ -922,11 +922,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                             </div>
 
                             <div className="mt-6">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Additional Message</label>
+                                <label className="block text-sm font-medium text-zinc-700 mb-1">Additional Message</label>
                                 <textarea
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
-                                    className="w-full p-2 border border-gray-200 rounded-md"
+                                    className="w-full p-2 border border-zinc-200 rounded-md"
                                     rows={3}
                                     name="message"
                                     autoCapitalize='sentences'
@@ -937,7 +937,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                             <div className="flex gap-4 mt-6">
                                 <button
                                     onClick={handlePreviousStep}
-                                    className='border px-6 py-2 rounded-md text-gray-800 flex-1 transition-colors'
+                                    className='border px-6 py-2 rounded-md text-zinc-800 flex-1 transition-colors'
                                 >
                                     Back
                                 </button>
@@ -955,9 +955,9 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             case 3:
                 return (
                     <div className="space-y-6">
-                        <div className="bg-white rounded-md border border-gray-200 p-4">
+                        <div className="bg-white rounded-md border border-zinc-200 p-4">
                             <h2 className='text-xl font-medium'>Add-ons & Extras</h2>
-                            <p className="text-gray-600">Enhance your experience with these add-ons</p>
+                            <p className="text-zinc-600">Enhance your experience with these add-ons</p>
 
                             <div className="mt-4 space-y-4">
                                 {packageData.addons.map((addon) => {
@@ -965,7 +965,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     const selectedAddon = selectedAddons.find(item => item.id === addon._id)
 
                                     return (
-                                        <div key={addon._id} className="border border-gray-200 rounded-md p-4 hover:bg-gray-50 transition-all">
+                                        <div key={addon._id} className="border border-zinc-200 rounded-md p-4 hover:bg-zinc-50 transition-all">
                                             <div className="flex justify-between items-start">
                                                 <div className="flex items-start gap-4 flex-1">
                                                     <input
@@ -976,8 +976,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                     />
                                                     <div className="flex-1">
                                                         <h3 className="font-semibold capitalize">{addon.name}</h3>
-                                                        <div dangerouslySetInnerHTML={{ __html: addon.description }} className="text-sm text-gray-600 mt-1"></div>
-                                                        <p className="text-[#F05E25] font-medium mt-2">$ {addon.price} per person</p>
+                                                        <div dangerouslySetInnerHTML={{ __html: addon.description }} className="text-sm text-zinc-600 mt-1"></div>
+                                                        <p className="text-[#F05E25] font-medium mt-2">US$ {addon.price} per person</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -988,7 +988,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                         <span className="text-sm font-medium">Quantity:</span>
                                                         <div className="flex items-center">
                                                             <button
-                                                                className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-l-lg hover:bg-gray-50"
+                                                                className="w-8 h-8 flex items-center justify-center border border-zinc-200 rounded-l-lg hover:bg-zinc-50"
                                                                 onClick={() => handleAddonQuantityChange(addon._id, (selectedAddon?.quantity || 1) - 1)}
                                                             >
                                                                 <Minus className="size-4" />
@@ -997,17 +997,17 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                                 type="text"
                                                                 value={selectedAddon?.quantity || 1}
                                                                 readOnly
-                                                                className="w-12 h-8 text-center border-y border-gray-200"
+                                                                className="w-12 h-8 text-center border-y border-zinc-200"
                                                             />
                                                             <button
-                                                                className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-r-lg hover:bg-gray-50"
+                                                                className="w-8 h-8 flex items-center justify-center border border-zinc-200 rounded-r-lg hover:bg-zinc-50"
                                                                 onClick={() => handleAddonQuantityChange(addon._id, (selectedAddon?.quantity || 1) + 1)}
                                                             >
                                                                 <Plus className="size-4" />
                                                             </button>
                                                         </div>
-                                                        <span className="text-sm text-gray-600 ml-auto">
-                                                            Total: $ {((selectedAddon?.quantity || 1) * addon.price).toFixed(2)}
+                                                        <span className="text-sm text-zinc-600 ml-auto">
+                                                            Total: US$ {((selectedAddon?.quantity || 1) * addon.price).toFixed(2)}
                                                         </span>
                                                     </div>
                                                 )
@@ -1020,7 +1020,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                             <div className="flex gap-4 mt-6">
                                 <button
                                     onClick={handlePreviousStep}
-                                    className='border px-6 py-2 rounded-md text-gray-800 flex-1 transition-colors'
+                                    className='border px-6 py-2 rounded-md text-zinc-800 flex-1 transition-colors'
                                 >
                                     Back
                                 </button>
@@ -1038,10 +1038,10 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             case 4:
                 return (
                     <div className="space-y-6">
-                        <div className="bg-white rounded-md border border-gray-200 p-4">
+                        <div className="bg-white rounded-md border border-zinc-200 p-4">
                             <h2 className='text-xl font-medium'>Payment Option</h2>
                             <div className="mt-4 space-y-3">
-                                <label className="flex items-center p-3 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
+                                <label className="flex items-center p-3 border border-zinc-200 rounded-md cursor-pointer hover:bg-zinc-50">
                                     <input
                                         type="radio"
                                         name="payment"
@@ -1052,11 +1052,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     />
                                     <div>
                                         <p className="font-medium">Pay Full Amount Now</p>
-                                        <p className="text-sm text-gray-600">Secure your booking with full payment</p>
+                                        <p className="text-sm text-zinc-600">Secure your booking with full payment</p>
                                     </div>
                                 </label>
 
-                                <label className="flex items-center p-3 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-50">
+                                <label className="flex items-center p-3 border border-zinc-200 rounded-md cursor-pointer hover:bg-zinc-50">
                                     <input
                                         type="radio"
                                         name="payment"
@@ -1067,12 +1067,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     />
                                     <div>
                                         <p className="font-medium">Pay 30% Now & Rest on Arrival</p>
-                                        <p className="text-sm text-gray-600">$ {(totalAmount * 0.3).toFixed(2)} now, balance on arrival</p>
+                                        <p className="text-sm text-zinc-600">US$ {(totalAmount * 0.3).toFixed(2)} now, balance on arrival</p>
                                     </div>
                                 </label>
                             </div>
 
-                            <div className="mt-6 p-4 bg-gray-50 rounded-md">
+                            <div className="mt-6 p-4 bg-zinc-50 rounded-md">
                                 <label className="flex items-center">
                                     <input
                                         type="checkbox"
@@ -1093,7 +1093,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                             <div className="flex gap-4 mt-6">
                                 <button
                                     onClick={handlePreviousStep}
-                                    className='border px-6 py-2 rounded-md text-gray-800 flex-1 transition-colors'
+                                    className='border px-6 py-2 rounded-md text-zinc-800 flex-1 transition-colors'
                                 >
                                     Back
                                 </button>
@@ -1147,7 +1147,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                             <svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} className='size-20 lg:size-36' viewBox="0 0 48 48"><g fill="currentColor"><path d="M31.425 38.177A15.9 15.9 0 0 1 24 40c-8.837 0-16-7.163-16-16S15.163 8 24 8s16 7.163 16 16q0 .25-.008.5h2.001Q42 24.25 42 24c0-9.941-8.059-18-18-18S6 14.059 6 24s8.059 18 18 18a17.9 17.9 0 0 0 8.379-2.065z"></path><path d="M13.743 23.35c-.12.738.381 1.445 1.064 1.883c.714.457 1.732.707 2.93.53a3.8 3.8 0 0 0 2.654-1.665c.504-.764.711-1.693.48-2.382a.5.5 0 0 0-.818-.203c-1.796 1.704-3.824 2.123-5.642 1.448a.5.5 0 0 0-.668.39m20.076-.001c.119.738-.382 1.445-1.065 1.883c-.714.457-1.731.707-2.93.53a3.8 3.8 0 0 1-2.653-1.665c-.504-.764-.712-1.693-.48-2.382a.5.5 0 0 1 .818-.203c1.796 1.704 3.824 2.123 5.642 1.448a.5.5 0 0 1 .668.39"></path><path fillRule="evenodd" d="M36 36a4 4 0 0 0 4-4c0-3.5-4-7-4-7s-4 3.5-4 7a4 4 0 0 0 4 4m0-2a2 2 0 0 0 2-2c0-1.066-.654-2.37-1.59-3.6q-.207-.27-.41-.512q-.203.241-.41.512C34.655 29.63 34 30.934 34 32a2 2 0 0 0 2 2" clipRule="evenodd"></path><path d="M20.8 33.6c1.6-2.133 4.8-2.133 6.4 0a1 1 0 0 0 1.6-1.2c-2.4-3.2-7.2-3.2-9.6 0a1 1 0 0 0 1.6 1.2"></path></g></svg>
                         </div>
                         <h2 className="text-2xl font-bold mb-4">No Seats Available</h2>
-                        <p className="text-gray-700 text-lg">The seats for this package are currently fully booked. Please check back later or contact our support team for assistance.</p>
+                        <p className="text-zinc-700 text-lg">The seats for this package are currently fully booked. Please check back later or contact our support team for assistance.</p>
                     </div>
                 </div>
             </div>
@@ -1160,7 +1160,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 <div className="max-w-5xl mx-auto pointer-events-auto bg-white rounded-md ">
 
 
-                    <div className="w-full overflow-visible relative h-64 bg-gray-200">
+                    <div className="w-full overflow-visible relative h-64 bg-zinc-200">
                         <button onClick={onClose} className="absolute cursor-pointer size-5 md:size-8 lg:size-12 rounded-full text-white/60  hover:text-white transition-colors duration-200 flex justify-center items-center border z-[999] top-4 right-4">
                             <X className="size-4 md:size-5 lg:size-6" />
                         </button>
@@ -1237,29 +1237,29 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             <span className="font-medium text-[#F05E25]">{participants} {participants === 1 ? 'person' : 'people'}</span>
                                         </div>
 
-                                        <hr className="my-3 text-gray-200" />
+                                        <hr className="my-3 text-zinc-200" />
 
                                         {selectedDate && (
                                             <>
                                                 <div className="flex justify-between">
                                                     <div className="flex flex-col">
                                                         <span className="text-zinc-900 font-semibold">Base Price:</span>
-                                                        <span className='text-gray-500'>($ {selectedDate.pricePerPerson} * {participants})</span>
+                                                        <span className='text-zinc-500'>(US$ {selectedDate.pricePerPerson} * {participants})</span>
                                                     </div>
-                                                    <span className="font-medium text-[#F05E25]">$ {basePriceDetails.basePrice.toFixed(2)}</span>
+                                                    <span className="font-medium text-[#F05E25]">US$ {basePriceDetails.basePrice.toFixed(2)}</span>
                                                 </div>
 
                                                 {basePriceDetails.discountAmount > 0 && (
                                                     <div className="flex justify-between text-green-500">
                                                         <span>Discount:</span>
-                                                        <span>-$ {basePriceDetails.discountAmount.toFixed(2)}</span>
+                                                        <span>-US$ {basePriceDetails.discountAmount.toFixed(2)}</span>
                                                     </div>
                                                 )}
 
                                                 {selectedAddons.length > 0 && (
                                                     <>
-                                                        <hr className="my-3 text-gray-200" />
-                                                        <div className="text-gray-600 font-medium">Add-ons:</div>
+                                                        <hr className="my-3 text-zinc-200" />
+                                                        <div className="text-zinc-600 font-medium">Add-ons:</div>
                                                         {selectedAddons.map((selectedAddon) => {
                                                             const addon = packageData.addons.find(a => a._id === selectedAddon.id)
                                                             if (!addon) return null
@@ -1267,29 +1267,29 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                             return (
                                                                 <div key={addon._id} className="flex justify-between text-sm">
                                                                     <span>{addon.name} ×{selectedAddon.quantity}</span>
-                                                                    <span>+ $ {addonTotal.toFixed(2)}</span>
+                                                                    <span>+ US$ {addonTotal.toFixed(2)}</span>
                                                                 </div>
                                                             )
                                                         })}
                                                     </>
                                                 )}
 
-                                                <hr className="my-3 text-gray-200" />
+                                                <hr className="my-3 text-zinc-200" />
 
                                                 <div className="flex justify-between text-lg font-semibold">
                                                     <span>Total Amount:</span>
-                                                    <span>$ {totalAmount.toFixed(2)}</span>
+                                                    <span>US$ {totalAmount.toFixed(2)}</span>
                                                 </div>
 
                                                 {paymentOption === 'partial' && currentStep === 4 && (
                                                     <>
                                                         <div className="flex justify-between text-sm">
-                                                            <span className="text-gray-600">Deposit (30%):</span>
-                                                            <span className="font-medium">$ {(totalAmount * 0.3).toFixed(2)}</span>
+                                                            <span className="text-zinc-600">Deposit (30%):</span>
+                                                            <span className="font-medium">US$ {(totalAmount * 0.3).toFixed(2)}</span>
                                                         </div>
                                                         <div className="flex justify-between text-sm">
-                                                            <span className="text-gray-600">Balance on Arrival:</span>
-                                                            <span className="font-medium">$ {(totalAmount * 0.7).toFixed(2)}</span>
+                                                            <span className="text-zinc-600">Balance on Arrival:</span>
+                                                            <span className="font-medium">US$ {(totalAmount * 0.7).toFixed(2)}</span>
                                                         </div>
                                                     </>
                                                 )}
@@ -1297,7 +1297,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         )}
 
                                         {!selectedDate && (
-                                            <div className="text-center py-4 text-gray-500">
+                                            <div className="text-center py-4 text-zinc-500">
                                                 Please select a date to see pricing
                                             </div>
                                         )}

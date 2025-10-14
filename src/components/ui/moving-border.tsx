@@ -58,7 +58,7 @@ export function StarBorder<T extends ElementType = "button">({
                         animationDuration: speed,
                     }}
                 />
-                <div className="relative z-1 border text-foreground text-center text-base md:py-2 px-6 rounded-sm bg-white border-orange-500/30 hover:border-orange-400/50 transition-colors dark:from-gray-900 dark:to-gray-800 dark:border-orange-400/40 text-orange-500  font-semibold">
+                <div className="relative z-1 border text-foreground text-center text-base md:py-2 px-6 rounded-sm bg-white border-orange-500/30 hover:border-orange-400/50 transition-colors dark:from-zinc-900 dark:to-zinc-800 dark:border-orange-400/40 text-orange-500  font-semibold">
                     {children}
                 </div>
             </Component>

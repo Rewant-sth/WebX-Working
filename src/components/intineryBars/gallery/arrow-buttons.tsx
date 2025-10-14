@@ -52,7 +52,7 @@ export const usePrevNextButtons = (
 type PropType = ComponentPropsWithRef<'button'>
 
 const baseButtonClass =
-    'size-10 rounded-sm flex items-center justify-center hover:text-white  text-gray-700 disabled:text-gray-300 disabled:border-gray-300 transition'
+    'size-10 rounded-sm flex items-center justify-center hover:text-white  text-zinc-700 disabled:text-zinc-300 disabled:border-zinc-300 transition'
 
 const svgIconClass = 'w-[35%] h-[35%]'
 

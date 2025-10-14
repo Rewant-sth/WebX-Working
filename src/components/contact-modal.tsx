@@ -127,7 +127,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
 
                     <div
                         ref={containerRef}
-                        className=" z-10 border w-full bg-white max-w-3xl border-gray-300 rounded-xl relative my-10 mt-20 sm:my-24 mx-auto p-2 md:p-4 lg:p-6 "
+                        className=" z-10 border w-full bg-white max-w-3xl border-zinc-300 rounded-xl relative my-10 mt-20 sm:my-24 mx-auto p-2 md:p-4 lg:p-6 "
                     >
                         <div className="flex w-full justify-end items-center">
                             <button onClick={onClose} className=" ">

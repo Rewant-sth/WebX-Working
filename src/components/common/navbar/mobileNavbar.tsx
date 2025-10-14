@@ -141,7 +141,7 @@ const MobileNavbar = () => {
             <Link
               href="/"
               onClick={handleNavLinkClick}
-              className="text-left text-lg font-medium rounded-sm px-3 py-2 hover:bg-blue-50 transition-all w-full tracking-wide text-gray-800"
+              className="text-left text-lg font-medium rounded-sm px-3 py-2 hover:bg-blue-50 transition-all w-full tracking-wide text-zinc-800"
             >
               Home
             </Link>
@@ -169,7 +169,7 @@ const MobileNavbar = () => {
                     className="flex items-center justify-between w-full py-2 px-1 rounded-sm hover:bg-blue-50 transition-colors"
                   >
                     <span
-                      className={`text-base font-semibold capitalize text-gray-700`}
+                      className={`text-base font-semibold capitalize text-zinc-700`}
                     >
                       {category.name}
                     </span>
@@ -181,8 +181,8 @@ const MobileNavbar = () => {
                   </button>
                   <div
                     className={`mt-1 space-y-1 overflow-hidden transition-all duration-300 ${expandedCategories[category._id]
-                        ? "max-h-96 opacity-100"
-                        : "max-h-0 opacity-0"
+                      ? "max-h-96 opacity-100"
+                      : "max-h-0 opacity-0"
                       }`}
                   >
                     {category.subCategories?.map((subcategory) => (
@@ -190,7 +190,7 @@ const MobileNavbar = () => {
                         key={subcategory._id}
                         href={`/package-list/${category.slug}`}
                         onClick={handleNavLinkClick}
-                        className="text-left pl-6 py-2 rounded-sm font-normal flex gap-2 items-center text-sm w-full hover:bg-blue-100 hover:text-blue-700 transition-all text-gray-600"
+                        className="text-left pl-6 py-2 rounded-sm font-normal flex gap-2 items-center text-sm w-full hover:bg-blue-100 hover:text-blue-700 transition-all text-zinc-600"
                       >
                         {subcategory.name}
                       </Link>
@@ -210,7 +210,7 @@ const MobileNavbar = () => {
                 href={item.href}
                 key={i}
                 onClick={handleNavLinkClick}
-                className="text-left text-base font-medium rounded-sm px-3 py-2 hover:bg-blue-50 transition-all w-full tracking-wide text-gray-800"
+                className="text-left text-base font-medium rounded-sm px-3 py-2 hover:bg-blue-50 transition-all w-full tracking-wide text-zinc-800"
               >
                 {item.label}
               </Link>

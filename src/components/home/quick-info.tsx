@@ -48,7 +48,7 @@ export default function QuickInfo() {
     <div className=" py-12 md:py-20 flex items-center justify-center bg-white px-4 w-full">
       <div className="max-w-7xl w-full relative mx-auto  gap-6 items-center">
         <div className="">
-          <h2 className="text-2xl md:text-4xl space-x-1 pb-4 mx-auto font-semibold uppercase max-w-4xl text-center leading-snug text-gray-900">
+          <h2 className="text-2xl md:text-4xl space-x-1 pb-4 mx-auto font-semibold uppercase max-w-4xl text-center leading-snug text-zinc-900">
             Your Mountain
             <span className="bg-orange-500 ml-2 text-white px-2">Guidebook</span>
           </h2>
@@ -63,7 +63,7 @@ export default function QuickInfo() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-y-4 md:space-y-0 gap-6  lg:mt-14">
           {blogsData?.data?.slice(0, 4).map((data, idx) => {
             if (idx === 0) return (
-              <div key={idx} className="lg:col-span-3 relative border border-gray-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 lg:gap-6 grid lg:grid-cols-2  w-full">
+              <div key={idx} className="lg:col-span-3 relative border border-zinc-300 h-full  lg:h-[26rem] p-2 rounded-sm overflow-hidden gap-4 lg:gap-6 grid lg:grid-cols-2  w-full">
                 <div className="w-full lg:h-full h-[40dvh]  relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover object-center" />
                 </div>
@@ -85,11 +85,11 @@ export default function QuickInfo() {
 
                     <div className="">
                       <Link href={`/blogs/${data?.slug}`} className="flex items-center gap-3 cursor-pointer">
-                        <div className="size-7 lg:size-12 rounded-full border flex items-center justify-center border-gray-900">
-                          <Play size={22} className="text-gray-900 hidden md:block" />
-                          <Play size={11} className="text-gray-900 block md:hidden" />
+                        <div className="size-7 lg:size-12 rounded-full border flex items-center justify-center border-zinc-900">
+                          <Play size={22} className="text-zinc-900 hidden md:block" />
+                          <Play size={11} className="text-zinc-900 block md:hidden" />
                         </div>
-                        <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
+                        <p className="uppercase tracking-wide text-sm font-semibold text-zinc-900">
                           READ MORE
                         </p>
                       </Link>
@@ -100,7 +100,7 @@ export default function QuickInfo() {
             )
 
             return (
-              <div className="w-full p-2 border border-gray-300 rounded-sm overflow-hidden" key={idx}>
+              <div className="w-full p-2 border border-zinc-300 rounded-sm overflow-hidden" key={idx}>
                 <div className="w-full aspect-video relative rounded-sm overflow-hidden">
                   <Image fill src={data?.banner} alt={data?.title} className="object-cover" />
                 </div>
@@ -110,10 +110,10 @@ export default function QuickInfo() {
                   <h2 className="shrink-0">By: {data?.author}</h2>
                   <div className=" flex w-full  justify-end items-center">
                     <Link href={"/blogs/" + data?.slug} className="flex w-fit  items-center gap-3 cursor-pointer">
-                      <div className="w-7 h-7 rounded-full border flex items-center justify-center border-gray-900">
-                        <Play size={11} className="text-gray-900" />
+                      <div className="w-7 h-7 rounded-full border flex items-center justify-center border-zinc-900">
+                        <Play size={11} className="text-zinc-900" />
                       </div>
-                      <p className="uppercase tracking-wide text-sm font-semibold text-gray-900">
+                      <p className="uppercase tracking-wide text-sm font-semibold text-zinc-900">
                         READ MORE
                       </p>
                     </Link>

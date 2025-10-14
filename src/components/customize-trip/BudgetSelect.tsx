@@ -78,9 +78,9 @@ export default function BudgetSelect({
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="border-b pb-4 border-gray-200">
+            <div className="border-b pb-4 border-zinc-200">
                 <h2 className="text-2xl font-semibold">Select Your Budget</h2>
-                <p className="mt-2 max-w-2xl text-gray-600">
+                <p className="mt-2 max-w-2xl text-zinc-600">
                     Choose a budget range that works for you. We'll customize your trip experience accordingly.
                     {numberOfTravelers > 1 && (
                         <span className="block mt-1 text-blue-600 font-medium">
@@ -97,7 +97,7 @@ export default function BudgetSelect({
                         key={budget.id}
                         className={`relative border-2 rounded-lg p-6 cursor-pointer transition-all duration-300 hover:shadow-lg ${selectedBudget === budget.id
                             ? 'border-orange-500 bg-orange-50 ring-2 ring-orange-500 ring-opacity-20'
-                            : 'border-gray-200 hover:border-orange-300'
+                            : 'border-zinc-200 hover:border-orange-300'
                             }`}
                         onClick={() => handleBudgetChange(budget.id)}
                     >
@@ -116,11 +116,11 @@ export default function BudgetSelect({
                                 <Image src={budget.icon} alt={budget.name} width={40} height={40} />
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold text-gray-900">{budget.name}</h3>
-                                <p className="text-gray-600">{budget.description}</p>
+                                <h3 className="text-xl font-semibold text-zinc-900">{budget.name}</h3>
+                                <p className="text-zinc-600">{budget.description}</p>
                                 <div className="mt-2">
-                                    <span className="text-lg font-bold text-gray-800">{budget.range}/</span>
-                                    <span className="text-sm text-gray-500 ml-1">{budget.perPerson}</span>
+                                    <span className="text-lg font-bold text-zinc-800">{budget.range}/</span>
+                                    <span className="text-sm text-zinc-500 ml-1">{budget.perPerson}</span>
                                 </div>
                             </div>
                         </div>
@@ -131,13 +131,13 @@ export default function BudgetSelect({
 
             {/* Custom Budget Input */}
             {selectedBudget === 'custom' && (
-                <div className="bg-gray-50 rounded-lg p-6">
+                <div className="bg-zinc-50 rounded-lg p-6">
                     <h4 className="text-lg font-medium mb-4">Set Your Custom Budget</h4>
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-gray-700 mb-2">Budget per person (USD)</label>
+                            <label className="block text-zinc-700 mb-2">Budget per person (USD)</label>
                             <div className="flex items-center">
-                                <span className="text-gray-500 mr-2">$</span>
+                                <span className="text-zinc-500 mr-2">$</span>
                                 <input
                                     type="number"
                                     min="100"
@@ -145,18 +145,18 @@ export default function BudgetSelect({
                                     placeholder="Enter amount"
                                     value={customBudgetInput}
                                     onChange={(e) => handleCustomBudgetChange(e.target.value)}
-                                    className="flex-1 border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                                    className="flex-1 border border-zinc-300 rounded px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                                 />
                             </div>
                         </div>
 
                         {getTotalBudget() && (
                             <div className="bg-white rounded p-4 border-l-4 border-orange-500">
-                                <h5 className="font-medium text-gray-900">Total Budget Estimate</h5>
+                                <h5 className="font-medium text-zinc-900">Total Budget Estimate</h5>
                                 <p className="text-2xl font-bold text-orange-600">
                                     ${getTotalBudget()?.toLocaleString()}
                                 </p>
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-zinc-600">
                                     For {numberOfTravelers} {numberOfTravelers === 1 ? 'traveler' : 'travelers'}
                                 </p>
                             </div>

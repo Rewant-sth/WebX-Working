@@ -187,7 +187,7 @@ const Page = () => {
                   </div>
 
                   {/* Center Content */}
-                  <div className="w-full lg:border-l border-gray-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
+                  <div className="w-full lg:border-l border-zinc-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
                     {packageData && <TripGlance data={packageData?.data} />}
 
                     {packageData && <SeasonalInfo data={packageData.data} />}

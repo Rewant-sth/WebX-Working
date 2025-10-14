@@ -28,9 +28,9 @@ const ImagePreviewModal = ({ modalOpen, selectedImg, onClose }: ImagePreviewModa
                 />
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition"
+                    className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-zinc-100 transition"
                 >
-                    <X className="h-5 w-5 text-gray-700" />
+                    <X className="h-5 w-5 text-zinc-700" />
                 </button>
             </div>
         </div>

@@ -20,7 +20,7 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
                     <div key={season._id} className="">
                         <h3 className="text-lg font-medium mb-3">{season.title}</h3>
                         <div
-                            className="text-gray-600"
+                            className="text-zinc-600"
                             dangerouslySetInnerHTML={{ __html: season.description }}
                         />
                     </div>

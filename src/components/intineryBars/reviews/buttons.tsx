@@ -60,7 +60,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
   return (
     <button
       type="button"
-      className="w-14 h-14 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-700 hover:bg-gray-100 disabled:text-gray-400 disabled:border-gray-300 transition"
+      className="w-14 h-14 rounded-full border-2 border-zinc-400 flex items-center justify-center text-zinc-700 hover:bg-zinc-100 disabled:text-zinc-400 disabled:border-zinc-300 transition"
       {...restProps}
     >
       <svg className="w-5 h-5" viewBox="0 0 532 532" fill="currentColor">
@@ -78,7 +78,7 @@ export const NextButton: React.FC<PropType> = (props) => {
   return (
     <button
       type="button"
-      className="w-14 h-14 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-700 hover:bg-gray-100 disabled:text-gray-400 disabled:border-gray-300 transition"
+      className="w-14 h-14 rounded-full border-2 border-zinc-400 flex items-center justify-center text-zinc-700 hover:bg-zinc-100 disabled:text-zinc-400 disabled:border-zinc-300 transition"
       {...restProps}
     >
       <svg className="w-5 h-5" viewBox="0 0 532 532" fill="currentColor">

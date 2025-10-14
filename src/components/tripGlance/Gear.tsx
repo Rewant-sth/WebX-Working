@@ -7,7 +7,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="gear"
-            className="border-b  border-gray-200 mb-8 py-10"
+            className="border-b  border-zinc-200 mb-8 py-10"
         >
             {/* Gear */}
             <h2 className="text-3xl font-bold text-orange-500 text-left ">
@@ -22,7 +22,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
                 {data?.gearInfo.map((item, index) => (
                     <div
                         key={index}
-                        className="flex items-start gap-4 p-6 rounded-sm border hover:border-gray-300 transition-all duration-200"
+                        className="flex items-start gap-4 p-6 rounded-sm border hover:border-zinc-300 transition-all duration-200"
                         style={{ borderColor: '#f0f0f0' }}
                     >
                         <div className="flex-1 min-w-0">
@@ -30,7 +30,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
                                 {item.title}
                             </h3>
                             <div
-                                className="text-sm leading-relaxed text-gray-600"
+                                className="text-sm leading-relaxed text-zinc-600"
                                 id="editor" dangerouslySetInnerHTML={{ __html: item.description }}
                             />
                         </div>

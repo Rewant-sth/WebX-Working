@@ -130,8 +130,8 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
                             <Star
                               key={i}
                               className={`w-6 h-6 ${i < data.rating
-                                  ? "fill-yellow-400 stroke-yellow-400"
-                                  : "stroke-slate-200 fill-slate-100"
+                                ? "fill-yellow-400 stroke-yellow-400"
+                                : "stroke-slate-200 fill-slate-100"
                                 }`}
                             />
                           ))}
@@ -144,7 +144,7 @@ const EmblaCarousel: React.FC<PropType> = ({ slides, options }) => {
 
                     <div className="mt-8 relative">
                       <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-indigo-500 rounded-full"></div>
-                      <p className="ml-5 text-gray-700 text-lg leading-relaxed italic">
+                      <p className="ml-5 text-zinc-700 text-lg leading-relaxed italic">
                         "{data.review}"
                       </p>
                     </div>

@@ -41,9 +41,9 @@ const ItineraryDay = ({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="border border-gray-200 hover:border-gray-300 transition-all duration-300 rounded-sm bg-gray-50 mb-4 overflow-hidden">
+    <div className="border border-zinc-200 hover:border-zinc-300 transition-all duration-300 rounded-sm bg-zinc-50 mb-4 overflow-hidden">
       <div
-        className="flex items-center justify-between py-5 px-6 cursor-pointer hover:bg-gray-100 transition-all duration-200 rounded-t-lg"
+        className="flex items-center justify-between py-5 px-6 cursor-pointer hover:bg-zinc-100 transition-all duration-200 rounded-t-lg"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center gap-4">
@@ -69,12 +69,11 @@ const ItineraryDay = ({
       </div>
 
       <div
-        className={`bg-white border-t border-gray-100 transition-all duration-300 ease-in-out overflow-hidden ${
-          expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`bg-white border-t border-zinc-100 transition-all duration-300 ease-in-out overflow-hidden ${expanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
       >
         <div className="px-6 pb-6">
-          <p className="text-gray-600 text-base leading-relaxed pt-4 mb-6">
+          <p className="text-zinc-600 text-base leading-relaxed pt-4 mb-6">
             {description}
           </p>
 
@@ -94,7 +93,7 @@ const ItineraryDay = ({
                   >
                     Duration
                   </p>
-                  <p className="text-sm text-gray-600">{data.duration}</p>
+                  <p className="text-sm text-zinc-600">{data.duration}</p>
                 </div>
               </div>
             )}
@@ -114,7 +113,7 @@ const ItineraryDay = ({
                   >
                     Max Altitude
                   </p>
-                  <p className="text-sm text-gray-600">{data.maxAltitude} m</p>
+                  <p className="text-sm text-zinc-600">{data.maxAltitude} m</p>
                 </div>
               </div>
             )}
@@ -134,7 +133,7 @@ const ItineraryDay = ({
                   >
                     Accommodation
                   </p>
-                  <p className="text-sm text-gray-600">{data.accommodation}</p>
+                  <p className="text-sm text-zinc-600">{data.accommodation}</p>
                 </div>
               </div>
             )}
@@ -154,7 +153,7 @@ const ItineraryDay = ({
                   >
                     Meals
                   </p>
-                  <p className="text-sm text-gray-600">{data.meals}</p>
+                  <p className="text-sm text-zinc-600">{data.meals}</p>
                 </div>
               </div>
             )}
@@ -168,8 +167,8 @@ const ItineraryDay = ({
 // Itinerary Preview Component
 const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
   return (
-    <div id="itinerary" className="border-b border-gray-200 mb-8 pb-10">
-      <h2 className="text-2xl font-semibold text-gray-800 text-center sm:text-left">
+    <div id="itinerary" className="border-b border-zinc-200 mb-8 pb-10">
+      <h2 className="text-2xl font-semibold text-zinc-800 text-center sm:text-left">
         <span className="w-fit text-2xl font-semibold">Itinerary</span>
       </h2>
 

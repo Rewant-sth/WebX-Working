@@ -53,9 +53,9 @@ const RelatedTrips = ({
             return (
               <div
                 key={index}
-                className="bg-white rounded-sm overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 group"
+                className="bg-white rounded-sm overflow-hidden border border-zinc-200 hover:border-zinc-300 transition-all duration-300 group"
               >
-                <div className="h-64 relative bg-gray-100 overflow-hidden">
+                <div className="h-64 relative bg-zinc-100 overflow-hidden">
                   <Image
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     src={trip.coverImage || "/placeholder.jpg"}
@@ -65,20 +65,20 @@ const RelatedTrips = ({
                 </div>
                 <div className="p-3">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl truncate font-bold text-gray-800 leading-tight flex-1 mr-3" style={{ color: '#3A3A3A' }}>
+                    <h3 className="text-xl truncate font-bold text-zinc-800 leading-tight flex-1 mr-3" style={{ color: '#3A3A3A' }}>
                       {trip.name}
                     </h3>
                   </div>
 
                   <p
                     id="editor" dangerouslySetInnerHTML={{ __html: trip.overview }}
-                    className="text-gray-600 mb-4 line-clamp-2 leading-relaxed"
+                    className="text-zinc-600 mb-4 line-clamp-2 leading-relaxed"
                   />
 
                   {(
                     <div className="flex justify-between items-center mb-4">
                       <div>
-                        <span className="text-sm text-gray-500 block">Starting From</span>
+                        <span className="text-sm text-zinc-500 block">Starting From</span>
                         {
                           trip.fixedDates.length > 0 ?
                             (<span className="text-2xl font-bold" style={{ color: '#01283F' }}>

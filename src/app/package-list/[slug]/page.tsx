@@ -185,7 +185,7 @@ const ExpeditionCards: React.FC = () => {
                   <button
                     className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${!selectedSubcategory
                       ? "bg-orange-500 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
                       }`}
                     onClick={() => setSelectedSubcategory(null)}
                   >
@@ -202,7 +202,7 @@ const ExpeditionCards: React.FC = () => {
                         key={subcat._id}
                         className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive
                           ? "bg-orange-500 text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                          : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200"
                           }`}
                         onClick={() => setSelectedSubcategory(subcat.slug)}
                       >

@@ -111,7 +111,7 @@ const Places = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-[#025FE0] scale-105" : "bg-gray-300"
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-[#025FE0] scale-105" : "bg-zinc-300"
               }`}
           />
         ))}
@@ -136,9 +136,9 @@ const Places = () => {
             />
             <button
               onClick={closeModal}
-              className="p-2 absolute bg-white rounded-full top-2 right-2 text-black shadow-md hover:bg-gray-200 transition cursor-pointer"
+              className="p-2 absolute bg-white rounded-full top-2 right-2 text-black shadow-md hover:bg-zinc-200 transition cursor-pointer"
             >
-              <X className="h-5 w-5 text-gray-700" />
+              <X className="h-5 w-5 text-zinc-700" />
             </button>
           </div>
         </div>

@@ -90,12 +90,12 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                     <PrevButton
                         onClick={onPrevButtonClick}
                         disabled={prevBtnDisabled}
-                        className="w-14 h-14 rounded-full border-2 border-gray-400 flex items-center justify-center disabled:text-gray-500"
+                        className="w-14 h-14 rounded-full border-2 border-zinc-400 flex items-center justify-center disabled:text-zinc-500"
                     />
                     <NextButton
                         onClick={onNextButtonClick}
                         disabled={nextBtnDisabled}
-                        className="w-14 h-14 rounded-full border-2 border-gray-400 flex items-center justify-center disabled:text-gray-500"
+                        className="w-14 h-14 rounded-full border-2 border-zinc-400 flex items-center justify-center disabled:text-zinc-500"
                     />
                 </div>
             </div>

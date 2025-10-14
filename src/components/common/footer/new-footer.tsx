@@ -49,7 +49,7 @@ export default function Footer() {
                       <img src="https://uploads-ssl.webflow.com/5ee4030d6fd7285009fe05f5/625835dc5e9a3877c49e9bb7_tripadvisor-logo-5-p-2600.png" alt="trip advisor real himalaya" />
                     </Link>
                   </li>
-                  <li className="size-7 md:size-10 bg-gray-200 rounded-full flex justify-center items-center">
+                  <li className="size-7 md:size-10 bg-zinc-200 rounded-full flex justify-center items-center">
                     <Link target='_blank' href="https://search.google.com/local/writereview?placeid=ChIJ89wmosehrQQRjBvwmVKp064&source=g.page.m.ia._&utm_source=gbp&laa=nmx-review-solicitation-ia2" >
                       <Icon icon={"flat-color-icons:google"} className='text-4xl' />
                     </Link>

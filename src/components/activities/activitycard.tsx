@@ -26,7 +26,7 @@ const ActivityCard = ({
             </AnimatedSection>
 
             <AnimatedSection delay={200}>
-                <p className="text-gray-600 text-xl max-w-2xl ">
+                <p className="text-zinc-600 text-xl max-w-2xl ">
                     Discover our most popular treks and adventures that await you around
                     the world
                 </p>

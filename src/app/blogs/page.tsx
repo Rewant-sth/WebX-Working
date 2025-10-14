@@ -37,10 +37,10 @@ const Blogs = async () => {
       <div className="py-12 pt-[5rem] px-4 sm:px-8 md:px-12 lg:px-16 bg-white sm:mx-3">
 
         <div className="text-center mb-12">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight uppercase">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-zinc-900 mb-4 tracking-tight uppercase">
             Adventure Stories & Insights
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-zinc-600 max-w-4xl mx-auto leading-relaxed">
             Discover inspiring tales from the Himalayas, expert trekking guides, and exclusive expedition experiences
             from our team of mountain professionals and adventure enthusiasts.
           </p>
@@ -59,13 +59,13 @@ const Blogs = async () => {
                 </div>
 
                 <div className="space-y-4 max-w-lg">
-                  <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+                  <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
                     No Blog Posts Yet
                   </h1>
-                  <p className="text-lg text-gray-600 leading-relaxed">
+                  <p className="text-lg text-zinc-600 leading-relaxed">
                     We're currently working on exciting content about Himalayan adventures, trekking experiences, and expedition stories.
                   </p>
-                  <p className="text-sm text-gray-500 italic">
+                  <p className="text-sm text-zinc-500 italic">
                     Check back soon for inspiring articles and travel insights.
                   </p>
                 </div>
@@ -82,7 +82,7 @@ const Blogs = async () => {
                   </Link>
                   <Link
                     href="/expeditions"
-                    className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-sm text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                    className="inline-flex items-center justify-center px-6 py-3 border border-zinc-300 text-base font-medium rounded-sm text-zinc-700 bg-white hover:bg-zinc-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -120,10 +120,10 @@ const Blogs = async () => {
                 </div>
 
                 <div className="mt-2">
-                  <h2 className="text-xl line-clamp-2 font-bold text-gray-800 mb-2 hover:text-orange-500 transition-colors cursor-pointer">
+                  <h2 className="text-xl line-clamp-2 font-bold text-zinc-800 mb-2 hover:text-orange-500 transition-colors cursor-pointer">
                     {blog.title}
                   </h2>
-                  <p id="editor" dangerouslySetInnerHTML={{ __html: blog.description }} className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p id="editor" dangerouslySetInnerHTML={{ __html: blog.description }} className="text-zinc-600 text-sm mb-4 line-clamp-2">
                   </p>
                 </div>
               </Link>
@@ -149,8 +149,8 @@ const BlogSkeleton = () => {
   return (
     <div className="bg-white overflow-hidden text-left group">
       <div>
-        <h2 className="text-2xl rounded-xl h-6 bg-slate-200 animate-pulse  font-bold text-gray-800 mb-2 hover:text-[#155DFC] transition-colors cursor-pointer"></h2>
-        <p className="text-gray-600 rounded-xl bg-slate-200 text-sm mb-4 h-6 animate-pulse"></p>
+        <h2 className="text-2xl rounded-xl h-6 bg-slate-200 animate-pulse  font-bold text-zinc-800 mb-2 hover:text-[#155DFC] transition-colors cursor-pointer"></h2>
+        <p className="text-zinc-600 rounded-xl bg-slate-200 text-sm mb-4 h-6 animate-pulse"></p>
       </div>
       <div className="overflow-hidden">
         <Image

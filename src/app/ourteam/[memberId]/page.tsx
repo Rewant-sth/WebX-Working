@@ -31,8 +31,8 @@ export default function TeamMemberDetails({ params }: PageProps) {
         return (
             <div className="min-h-screen mt-[4rem] p-6 flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-800">Team member not found</h1>
-                    <p className="mt-2 text-gray-600">The team member you're looking for doesn't exist.</p>
+                    <h1 className="text-3xl font-bold text-zinc-800">Team member not found</h1>
+                    <p className="mt-2 text-zinc-600">The team member you're looking for doesn't exist.</p>
                     <Link href="/ourteam" className="mt-4 inline-block bg-orange-500 text-white px-6 py-2 rounded-full">
                         Back to Team
                     </Link>
@@ -57,7 +57,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
                 <div className="">
                     <h2 className="text-xl lg:text-3xl font-semibold text-orange-500 mb-4 uppercase">About {member.data.name}</h2>
                     <div
-                        className="prose space-y-5  text-gray-700 md:text-justify sm:text-center"
+                        className="prose space-y-5  text-zinc-700 md:text-justify sm:text-center"
                         dangerouslySetInnerHTML={{
                             __html: member.data.description ||
                                 "A dedicated professional bringing expertise and passion to every project. With years of experience in the field, they contribute significantly to our team's success."

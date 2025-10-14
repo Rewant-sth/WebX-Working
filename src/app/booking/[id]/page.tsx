@@ -78,11 +78,11 @@ const FormInput = ({
 
   return (
     <div className="mb-4">
-      <label className="block text-gray-700 mb-1">
+      <label className="block text-zinc-700 mb-1">
         {label} {required && "*"}
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-400">
           {icon}
         </div>
         <input
@@ -97,7 +97,7 @@ const FormInput = ({
           placeholder={placeholder}
           autoComplete="off"
           data-form-type="other"
-          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm"
+          className="w-full pl-10 pr-3 py-2 border border-zinc-300 rounded-sm"
         />
       </div>
       {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
@@ -139,7 +139,7 @@ const FormDateInput = ({
 
   return (
     <div className="mb-4 w-full">
-      <label className="block text-gray-700 mb-1">
+      <label className="block text-zinc-700 mb-1">
         {label} {required && "*"}
       </label>
       <div className="relative w-full">
@@ -156,9 +156,9 @@ const FormDateInput = ({
           disabled={disabled}
           autoComplete="off"
           data-form-type="other"
-          className={`w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm ${disabled ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+          className={`w-full pl-10 pr-3 py-2 border border-zinc-300 rounded-sm ${disabled ? 'bg-zinc-100 cursor-not-allowed' : ''}`}
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-400">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
           </svg>
@@ -181,18 +181,18 @@ const FormSelect = ({ register, name, label, error, icon, options, required = tr
 
   return (
     <div className="mb-4">
-      <label className="block text-gray-700 mb-1">
+      <label className="block text-zinc-700 mb-1">
         {label} {required && "*"}
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-400">
           {icon}
         </div>
         <select
           {...register(name, { onChange: handleSelectChange })}
           autoComplete="off"
           data-form-type="other"
-          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-sm appearance-none bg-white"
+          className="w-full pl-10 pr-3 py-2 border border-zinc-300 rounded-sm appearance-none bg-white"
         >
           <option value="">Select {label}</option>
           {options.map((option: any) => (
@@ -201,7 +201,7 @@ const FormSelect = ({ register, name, label, error, icon, options, required = tr
             </option>
           ))}
         </select>
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
@@ -531,7 +531,7 @@ export default function BookingForm() {
     <>
       <Banner />
       <div className="w-full lg:p-20 mx-auto p-4 md:p-6 bg-white">
-        <button onClick={() => router.back()} className="flex items-center text-gray-600 hover:text-orange-500 transition mb-4">
+        <button onClick={() => router.back()} className="flex items-center text-zinc-600 hover:text-orange-500 transition mb-4">
           <ArrowLeft className="w-5 h-5 mr-2" />
           Go Back
         </button>
@@ -539,8 +539,8 @@ export default function BookingForm() {
 
 
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Book Your Expedition</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-2xl md:text-3xl font-bold text-zinc-800">Book Your Expedition</h1>
+          <p className="text-zinc-600 mt-1">
             {packageData?.data?.name} · ${pricePerPerson}/traveler
           </p>
         </div>
@@ -558,10 +558,10 @@ export default function BookingForm() {
 
               {/* Pax Selection Section */}
               {packageData?.data?.pax && packageData.data.pax.length > 0 && (
-                <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
+                <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
                   <h3 className="text-orange-600 text-lg font-medium mb-4">Select Package</h3>
 
-                  <div className="grid grid-cols-1 divide-y divide-gray-300 gap-4">
+                  <div className="grid grid-cols-1 divide-y divide-zinc-300 gap-4">
                     {packageData.data.pax
                       .sort((a: any, b: any) => a.sortOrder - b.sortOrder)
                       .map((paxOption: any) => {
@@ -595,13 +595,13 @@ export default function BookingForm() {
                             className={`  transition-all ${selectedCount > 0
                               ? ''
                               : isDisabled
-                                ? 'border-gray-200 opacity-30 text-gray-400  '
-                                : 'border-gray-200 hover:border-orange-300'
+                                ? 'border-zinc-200 opacity-30 text-zinc-400  '
+                                : 'border-zinc-200 hover:border-orange-300'
                               }`}
                           >
                             <div className="flex items-start gap-4 lg:gap-6">
                               {/* Left: User Icon and Number of Travelers Dropdown */}
-                              <div className="flex relative w-28 border px-2 py-1.5 border-gray-400/80 rounded-md items-center gap-2">
+                              <div className="flex relative w-28 border px-2 py-1.5 border-zinc-400/80 rounded-md items-center gap-2">
                                 <div className={`absolute top-1/2 left-2 z-20 -translate-y-1/2`}>
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -630,7 +630,7 @@ export default function BookingForm() {
                                   }}
                                   disabled={isDisabled}
                                   className={`w-full relative text-center z-50 px-2 font-medium ${isDisabled
-                                    ? ' text-gray-500 cursor-not-allowed'
+                                    ? ' text-zinc-500 cursor-not-allowed'
                                     : selectedCount > 0
                                       ? ''
                                       : '0 hover:border-orange-400'
@@ -647,13 +647,13 @@ export default function BookingForm() {
 
                               {/* Middle: Pax Info */}
                               <div className="flex-1">
-                                <h4 className="text-lg font-semibold text-gray-800 mb-1">
+                                <h4 className="text-lg font-semibold text-zinc-800 mb-1">
                                   {paxLabel}
                                 </h4>
-                                <p className=" text-gray-500 ">
+                                <p className=" text-zinc-500 ">
                                   Available until {selectedFixedDate ? new Date(selectedFixedDate.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A'}
                                 </p>
-                                <p className=" text-gray-600 mb-3">
+                                <p className=" text-zinc-600 mb-3">
                                   Select this option if {paxOption.min === paxOption.max
                                     ? `you are booking for ${paxOption.min} traveler${paxOption.min > 1 ? 's' : ''}`
                                     : `${paxOption.min}-${paxOption.max} travelers are booking together`
@@ -667,7 +667,7 @@ export default function BookingForm() {
                                 <div className="text-2xl font-bold text-orange-600 mb-1">
                                   ${discountedPrice.toFixed(0)}
                                 </div>
-                                <div className=" text-gray-500">
+                                <div className=" text-zinc-500">
                                   Deposit: ${depositAmount}
                                 </div>
 
@@ -687,7 +687,7 @@ export default function BookingForm() {
 
               {/* Single Traveler Information Form */}
               {fields.length > 0 && (
-                <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
+                <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-orange-600 text-lg font-medium">Traveller Information</h3>
                   </div>
@@ -812,7 +812,7 @@ export default function BookingForm() {
               </div> */}
 
               {/* Trip Dates Section */}
-              <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
                 <h3 className="text-orange-600 text-lg font-medium">Trip Dates</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -834,12 +834,12 @@ export default function BookingForm() {
                   />
 
                   <div className="mb-4 relative">
-                    <label className="block text-gray-700 mb-1">Select Package Date *</label>
+                    <label className="block text-zinc-700 mb-1">Select Package Date *</label>
                     <Select
                       triggerLabel="Select a date"
-                      className="border border-gray-300 rounded-sm w-full h p-2"
+                      className="border border-zinc-300 rounded-sm w-full h p-2"
                       closeOnSelect={true}
-                      listClassName="cursor-pointer  bg-white border border-gray-300 gap-3 !space-y-5 p-2  !mt-2 rounded-sm -translate-x-2 w-full"
+                      listClassName="cursor-pointer  bg-white border border-zinc-300 gap-3 !space-y-5 p-2  !mt-2 rounded-sm -translate-x-2 w-full"
                       selectedOptions={packageData?.data?.fixedDates?.filter((date: IFixedDate) => date._id === fixedDateId).map((date: IFixedDate) => ({
                         label: `${new Date(date.startDate).toLocaleDateString()} - ${new Date(date.endDate).toLocaleDateString()} ($${date.pricePerPerson})`,
                         value: date._id
@@ -866,11 +866,11 @@ export default function BookingForm() {
 
               {/* Add-ons Section */}
               {packageData?.data?.addons && packageData.data.addons.length > 0 && (
-                <div className="sm:border border-gray-200 sm:p-6 rounded-sm mb-6">
+                <div className="sm:border border-zinc-200 sm:p-6 rounded-sm mb-6">
                   <h3 className="text-orange-600 text-lg font-medium">Choose Add-ons</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {packageData.data.addons.map((addon: any) => (
-                      <div key={addon._id} className="flex flex-wrap items-center  bg-white md:gap-4 border border-gray-200 rounded-sm hover:border-orange-300 transition-colors">
+                      <div key={addon._id} className="flex flex-wrap items-center  bg-white md:gap-4 border border-zinc-200 rounded-sm hover:border-orange-300 transition-colors">
                         <input
                           type="checkbox"
                           id={`addon-${addon._id}`}
@@ -917,11 +917,11 @@ export default function BookingForm() {
               )}
 
               {/* Additional Notes */}
-              <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
                 <h3 className="text-orange-600 text-lg font-medium">Additional Notes</h3>
 
                 <div className="mb-4">
-                  <label className="block text-gray-700 mb-2">Special Requests</label>
+                  <label className="block text-zinc-700 mb-2">Special Requests</label>
                   <textarea
                     {...register("specialRequirements", {
                       onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -934,22 +934,22 @@ export default function BookingForm() {
                     placeholder="Dietary needs, accessibility requirements, etc."
                     autoComplete="off"
                     data-form-type="other"
-                    className="w-full p-3 border border-gray-300 rounded-sm min-h-[120px]"
+                    className="w-full p-3 border border-zinc-300 rounded-sm min-h-[120px]"
                   />
                 </div>
 
                 {/* <div>
-                  <label className="block text-gray-700 mb-2">Message (Optional)</label>
+                  <label className="block text-zinc-700 mb-2">Message (Optional)</label>
                   <textarea
                     {...register("message")}
                     placeholder="Additional information or questions..."
-                    className="w-full p-3 border border-gray-300 rounded-sm min-h-[120px]"
+                    className="w-full p-3 border border-zinc-300 rounded-sm min-h-[120px]"
                   />
                 </div> */}
               </div>
 
               {/* Terms and Conditions */}
-              <div className="bg-white sm:p-6 rounded-sm sm:border border-gray-200 mb-6">
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
                 <div className="flex items-start">
                   <input
                     type="checkbox"
@@ -957,7 +957,7 @@ export default function BookingForm() {
                     {...register("termsAccepted")}
                     className="mt-1 w-5 h-5 accent-orange-600"
                   />
-                  <label htmlFor="termsAccepted" className="ml-2 text-gray-700">
+                  <label htmlFor="termsAccepted" className="ml-2 text-zinc-700">
                     I accept the{" "}
                     <Link target="_blank" href="/terms-and-conditions" className="text-orange-600 hover:underline">
                       Terms and Conditions
@@ -972,19 +972,19 @@ export default function BookingForm() {
 
             {/* Right Column - Booking Summary */}
             <div className="lg:w-96">
-              <div className="sticky top-6 bg-white lg:p-6   rounded-sm lg:border border-gray-200 ">
-                <h2 className="text-xl font-bold text-gray-800 mb-6">Booking Summary</h2>
+              <div className="sticky top-6 bg-white lg:p-6   rounded-sm lg:border border-zinc-200 ">
+                <h2 className="text-xl font-bold text-zinc-800 mb-6">Booking Summary</h2>
 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Package:</span>
+                    <span className="text-zinc-600">Package:</span>
                     <span className="font-medium">{packageData?.data?.name}</span>
                   </div>
 
                   {/* Show pax breakdown if selections made */}
                   {/* {Object.entries(paxSelections).some(([_, count]) => count > 0) && (
-                    <div className="border-t border-gray-200 pt-3 mt-3">
-                      <h4 className="font-medium text-gray-800 mb-2">Selected Pax:</h4>
+                    <div className="border-t border-zinc-200 pt-3 mt-3">
+                      <h4 className="font-medium text-zinc-800 mb-2">Selected Pax:</h4>
                       {Object.entries(paxSelections).map(([paxId, count]) => {
                         if (count === 0) return null;
                         const paxOption = packageData?.data?.pax?.find((p: any) => p._id === paxId);
@@ -999,7 +999,7 @@ export default function BookingForm() {
                           <div key={paxId} className="flex justify-between text-sm mb-2 bg-orange-50 p-2 rounded">
                             <div>
                               <span className="font-medium">{paxLabel}</span>
-                              <span className="text-gray-500 ml-1">× {count}</span>
+                              <span className="text-zinc-500 ml-1">× {count}</span>
                               {paxOption.discount > 0 && (
                                 <span className="text-green-600 text-xs ml-1">({paxOption.discount}% off)</span>
                               )}
@@ -1012,12 +1012,12 @@ export default function BookingForm() {
                   )} */}
 
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Number of Travelers:</span>
+                    <span className="text-zinc-600">Number of Travelers:</span>
                     <span className="font-medium">{Object.values(paxSelections).reduce((sum, count) => sum + count, 0) || numberOfTravelers || 1}</span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Base price per traveler:</span>
+                    <span className="text-zinc-600">Base price per traveler:</span>
                     <span className="font-medium">${pricePerPerson}</span>
                   </div>
 
@@ -1025,8 +1025,8 @@ export default function BookingForm() {
                   {discountPercentage > 0 && (
                     <>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Subtotal:</span>
-                        <span className="font-medium line-through text-gray-500">${originalAmount.toFixed(2)}</span>
+                        <span className="text-zinc-600">Subtotal:</span>
+                        <span className="font-medium line-through text-zinc-500">${originalAmount.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-green-600">Group Discount ({discountPercentage.toFixed(1)}%):</span>
@@ -1036,7 +1036,7 @@ export default function BookingForm() {
                   )}
 
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Arrival Date:</span>
+                    <span className="text-zinc-600">Arrival Date:</span>
                     <span className="font-medium">
                       {arrivalDate ? new Date(arrivalDate).toLocaleDateString() : 'Not selected'}
                     </span>
@@ -1044,8 +1044,8 @@ export default function BookingForm() {
 
                   {/* Selected Add-ons */}
                   {selectedAddons && selectedAddons.length > 0 && (
-                    <div className="border-t border-gray-200 pt-3 mt-3">
-                      <h4 className="font-medium text-gray-800 mb-2">Add-ons:</h4>
+                    <div className="border-t border-zinc-200 pt-3 mt-3">
+                      <h4 className="font-medium text-zinc-800 mb-2">Add-ons:</h4>
                       {packageData?.data?.addons
                         ?.filter((addon: any) => selectedAddons.includes(addon._id))
                         ?.map((addon: any) => (
@@ -1057,7 +1057,7 @@ export default function BookingForm() {
                     </div>
                   )}
 
-                  <div className={`flex justify-between text-lg font-bold pt-3 border-t border-gray-200 ${discountPercentage > 0 ? 'text-green-600' : ''}`}>
+                  <div className={`flex justify-between text-lg font-bold pt-3 border-t border-zinc-200 ${discountPercentage > 0 ? 'text-green-600' : ''}`}>
                     <span>Total:</span>
                     <span className={discountPercentage > 0 ? 'text-green-600' : 'text-orange-600'}>
                       ${totalAmount.toFixed(2)}
@@ -1072,7 +1072,7 @@ export default function BookingForm() {
                   type="submit"
                   disabled={isLoading}
                   className={`w-full py-3 px-4 rounded-sm font-medium transition flex items-center justify-center ${isLoading
-                    ? "bg-gray-400 cursor-not-allowed"
+                    ? "bg-zinc-400 cursor-not-allowed"
                     : "bg-orange-600 hover:bg-orange-700 text-white"
                     }`}
                 >

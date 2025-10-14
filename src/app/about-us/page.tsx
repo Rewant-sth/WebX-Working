@@ -74,7 +74,7 @@ const ValueCard: React.FC<ValueCardProps> = ({ icon, title, desc, delay = 0 }) =
         </div>
         <h3 className="text-xl font-bold text-white drop-shadow-sm">{title}</h3>
       </div>
-      <p className="text-gray-100 leading-relaxed">{desc}</p>
+      <p className="text-zinc-100 leading-relaxed">{desc}</p>
     </div>
   </motion.div>
 
@@ -109,24 +109,24 @@ const AboutUsPage: React.FC = () => {
       </section>
 
       {/* Intro Section */}
-      <section className="min-h-screen flex items-center py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50">
+      <section className="min-h-screen flex items-center py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-b from-white to-zinc-50">
         <div className="max-w-6xl  mx-auto w-full text-center">
           <div className="mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">Our Story</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 sm:mb-6 text-zinc-800">Our Story</h2>
             <div className="space-y-4 sm:space-y-6">
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-600 leading-relaxed">
                 Founded in <span className="text-orange-500">2014</span>, <span className="text-orange-500">Real Himalaya</span> is more than just a trekking company, it is a family of mountain dreamers, guides, and storytellers born in the heart of Nepal. Our journey is led by seasoned mountaineers who have carved their legacy on the world’s highest peaks.
               </p>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-600 leading-relaxed">
                 <span className="text-orange-500">Dayula Sherpa</span>, our Founder and Director, carries over <span className="font-bold">20 years of mountaineering experience</span> , with successful climbs of <span className="font-bold">Everest, Shishapangma (twice), and Makalu (five times)</span>. His wisdom and resilience guide every expedition we lead. Alongside him stands <span className="text-orange-500">Gokul Thapa</span>, Co-Founder and Lead Guide, with <span className="font-bold">15+ years of high-altitude expertise</span>, having conquered  <span className="font-bold">Everest, Manaslu, Makalu, Ama Dablam, Mera Peak, Island Peak, and Lobuche.</span> Together, they built the <span className="text-orange-500">Real Himalaya</span> with one vision to share the beauty, culture, and adventure of Nepal with the world, while ensuring  <span className="font-bold">safety, authenticity, and unforgettable </span>experiences for every traveler.
               </p>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-600 leading-relaxed">
                 We are a fully  <span className="font-bold">licensed and certified trekking agency</span>, proudly recognized by the <span className="font-bold"> Nepal Mountaineering Association (NMA), Trekking Agencies’ Association of Nepal (TAAN), and the Nepal Tourism Board (NTB)</span>. Our team of local Sherpa guides and climbing experts are not only skilled in navigating the high Himalayas but also deeply connected to its culture, ensuring every trek is both an adventure and a cultural immersion.
               </p>
-              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-600 leading-relaxed">
                 At <span className="text-orange-500">Real Himalaya</span> , we believe the mountains are more than summits - they are journeys of the soul. Whether you dream of <span className="font-bold">Everest Base Camp, the Three Passes, Gokyo Lakes, Manaslu, Annapurna, or a life-changing peak climb</span>, we walk beside you every step of the way.
               </p>
-              <p className="text-lg sm:text-xl text-gray-700 font-medium italic leading-relaxed mt-8 border-t border-gray-200 pt-6">
+              <p className="text-lg sm:text-xl text-zinc-700 font-medium italic leading-relaxed mt-8 border-t border-zinc-200 pt-6">
                 <span className="text-orange-500">Real Himalaya</span> where every step is guided by experience, and every trail tells a story.
               </p>
             </div>
@@ -167,12 +167,12 @@ const AboutUsPage: React.FC = () => {
             className="text-center mb-16"
           >
             <h1
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-zinc-900 mb-4"
             >
               Our Core Values
             </h1>
             <p
-              className="text-xl text-gray-800 max-w-3xl mx-auto"
+              className="text-xl text-zinc-800 max-w-3xl mx-auto"
             >
               Discover the passion and dedication that drives our team to create unforgettable Himalayan experiences.
             </p>
@@ -196,12 +196,12 @@ const AboutUsPage: React.FC = () => {
       </ section>
 
       {/* Team & Specialties */}
-      <section className="py-16 px-6 bg-gray-50">
+      <section className="py-16 px-6 bg-zinc-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="lg:sticky lg:top-24 lg:self-start">
               <div className="mb-8 flex items-center gap-4">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+                <h2 className="text-4xl md:text-5xl font-bold text-zinc-800">
                   <span className="text-orange-500">Vision</span> Behind The Journey
                 </h2>
                 <div className="flex-1 h-1 bg-orange-500 rounded-full max-w-[80px]"></div>
@@ -228,17 +228,17 @@ const AboutUsPage: React.FC = () => {
                   />
                 </div>
               </div>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              <p className="text-lg text-zinc-600 mb-6 leading-relaxed">
                 Gokul Thapa, a seasoned mountaineer with 15+ years of Himalayan experience, founded High Five Adventures to share his passion for Nepal's majestic peaks with the world. His expertise has been instrumental in developing unique expedition routes and safety protocols.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-zinc-600 leading-relaxed">
                 Under Gokul's leadership, our team has grown to include some of the most experienced Sherpa guides in Nepal, all sharing a commitment to excellence and sustainable tourism.
               </p>
             </div>
 
             <div>
-              <h2 className="text-4xl font-bold mb-6 text-gray-800">Our Specialities</h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <h2 className="text-4xl font-bold mb-6 text-zinc-800">Our Specialities</h2>
+              <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
                 We offer a diverse range of adventures tailored to different experience levels and interests, all with our signature attention to detail and commitment to excellence.
               </p>
 

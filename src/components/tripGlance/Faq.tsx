@@ -34,7 +34,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
           return (
             <div
               key={index}
-              className="  transition-all duration-300 border-b border-gray-200 overflow-hidden"
+              className="  transition-all duration-300 border-b border-zinc-200 overflow-hidden"
             >
               <button
                 className="flex items-center justify-between cursor-pointer w-full text-left py-4  transition-all duration-200 rounded-t-lg focus:outline-none group"
@@ -62,7 +62,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                   }`}
               >
                 <div className="pb-2">
-                  <p className="text-gray-600 text-base leading-relaxed" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                  <p className="text-zinc-600 text-base leading-relaxed" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                 </div>
               </div>
             </div>

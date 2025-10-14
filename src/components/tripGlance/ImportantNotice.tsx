@@ -18,7 +18,7 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
             <p className="text-zinc-600 mt-1 leading-relaxed  mb-8">
                 Important information and notices that you should be aware of before booking your adventure.
             </p>
-            <div className="space-y-4 divide-y divide-gray-200">
+            <div className="space-y-4 divide-y divide-zinc-200">
                 {data?.importantNotice.map((item, index) => (
                     <div
                         key={index}

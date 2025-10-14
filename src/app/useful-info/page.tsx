@@ -36,15 +36,15 @@ interface UsefulInfoResponse {
 
 // Skeleton Component
 const UsefulInfoSkeleton = () => (
-    <div className="bg-white rounded-xl border border-gray-200 p-6 animate-pulse">
+    <div className="bg-white rounded-xl border border-zinc-200 p-6 animate-pulse">
         <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-gray-200 rounded-sm flex-shrink-0"></div>
+            <div className="w-12 h-12 bg-zinc-200 rounded-sm flex-shrink-0"></div>
             <div className="flex-1">
-                <div className="h-6 bg-gray-200 rounded mb-3 w-3/4"></div>
+                <div className="h-6 bg-zinc-200 rounded mb-3 w-3/4"></div>
                 <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-                    <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+                    <div className="h-4 bg-zinc-200 rounded w-full"></div>
+                    <div className="h-4 bg-zinc-200 rounded w-5/6"></div>
+                    <div className="h-4 bg-zinc-200 rounded w-4/6"></div>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@ const UsefulInfoPage = () => {
                     )}
 
                     {!isLoading && !isError && filteredData.length === 0 && (
-                        <div className="p-6 text-gray-500">No results found for "{query}"</div>
+                        <div className="p-6 text-zinc-500">No results found for "{query}"</div>
                     )}
 
                     {!isLoading && !isError && filteredData.map((item) => {
@@ -140,14 +140,14 @@ const UsefulInfoPage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="ml-4 flex items-center text-gray-600">
+                                    <div className="ml-4 flex items-center text-zinc-600">
                                         {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                                     </div>
                                 </button>
 
                                 <div
                                     id={`panel-${item._id}`}
-                                    className="mt-3 prose max-w-none text-gray-700  overflow-hidden transition-[max-height] duration-300 ease-in-out"
+                                    className="mt-3 prose max-w-none text-zinc-700  overflow-hidden transition-[max-height] duration-300 ease-in-out"
                                     style={{ maxHeight: isOpen ? '600px' : '0px' }}
                                     aria-hidden={!isOpen}
                                 >

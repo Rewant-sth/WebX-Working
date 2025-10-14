@@ -14,7 +14,7 @@ const RouteMapModal = ({ isVisible, onClose, routeMap }: RouteMapModalProps) => 
         <div className="fixed inset-0 flex justify-center items-center z-[99999] bg-black/70 backdrop-blur-md">
             <button
                 onClick={onClose}
-                className="absolute top-5 right-5 text-orange-500 text-3xl flex justify-center items-center rounded-full size-14 bg-white hover:bg-gray-100 transition-colors"
+                className="absolute top-5 right-5 text-orange-500 text-3xl flex justify-center items-center rounded-full size-14 bg-white hover:bg-zinc-100 transition-colors"
             >
                 <Icon icon="gridicons:cross" />
             </button>
