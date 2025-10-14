@@ -11,7 +11,6 @@ import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
 import FooterWrapper from "@/components/FooterWrapper";
 import WhatsappBtn from "@/components/awesome-btn";
-import Footer from "@/components/common/footer/new-footer";
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -42,7 +41,7 @@ export default function RootLayout({
             <Suspense fallback={<div></div>}><LenisProvider /></Suspense>
             <SelectedTripProvider>{children}</SelectedTripProvider>
             <Toaster position="top-center" reverseOrder={false} />
-            <Footer />
+            <FooterWrapper />
           </LayoutWrapper>
         </Providers>
 

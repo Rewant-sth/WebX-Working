@@ -118,7 +118,7 @@ export default function LayoutWrapper({
   }, [notificationCount]);
 
   // Hide navbar on pages that start with /booking or when booking modal is open
-const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/test");
+  const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/test") || isBookingModalOpen;
 
   // Don't render anything until initialization is complete
   if (!isInitialized) {

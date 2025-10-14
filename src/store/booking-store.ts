@@ -9,10 +9,13 @@ interface PackageStoreState {
     package: ITravelPackage | null;
     selectedFixedDateId: string | null;
     isBookingModalOpen: boolean;
+    redirectToItinerary: boolean; // Flag to indicate if we should redirect
     setPackage: (pkg: ITravelPackage) => void;
-    setSelectedFixedDateId: (dateId: string) => void;
+    setSelectedFixedDateId: (dateId: string | null) => void;
     setIsBookingModalOpen: (isOpen: boolean) => void;
-    removePackage: () => void;
+    setRedirectToItinerary: (redirect: boolean) => void;
+    openBookingModal: (pkg: ITravelPackage, dateId?: string | null) => void;
+    clearBookingData: () => void;
 }
 
 // Create a custom storage object to handle localStorage operations
@@ -34,10 +37,25 @@ export const useBookingStore = create<PackageStoreState>()(
             package: null,
             selectedFixedDateId: null,
             isBookingModalOpen: false,
+            redirectToItinerary: false,
             setPackage: (pkg) => set({ package: pkg }),
             setSelectedFixedDateId: (dateId) => set({ selectedFixedDateId: dateId }),
             setIsBookingModalOpen: (isOpen) => set({ isBookingModalOpen: isOpen }),
-            removePackage: () => set({ package: null, selectedFixedDateId: null }),
+            setRedirectToItinerary: (redirect) => set({ redirectToItinerary: redirect }),
+            // Combined action to open booking modal with package data
+            openBookingModal: (pkg, dateId = null) => set({
+                package: pkg,
+                selectedFixedDateId: dateId,
+                isBookingModalOpen: true,
+                redirectToItinerary: false
+            }),
+            // Clear all booking data (use on close or success)
+            clearBookingData: () => set({
+                package: null,
+                selectedFixedDateId: null,
+                isBookingModalOpen: false,
+                redirectToItinerary: false
+            }),
         }),
         {
             name: 'travel-package-storage',
@@ -59,10 +77,14 @@ export const setPackage = (pkg: ITravelPackage): void => {
     useBookingStore.getState().setPackage(pkg);
 };
 
-export const setSelectedFixedDateId = (dateId: string): void => {
+export const setSelectedFixedDateId = (dateId: string | null): void => {
     useBookingStore.getState().setSelectedFixedDateId(dateId);
 };
 
-export const removePackage = (): void => {
-    useBookingStore.getState().removePackage();
+export const openBookingModal = (pkg: ITravelPackage, dateId?: string | null): void => {
+    useBookingStore.getState().openBookingModal(pkg, dateId);
+};
+
+export const clearBookingData = (): void => {
+    useBookingStore.getState().clearBookingData();
 };

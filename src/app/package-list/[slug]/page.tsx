@@ -2,14 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import api from "@/service/api";
 import CardSkeleton from "./_components/cardSkeleton";
 import Link from "next/link";
-import { setPackage, setSelectedFixedDateId } from "@/store/booking-store";
+import { openBookingModal } from "@/store/booking-store";
 
 const ExpeditionCards: React.FC = () => {
   const { slug } = useParams();
+  const router = useRouter();
   const [cardData, setCardData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [subCategoryList, setSubCategoryList] = useState<any[]>([]);
@@ -398,16 +399,15 @@ const ExpeditionCards: React.FC = () => {
 
                           {/* Action Buttons */}
                           <div className="flex  flex-wrap gap-2 sm:gap-3">
-                            <Link
+                            <button
                               onClick={() => {
-                                setSelectedFixedDateId(card.fixedDates?.[0]?._id || null)
-                                setPackage(card as any)
+                                openBookingModal(card as any, card.fixedDates?.[0]?._id || null);
+                                router.push(`/itinerary/${card.slug}`);
                               }}
-                              href={`/itinerary/${card.slug}#date-and-price`}
                               className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-xs sm:text-sm"
                             >
                               Book Now
-                            </Link>
+                            </button>
                             <Link
                               href={`/itinerary/${card.slug}`}
                               className="flex-1 border border-orange-500 hover:border-orange-500 text-orange-500 hover:text-white hover:bg-orange-500 font-medium py-2.5 px-4 rounded-md transition-all duration-200 text-center text-xs sm:text-sm"

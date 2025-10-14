@@ -6,9 +6,9 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getPackagesByCategory, getSubpackagesBySlug } from "@/service/packages";
 import Link from "next/link";
-import { setSelectedFixedDateId, useBookingStore } from "@/store/booking-store";
+import { useBookingStore } from "@/store/booking-store";
 import { ITravelPackage } from "@/types/IPackages";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 
 const RelatedTrips = ({
@@ -24,6 +24,8 @@ const RelatedTrips = ({
 }) => {
 
   const pathname = usePathname()
+  const router = useRouter()
+  const { openBookingModal } = useBookingStore();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["getrelated", subCategory],
     queryFn: () => getSubpackagesBySlug(subCategory),
@@ -33,7 +35,11 @@ const RelatedTrips = ({
     refetch()
   }, [pathname])
 
-  const { setPackage } = useBookingStore()
+  const handleBookNow = (trip: ITravelPackage) => {
+    // Open booking modal with package data and redirect to itinerary page
+    openBookingModal(trip, trip.fixedDates?.[0]?._id || null);
+    router.push(`/itinerary/${trip.slug}`);
+  };
 
   return (
     <div className="">
@@ -103,7 +109,7 @@ const RelatedTrips = ({
                   }
 
                   <div className="flex gap-3">
-                    <div onClick={onshowBooking} className="flex-1">
+                    <div onClick={() => handleBookNow(trip)} className="flex-1 cursor-pointer">
                       <button
                         className="w-full flex gap-2 items-center text-sm justify-center text-white py-2.5 px-4 rounded-sm font-semibold transition-all duration-300 hover:opacity-90"
                         style={{ backgroundColor: '#01283F' }}

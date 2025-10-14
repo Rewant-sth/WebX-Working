@@ -11,6 +11,7 @@ import toast from 'react-hot-toast'
 import CalendarComponent from '@/components/intineryBars/Calendar'
 import Select from 'react-select'
 import { on } from 'events'
+import { useBookingStore } from '@/store/booking-store'
 
 type TravelerInfo = {
     fullName: string
@@ -63,6 +64,7 @@ const countries = [
 ]
 
 export default function BookingModal({ packageData, onClose }: { packageData: ITravelPackage, onClose: () => void }) {
+    const clearBookingData = useBookingStore((state) => state.clearBookingData);
     const [currentStep, setCurrentStep] = useState(1)
     const [selectedDate, setSelectedDate] = useState<any>(null) // Changed to null initially
     const [calendarSelectedDate, setCalendarSelectedDate] = useState<Date | null>(null) // Changed to null initially
@@ -128,6 +130,16 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             document.body.style.overflow = 'unset';
         };
     }, []);
+
+    // Scroll to top of the page when modal opens
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
+    // Scroll to top of the page when step changes
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentStep]);
 
     useEffect(() => {
         const inputs = document.querySelectorAll("input, textarea");
@@ -560,6 +572,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         },
         onSuccess: () => {
             toast.success('Booking successful!', { duration: 4000 });
+            clearBookingData(); // Clear store on success
             onClose();
         },
         onError: (error: any) => {

@@ -33,9 +33,7 @@ import VideoReview from "./_components/video-review";
 import ContactModal from "@/components/contact-modal";
 import BookingModal from "@/components/booking-modal";
 import { useBookingStore } from "@/store/booking-store";
-import path from "path";
 import Link from "next/link";
-import { set } from "react-hook-form";
 
 const Page = () => {
   const router = useRouter();
@@ -44,11 +42,16 @@ const Page = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const setIsBookingModalOpen = useBookingStore((state) => state.setIsBookingModalOpen);
 
-  const pathname = usePathname()
+  // Get all booking store state and actions
+  const {
+    isBookingModalOpen,
+    package: storePackage,
+    clearBookingData,
+    openBookingModal
+  } = useBookingStore();
 
-  const breadcums = pathname.split("/").filter((p) => p && p !== "itinerary" && p !== params.slug).map((p) => p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, " "));
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,10 +88,23 @@ const Page = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImg] = useState("/TrekImages/manaslu.png");
   const [showContactModal, setShowContactModal] = useState(false);
-  const [bookingPackage, setBookingPackage] = useState<ITravelPackage | null>(null);
 
   // Use the store state directly instead of local state
-  const showBookingModal = useBookingStore((state) => state.isBookingModalOpen);
+  const showBookingModal = isBookingModalOpen;
+
+  // Check if we need to open modal on mount (when redirected from another page)
+  useEffect(() => {
+    if (storePackage && isBookingModalOpen) {
+      // Modal should already be open from the store
+      // We can scroll to a specific section if needed
+      const bookingSection = document.getElementById('date-and-price');
+      if (bookingSection) {
+        setTimeout(() => {
+          bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+    }
+  }, [storePackage, isBookingModalOpen]);
 
   // Hide footer and navbar when booking modal is open
   useEffect(() => {
@@ -132,18 +148,19 @@ const Page = () => {
   }, [showContactModal]);
 
   const handleOpenBookingModal = () => {
-    setIsBookingModalOpen(true);
-    setBookingPackage(packageData?.data || null);
+    if (packageData?.data) {
+      openBookingModal(packageData.data, packageData.data.fixedDates?.[0]?._id || null);
+    }
   };
 
   const handleCloseBookingModal = () => {
-    setIsBookingModalOpen(false);
+    clearBookingData(); // Clear store on close
   };
 
   return (
     <>
 
-      {showBookingModal && packageData?.data ? (
+      {showBookingModal && (storePackage || packageData?.data) ? (
         <div className="min-h-screen"
           style={{
             backgroundImage: "url('/screenshot.png')",
@@ -155,7 +172,7 @@ const Page = () => {
         >
           <div className="h-full min-h-screen w-full bg-black/50 backdrop-blur-lg">
             <BookingModal
-              packageData={bookingPackage as ITravelPackage}
+              packageData={(storePackage || packageData?.data) as ITravelPackage}
               onClose={handleCloseBookingModal}
             />
           </div>
@@ -382,8 +399,9 @@ const Page = () => {
                         ) : null}
                         <RelatedTrips
                           onshowBooking={() => {
-                            setBookingPackage(packageData?.data || null);
-                            setIsBookingModalOpen(true);
+                            if (packageData?.data) {
+                              openBookingModal(packageData.data, packageData.data.fixedDates?.[0]?._id || null);
+                            }
                           }}
 
                           packageId={packageData?.data?._id as string}
