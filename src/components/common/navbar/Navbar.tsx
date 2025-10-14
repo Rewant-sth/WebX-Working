@@ -225,7 +225,7 @@ export default function Navbar() {
           className="w-28 lg:w-40 transition-transform duration-300 "
         >
           <img
-            src={"/logo/main.svg"}
+            src={"/logo/final.png"}
             alt="Real Himalaya Logo"
             className="w-full h-auto transition-opacity duration-300"
           />

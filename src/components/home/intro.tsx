@@ -62,8 +62,8 @@ export default function Intro() {
                     </div>
                     <Link href="/about-us" className='mt-4'>
                         <button className='flex w-fit h-fit font-semibold gap-2 items-center'>
-                            <span className='bg-amber-600 flex justify-center items-center text-white size-14 rounded-full'>
-                                <Icon icon={"humbleicons:info"} className='text-4xl' />
+                            <span className='bg-amber-600 flex justify-center items-center text-white size-10 md:size-14 rounded-full'>
+                                <Icon icon={"humbleicons:info"} className='text-2xl md:text-4xl' />
                             </span>
                             <span className='text-left  leading-4 uppercase'>Learn <br /> More</span>
                         </button>

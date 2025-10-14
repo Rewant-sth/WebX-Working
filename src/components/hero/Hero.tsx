@@ -105,10 +105,10 @@ export default function Hero() {
   return (
     <div ref={mainRef} className=" relative w-full h-[150vh] overflow-hidden ">
 
-      <div ref={leftRef} className="absolute left-cloud2 top-10 lg:top-[15%] left-0 -translate-x-1/2  z-[50]">
+      <div ref={leftRef} className="absolute left-cloud2 top-[25%] lg:top-[15%] left-0 -translate-x-1/2  z-[50]">
         <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20  z-[70]' />
       </div>
-      <div ref={rightRef} className="absolute right-cloud2 top-10 lg:top-[15%]    right-0 translate-x-1/2  z-[50]">
+      <div ref={rightRef} className="absolute right-cloud2 top-[25%] lg:top-[15%]    right-0 translate-x-1/2  z-[50]">
         <img src="/cloud_2.webp" alt="cloud" className='translate-x-16  z-[70]' />
       </div>
 

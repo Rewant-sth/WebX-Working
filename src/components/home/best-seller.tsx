@@ -98,7 +98,7 @@ function BestSeller() {
 
     return (
         <section
-            className="  space-y-3 py-16 md:pt-12 lg:pt-20 p-4 sm:p-6 mx-auto  relative"
+            className="  space-y-3 pt-16 md:py-16 md:pt-12 lg:pt-20 p-4 sm:p-6 mx-auto  relative"
         >
             <div className="md:flex justify-between  items-center mb-6">
                 <div className="text-center flex-1">
