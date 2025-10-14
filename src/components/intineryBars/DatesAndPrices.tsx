@@ -68,7 +68,7 @@ const BookingForm: React.FC<{
   );
 };
 
-const PrivateTripForm: React.FC = () => {
+const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
 
 
   const { data, isLoading } = useQuery({
@@ -88,7 +88,8 @@ const PrivateTripForm: React.FC = () => {
     comments: '',
     agreeToTerms: false,
     captchaToken: data?.data.token || "",
-    captchaAnswer: ''
+    captchaAnswer: '',
+    packageId: packageId
   });
 
   // Country codes for phone dropdown
@@ -173,7 +174,8 @@ const PrivateTripForm: React.FC = () => {
         message: formData.comments,
         termsAndAgreement: formData.agreeToTerms,
         captchaToken: data?.data.token || "",
-        captchaAnswer: parseInt(formData.captchaAnswer)
+        captchaAnswer: parseInt(formData.captchaAnswer),
+        packageId: formData.packageId || packageId
       };
 
       // Call API
@@ -195,12 +197,13 @@ const PrivateTripForm: React.FC = () => {
         comments: '',
         agreeToTerms: false,
         captchaToken: "",
-        captchaAnswer: ''
+        captchaAnswer: '',
+        packageId: packageId // Preserve packageId on reset
       });
     } catch (error: any) {
       console.error('Error submitting private trip request:', error);
       setErrorMessage(
-        error.response?.data?.message ||
+        error.response?.data?.message || error.response?.data?.msg ||
         'Failed to submit your request. Please try again.'
       );
     } finally {
@@ -215,6 +218,7 @@ const PrivateTripForm: React.FC = () => {
           Looking for personalized experience? We organize privately guided journey which is mainly designed to fit your taste and interest. Please fill out the form below to get started.
         </p>
       </div>
+
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:border border-zinc-200 sm:p-6 gap-3 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2">
         {/* Error Message */}
@@ -787,7 +791,7 @@ const DatesAndPrices = ({
           </div>
         </>
       ) : (
-        <PrivateTripForm />
+        <PrivateTripForm packageId={packageId} />
       )}
 
       {/* Original Fixed Dates Table (for reference) */}

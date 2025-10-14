@@ -10,6 +10,7 @@ export interface IPrivateTripData {
     termsAndAgreement: boolean;
     captchaToken: string;
     captchaAnswer: number;
+    packageId: string;
 }
 
 export interface IPrivateTripResponse {
