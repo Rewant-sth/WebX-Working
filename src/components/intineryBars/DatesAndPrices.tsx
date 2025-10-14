@@ -216,7 +216,7 @@ const PrivateTripForm: React.FC = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:border border-gray-200 sm:p-6 gap-3 lg:grid lg:grid-cols-2">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg sm:border border-gray-200 sm:p-6 gap-3 space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2">
         {/* Error Message */}
         {errorMessage && (
           <div className="col-span-2 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md flex items-center gap-2">
@@ -459,7 +459,7 @@ const PrivateTripForm: React.FC = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="w-full col-span-2 flex justify-end items-center">
+        <div className="w-full col-span-2 mt-6 md:mt-0 md:flex justify-end items-center">
           <button
             type="submit"
             disabled={isSubmitting}

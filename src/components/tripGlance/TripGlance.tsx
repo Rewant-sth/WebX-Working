@@ -11,7 +11,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
           Your Trip at a Glance
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-3">
+        <div className="grid grid-cols-2 xl:grid-cols-3 gap-2  sm:gap-3">
           {[
             {
               icon: "/icons/destination.png",
@@ -66,12 +66,12 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
               key={idx}
               className="p-2 xl:p-4 flex gap-3 xl:gap-4 rounded-sm transition-all duration-300 border border-orange-100"
             >
-              <div className="p-2 size-12  shrink-0 bg-white/80 rounded-sm">
+              <div className="p-2 size-9 sm:size-12  shrink-0 bg-white/80 rounded-sm">
                 <img src={item.icon} alt="Real Himalaya" className="" />
-              </div>
+            </div>
               <div className="flex flex-col  gap-1">
                 <h3 className="font-semibold  capitalize text-gray-800">{item.title}</h3>
-                <p className="text-gray-700 ">
+                <p className="text-gray-700 text-xs sm:text-base line-clamp-2 ">
                   {item.value || "N/A"}
                 </p>
               </div>

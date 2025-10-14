@@ -57,7 +57,7 @@ export default function TeamMemberDetails({ params }: PageProps) {
                 <div className="">
                     <h2 className="text-xl lg:text-3xl font-semibold text-orange-500 mb-4 uppercase">About {member.data.name}</h2>
                     <div
-                        className="prose space-y-5  text-gray-700 text-justify sm:text-center"
+                        className="prose space-y-5  text-gray-700 md:text-justify sm:text-center"
                         dangerouslySetInnerHTML={{
                             __html: member.data.description ||
                                 "A dedicated professional bringing expertise and passion to every project. With years of experience in the field, they contribute significantly to our team's success."

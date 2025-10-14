@@ -116,7 +116,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
                                         return <div className=" size-3 lg:size-4 bg-[#199143] rounded-full"></div>
                                     })}
                                 </div>
-                                <p className='mt-6 leading-tight  md:pb-0 md:mt-8 px-4 text-lg line-clamp-3 md:text-justify' dangerouslySetInnerHTML={{ __html: slide.comment || "" }}></p>
+                                <p className='mt-6 leading-tight  md:pb-0 md:mt-8 px-4 text-lg line-clamp-3 md:md:text-justify' dangerouslySetInnerHTML={{ __html: slide.comment || "" }}></p>
                             </div>
                         </div>
                     ))}

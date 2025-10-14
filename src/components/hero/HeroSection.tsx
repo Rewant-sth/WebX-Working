@@ -114,7 +114,7 @@ export default function HeroSection() {
       </div>
 
       {/* HeroSection second */}
-      <section ref={rightSectionRef} className="h-screen text-justify overflow-hidden absolute top-0 left-0 w-full translate-y-full text-white gap-14 z-[60] flex flex-col justify-center items-center">
+      <section ref={rightSectionRef} className="h-screen md:text-justify overflow-hidden absolute top-0 left-0 w-full translate-y-full text-white gap-14 z-[60] flex flex-col justify-center items-center">
         <div className="h-full relative w-full space-y-4 flex flex-col justify-center items-center">
           <img
             src="logo/white.svg"
