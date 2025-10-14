@@ -628,7 +628,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
     <>
       <div className=" hidden lg:block rounded-sm  space-y-4  sticky  h-full">
 
-        <div className="bg-orange-100">
+        <div className="bg-orange-100 rounded-2xl shadow">
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-200" >
             {data?.name && (
