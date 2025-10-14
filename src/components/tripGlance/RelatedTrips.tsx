@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,8 @@ import { getPackagesByCategory, getSubpackagesBySlug } from "@/service/packages"
 import Link from "next/link";
 import { setSelectedFixedDateId, useBookingStore } from "@/store/booking-store";
 import { ITravelPackage } from "@/types/IPackages";
+import { usePathname } from "next/navigation";
+
 
 const RelatedTrips = ({
   subCategory,
@@ -18,10 +20,16 @@ const RelatedTrips = ({
   category: string;
   packageId: string
 }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["getrelated"],
+
+  const pathname = usePathname()
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["getrelated", subCategory],
     queryFn: () => getSubpackagesBySlug(subCategory),
   });
+
+  useEffect(() => {
+    refetch()
+  }, [pathname])
 
   const { setPackage } = useBookingStore()
 

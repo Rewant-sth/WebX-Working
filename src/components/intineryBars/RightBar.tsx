@@ -621,13 +621,13 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
 
   return (
     <>
-      <div className="  rounded-sm md:grid md:grid-cols-2 gap-4 lg:gap-0 lg:grid-cols-1  space-y-4  lg:sticky  h-full">
+      <div className="  rounded-sm md:grid sm:grid-cols-2 gap-4 lg:gap-0 lg:grid-cols-1  space-y-4  lg:sticky  h-full">
 
         <div className="md:bg-orange-100 md:rounded-2xl md:shadow">
           {/* Header */}
           <div className="px-6 py-5 border-b border-zinc-300" >
             {data?.name && (
-              <p className="text-center text-lg font-semibold  leading-tight">
+              <p className="text-center text-2xl lg:text-lg font-semibold  leading-tight">
                 {data.name}
               </p>
             )}

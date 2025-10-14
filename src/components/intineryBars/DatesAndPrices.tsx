@@ -212,7 +212,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
   };
 
   return (
-    <div className="mt-6">
+    <div id="date-and-price" className="mt-6">
       <div className="mb-6">
         <p className="text-zinc-700 leading-relaxed">
           Looking for personalized experience? We organize privately guided journey which is mainly designed to fit your taste and interest. Please fill out the form below to get started.

@@ -89,7 +89,6 @@ const ExpeditionCards: React.FC = () => {
     (subcat) => subcat.slug === selectedSubcategory
   );
   const subcategoryImage = activeSubcategory?.coverImage || "/categories.png";
-  const subcategoryDescription = activeSubcategory?.description || "";
   const subcategoryName = activeSubcategory?.name || "";
 
   useEffect(() => {
@@ -404,7 +403,7 @@ const ExpeditionCards: React.FC = () => {
                                 setSelectedFixedDateId(card.fixedDates?.[0]?._id || null)
                                 setPackage(card as any)
                               }}
-                              href={`/booking/${card._id}`}
+                              href={`/itinerary/${card.slug}#date-and-price`}
                               className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-xs sm:text-sm"
                             >
                               Book Now

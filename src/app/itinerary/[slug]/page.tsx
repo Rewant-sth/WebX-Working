@@ -14,7 +14,7 @@ import Insurance from "../../../components/tripGlance/Insurance";
 import Gear from "../../../components/tripGlance/Gear";
 import WhyLoveThis from "../../../components/tripGlance/WhyLoveThis";
 import ImportantNotice from "../../../components/tripGlance/ImportantNotice";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { getPackagesById } from "@/service/packages";
 import { useQuery } from "@tanstack/react-query";
 import { ITravelPackage } from "@/types/IPackages";
@@ -33,6 +33,8 @@ import VideoReview from "./_components/video-review";
 import ContactModal from "@/components/contact-modal";
 import BookingModal from "@/components/booking-modal";
 import { useBookingStore } from "@/store/booking-store";
+import path from "path";
+import Link from "next/link";
 
 const Page = () => {
   const router = useRouter();
@@ -42,6 +44,10 @@ const Page = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const setIsBookingModalOpen = useBookingStore((state) => state.setIsBookingModalOpen);
+
+  const pathname = usePathname()
+
+  const breadcums = pathname.split("/").filter((p) => p && p !== "itinerary" && p !== params.slug).map((p) => p.charAt(0).toUpperCase() + p.slice(1).replace(/-/g, " "));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -209,10 +215,58 @@ const Page = () => {
                         </div>
                       </div>
 
-                      {/* Mobile Scroll Tracker - Sticky Top */}
-                      <div className="lg:hidden sticky top-0 z-[99999]">
-                        <ScrollTracker data={packageData?.data as ITravelPackage} />
-                      </div>
+
+                      {/* Breadcrumb */}
+                      <nav className="w-full lg:hidden px-4 py-3 " aria-label="Breadcrumb">
+                        <ol className="flex items-center  font-medium text-orange-500">
+                          <li>
+                            <Link
+                              href="/"
+                              className="hover:text-primary transition-colors duration-200 flex items-center"
+                            >
+
+                              Home
+                            </Link>
+                          </li>
+
+                          <li>
+                            <svg
+                              className="w-4 h-4 text-gray-400 mx-1"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </li>
+
+
+                          <li>
+                            <Link
+                              href={"/package-list/" + packageData?.data?.categoryId?.slug}
+                              className="hover:text-primary transition-colors duration-200 flex items-center"
+                            >
+                              Packages
+                            </Link>
+                          </li>
+
+                          <li>
+                            <svg
+                              className="w-4 h-4 text-gray-400 mx-1"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </li>
+
+                          <li className="flex items-center">
+
+                            <span className="font-medium truncate">
+                              {packageData?.data?.name || "Package Details"}
+                            </span>
+                          </li>
+                        </ol>
+                      </nav>
 
                       <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
                         <RightBar
@@ -222,8 +276,20 @@ const Page = () => {
                         />
                       </div>
 
+                      {/* Mobile Scroll Tracker - Sticky Top */}
+                      <div className="lg:hidden sticky top-0 z-[99999]">
+                        <ScrollTracker data={packageData?.data as ITravelPackage} />
+                      </div>
+
+
+
+
+
                       {/* Center Content */}
                       <div className="w-full lg:border-l border-zinc-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
+
+
+
                         {packageData && <TripGlance data={packageData?.data} />}
 
                         {packageData && <SeasonalInfo data={packageData.data} />}
