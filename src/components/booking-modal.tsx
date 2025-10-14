@@ -10,6 +10,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import CalendarComponent from '@/components/intineryBars/Calendar'
 import Select from 'react-select'
+import { on } from 'events'
 
 type TravelerInfo = {
     fullName: string
@@ -558,8 +559,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             return res.json();
         },
         onSuccess: () => {
-            toast.success('Booking successful!');
-            router.push('/');
+            toast.success('Booking successful!', { duration: 4000 });
+            onClose();
         },
         onError: (error: any) => {
             toast.error(error?.response?.data?.message || 'Booking failed. Please try again.');

@@ -32,6 +32,17 @@ export default function QuickInfo() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   return (
     <div className=" py-12 md:py-20 flex items-center justify-center bg-white px-4 w-full">
@@ -59,13 +70,17 @@ export default function QuickInfo() {
                 <div className="flex flex-col lg:justify-center lg:p-4">
                   <div className="">
                     <h2 className="text-xl lg:text-2xl md:text-xl font-semibold">{data?.title}</h2>
-                    <p className="md:text-lg hidden lg:block  mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
+                    <p
+                      style={{
+                        display: isMobile ? 'none' : '-webkit-box',
+                      }}
+                      className="md:text-lg   mt-3 line-clamp-2" id="editor" dangerouslySetInnerHTML={{ __html: data?.description }}></p>
                   </div>
 
                   <div className="flex lg:pt-10 justify-between">
                     <div className="">
                       <h2 className="uppercase hidden lg:block font-semibold">Author</h2>
-                      <p className="  lg:mt-1">{data?.author}</p>
+                      <p className="lg:mt-1">{data?.author}</p>
                     </div>
 
                     <div className="">
