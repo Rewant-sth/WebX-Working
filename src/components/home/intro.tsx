@@ -1,5 +1,4 @@
 "use client"
-import { Camera } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
@@ -80,17 +79,17 @@ export default function Intro() {
 
 
                     <div
-                        className="grid grid-cols-3 mt-16  gap-4"
+                        className="flex justify-between gap-2 max-w-xl mt-16 items-center  sm:gap-4"
                     >
-                        <div className="w-fit text-center">
-                            <h2 className='lg:text-lg'>Our Experience</h2>
+                        <div className="w-fit ">
+                            <h2 className='lg:text-lg flex gap-2 flex-nowrap shrink-0'><span className='hidden sm:block'>Our</span> Experience</h2>
                             <Counter target={16} />
                         </div>
-                        <div className="w-fit text-center">
+                        <div className="w-fit ">
                             <h2 className='lg:text-lg'>Successful Tours</h2>
                             <Counter target={200} />
                         </div>
-                        <div className="w-fit text-center">
+                        <div className="w-fit ">
                             <h2 className='lg:text-lg'>Happy Clients</h2>
                             <Counter target={1500} />
                         </div>

@@ -625,7 +625,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
 
         <div className="md:bg-orange-100 md:rounded-2xl md:shadow">
           {/* Header */}
-          <div className="px-6 py-5 border-b border-gray-200" >
+          <div className="px-6 py-5 border-b border-zinc-300" >
             {data?.name && (
               <p className="text-center text-lg font-semibold  leading-tight">
                 {data.name}
