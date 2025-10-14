@@ -419,7 +419,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
         // Only apply discount if participants are within min-max range
         if (applicablePax) {
-            const discountPerPerson = applicablePax.discount || 0 // Discount in USD per person
+            const discountPerPerson = applicablePax.discount || 0 // Discount in $ per person
             const totalDiscountAmount = discountPerPerson * participants // Total discount for all participants
             const discountedPrice = basePrice - totalDiscountAmount
 
@@ -713,7 +713,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                         <p className="text-gray-600">Best for {pax.max < 2 ? 'solo travelers' : 'group travelers'}</p>
                                                     </div>
                                                     <div className="text-right">
-                                                        <h2 className='text-lg font-semibold'>${pax.discount}</h2>
+                                                        <h2 className='text-lg font-semibold'>$ {pax.discount}</h2>
                                                         <p className="text-sm text-gray-600">per person</p>
                                                     </div>
                                                 </div>
@@ -750,7 +750,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             <p className="text-gray-600">Best for solo travelers</p>
                                         </div>
                                         <div className="text-right">
-                                            <h2 className='text-lg font-semibold'>$0</h2>
+                                            <h2 className='text-lg font-semibold'>$ 0</h2>
                                             <p className="text-sm text-gray-600">No discount</p>
                                         </div>
                                     </div>
@@ -977,7 +977,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                     <div className="flex-1">
                                                         <h3 className="font-semibold capitalize">{addon.name}</h3>
                                                         <div dangerouslySetInnerHTML={{ __html: addon.description }} className="text-sm text-gray-600 mt-1"></div>
-                                                        <p className="text-[#F05E25] font-medium mt-2">${addon.price} per person</p>
+                                                        <p className="text-[#F05E25] font-medium mt-2">$ {addon.price} per person</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1007,7 +1007,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                             </button>
                                                         </div>
                                                         <span className="text-sm text-gray-600 ml-auto">
-                                                            Total: ${((selectedAddon?.quantity || 1) * addon.price).toFixed(2)}
+                                                            Total: $ {((selectedAddon?.quantity || 1) * addon.price).toFixed(2)}
                                                         </span>
                                                     </div>
                                                 )
@@ -1067,7 +1067,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     />
                                     <div>
                                         <p className="font-medium">Pay 30% Now & Rest on Arrival</p>
-                                        <p className="text-sm text-gray-600">${(totalAmount * 0.3).toFixed(2)} now, balance on arrival</p>
+                                        <p className="text-sm text-gray-600">$ {(totalAmount * 0.3).toFixed(2)} now, balance on arrival</p>
                                     </div>
                                 </label>
                             </div>
@@ -1244,15 +1244,15 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                 <div className="flex justify-between">
                                                     <div className="flex flex-col">
                                                         <span className="text-zinc-900 font-semibold">Base Price:</span>
-                                                        <span className='text-gray-500'>(USD {selectedDate.pricePerPerson} * {participants})</span>
+                                                        <span className='text-gray-500'>($ {selectedDate.pricePerPerson} * {participants})</span>
                                                     </div>
-                                                    <span className="font-medium text-[#F05E25]">${basePriceDetails.basePrice.toFixed(2)}</span>
+                                                    <span className="font-medium text-[#F05E25]">$ {basePriceDetails.basePrice.toFixed(2)}</span>
                                                 </div>
 
                                                 {basePriceDetails.discountAmount > 0 && (
                                                     <div className="flex justify-between text-green-500">
                                                         <span>Discount:</span>
-                                                        <span>-${basePriceDetails.discountAmount.toFixed(2)}</span>
+                                                        <span>-$ {basePriceDetails.discountAmount.toFixed(2)}</span>
                                                     </div>
                                                 )}
 
@@ -1267,7 +1267,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                             return (
                                                                 <div key={addon._id} className="flex justify-between text-sm">
                                                                     <span>{addon.name} ×{selectedAddon.quantity}</span>
-                                                                    <span>+${addonTotal.toFixed(2)}</span>
+                                                                    <span>+ $ {addonTotal.toFixed(2)}</span>
                                                                 </div>
                                                             )
                                                         })}
@@ -1278,18 +1278,18 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
                                                 <div className="flex justify-between text-lg font-semibold">
                                                     <span>Total Amount:</span>
-                                                    <span>${totalAmount.toFixed(2)}</span>
+                                                    <span>$ {totalAmount.toFixed(2)}</span>
                                                 </div>
 
                                                 {paymentOption === 'partial' && currentStep === 4 && (
                                                     <>
                                                         <div className="flex justify-between text-sm">
                                                             <span className="text-gray-600">Deposit (30%):</span>
-                                                            <span className="font-medium">${(totalAmount * 0.3).toFixed(2)}</span>
+                                                            <span className="font-medium">$ {(totalAmount * 0.3).toFixed(2)}</span>
                                                         </div>
                                                         <div className="flex justify-between text-sm">
                                                             <span className="text-gray-600">Balance on Arrival:</span>
-                                                            <span className="font-medium">${(totalAmount * 0.7).toFixed(2)}</span>
+                                                            <span className="font-medium">$ {(totalAmount * 0.7).toFixed(2)}</span>
                                                         </div>
                                                     </>
                                                 )}

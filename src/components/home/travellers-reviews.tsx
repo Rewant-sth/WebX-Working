@@ -96,7 +96,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
                             key={slide._id || idx}
                             className="embla__slide flex-none px-3 w-full md:w-1/2 lg:w-1/3"
                         >
-                            <div className="min-h-96 pb-2 md:pb-0  border border-green-500 bg-green-50  md:py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
+                            <div className="min-h-96 pb-2 md:pb-4 xl:pb-6  border border-green-500 bg-green-50  md:py-10  relative rounded-sm overflow-hidden    flex flex-col items-center justify-center">
                                 {/* Signature */}
                                 <p className="absolute   text-4xl w-full md:max-w-[150px] text-center -rotate-[20deg] top-10 left-0 md:left-20 z-[99] font-semibold" style={{ fontFamily: "var(--font-dancing-script), 'Brush Script MT', cursive" }}>
                                     {slide.fullName}
