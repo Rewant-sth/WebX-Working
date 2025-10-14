@@ -293,7 +293,7 @@ export default function Navbar() {
             <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
-            <div className="grid gap-1 2xl:gap-3">
+            <div className="grid gap-1 2xl:gap-3 divide-y divide-white/10">
               {categories?.data?.map((category) => {
                 if (category.subCategories.length === 0) return null;
                 return (
@@ -312,7 +312,7 @@ export default function Navbar() {
                             setSelectedSubcategoryId(category.subCategories[0]._id);
                           }
                         }}
-                        className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
+                        className={`cursor-pointer lg:px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
                           ? "text-amber-300 bg-amber-500/5 "
                           : ""
                           }`}
