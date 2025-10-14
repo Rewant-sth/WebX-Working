@@ -35,6 +35,7 @@ import BookingModal from "@/components/booking-modal";
 import { useBookingStore } from "@/store/booking-store";
 import path from "path";
 import Link from "next/link";
+import { set } from "react-hook-form";
 
 const Page = () => {
   const router = useRouter();
@@ -84,6 +85,7 @@ const Page = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImg] = useState("/TrekImages/manaslu.png");
   const [showContactModal, setShowContactModal] = useState(false);
+  const [bookingPackage, setBookingPackage] = useState<ITravelPackage | null>(null);
 
   // Use the store state directly instead of local state
   const showBookingModal = useBookingStore((state) => state.isBookingModalOpen);
@@ -131,6 +133,7 @@ const Page = () => {
 
   const handleOpenBookingModal = () => {
     setIsBookingModalOpen(true);
+    setBookingPackage(packageData?.data || null);
   };
 
   const handleCloseBookingModal = () => {
@@ -152,7 +155,7 @@ const Page = () => {
         >
           <div className="h-full min-h-screen w-full bg-black/50 backdrop-blur-lg">
             <BookingModal
-              packageData={packageData.data as ITravelPackage}
+              packageData={bookingPackage as ITravelPackage}
               onClose={handleCloseBookingModal}
             />
           </div>
@@ -378,6 +381,11 @@ const Page = () => {
                           <VideoReview data={packageData?.data} />
                         ) : null}
                         <RelatedTrips
+                          onshowBooking={() => {
+                            setBookingPackage(packageData?.data || null);
+                            setIsBookingModalOpen(true);
+                          }}
+
                           packageId={packageData?.data?._id as string}
                           category={packageData?.data?.categoryId?.slug as string}
                           subCategory={packageData?.data?.subCategoryId?.slug as string}

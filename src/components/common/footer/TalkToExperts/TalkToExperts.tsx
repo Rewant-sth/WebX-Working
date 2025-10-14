@@ -96,13 +96,6 @@ const TalkToExperts: React.FC = () => {
                           <FaFacebook />
                         </div>
                       )}
-                      {expert.twitter && (
-                        <div
-                          className=" text-lg md:text-xl"
-                        >
-                          <FaTwitter />
-                        </div>
-                      )}
                     </div>
                   </div>
                 </Link>
