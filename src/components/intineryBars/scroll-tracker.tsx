@@ -89,7 +89,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         {
             id: "gear",
             label: "Gear Info",
-            icon: <Backpack className="size-6" />,
+            icon: <Icon icon={"streamline-ultimate:chef-gear-gloves"} className="size-6" />,
             condition: (data) => data?.gearInfo?.length > 0,
         },
         {
