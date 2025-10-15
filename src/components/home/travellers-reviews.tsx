@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
 import { Testimonial } from '@/types/ITestimonial';
 import { useTestimonials } from '@/hooks/useTestimonials';
+import Link from 'next/link';
 
 
 export default function EmblaCarousel({ className = '' }: { className?: string }) {
@@ -67,9 +68,9 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
             </h2>
             <p className='pb-10  max-w-4xl text-lg text-center mx-auto'>With thousands of genuine reviews across multiple platforms, we’ve earned the trust of  adventurers and climbers worldwide who share their real experiences and journeys with us.</p>
 
-            <div className="mb-4 flex gap-4 items-center flex-wrap">
+            <Link href={"https://www.tripadvisor.com/Attraction_Review-g293890-d10100922-Reviews-Real_Himalaya_Private_Day_Tour-Kathmandu_Kathmandu_Valley_Bagmati_Zone_Central_R.html"} target='_blank' className="mb-4 flex gap-4 items-center flex-wrap">
                 <img src="/logo/wordmark.svg" alt="trip advisor logo" className='h-8' />
-            </div>
+            </Link>
 
             {/* Loading State */}
             {isLoading && (

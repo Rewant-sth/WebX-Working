@@ -123,15 +123,15 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
         <section className="backdrop-blur-md inset-0 h-full bg-black/40   min-h-screen w-full lg:flex justify-center items-center ">
             <div className="w-full h-full  relative">
 
-                <div className="lg:sticky top-4 lg:top-8 relative   w-full  ">
+                <div className="lg:sticky  lg:top-8 relative   w-full  ">
 
                     <div
                         ref={containerRef}
-                        className=" z-10 border w-full bg-white max-w-3xl border-zinc-300 rounded-xl relative my-10 mt-20 sm:my-24 mx-auto p-2 md:p-4 lg:p-6 "
+                        className=" z-10 border w-full bg-white max-w-3xl border-zinc-300 md:rounded-xl relative md:my-10  sm:my-24 mx-auto p-2 md:p-4 lg:p-6 "
                     >
-                        <div className="flex w-full justify-end items-center">
-                            <button onClick={onClose} className=" ">
-                                <X />
+                        <div className="flex w-full justify-end px-4 items-center">
+                            <button onClick={onClose} className=" text-2xl">
+                                <X className='text-4xl' />
                             </button>
                         </div>
                         <div className=" gap-6  mx-auto  space-y-12 md:space-y-28 ">

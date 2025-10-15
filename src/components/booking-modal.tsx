@@ -1309,8 +1309,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             <div className="bg-white  rounded-md visible shadow-xl max-w-5xl  w-full mx-auto">
                 <div className="max-w-5xl mx-auto pointer-events-auto bg-white rounded-md ">
                     <div className="w-full relative h-64 bg-zinc-200">
-                        <button onClick={onClose} className="absolute cursor-pointer size-5 md:size-8 lg:size-12 rounded-full text-white/60  hover:text-white transition-colors duration-200 flex justify-center items-center border z-[999] top-4 right-4">
-                            <X className="size-4 md:size-5 lg:size-6" />
+                        <button onClick={onClose} className="absolute cursor-pointer size-8 lg:size-12 rounded-full text-white/60  hover:text-white transition-colors duration-200 flex justify-center items-center border z-[999] top-4 right-4">
+                            <X className="size-6" />
                         </button>
                         <Image
                             fill
