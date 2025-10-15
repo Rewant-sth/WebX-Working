@@ -234,13 +234,13 @@ const Page = () => {
                     </div>
 
                     {/* Breadcrumb */}
-                    <div className="md:px-6 bg-gray-100   flex items-center lg:px-10">
+                    <div className="px-4 md:px-6 bg-gray-100   flex items-center lg:px-10">
                       <nav className="w-full  lg:px-0  py-2 " aria-label="Breadcrumb">
-                        <ol className="flex items-center  font-medium  text-zinc-700 space-x-1 md:space-x-3  overflow-x-auto">
+                        <ol className="flex items-center shrink-0  font-medium  text-zinc-700 space-x-1 md:space-x-3  overflow-x-auto">
                           <li>
                             <Link
                               href="/"
-                              className="hover:text-[#FF6A00] transition-colors duration-200 flex items-center"
+                              className="hover:text-[#FF6A00]  transition-colors duration-200 flex items-center"
                             >
 
                               Home
@@ -261,9 +261,9 @@ const Page = () => {
                           <li>
                             <Link
                               href={"/package-list/" + packageData?.data?.categoryId?.slug}
-                              className="hover:text-[#FF6A00] transition-colors duration-200 flex items-center"
+                              className="hover:text-[#FF6A00]   !w-fit shrink-0 transition-colors duration-200 flex items-center"
                             >
-                              {packageData?.data?.categoryId?.name || "Packages"}
+                              <button className="!shrink-0 w-max">{packageData?.data?.categoryId?.name || "Packages"}</button>
                             </Link>
                           </li>
 
@@ -280,9 +280,9 @@ const Page = () => {
                           <li>
                             <Link
                               href={"/package-list/" + packageData?.data?.categoryId?.slug}
-                              className="hover:text-[#FF6A00] transition-colors duration-200 flex items-center"
+                              className="hover:text-[#FF6A00] flex !w-fit shrink-0 transition-colors duration-200 "
                             >
-                              {packageData?.data?.subCategoryId?.name || "Packages"}
+                              <button className="!shrink-0 w-max"> {packageData?.data?.subCategoryId?.name || "Packages"}</button>
                             </Link>
                           </li>
 

@@ -685,8 +685,8 @@ const DatesAndPrices = ({
 
               {/* Navigation dropdowns */}
               <div className="flex items-center gap-2">
-                <button className="text-orange-400 hover:text-orange-600">
-                  <Icon icon="mynaui:chevron-left-solid" width="24" height="24" onClick={handlePrevMonth} />
+                <button onClick={handlePrevMonth} className="text-orange-400 hover:text-orange-600">
+                  <Icon icon="mynaui:chevron-left-solid" width="24" height="24" />
                 </button>
 
                 <Select
@@ -745,8 +745,8 @@ const DatesAndPrices = ({
                     })
                   }}
                 />
-                <button className="text-orange-400 hover:text-orange-600">
-                  <Icon icon="mynaui:chevron-right-solid" width="24" height="24" onClick={handleNextMonth} />
+                <button className="text-orange-400 hover:text-orange-600" onClick={handleNextMonth}>
+                  <Icon icon="mynaui:chevron-right-solid" width="24" height="24" />
                 </button>
               </div>
             </div>
@@ -764,30 +764,32 @@ const DatesAndPrices = ({
                 fixedDates={data || []}
               />
 
-              <Calendar
-                month={secondMonth}
-                year={secondYear}
-                selectedDate={selectedDate}
-                onDateSelect={handleDateSelect}
-                highlightedDates={highlightedDates}
-                tripDuration={tripDuration}
-                hoveredDate={hoveredDate}
-                onDateHover={handleDateHover}
-                fixedDates={data || []}
-              />
+              <div className="hidden sm:block">
+                <Calendar
+                  month={secondMonth}
+                  year={secondYear}
+                  selectedDate={selectedDate}
+                  onDateSelect={handleDateSelect}
+                  highlightedDates={highlightedDates}
+                  tripDuration={tripDuration}
+                  hoveredDate={hoveredDate}
+                  onDateHover={handleDateHover}
+                  fixedDates={data || []}
+                />
+              </div>
             </div>
 
 
             {/* Selected Date Info and Book Button */}
             {selectedDate && selectedFixedDate && (
               <>
-                <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
+                <div className="bg-[#F05E25]/10 rounded-sm p-4 sm:p-6 mb-6">
                   <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
                     <div>
-                      <h4 className="text-lg font-semibold text-zinc-800 mb-2">
+                      <h4 className="text-lg font-bold text-zinc-800 mb-2">
                         Selected Trip Details
                       </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
                         <div>
                           <span className="text-zinc-800 font-medium">Arrival Date:</span>
                           <p className="text-zinc-800">{selectedDate.toDateString()}</p>

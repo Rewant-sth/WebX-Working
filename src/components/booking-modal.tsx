@@ -12,6 +12,7 @@ import CalendarComponent from '@/components/intineryBars/Calendar'
 import Select from 'react-select'
 import { on } from 'events'
 import { useBookingStore } from '@/store/booking-store'
+import { Icon } from '@iconify/react/dist/iconify.js'
 
 type TravelerInfo = {
     fullName: string
@@ -694,6 +695,21 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         bookingMutation.mutate(bookingData);
     }
 
+    const handlePrevMonth = () => {
+        const currentFirstDate = new Date(firstYear, firstMonth, 1);
+        const prevMonth = new Date(currentFirstDate);
+        prevMonth.setMonth(prevMonth.getMonth() - 1);
+        setCurrentDisplayMonth(prevMonth);
+    };
+
+    const handleNextMonth = () => {
+        const currentFirstDate = new Date(firstYear, firstMonth, 1);
+        const nextMonth = new Date(currentFirstDate);
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        setCurrentDisplayMonth(nextMonth);
+    };
+
+
     const renderStepContent = () => {
         switch (currentStep) {
             case 1:
@@ -718,9 +734,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                 </div>
                             )}
 
-                            <div className="flex flex-col sm:flex-row  gap-4 mb-4">
-                                <div className="flex items-center gap-2 w-full sm:w-auto">
-                                    <div className="w-full sm:w-42">
+                            <div className="flex flex-wrap  gap-4 mb-4">
+                                <button className="text-orange-400 hover:text-orange-600" onClick={handlePrevMonth}>
+                                    <Icon icon="mynaui:chevron-left-solid" width="24" height="24" />
+                                </button>
+                                <div className="flex items-center gap-2 w-fit sm:w-auto">
+                                    <div className="w-fit sm:w-42">
                                         <Select
                                             value={monthOptions.find(option => option.value === currentDisplayMonth.getMonth())}
                                             onChange={(option) => {
@@ -736,8 +755,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         />
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2 w-full sm:w-auto">
-                                    <div className="w-full sm:w-32">
+                                <div className="flex items-center gap-2 w-fit sm:w-auto">
+                                    <div className="w-fit sm:w-32">
                                         <Select
                                             value={yearOptions.find(option => option.value === currentDisplayMonth.getFullYear())}
                                             onChange={(option) => {
@@ -754,6 +773,10 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         />
                                     </div>
                                 </div>
+
+                                <button className="text-orange-400 hover:text-orange-600" onClick={handleNextMonth}>
+                                    <Icon icon="mynaui:chevron-right-solid" width="24" height="24" />
+                                </button>
                             </div>
 
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
@@ -768,17 +791,19 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     onDateHover={setHoveredDate}
                                     fixedDates={packageData.fixedDates || []}
                                 />
-                                <CalendarComponent
-                                    month={secondMonth}
-                                    year={secondYear}
-                                    selectedDate={calendarSelectedDate}
-                                    onDateSelect={setCalendarSelectedDate}
-                                    highlightedDates={highlightedDates}
-                                    tripDuration={tripDuration}
-                                    hoveredDate={hoveredDate}
-                                    onDateHover={setHoveredDate}
-                                    fixedDates={packageData.fixedDates || []}
-                                />
+                                <div className="hidden sm:block">
+                                    <CalendarComponent
+                                        month={secondMonth}
+                                        year={secondYear}
+                                        selectedDate={calendarSelectedDate}
+                                        onDateSelect={setCalendarSelectedDate}
+                                        highlightedDates={highlightedDates}
+                                        tripDuration={tripDuration}
+                                        hoveredDate={hoveredDate}
+                                        onDateHover={setHoveredDate}
+                                        fixedDates={packageData.fixedDates || []}
+                                    />
+                                </div>
                             </div>
 
 

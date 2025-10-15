@@ -17,7 +17,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
           <div className="flex text-xl overflow-auto gap-2 border-b border-zinc-200">
             <button
               onClick={() => setActiveTab('inclusion')}
-              className={`px-4 sm:px-6 py-2 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'inclusion'
+              className={`px-4 shrink-0 sm:px-6 py-2 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'inclusion'
                 ? 'border-orange-500 text-orange-500 bg-orange-50'
                 : 'border-transparent text-zinc-500 hover:text-orange-500 hover:bg-orange-50'
                 }`}
@@ -28,7 +28,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
             </button>
             <button
               onClick={() => setActiveTab('exclusion')}
-              className={`px-4 sm:px-6 py-2 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'exclusion'
+              className={`px-4 shrink-0 sm:px-6 py-2 font-semibold transition-all duration-200 border-b-2 ${activeTab === 'exclusion'
                 ? 'border-orange-500 text-orange-500 bg-orange-500/20'
                 : 'border-transparent text-zinc-500 hover:bg-orange-500/20 hover:text-orange-500 '
                 }`}

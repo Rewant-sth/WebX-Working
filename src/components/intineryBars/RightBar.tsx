@@ -625,7 +625,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
 
         <div className="md:bg-orange-100 md:rounded-2xl md:shadow">
           {/* Header */}
-          <div className="px-6 py-5 border-b border-zinc-300" >
+          <div className="sm:px-6 py-5 border-b border-zinc-300" >
             {data?.name && (
               <p className="text-center text-2xl lg:text-lg font-semibold  leading-tight">
                 {data.name}
@@ -634,7 +634,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
           </div>
 
           {/* Price Section */}
-          <div className="px-4 py-2 ">
+          <div className="sm:px-4 mt-4 md:mt-0 py-2 ">
             {
               data?.fixedDates.length !== undefined && data?.fixedDates.length > 0 && (
                 <div className="text-center mb-4">
@@ -806,7 +806,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
         </div>
 
         {/* Talk to Expert Section - Slider */}
-        <div className="px-4 md:px-0">
+        <div className="sm:px-4 !mb-6 md:mb-0 md:px-0">
           <ExpertCard />
         </div>
       </div>
