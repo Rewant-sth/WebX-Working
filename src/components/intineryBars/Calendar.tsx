@@ -36,27 +36,77 @@ const Calendar: React.FC<CalendarProps> = ({
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const today = new Date();
 
+    // Helper function to check if a date is within any fixed date range
+    const isDateInFixedRange = (date: Date) => {
+        return fixedDates.some(fd => {
+            const fixedStart = new Date(fd.startDate);
+            const fixedEnd = new Date(fd.endDate);
+            // Set time to midnight for accurate date comparison
+            const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const rangeStart = new Date(fixedStart.getFullYear(), fixedStart.getMonth(), fixedStart.getDate());
+            const rangeEnd = new Date(fixedEnd.getFullYear(), fixedEnd.getMonth(), fixedEnd.getDate());
+
+            // Check if date is within the range AND the fixed date is available
+            const isInRange = checkDate >= rangeStart && checkDate <= rangeEnd;
+            const isAvailable = fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0;
+
+            return isInRange && isAvailable;
+        });
+    };
+
+    // Get the fixed date object for a given date (if it falls within the range)
+    const getFixedDateForDate = (date: Date) => {
+        return fixedDates.find(fd => {
+            const fixedStart = new Date(fd.startDate);
+            const fixedEnd = new Date(fd.endDate);
+            const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const rangeStart = new Date(fixedStart.getFullYear(), fixedStart.getMonth(), fixedStart.getDate());
+            const rangeEnd = new Date(fixedEnd.getFullYear(), fixedEnd.getMonth(), fixedEnd.getDate());
+
+            // Check if date is within the range AND the fixed date is available
+            const isInRange = checkDate >= rangeStart && checkDate <= rangeEnd;
+            const isAvailable = fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0;
+
+            return isInRange && isAvailable;
+        });
+    };
+
     // Helper function to check if a date is a valid fixed date start date
     const isFixedDateStart = (date: Date) => {
         return fixedDates.some(fd => {
             const fixedStart = new Date(fd.startDate);
-            return fixedStart.getDate() === date.getDate() &&
-                fixedStart.getMonth() === date.getMonth() &&
-                fixedStart.getFullYear() === date.getFullYear();
+            const fixedEnd = new Date(fd.endDate);
+            const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            const rangeStart = new Date(fixedStart.getFullYear(), fixedStart.getMonth(), fixedStart.getDate());
+            const rangeEnd = new Date(fixedEnd.getFullYear(), fixedEnd.getMonth(), fixedEnd.getDate());
+
+            // Check if date is within the range AND the fixed date is available
+            const isInRange = checkDate >= rangeStart && checkDate <= rangeEnd;
+            const isAvailable = fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0;
+
+            return isInRange && isAvailable;
         });
     };
 
-    // Calculate hovered duration dates
+    // Calculate hovered duration dates - from hovered date to end date of the fixed range
     const hoveredDurationDates = useMemo(() => {
-        if (!hoveredDate || !isFixedDateStart(hoveredDate)) return [];
+        if (!hoveredDate) return [];
+
+        const fixedDate = getFixedDateForDate(hoveredDate);
+        if (!fixedDate) return [];
+
+        const fixedEnd = new Date(fixedDate.endDate);
         const dates = [];
-        for (let i = 0; i < tripDuration; i++) {
-            const date = new Date(hoveredDate);
-            date.setDate(hoveredDate.getDate() + i);
-            dates.push(date);
+        const currentDate = new Date(hoveredDate);
+
+        // Generate all dates from hover date to the end date of the range
+        while (currentDate <= fixedEnd) {
+            dates.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
         }
+
         return dates;
-    }, [hoveredDate, tripDuration]);
+    }, [hoveredDate, fixedDates]);
 
     const isDateHighlighted = (date: Date) => {
         return highlightedDates.some(d =>
@@ -83,14 +133,14 @@ const Calendar: React.FC<CalendarProps> = ({
 
     const handleDateClick = (day: number) => {
         const clickedDate = new Date(year, month, day);
-        if (isFixedDateStart(clickedDate)) {
+        if (isDateInFixedRange(clickedDate)) {
             onDateSelect(clickedDate);
         }
     };
 
     const handleDateHover = (day: number) => {
         const hoveredDate = new Date(year, month, day);
-        if (isFixedDateStart(hoveredDate)) {
+        if (isDateInFixedRange(hoveredDate)) {
             onDateHover(hoveredDate);
         }
     };
@@ -132,9 +182,9 @@ const Calendar: React.FC<CalendarProps> = ({
                         }
             ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
             ${isHighlighted && !isSelected ? '!text-white  border-[#F05E25] bg-[#F05E25]' : ''}
-            ${isHovered && !isSelected && !isHighlighted ? '!text-[#F05E25] !border-[#F05E25] ' : ''}
+            ${isHovered && !isSelected && !isHighlighted ? '!text-[#F05E25] !border-[#F05E25] bg-[#F05E25]/10' : ''}
             ${!isHighlighted && !isSelected && !isHovered ? '' : ''}
-            ${isValidFixedDate && !isPast && !isSelected ? ' border-zinc-400' : ''}
+            ${isValidFixedDate && !isPast && !isSelected ? ' ' : ''}
           `}
 
                     style={{

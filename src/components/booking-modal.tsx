@@ -65,14 +65,20 @@ const countries = [
 
 export default function BookingModal({ packageData, onClose }: { packageData: ITravelPackage, onClose: () => void }) {
     const clearBookingData = useBookingStore((state) => state.clearBookingData);
+    const storeArrivalDate = useBookingStore((state) => state.arrivalDate);
+    const storeDepartureDate = useBookingStore((state) => state.departureDate);
+    const storeSelectedFixedDateId = useBookingStore((state) => state.selectedFixedDateId);
+
     const [currentStep, setCurrentStep] = useState(1)
     const [selectedDate, setSelectedDate] = useState<any>(null) // Changed to null initially
-    const [calendarSelectedDate, setCalendarSelectedDate] = useState<Date | null>(null) // Changed to null initially
-    const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date>(new Date())
+    const [calendarSelectedDate, setCalendarSelectedDate] = useState<Date | null>(null) // Will be set from store in useEffect
+    const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date>(storeArrivalDate ? new Date(storeArrivalDate) : new Date())
     const [participants, setParticipants] = useState(1)
     const [paymentOption, setPaymentOption] = useState('full')
     const [validationErrors, setValidationErrors] = useState<ValidationErrors>({})
     const [hoveredDate, setHoveredDate] = useState<Date | null>(null)
+    // State to track pax selections - each pax can have independent participant count
+    const [paxSelections, setPaxSelections] = useState<{ [paxId: string]: number }>({})
 
     // Options for month and year selects
     const monthOptions = [
@@ -173,25 +179,85 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
 
 
-    // In your BookingModal component, update the useEffect that sets currentDisplayMonth:
+    // Initialize from store or find first available date
     useEffect(() => {
-        if (packageData?.fixedDates?.length > 0) {
+        console.log('🔄 BookingModal initialization', {
+            storeArrivalDate,
+            storeDepartureDate,
+            storeSelectedFixedDateId,
+            hasFixedDates: packageData?.fixedDates?.length
+        });
+
+        // If we have arrival date from store, use it
+        if (storeArrivalDate && storeSelectedFixedDateId) {
+            // Ensure date is properly created without timezone shift
+            // Store arrival date is already a Date object (from Zustand store)
+            let dateToSelect: Date;
+
+            if (storeArrivalDate instanceof Date) {
+                // If it's already a Date object, use it directly
+                dateToSelect = new Date(
+                    storeArrivalDate.getFullYear(),
+                    storeArrivalDate.getMonth(),
+                    storeArrivalDate.getDate()
+                );
+            } else {
+                // If it's a string, parse it carefully to avoid timezone shift
+                const dateStr = String(storeArrivalDate);
+                if (dateStr.includes('T') || dateStr.includes('Z')) {
+                    // ISO string - extract date parts from UTC
+                    const tempDate = new Date(dateStr);
+                    dateToSelect = new Date(
+                        tempDate.getUTCFullYear(),
+                        tempDate.getUTCMonth(),
+                        tempDate.getUTCDate()
+                    );
+                } else {
+                    // Simple date string - parse normally
+                    const tempDate = new Date(dateStr);
+                    dateToSelect = new Date(
+                        tempDate.getFullYear(),
+                        tempDate.getMonth(),
+                        tempDate.getDate()
+                    );
+                }
+            }
+
+            setCalendarSelectedDate(dateToSelect);
+            setCurrentDisplayMonth(dateToSelect);
+
+            console.log('✅ Using store dates', {
+                storeArrivalDate,
+                arrivalDate: dateToSelect,
+                arrivalDateStr: dateToSelect.toDateString(),
+                fixedDateId: storeSelectedFixedDateId
+            });
+
+            // Find and set the corresponding fixed date
+            const matchingFixedDate = packageData?.fixedDates?.find((fd: any) => fd._id === storeSelectedFixedDateId);
+            if (matchingFixedDate) {
+                setSelectedDate(matchingFixedDate);
+                console.log('✅ Found matching fixed date', matchingFixedDate);
+            } else {
+                console.warn('⚠️ No matching fixed date found for ID:', storeSelectedFixedDateId);
+            }
+        } else if (packageData?.fixedDates?.length > 0) {
             // Find the first available (open and has seats) date
             const today = new Date();
-            const normalizedToday = new Date(Date.UTC(
+            const normalizedToday = new Date(
                 today.getFullYear(),
                 today.getMonth(),
                 today.getDate()
-            ));
+            );
 
             const firstAvailableDate = packageData.fixedDates.find((date: any) => {
                 const isOpen = date.status?.toLowerCase() === 'open';
                 const startDateObj = new Date(date.startDate);
-                const startDate = new Date(Date.UTC(
-                    startDateObj.getUTCFullYear(),
-                    startDateObj.getUTCMonth(),
-                    startDateObj.getUTCDate()
-                ));
+                const startDate = new Date(
+                    startDateObj.getFullYear(),
+                    startDateObj.getMonth(),
+                    startDateObj.getDate()
+                );
                 const isFutureOrToday = startDate >= normalizedToday;
                 const hasSeats = (date.availableSeats || 0) > 0;
 
@@ -200,17 +266,18 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
             if (firstAvailableDate) {
                 const dateObj = new Date(firstAvailableDate.startDate);
-                const utcDate = new Date(Date.UTC(
-                    dateObj.getUTCFullYear(),
-                    dateObj.getUTCMonth(),
-                    dateObj.getUTCDate()
-                ));
-                setCurrentDisplayMonth(utcDate);
+                const localDate = new Date(
+                    dateObj.getFullYear(),
+                    dateObj.getMonth(),
+                    dateObj.getDate()
+                );
+                setCurrentDisplayMonth(localDate);
                 // Auto-select the first available date
-                setCalendarSelectedDate(utcDate);
+                setCalendarSelectedDate(localDate);
+                console.log('📅 Auto-selected first available date', localDate);
             }
         }
-    }, [packageData.fixedDates]);
+    }, [packageData.fixedDates, storeArrivalDate, storeSelectedFixedDateId]);
 
     // Validation functions
     const validateStep1 = (): StepValidation => {
@@ -221,9 +288,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             toast.error('Please select an arrival date');
         }
 
-        if (participants < 1) {
-            errors.participants = 'Number of participants must be at least 1';
-            toast.error('Number of participants must be at least 1');
+        const totalPax = Object.values(paxSelections).reduce((sum, count) => sum + count, 0);
+
+        if (totalPax < 1) {
+            errors.participants = 'Please select at least 1 participant';
+            toast.error('Please select at least 1 participant');
         }
 
         return {
@@ -330,69 +399,83 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     const highlightedDates = useMemo(() => {
         if (!calendarSelectedDate || !selectedDate) return [];
 
-        // Highlight the full trip duration from start date to end date
+        // Highlight from the selected arrival date to the end date of the trip
         const dates: Date[] = [];
-        const startDateObj = new Date(selectedDate.startDate);
+
+        // Use local date components to avoid timezone shift
+        const startDate = new Date(
+            calendarSelectedDate.getFullYear(),
+            calendarSelectedDate.getMonth(),
+            calendarSelectedDate.getDate()
+        );
+
         const endDateObj = new Date(selectedDate.endDate);
+        const endDate = new Date(
+            endDateObj.getFullYear(),
+            endDateObj.getMonth(),
+            endDateObj.getDate()
+        );
 
-        // Create UTC dates
-        const startDate = new Date(Date.UTC(
-            startDateObj.getUTCFullYear(),
-            startDateObj.getUTCMonth(),
-            startDateObj.getUTCDate()
-        ));
-        const endDate = new Date(Date.UTC(
-            endDateObj.getUTCFullYear(),
-            endDateObj.getUTCMonth(),
-            endDateObj.getUTCDate()
-        ));
-
-        // Add all dates in the range
+        // Add all dates from arrival to departure
         const currentDate = new Date(startDate);
         while (currentDate <= endDate) {
             dates.push(new Date(currentDate));
-            currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+            currentDate.setDate(currentDate.getDate() + 1);
         }
 
         return dates;
     }, [calendarSelectedDate, selectedDate]);
 
-    // Calculate trip duration
+    // Calculate trip duration from arrival to departure
     const tripDuration = useMemo(() => {
-        if (!selectedDate) return 0;
-        const startDateObj = new Date(selectedDate.startDate);
+        if (!selectedDate || !calendarSelectedDate) return 0;
+        const arrivalDateObj = new Date(calendarSelectedDate);
         const endDateObj = new Date(selectedDate.endDate);
-        return Math.ceil((endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-    }, [selectedDate]);
+        return Math.ceil((endDateObj.getTime() - arrivalDateObj.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    }, [selectedDate, calendarSelectedDate]);
 
 
     // Update selectedDate when calendarSelectedDate changes
     useEffect(() => {
         if (calendarSelectedDate) {
-            // Normalize selected date to UTC for comparison
+            // Normalize selected date for comparison (use local timezone)
             const normalizeDate = (date: Date) => {
-                return new Date(Date.UTC(
-                    date.getUTCFullYear(),
-                    date.getUTCMonth(),
-                    date.getUTCDate()
-                ));
+                return new Date(
+                    date.getFullYear(),
+                    date.getMonth(),
+                    date.getDate()
+                );
             };
 
             const normalizedSelected = normalizeDate(calendarSelectedDate);
+
+            // Find fixed date where the selected date falls within the range
             const fixedDate = packageData.fixedDates.find((date: any) => {
                 const startDateObj = new Date(date.startDate);
-                const fixedStart = new Date(Date.UTC(
-                    startDateObj.getUTCFullYear(),
-                    startDateObj.getUTCMonth(),
-                    startDateObj.getUTCDate()
-                ));
-                return fixedStart.getTime() === normalizedSelected.getTime();
+                const endDateObj = new Date(date.endDate);
+
+                const fixedStart = new Date(
+                    startDateObj.getFullYear(),
+                    startDateObj.getMonth(),
+                    startDateObj.getDate()
+                );
+                const fixedEnd = new Date(
+                    endDateObj.getFullYear(),
+                    endDateObj.getMonth(),
+                    endDateObj.getDate()
+                );
+
+                // Check if selected date is within the range AND the fixed date is available
+                const isInRange = normalizedSelected >= fixedStart && normalizedSelected <= fixedEnd;
+                const isAvailable = date.status?.toLowerCase() === 'open' && (date.availableSeats || 0) > 0;
+
+                return isInRange && isAvailable;
             });
 
             if (fixedDate) {
                 setSelectedDate(fixedDate);
             } else {
-                // Only allow selection of fixed dates, fallback to null
+                // Only allow selection of dates within available fixed date ranges
                 setSelectedDate(null);
             }
         } else {
@@ -418,38 +501,55 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 basePrice: 0,
                 discountedPrice: 0,
                 discountAmount: 0,
-                discountPercent: 0
+                discountPercent: 0,
+                paxBreakdown: []
             };
         }
 
-        const basePrice = selectedDate.pricePerPerson * participants
+        // Calculate total participants across all pax selections
+        const totalParticipants = Object.values(paxSelections).reduce((sum, count) => sum + count, 0);
 
-        // Find applicable pax discount based on participant count
-        const applicablePax = packageData?.pax?.find((pax: any) =>
-            participants >= pax.min && participants <= pax.max
-        );
-
-        // Only apply discount if participants are within min-max range
-        if (applicablePax) {
-            const discountPerPerson = applicablePax.discount || 0 // Discount in US$ per person
-            const totalDiscountAmount = discountPerPerson * participants // Total discount for all participants
-            const discountedPrice = basePrice - totalDiscountAmount
-
+        if (totalParticipants === 0) {
             return {
-                basePrice,
-                discountedPrice: discountedPrice > 0 ? discountedPrice : 0, // Ensure price doesn't go negative
-                discountAmount: totalDiscountAmount,
-                discountPercent: 0 // Not used for flat discount
-            }
-        } else {
-            // No discount applies - participants are outside min-max range
-            return {
-                basePrice,
-                discountedPrice: basePrice,
+                basePrice: 0,
+                discountedPrice: 0,
                 discountAmount: 0,
-                discountPercent: 0
-            }
+                discountPercent: 0,
+                paxBreakdown: []
+            };
         }
+
+        let totalPrice = 0;
+        const paxBreakdown: Array<{ paxId: string; min: number; max: number; count: number; pricePerPerson: number; total: number }> = [];
+
+        // Calculate price for each pax selection
+        Object.entries(paxSelections).forEach(([paxId, count]) => {
+            if (count > 0) {
+                const paxData = packageData?.pax?.find((p: any) => p._id === paxId);
+                if (paxData) {
+                    const pricePerPerson = paxData.discount; // Use discount as base price
+                    const subtotal = pricePerPerson * count;
+                    totalPrice += subtotal;
+
+                    paxBreakdown.push({
+                        paxId,
+                        min: paxData.min,
+                        max: paxData.max,
+                        count,
+                        pricePerPerson,
+                        total: subtotal
+                    });
+                }
+            }
+        });
+
+        return {
+            basePrice: totalPrice,
+            discountedPrice: totalPrice,
+            discountAmount: 0,
+            discountPercent: 0,
+            paxBreakdown
+        };
     }
 
     const calculateAddonsPrice = () => {
@@ -463,6 +563,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     const basePriceDetails = calculateBasePrice()
     const addonsPrice = calculateAddonsPrice()
     const totalAmount = basePriceDetails.discountedPrice + addonsPrice
+    const totalParticipants = Object.values(paxSelections).reduce((sum, count) => sum + count, 0)
 
     const handleTravelerInfoChange = (field: keyof TravelerInfo, value: string) => {
         setTravelerInfo(prev => ({
@@ -581,23 +682,24 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     });
 
     const handleSubmit = async () => {
-        if (!validateStep4().isValid || !selectedDate) return;
+        if (!validateStep4().isValid || !selectedDate || !calendarSelectedDate) return;
 
         const bookingData = {
             personalInfo: travelerInfo,
-            adults: participants,
-            totalPeople: participants,
+            adults: totalParticipants,
+            totalPeople: totalParticipants,
             totalAmount,
             //@ts-ignore
             fixedDateId: selectedDate._id,
-            arrivalDate: new Date(selectedDate.startDate).toISOString().split('T')[0],
-            departureDate: new Date(selectedDate.endDate).toISOString().split('T')[0],
-            numberOfTravelers: participants,
+            arrivalDate: new Date(calendarSelectedDate).toISOString().split('T')[0], // Use selected arrival date
+            departureDate: new Date(selectedDate.endDate).toISOString().split('T')[0], // Use fixed end date
+            numberOfTravelers: totalParticipants,
             package: packageData._id,
             message,
             specialRequirements,
             termsAccepted,
-            addons: selectedAddons.map(addon => addon.id)
+            addons: selectedAddons.map(addon => addon.id),
+            paxSelections // Include pax selections in booking data
         }
         bookingMutation.mutate(bookingData);
     }
@@ -609,10 +711,12 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                     <div className="space-y-6">
                         <div className="bg-white rounded-md ">
                             <h2 className='text-xl font-medium '>Select Arrival Date</h2>
-                            {selectedDate ? (
+                            {selectedDate && calendarSelectedDate ? (
                                 <p className="text-zinc-600 mb-4">
-                                    Trip Duration: {Math.ceil((new Date(selectedDate.endDate).getTime() - new Date(selectedDate.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
-                                    <span className="ml-2 text-sm">({new Date(selectedDate.startDate).toLocaleDateString()} - {new Date(selectedDate.endDate).toLocaleDateString()})</span>
+                                    Trip Duration: {tripDuration} days
+                                    <span className="ml-2 text-sm">
+                                        (Arrival: {new Date(calendarSelectedDate).toLocaleDateString()} - Departure: {new Date(selectedDate.endDate).toLocaleDateString()})
+                                    </span>
                                 </p>
                             ) : (
                                 <p className="text-zinc-600 mb-4">Select a date to see trip duration</p>
@@ -698,41 +802,57 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                 <div className="mt-3">
                                     <h2 className='text-xl font-medium'>Select Package</h2>
                                     <div className="mt-4 divide-y divide-zinc-200">
-                                        {packageData.pax.map((pax, index) => (
-                                            <div key={index} className='flex gap-4 border border-zinc-100 p-3 rounded-sm md:gap-10 pb-4 items-center'>
-                                                <div className="flex items-center">
-                                                    <button
-                                                        className="w-10 rounded-full h-10 flex items-center justify-center border border-zinc-200 hover:bg-zinc-50"
-                                                        onClick={() => setParticipants(Math.max(1, participants - 1))}
-                                                    >
-                                                        <Minus className="size-4" />
-                                                    </button>
-                                                    <input
-                                                        type="text"
-                                                        value={participants}
-                                                        readOnly
-                                                        className='w-12 h-10 text-center border-none outline-none ring-0'
-                                                    />
-                                                    <button
-                                                        className="w-10 h-10 flex items-center justify-center border border-zinc-200 rounded-full hover:bg-zinc-50"
-                                                        onClick={() => setParticipants(participants + 1)}
-                                                    >
-                                                        <Plus className="size-4" />
-                                                    </button>
-                                                </div>
-                                                <div className="flex justify-between items-center w-full">
-                                                    <div>
-                                                        <h2 className='text-lg font-semibold'>{pax.min} - {pax.max} Pax</h2>
-                                                        <p className="text-zinc-600">Best for {pax.max < 2 ? 'solo travelers' : 'group travelers'}</p>
+                                        {packageData.pax
+                                            .sort((a: any, b: any) => a.sortOrder - b.sortOrder)
+                                            .map((pax: any, index: number) => {
+                                                const paxCount = paxSelections[pax._id] || 0;
+                                                return (
+                                                    <div key={pax._id} className='flex gap-4 border border-zinc-100 p-3 rounded-sm md:gap-10 pb-4 items-center mb-3'>
+                                                        <div className="flex items-center">
+                                                            <button
+                                                                className="w-10 rounded-full h-10 flex items-center justify-center border border-zinc-200 hover:bg-zinc-50"
+                                                                onClick={() => {
+                                                                    setPaxSelections(prev => ({
+                                                                        ...prev,
+                                                                        [pax._id]: Math.max(0, paxCount - 1)
+                                                                    }));
+                                                                }}
+                                                            >
+                                                                <Minus className="size-4" />
+                                                            </button>
+                                                            <input
+                                                                type="text"
+                                                                value={paxCount}
+                                                                readOnly
+                                                                className='w-12 h-10 text-center border-none outline-none ring-0'
+                                                            />
+                                                            <button
+                                                                className="w-10 h-10 flex items-center justify-center border border-zinc-200 rounded-full hover:bg-zinc-50"
+                                                                onClick={() => {
+                                                                    setPaxSelections(prev => ({
+                                                                        ...prev,
+                                                                        [pax._id]: paxCount + 1
+                                                                    }));
+                                                                }}
+                                                            >
+                                                                <Plus className="size-4" />
+                                                            </button>
+                                                        </div>
+                                                        <div className="flex justify-between items-center w-full">
+                                                            <div>
+                                                                <h2 className='text-lg font-semibold'>{pax.min} - {pax.max} Pax</h2>
+                                                                <p className="text-zinc-600">Best for {pax.max < 2 ? 'solo travelers' : 'group travelers'}</p>
+                                                            </div>
+                                                            <div className="text-right">
+                                                                <h2 className='text-lg font-semibold'>US$ {pax.discount}</h2>
+                                                                <p className="text-sm text-zinc-600">per person</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="text-right">
-                                                        <h2 className='text-lg font-semibold'>US$ {pax.discount}</h2>
-                                                        <p className="text-sm text-zinc-600">per person</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
+                                                );
+                                            })}
                                     </div>
+
                                 </div>
                             ) : (
                                 <div className="bg-white rounded-md border border-zinc-200 p-4">
@@ -1132,16 +1252,18 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         const isOpen = date.status?.toLowerCase() === 'open';
         const startDateObj = new Date(date.startDate);
         const today = new Date();
-        const startDate = new Date(Date.UTC(
-            startDateObj.getUTCFullYear(),
-            startDateObj.getUTCMonth(),
-            startDateObj.getUTCDate()
-        ));
-        const normalizedToday = new Date(Date.UTC(
+
+        const startDate = new Date(
+            startDateObj.getFullYear(),
+            startDateObj.getMonth(),
+            startDateObj.getDate()
+        );
+        const normalizedToday = new Date(
             today.getFullYear(),
             today.getMonth(),
             today.getDate()
-        ));
+        );
+
         const isFutureOrToday = startDate >= normalizedToday;
         const hasSeats = (date.availableSeats || 0) > 0;
 
@@ -1211,11 +1333,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                             <span className="font-medium text-right text-[#F05E25]">{packageData.name}</span>
                                         </div>
 
-                                        {selectedDate && (
+                                        {selectedDate && calendarSelectedDate && (
                                             <div className="flex justify-between">
                                                 <span className="text-zinc-900 font-semibold">Duration:</span>
                                                 <span className="font-medium text-[#F05E25]">
-                                                    {Math.ceil((new Date(selectedDate.endDate).getTime() - new Date(selectedDate.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
+                                                    {tripDuration} days
                                                 </span>
                                             </div>
                                         )}
@@ -1230,9 +1352,9 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                         <div className="flex justify-between">
                                             <span className="text-zinc-900 font-semibold">Travel Dates:</span>
                                             <span className="font-medium text-right text-sm text-[#F05E25]">
-                                                {selectedDate ? (
+                                                {selectedDate && calendarSelectedDate ? (
                                                     <>
-                                                        {new Date(selectedDate.startDate).toLocaleString('en-US', { month: 'short', day: 'numeric' })} - {new Date(selectedDate.endDate).toLocaleString('en-US', { month: 'short', day: 'numeric' })}
+                                                        {new Date(calendarSelectedDate).toLocaleString('en-US', { month: 'short', day: 'numeric' })} - {new Date(selectedDate.endDate).toLocaleString('en-US', { month: 'short', day: 'numeric' })}
                                                     </>
                                                 ) : 'Not selected'}
                                             </span>
@@ -1247,25 +1369,40 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
                                         <div className="flex justify-between">
                                             <span className="text-zinc-900 font-semibold">Participants:</span>
-                                            <span className="font-medium text-[#F05E25]">{participants} {participants === 1 ? 'person' : 'people'}</span>
+                                            <span className="font-medium text-[#F05E25]">{totalParticipants} {totalParticipants === 1 ? 'person' : 'people'}</span>
                                         </div>
 
                                         <hr className="my-3 text-zinc-200" />
 
                                         {selectedDate && (
                                             <>
-                                                <div className="flex justify-between">
-                                                    <div className="flex flex-col">
-                                                        <span className="text-zinc-900 font-semibold">Base Price:</span>
-                                                        <span className='text-zinc-500'>(US$ {selectedDate.pricePerPerson} * {participants})</span>
-                                                    </div>
-                                                    <span className="font-medium text-[#F05E25]">US$ {basePriceDetails.basePrice.toFixed(2)}</span>
-                                                </div>
+                                                {basePriceDetails.paxBreakdown && basePriceDetails.paxBreakdown.length > 0 ? (
+                                                    <>
+                                                        <div className="text-zinc-900 font-semibold mb-2">Package Pricing:</div>
+                                                        {basePriceDetails.paxBreakdown.map((breakdown) => (
+                                                            <div key={breakdown.paxId} className="flex justify-between text-sm mb-2">
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-zinc-700">
+                                                                        {breakdown.min}-{breakdown.max} Pax × {breakdown.count}
+                                                                    </span>
+                                                                    <span className='text-zinc-500 text-xs'>
+                                                                        (US$ {breakdown.pricePerPerson} per person)
+                                                                    </span>
+                                                                </div>
+                                                                <span className="font-medium text-[#F05E25]">
+                                                                    US$ {breakdown.total.toFixed(2)}
+                                                                </span>
+                                                            </div>
+                                                        ))}
 
-                                                {basePriceDetails.discountAmount > 0 && (
-                                                    <div className="flex justify-between text-green-500">
-                                                        <span>Discount:</span>
-                                                        <span>-US$ {basePriceDetails.discountAmount.toFixed(2)}</span>
+                                                        <div className="flex justify-between font-semibold mt-2 pt-2 border-t border-zinc-200">
+                                                            <span className="text-zinc-900">Subtotal:</span>
+                                                            <span className="text-[#F05E25]">US$ {basePriceDetails.basePrice.toFixed(2)}</span>
+                                                        </div>
+                                                    </>
+                                                ) : (
+                                                    <div className="text-center py-2 text-zinc-500 text-sm">
+                                                        Please select participants
                                                     </div>
                                                 )}
 

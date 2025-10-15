@@ -58,7 +58,7 @@ const ItineraryDay = ({
           }`}
       >
         <div className=" pb-6">
-          <div id="editor" dangerouslySetInnerHTML={{ __html: description }} className="text-zinc-600 text-base leading-relaxed  mb-6">
+          <div id="editor" dangerouslySetInnerHTML={{ __html: description }} className="text-zinc-800 text-base leading-relaxed  mb-6">
 
           </div>
 
@@ -72,7 +72,7 @@ const ItineraryDay = ({
                   <h3 className="font-semibold leading-4  mb-1">
                     Duration
                   </h3>
-                  <p className=" text-zinc-600">{data.duration}</p>
+                  <p className=" text-zinc-800">{data.duration}</p>
                 </div>
               </div>
             )}
@@ -86,7 +86,7 @@ const ItineraryDay = ({
                   <h3 className="font-semibold leading-4  mb-1">
                     Max Altitude
                   </h3>
-                  <p className="t text-zinc-600">{data.maxAltitude} m</p>
+                  <p className="t text-zinc-800">{data.maxAltitude} m</p>
                 </div>
               </div>
             )}
@@ -100,7 +100,7 @@ const ItineraryDay = ({
                   <h3 className="font-semibold leading-4  mb-1">
                     Accommodation
                   </h3>
-                  <p className=" text-zinc-600">{data.accommodation}</p>
+                  <p className=" text-zinc-800">{data.accommodation}</p>
                 </div>
               </div>
             )}
@@ -114,7 +114,7 @@ const ItineraryDay = ({
                   <h3 className="font-semibold leading-4  mb-1">
                     Meals
                   </h3>
-                  <p className="text-sm text-zinc-600">{data.meals}</p>
+                  <p className=" text-zinc-800">{data.meals}</p>
                 </div>
               </div>
             )}

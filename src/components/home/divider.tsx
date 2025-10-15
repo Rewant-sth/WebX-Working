@@ -18,10 +18,9 @@ export default function Divider() {
             }, {
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top top", // when the top of the trigger hits the bottom of the viewport
-                    end: "+=100%",
+                    start: "top bottom", // when the top of the trigger hits the bottom of the viewport
+                    end: "bottom 20%",
                     scrub: true,
-                    pin: true,
                 },
                 clipPath: 'inset(0% 0% 0% 0%)',
                 ease: "none",

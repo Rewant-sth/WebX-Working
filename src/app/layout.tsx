@@ -40,7 +40,7 @@ export default function RootLayout({
           <LayoutWrapper>
             <Suspense fallback={<div></div>}><LenisProvider /></Suspense>
             <SelectedTripProvider>{children}</SelectedTripProvider>
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster position="top-center" containerClassName="z-[99999999999]" reverseOrder={false} />
             <FooterWrapper />
           </LayoutWrapper>
         </Providers>

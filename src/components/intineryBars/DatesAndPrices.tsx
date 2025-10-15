@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { IFixedDate, ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
-import { setPackage, setSelectedFixedDateId } from "@/store/booking-store";
+import { useBookingStore } from "@/store/booking-store";
 import Select from "react-select";
 import { bookPrivateTrip } from "@/service/booking";
 import SuccessModal from "@/components/common/SuccessModal";
@@ -28,12 +28,6 @@ const BookingForm: React.FC<{
 
   const endDate = new Date(selectedDate);
   endDate.setDate(selectedDate.getDate() + tripDuration - 1);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-
-  };
 
   return (
     <div className="bg-white rounded-sm border border-zinc-200 p-6 mt-6">
@@ -516,6 +510,10 @@ const DatesAndPrices = ({
   const [showForm, setShowForm] = useState(false);
   const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date | null>(null);
   const [tripType, setTripType] = useState<'group' | 'private'>('group');
+  const [selectedFixedDate, setSelectedFixedDate] = useState<IFixedDate | null>(null);
+
+  // Use booking store
+  const { setPackage, setSelectedFixedDateId, setArrivalDate, setDepartureDate } = useBookingStore();
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -567,40 +565,72 @@ const DatesAndPrices = ({
 
   // Calculate trip duration from first fixed date (assuming all trips have same duration)
   const tripDuration = useMemo(() => {
-    if (!data || data.length === 0) return 10; // Default to 10 days
-    const firstTrip = data[0];
-    const start = new Date(firstTrip.startDate);
-    const end = new Date(firstTrip.endDate);
-    return Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-  }, [data]);
+    if (!selectedDate || !selectedFixedDate) return 10; // Default to 10 days
+    const arrivalDate = new Date(selectedDate);
+    const departureDate = new Date(selectedFixedDate.endDate);
+    return Math.ceil((departureDate.getTime() - arrivalDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  }, [selectedDate, selectedFixedDate]);
 
   // Calculate highlighted dates based on selected date and trip duration
   const highlightedDates = useMemo(() => {
-    if (!selectedDate) return [];
+    if (!selectedDate || !selectedFixedDate) return [];
     const dates = [];
-    for (let i = 0; i < tripDuration; i++) {
-      const date = new Date(selectedDate);
-      date.setDate(selectedDate.getDate() + i);
-      dates.push(date);
+    const arrivalDate = new Date(selectedDate);
+    const departureDate = new Date(selectedFixedDate.endDate);
+
+    // Generate all dates from arrival to departure
+    const currentDate = new Date(arrivalDate);
+    while (currentDate <= departureDate) {
+      dates.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
     }
     return dates;
-  }, [selectedDate, tripDuration]);
+  }, [selectedDate, selectedFixedDate]);
 
   const handleDateSelect = (date: Date) => {
+    console.log('📅 DatesAndPrices: Date selected', date);
     setSelectedDate(date);
     setShowForm(false); // Reset form visibility
 
-    // Find the matching fixed date and store its ID
+    // Find the matching fixed date and calculate arrival/departure
     if (data) {
       const matchingFixedDate = data.find(fd => {
         const fixedStart = new Date(fd.startDate);
-        return fixedStart.getDate() === date.getDate() &&
-          fixedStart.getMonth() === date.getMonth() &&
-          fixedStart.getFullYear() === date.getFullYear();
+        const fixedEnd = new Date(fd.endDate);
+        const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const rangeStart = new Date(fixedStart.getFullYear(), fixedStart.getMonth(), fixedStart.getDate());
+        const rangeEnd = new Date(fixedEnd.getFullYear(), fixedEnd.getMonth(), fixedEnd.getDate());
+
+        // Check if date is within the range AND the fixed date is available
+        const isInRange = checkDate >= rangeStart && checkDate <= rangeEnd;
+        const isAvailable = fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0;
+
+        return isInRange && isAvailable;
       });
 
       if (matchingFixedDate) {
+        console.log('✅ DatesAndPrices: Found matching fixed date', matchingFixedDate);
+        setSelectedFixedDate(matchingFixedDate);
         setSelectedFixedDateId(matchingFixedDate._id);
+
+        // Set arrival date as the selected date (ensure no timezone shift)
+        const arrivalDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        setArrivalDate(arrivalDate);
+
+        // Calculate departure date from the fixed date's end date (ensure no timezone shift)
+        const endDateObj = new Date(matchingFixedDate.endDate);
+        const departureDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+        setDepartureDate(departureDate);
+
+        console.log('💾 DatesAndPrices: Stored in booking store', {
+          fixedDateId: matchingFixedDate._id,
+          arrivalDate,
+          departureDate,
+          arrivalDateStr: arrivalDate.toDateString(),
+          departureDateStr: departureDate.toDateString()
+        });
+      } else {
+        console.warn('⚠️ DatesAndPrices: No matching fixed date found');
       }
     }
   };
@@ -655,6 +685,10 @@ const DatesAndPrices = ({
 
               {/* Navigation dropdowns */}
               <div className="flex items-center gap-2">
+                <button className="text-orange-400 hover:text-orange-600">
+                  <Icon icon="mynaui:chevron-left-solid" width="24" height="24" onClick={handlePrevMonth} />
+                </button>
+
                 <Select
                   value={{ value: firstMonth, label: new Date(firstYear, firstMonth).toLocaleString('default', { month: 'long' }) }}
                   onChange={(option) => {
@@ -711,6 +745,9 @@ const DatesAndPrices = ({
                     })
                   }}
                 />
+                <button className="text-orange-400 hover:text-orange-600">
+                  <Icon icon="mynaui:chevron-right-solid" width="24" height="24" onClick={handleNextMonth} />
+                </button>
               </div>
             </div>
 
@@ -742,7 +779,7 @@ const DatesAndPrices = ({
 
 
             {/* Selected Date Info and Book Button */}
-            {selectedDate && (
+            {selectedDate && selectedFixedDate && (
               <>
                 <div className="bg-[#F05E25]/10 rounded-sm p-6 mb-6">
                   <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
@@ -752,13 +789,13 @@ const DatesAndPrices = ({
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                         <div>
-                          <span className="text-zinc-800 font-medium">Start Date:</span>
+                          <span className="text-zinc-800 font-medium">Arrival Date:</span>
                           <p className="text-zinc-800">{selectedDate.toDateString()}</p>
                         </div>
                         <div>
-                          <span className="text-zinc-800 font-medium">End Date:</span>
+                          <span className="text-zinc-800 font-medium">Departure Date:</span>
                           <p className="text-zinc-800">
-                            {new Date(selectedDate.getTime() + (tripDuration - 1) * 24 * 60 * 60 * 1000).toDateString()}
+                            {new Date(selectedFixedDate.endDate).toDateString()}
                           </p>
                         </div>
                         <div>
@@ -769,6 +806,12 @@ const DatesAndPrices = ({
                     </div>
 
                     <Link onClick={() => {
+                      console.log('🔘 Book This Trip clicked', {
+                        package: pkg?._id,
+                        selectedDate,
+                        selectedFixedDate,
+                        storeState: useBookingStore.getState()
+                      });
                       setPackage(pkg as ITravelPackage);
                       onShowBooking();
                     }} href={`#booking-modal`} >
