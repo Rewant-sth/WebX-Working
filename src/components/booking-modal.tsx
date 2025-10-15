@@ -126,16 +126,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         })
     };
 
-    // Lock body scroll when modal is open
-    useEffect(() => {
-        // Prevent body scroll
-        document.body.style.overflow = 'hidden';
 
-        return () => {
-            // Restore body scroll when modal closes
-            document.body.style.overflow = 'unset';
-        };
-    }, []);
 
     // Scroll to top of the page when modal opens
     useEffect(() => {
@@ -642,7 +633,6 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         );
     }
 
-    const router = useRouter();
 
     const bookingMutation = useMutation({
         mutationFn: async (bookingData: {
@@ -1290,12 +1280,10 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     }
 
     return (
-        <div className="py-10">
-            <div className="bg-white  rounded-md visible shadow-xl max-w-5xl !h-full w-full mx-auto">
+        <div className="sm:py-10 h-full !overflow-auto">
+            <div className="bg-white  rounded-md visible shadow-xl max-w-5xl  w-full mx-auto">
                 <div className="max-w-5xl mx-auto pointer-events-auto bg-white rounded-md ">
-
-
-                    <div className="w-full overflow-visible relative h-64 bg-zinc-200">
+                    <div className="w-full relative h-64 bg-zinc-200">
                         <button onClick={onClose} className="absolute cursor-pointer size-5 md:size-8 lg:size-12 rounded-full text-white/60  hover:text-white transition-colors duration-200 flex justify-center items-center border z-[999] top-4 right-4">
                             <X className="size-4 md:size-5 lg:size-6" />
                         </button>
@@ -1409,15 +1397,15 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                 {selectedAddons.length > 0 && (
                                                     <>
                                                         <hr className="my-3 text-zinc-200" />
-                                                        <div className="text-zinc-600 font-medium">Add-ons:</div>
+                                                        <div className="text-zinc-800 font-medium">Add-ons:</div>
                                                         {selectedAddons.map((selectedAddon) => {
                                                             const addon = packageData.addons.find(a => a._id === selectedAddon.id)
                                                             if (!addon) return null
                                                             const addonTotal = addon.price * selectedAddon.quantity
                                                             return (
-                                                                <div key={addon._id} className="flex justify-between text-sm">
+                                                                <div key={addon._id} className="flex justify-between text-sm w-full">
                                                                     <span>{addon.name} ×{selectedAddon.quantity}</span>
-                                                                    <span>+ US$ {addonTotal.toFixed(2)}</span>
+                                                                    <span className='text-[#FF6A00] font-semibold'>+ US$ {addonTotal.toFixed(2)}</span>
                                                                 </div>
                                                             )
                                                         })}

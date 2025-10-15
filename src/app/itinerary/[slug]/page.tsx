@@ -167,10 +167,10 @@ const Page = () => {
   };
 
   return (
-    <>
+    <div className="h-full min-h-screen overflow-auto">
 
       {showBookingModal && (storePackage || packageData?.data) ? (
-        <div className="min-h-screen"
+        <div className="min-h-screen h-full"
           style={{
             backgroundImage: "url('/screenshot.png')",
             backgroundAttachment: "fixed",
@@ -179,7 +179,7 @@ const Page = () => {
             backgroundSize: "contain",
           }}
         >
-          <div className="h-full min-h-screen w-full bg-black/50 backdrop-blur-lg">
+          <div className="h-full   w-full bg-black/50 backdrop-blur-lg">
             <BookingModal
               packageData={(storePackage || packageData?.data) as ITravelPackage}
               onClose={handleCloseBookingModal}
@@ -487,7 +487,7 @@ const Page = () => {
       }
 
 
-    </>
+    </div>
   );
 };
 
