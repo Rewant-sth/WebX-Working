@@ -23,6 +23,7 @@ export interface ITravelPackage {
   seasonalTrek?: ISeasonalTrek[];
   location: string;
   duration: string;
+  note: string;
   categoryId: {
     _id: string;
     name: string;

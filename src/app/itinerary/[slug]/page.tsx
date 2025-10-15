@@ -351,6 +351,16 @@ const Page = () => {
                           <Itinerary data={packageData?.data.itinerary} />
                         ) : null}
 
+                        {packageData?.data?.note && (
+                          <div className="bg-orange-50 rounded-md  p-4 mb-6">
+                            <h3 className=" flex gap-2 items-center text-lg font-semibold mb-2">
+                              <span className="text-[#f05e25]"><svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} viewBox="0 0 48 48" className="size-7"><path fill="currentColor" fillRule="evenodd" d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20m3-28.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0m-1.879 6.344A2 2 0 0 1 26 23.5v7.764l1.894-.947l1.79 3.577l-4.79 2.395A2 2 0 0 1 22 34.5v-8.046l-1.614.646l-1.486-3.714l4.357-1.743a2 2 0 0 1 1.864.2" clipRule="evenodd"></path></svg></span>
+                              Important Notice</h3>
+                            <div className="text-zinc-800" dangerouslySetInnerHTML={{ __html: packageData.data.note }}>{ }</div>
+                          </div>
+                        )}
+
+
                         {packageData?.data.fixedDates?.length ? (
                           <DatesAndPrices
                             onShowBooking={handleOpenBookingModal}

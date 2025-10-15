@@ -126,7 +126,7 @@ const ItineraryDay = ({
 };
 
 // Itinerary Preview Component
-const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
+const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
   const [showAll, setShowAll] = useState(false);
 
   const displayedData = showAll ? data : data?.slice(0, 5);
@@ -238,6 +238,9 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined }) => {
           </div>
         </div>
       </div>
+
+
+
     </div>
   );
 };
