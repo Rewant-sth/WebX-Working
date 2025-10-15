@@ -84,12 +84,6 @@ export default function Footer() {
                       <Icon className='size-7' icon="mdi:instagram" />
                     </Link>
                   </li>
-
-                  <li>
-                    <Link target='_blank' href="https://x.com/RealHimalaya">
-                      <Icon className='size-7' icon="streamline-logos:x-twitter-logo-block" />
-                    </Link>
-                  </li>
                 </ul>
                 <Link target='parent' href="https://www.webxnep.com" className='flex gap-2 items-center'>Designed and developed by <img src="/logo/black-logo-png.png" alt="webx nepal" width={62} /></Link>
               </div>

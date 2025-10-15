@@ -32,10 +32,10 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-zinc-900 mb-2">
+                  <h3 className="text-lg font-bold text-zinc-900 mb-2">
                     {item.title}
                   </h3>
-                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className=" leading-relaxed text-zinc-600 md:text-justify">
+                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className=" leading-relaxed text-zinc-800 md:text-lg md:text-justify">
 
                   </div>
                 </div>

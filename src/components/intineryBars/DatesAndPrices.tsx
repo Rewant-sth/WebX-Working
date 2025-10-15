@@ -71,7 +71,7 @@ const BookingForm: React.FC<{
 const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
 
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['captcha'],
     queryFn: fetchCaptchaToken
   })
@@ -214,7 +214,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
   return (
     <div id="date-and-price" className="mt-6">
       <div className="mb-6">
-        <p className="text-zinc-700 leading-relaxed">
+        <p className="text-zinc-800 sm:text-lg leading-relaxed">
           Looking for personalized experience? We organize privately guided journey which is mainly designed to fit your taste and interest. Please fill out the form below to get started.
         </p>
       </div>
@@ -446,20 +446,25 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
 
         {/* Captcha */}
         <div className="col-span-2 flex gap-4 flex-wrap items-center mt-5 mb-3">
-          <label htmlFor="captchaAnswer" className="flex gap-4 items-center flex-wrap text-sm  font-medium text-zinc-700 mb-2">
+          <label htmlFor="captchaAnswer" className="flex gap-4 items-center flex-wrap   font-medium text-zinc-700 ">
             <span>Prove your humanity: </span><span className="text-orange-500">{isLoading ? 'Loading...' : data?.data.question} = *</span>
           </label>
-          <input
-            type="text"
-            id="captchaAnswer"
-            name="captchaAnswer"
-            value={formData.captchaAnswer}
-            onChange={handleInputChange}
-            required
-            disabled={isSubmitting}
-            className="px-4 w-fit py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
-            placeholder="Answer"
-          />
+          <div className="flex items-center">
+            <input
+              type="text"
+              id="captchaAnswer"
+              name="captchaAnswer"
+              value={formData.captchaAnswer}
+              onChange={handleInputChange}
+              required
+              disabled={isSubmitting}
+              className="px-4 w-fit py-2 border border-zinc-300 rounded-r-none border-r-0 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
+              placeholder="Answer"
+            />
+            <button type="button" disabled={isLoading} onClick={() => refetch()} className="px-4 w-fit py-2 border text-gray-500 hover:text-black border-zinc-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className={`${isLoading ? 'animate-spin' : ''}`}><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 16h5v5M10 8H5V3m14.418 6.003A8 8 0 0 0 5.086 7.976m-.504 7.021a8 8 0 0 0 14.331 1.027"></path></svg>
+            </button>
+          </div>
         </div>
 
         {/* Submit Button */}
@@ -639,7 +644,7 @@ const DatesAndPrices = ({
 
       {tripType === 'group' ? (
         <>
-          <p className="text-zinc-600  mt-6   leading-relaxed ">
+          <p className="text-zinc-800  mt-6 sm:text-lg   leading-relaxed ">
             Choose your preferred travel date from the calendars below. Dates with a green ring are available fixed departure dates. Select any available date to see the complete trip duration and proceed to booking.
           </p>
 

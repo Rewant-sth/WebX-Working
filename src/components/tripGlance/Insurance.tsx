@@ -15,7 +15,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                         Travel Insurance
                     </span>
                 </h2>
-                <p className="text-zinc-600 mt-1 leading-relaxed  mb-8">
+                <p className="text-zinc-800  leading-relaxed  mb-4">
                     Comprehensive insurance coverage details to ensure your safety and peace of mind during your adventure.
                 </p>
                 <div className="space-y-6">

@@ -21,6 +21,8 @@ export default function LayoutWrapper({
   const [isVisible, setIsVisible] = React.useState(false);
   const [isInitialized, setIsInitialized] = React.useState(false);
 
+  const { clearBookingData } = useBookingStore()
+
   // Get music player functions from Zustand store
   const { play, initializeAudioElement, cleanupAudioElement, } = useMusicPlayerStore();
 
@@ -120,10 +122,16 @@ export default function LayoutWrapper({
   // Hide navbar on pages that start with /booking or when booking modal is open
   const shouldHideNavbar = pathname.startsWith("/booking") || pathname.startsWith("/customize-trip") || pathname.startsWith("/test") || isBookingModalOpen;
 
+  useEffect(() => {
+    clearBookingData()
+  }, [])
+
   // Don't render anything until initialization is complete
   if (!isInitialized) {
     return null;
   }
+
+
 
   return (
     <>

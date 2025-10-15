@@ -71,9 +71,9 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
               </div>
               <div className="flex flex-col  gap-1">
                 <h3 className="font-semibold  capitalize text-zinc-800">{item.title}</h3>
-                <p className="text-zinc-700 text-xs sm:text-base line-clamp-2 ">
+                <p className="text-zinc-700 line-clamp-2 text-xs sm:text-base  ">
                   {item.value || "N/A"}
-                </p>
+              </p>
               </div>
             </div>
           ))}

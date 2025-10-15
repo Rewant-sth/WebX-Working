@@ -41,6 +41,10 @@ const RelatedTrips = ({
     router.push(`/itinerary/${trip.slug}`);
   };
 
+  if (data?.data?.length === 0) {
+    return null;
+  }
+
   return (
     <div className="">
       <div className="flex justify-between items-end mb-8">

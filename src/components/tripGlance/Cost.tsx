@@ -44,7 +44,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
         <div className="mb-10">
           {activeTab === 'inclusion' && (
             <div>
-              <p className="text-zinc-500 mb-6 leading-relaxed max-w-2xl">
+              <p className="text-zinc-800 mb-6 leading-relaxed max-w-2xl">
                 Everything that's included in your trip package to ensure a seamless travel experience.
               </p>
               <div className="grid divide-y divide-zinc-200 gap-4">
@@ -62,7 +62,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                           {item.title}
                         </h3>
                       </div>
-                      <p className="mt- leading-relaxed text-zinc-500" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                      <p className=" leading-relaxed text-zinc-800" id="editor" dangerouslySetInnerHTML={{ __html: item.description.replace("<br>", "") }}></p>
                     </div>
                   </div>
                 ))}
@@ -72,7 +72,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
 
           {activeTab === 'exclusion' && (
             <div>
-              <p className="text-zinc-500 mb-6 leading-relaxed max-w-2xl">
+              <p className="text-zinc-800 mb-6 leading-relaxed max-w-2xl">
                 Items and services not included in the package that you'll need to arrange separately.
               </p>
               <div className="grid divide-y divide-zinc-200  gap-4">
@@ -84,14 +84,12 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex gap-4 ">
-                        {/* <div className="shrink-0 size-7 mt-1 rounded-md" >
-                          <img src="/icons/delete.png" alt="exclusion" />
-                        </div> */}
+
                         <h3 className="text-xl capitalize font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                           {item.title}
                         </h3>
                       </div>
-                      <p className="mt- leading-relaxed text-zinc-500" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                      <p className="mt- leading-relaxed text-zinc-800" id="editor" dangerouslySetInnerHTML={{ __html: item.description.replace("<br>", "") }}></p>
                     </div>
                   </div>
                 ))}

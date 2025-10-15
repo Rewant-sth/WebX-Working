@@ -15,7 +15,7 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
                     Why You'll Love This
                 </span>
             </h2>
-            <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl mb-8">
+            <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl mb-6">
                 Discover what makes this adventure truly special and unforgettable.
             </p>
             <div className="space-y-4">

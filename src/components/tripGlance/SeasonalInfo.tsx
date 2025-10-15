@@ -15,12 +15,12 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
                     Best Seasons for {data.name || "This Package"}</h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
                 {data.seasonalTrek.map((season) => (
                     <div key={season._id} className="">
-                        <h3 className="text-lg font-medium mb-3">{season.title}</h3>
+                        <h3 className="text-lg font-bold mb-2">{season.title}</h3>
                         <div
-                            className="text-zinc-600"
+                            className="text-zinc-800 sm:text-lg"
                             dangerouslySetInnerHTML={{ __html: season.description }}
                         />
                     </div>
