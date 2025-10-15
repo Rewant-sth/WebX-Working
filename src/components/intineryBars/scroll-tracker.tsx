@@ -241,7 +241,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     return (
         <div className="w-full ">
             {/* Mobile/Tablet Layout - Horizontal Scroll */}
-            <div className="lg:hidden w-full bg-white border-b border-zinc-200">
+            <div className="lg:hidden w-full bg-white border-b  border-zinc-200">
                 <div className="w-full overflow-hidden">
                     <div
                         ref={scrollContainerRef}
@@ -270,7 +270,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             {/* Desktop Layout - Vertical Sidebar */}
             <div className="hidden lg:block">
                 <div className="bg-white  rounded-sm  ">
-                    <h3 className=" b  uppercase text-orange-500 font-semibold lg:text-xl  mb-4 pb-2 border-b border-zinc-200">
+                    <h3 className=" lg:py-3  uppercase text-orange-500 font-semibold lg:text-xl  mb-4 pb-2 border-b border-zinc-200">
                         Table of Contents
                     </h3>
                     {visibleSections.length > 0 && (

@@ -7,7 +7,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
       className="pb-14 "
     >
       <div className=" mx-auto ">
-        <h2 className="text-2xl font-bold text-orange-500 text-left mb-6">
+        <h2 className="text-2xl font-semibold text-orange-500 text-left mb-6">
           Your Trip at a Glance
         </h2>
 
@@ -73,7 +73,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
                 <h3 className="font-semibold  capitalize text-zinc-800">{item.title}</h3>
                 <p className="text-zinc-700 line-clamp-2 text-xs sm:text-base  ">
                   {item.value || "N/A"}
-              </p>
+                </p>
               </div>
             </div>
           ))}

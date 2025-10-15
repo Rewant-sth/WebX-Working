@@ -233,25 +233,14 @@ const Page = () => {
                       </div>
                     </div>
 
-
-
-                    <div className={`w-full relative h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:p-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
-
-                      {/* Left Sidebar - Scroll Tracker */}
-                      <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
-                        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
-                          <ScrollTracker data={packageData?.data as ITravelPackage} />
-                        </div>
-                      </div>
-
-
-                      {/* Breadcrumb */}
-                      <nav className="w-full lg:hidden px-4 py-3 " aria-label="Breadcrumb">
-                        <ol className="flex items-center  font-medium text-orange-500">
+                    {/* Breadcrumb */}
+                    <div className="md:px-6 bg-gray-100   flex items-center lg:px-10">
+                      <nav className="w-full  lg:px-0  py-2 " aria-label="Breadcrumb">
+                        <ol className="flex items-center  font-medium  text-zinc-700 space-x-1 md:space-x-3  overflow-x-auto">
                           <li>
                             <Link
                               href="/"
-                              className="hover:text-primary transition-colors duration-200 flex items-center"
+                              className="hover:text-[#FF6A00] transition-colors duration-200 flex items-center"
                             >
 
                               Home
@@ -272,9 +261,28 @@ const Page = () => {
                           <li>
                             <Link
                               href={"/package-list/" + packageData?.data?.categoryId?.slug}
-                              className="hover:text-primary transition-colors duration-200 flex items-center"
+                              className="hover:text-[#FF6A00] transition-colors duration-200 flex items-center"
                             >
-                              Packages
+                              {packageData?.data?.categoryId?.name || "Packages"}
+                            </Link>
+                          </li>
+
+                          <li>
+                            <svg
+                              className="w-4 h-4 text-gray-400 mx-1"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </li>
+
+                          <li>
+                            <Link
+                              href={"/package-list/" + packageData?.data?.categoryId?.slug}
+                              className="hover:text-[#FF6A00] transition-colors duration-200 flex items-center"
+                            >
+                              {packageData?.data?.subCategoryId?.name || "Packages"}
                             </Link>
                           </li>
 
@@ -296,14 +304,21 @@ const Page = () => {
                           </li>
                         </ol>
                       </nav>
+                    </div>
 
-                      <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
-                        <RightBar
-                          onShowContact={() => setShowContactModal(true)}
-                          onShowBooking={handleOpenBookingModal}
-                          data={packageData?.data}
-                        />
+
+
+                    <div className={`w-full relative  h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:px-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
+
+                      {/* Left Sidebar - Scroll Tracker */}
+                      <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
+                        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+                          <ScrollTracker data={packageData?.data as ITravelPackage} />
+                        </div>
                       </div>
+
+
+
 
                       {/* Mobile Scroll Tracker - Sticky Top */}
                       <div className="lg:hidden sticky top-0 z-[99999]">
@@ -315,9 +330,17 @@ const Page = () => {
 
 
                       {/* Center Content */}
-                      <div className="w-full lg:border-l border-zinc-200 lg:w-[53%] xl:w-[60%] p-4 xl:px-8 relative  min-w-0">
+                      <div className="w-full lg:border-l lg:mt-4 border-zinc-200 lg:w-[53%] xl:w-[60%] px-4 xl:px-8 relative  min-w-0">
 
 
+
+                        <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
+                          <RightBar
+                            onShowContact={() => setShowContactModal(true)}
+                            onShowBooking={handleOpenBookingModal}
+                            data={packageData?.data}
+                          />
+                        </div>
 
                         {packageData && <TripGlance data={packageData?.data} />}
 
