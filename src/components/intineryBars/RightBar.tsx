@@ -621,7 +621,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
 
   return (
     <>
-      <div className="  rounded-sm md:grid sm:grid-cols-2 gap-4 lg:gap-0 lg:mt-4 lg:grid-cols-1  space-y-4  lg:sticky  h-full">
+      <div className="  rounded-sm md:grid sm:grid-cols-2 gap-4 lg:gap-0 lg:mt-4 lg:grid-cols-1  space-y-4    h-fit">
 
         <div className="md:bg-orange-100 md:rounded-2xl md:shadow">
           {/* Header */}

@@ -167,7 +167,7 @@ const Page = () => {
   };
 
   return (
-    <div className="h-full min-h-screen overflow-auto">
+    <div className="h-full min-h-screen ">
 
       {showBookingModal && (storePackage || packageData?.data) ? (
         <div className="min-h-screen h-full"
@@ -209,7 +209,7 @@ const Page = () => {
                   <SkeletonLoader />
                 ) : (
                   <>
-                    <div ref={heroRef} className="relative h-[60dvh] sm:min-h-screen overflow-hidden  ">
+                    <div ref={heroRef} className="relative h-[60dvh] sm:min-h-screen  overflow-hidden">
                       <div className="absolute bottom-0 right-0 z-[99] hidden md:flex justify-end items-end w-full h-full">
                         <img src="/man2.png" alt="man" className="scale-110 lg:w-[60%]  translate-y-16 object-cover drop-shadow-black" />
                       </div>
@@ -312,7 +312,7 @@ const Page = () => {
 
                       {/* Left Sidebar - Scroll Tracker */}
                       <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
-                        <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+                        <div className="!sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
                           <ScrollTracker data={packageData?.data as ITravelPackage} />
                         </div>
                       </div>
@@ -454,8 +454,8 @@ const Page = () => {
                       </div>
 
                       {/* Right Sidebar */}
-                      <div className="hidden lg:block w-[25%] shrink-0">
-                        <div className="lg:sticky top-20 ">
+                      <div className="hidden lg:block  w-[25%] shrink-0">
+                        <div className="sticky top-20 h-fit ">
                           <RightBar
                             onShowContact={() => setShowContactModal(true)}
                             onShowBooking={handleOpenBookingModal}

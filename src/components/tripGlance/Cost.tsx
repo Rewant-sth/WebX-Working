@@ -62,7 +62,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                           {item.title}
                         </h3>
                       </div>
-                      <p className=" leading-relaxed text-zinc-800" id="editor" dangerouslySetInnerHTML={{ __html: item.description.replace("<br>", "") }}></p>
+                      <p className=" leading-relaxed text-zinc-800" id="editor" dangerouslySetInnerHTML={{ __html: item?.description?.replace("<br>", "") }}></p>
                     </div>
                   </div>
                 ))}
@@ -89,7 +89,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                           {item.title}
                         </h3>
                       </div>
-                      <p className="mt- leading-relaxed text-zinc-800" id="editor" dangerouslySetInnerHTML={{ __html: item.description.replace("<br>", "") }}></p>
+                      <p className="mt- leading-relaxed text-zinc-800" id="editor" dangerouslySetInnerHTML={{ __html: item?.description?.replace("<br>", "") }}></p>
                     </div>
                   </div>
                 ))}
