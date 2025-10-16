@@ -4,7 +4,6 @@ import { ITravelPackage } from '@/types/IPackages'
 import { useMutation } from '@tanstack/react-query'
 import { ChevronRight, Minus, Plus, X } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState, useMemo, useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -134,6 +133,15 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
 
+    // Cleanup timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (autoCloseTimeoutRef.current) {
+                clearTimeout(autoCloseTimeoutRef.current);
+            }
+        };
+    }, []);
+
     // Scroll to top of the page when step changes
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -167,7 +175,11 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     const [message, setMessage] = useState('')
     const [specialRequirements, setSpecialRequirements] = useState('')
     const [termsAccepted, setTermsAccepted] = useState(false)
-    const [success, setSuccess] = useState(false);
+    const [showResultModal, setShowResultModal] = useState(false);
+    const [bookingResult, setBookingResult] = useState<{ success: boolean; message: string }>({ success: false, message: '' });
+
+    // Store timeout ID for cleanup
+    const autoCloseTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
 
 
@@ -687,17 +699,57 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 body: JSON.stringify(bookingData),
             });
             if (!res.ok) {
-                throw new Error('Booking failed');
+                const errorData = await res.json();
+                throw new Error(errorData.message || 'Booking failed');
             }
             return res.json();
         },
         onSuccess: () => {
-            toast.success('Booking successful!', { duration: 4000 });
+            setBookingResult({ success: true, message: 'Booking successful! Please check your email for confirmation.' });
+            setShowResultModal(true);
             clearBookingData(); // Clear store on success
-            onClose();
+
+            // Clear any existing timeout
+            if (autoCloseTimeoutRef.current) {
+                clearTimeout(autoCloseTimeoutRef.current);
+            }
+
+            // Auto-close after 3 seconds
+            autoCloseTimeoutRef.current = setTimeout(() => {
+                setShowResultModal(false);
+                onClose();
+            }, 3000);
+            toast.success('Booking successful! Please check your email for confirmation.', {
+                position: 'bottom-right',
+                duration: 4000,
+                style: {
+                    backgroundColor: 'green',
+                    color: 'white'
+                }
+            });
         },
         onError: (error: any) => {
-            toast.error(error?.response?.data?.message || 'Booking failed. Please try again.');
+            setBookingResult({ success: false, message: error?.message || 'Booking failed. Please try again.' });
+            setShowResultModal(true);
+
+            // Clear any existing timeout
+            if (autoCloseTimeoutRef.current) {
+                clearTimeout(autoCloseTimeoutRef.current);
+            }
+
+            // Auto-close after 3 seconds
+            autoCloseTimeoutRef.current = setTimeout(() => {
+                setShowResultModal(false);
+            }, 3000);
+
+            toast.error(error.message || error || 'Booking failed. Please try again.', {
+                position: 'bottom-right',
+                duration: 4000,
+                style: {
+                    backgroundColor: 'red',
+                    color: 'white'
+                }
+            });
         }
     });
 
@@ -1516,17 +1568,45 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 </div>
             </div>
 
-            {success && (
-                <div className=" backdrop-blur-lg flex items-center justify-center p-4 fixed inset-0 bg-black/30 z-[9999999] h-full">
+            {showResultModal && (
+                <div className="backdrop-blur-lg flex items-center justify-center p-4 fixed inset-0 bg-black/30 z-[9999999] h-full">
                     <div className="h-full w-full relative">
                         <div className="h-screen sticky top-0 flex justify-center items-center">
-                            <div className=" flex flex-col justify-center bg-white items-center p-8 py-12 relative rounded-lg shadow-lg max-w-2xl w-full">
-                                <Link href={"/"} className="absolute top-4 right-4 ">
-                                    <button ><X /></button>
-                                </Link>
-                                <svg xmlns="http://www.w3.org/2000/svg" width={12} height={12} viewBox="0 0 12 12" className="size-10 lg:size-16 text-green-500 mb-6"><path fill="currentColor" d="m6.933.332l.113.101l.89.89l1.26.001a1.48 1.48 0 0 1 1.453 1.198l.02.138l.007.143l-.002 1.259l.893.892a1.48 1.48 0 0 1 .19 1.86l-.089.12l-.101.112l-.893.891l.001 1.258c0 .659-.432 1.224-1.056 1.415l-.136.035l-.142.023l-.144.007h-1.26l-.891.892a1.48 1.48 0 0 1-1.86.19l-.12-.089l-.112-.101l-.892-.893l-1.258.001A1.48 1.48 0 0 1 1.35 9.48l-.02-.139l-.006-.142V7.936l-.89-.89a1.48 1.48 0 0 1-.19-1.86l.088-.12l.101-.112l.89-.891l.001-1.26c0-.72.516-1.32 1.198-1.452l.139-.02l.142-.007h1.26l.891-.89a1.48 1.48 0 0 1 1.98-.102zm1.212 3.657l-.085.071L5.5 6.62L4.44 5.56a.63.63 0 0 0-.88 0a.63.63 0 0 0-.071.795l.071.085l1.5 1.5a.625.625 0 0 0 .804.065l.076-.065l3-3a.61.61 0 0 0 0-.88a.63.63 0 0 0-.795-.071"></path></svg>
-                                <h1 className="text-2xl font-bold  ">Booking Successful! </h1>
-                                <p className="">Please check your email for the booking confirmation.</p>
+                            <div className="flex flex-col justify-center bg-white items-center p-8 py-12 relative rounded-lg shadow-lg max-w-2xl w-full">
+                                <button
+                                    onClick={() => {
+                                        // Clear the auto-close timeout
+                                        if (autoCloseTimeoutRef.current) {
+                                            clearTimeout(autoCloseTimeoutRef.current);
+                                            autoCloseTimeoutRef.current = null;
+                                        }
+                                        setShowResultModal(false);
+                                        if (bookingResult.success) {
+                                            onClose();
+                                        }
+                                    }}
+                                    className="absolute top-4 right-4 hover:bg-gray-100 rounded-full p-1 transition-colors"
+                                >
+                                    <X className="size-6" />
+                                </button>
+
+                                {bookingResult.success ? (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width={12} height={12} viewBox="0 0 12 12" className="size-10 lg:size-16 text-green-500 mb-6">
+                                            <path fill="currentColor" d="m6.933.332l.113.101l.89.89l1.26.001a1.48 1.48 0 0 1 1.453 1.198l.02.138l.007.143l-.002 1.259l.893.892a1.48 1.48 0 0 1 .19 1.86l-.089.12l-.101.112l-.893.891l.001 1.258c0 .659-.432 1.224-1.056 1.415l-.136.035l-.142.023l-.144.007h-1.26l-.891.892a1.48 1.48 0 0 1-1.86.19l-.12-.089l-.112-.101l-.892-.893l-1.258.001A1.48 1.48 0 0 1 1.35 9.48l-.02-.139l-.006-.142V7.936l-.89-.89a1.48 1.48 0 0 1-.19-1.86l.088-.12l.101-.112l.89-.891l.001-1.26c0-.72.516-1.32 1.198-1.452l.139-.02l.142-.007h1.26l.891-.89a1.48 1.48 0 0 1 1.98-.102zm1.212 3.657l-.085.071L5.5 6.62L4.44 5.56a.63.63 0 0 0-.88 0a.63.63 0 0 0-.071.795l.071.085l1.5 1.5a.625.625 0 0 0 .804.065l.076-.065l3-3a.61.61 0 0 0 0-.88a.63.63 0 0 0-.795-.071"></path>
+                                        </svg>
+                                        <h1 className="text-2xl font-bold mb-2">Booking Successful!</h1>
+                                        <p className="text-center text-gray-600">{bookingResult.message}</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width={12} height={12} viewBox="0 0 12 12" className="size-10 lg:size-16 text-red-500 mb-6">
+                                            <path fill="currentColor" d="M6 1a5 5 0 1 0 0 10A5 5 0 0 0 6 1M4.854 3.646a.5.5 0 1 1 .707.708L6.207 5l.646.646a.5.5 0 0 1-.707.708L6 5.707l-.646.647a.5.5 0 1 1-.708-.708L5.293 5l-.647-.646a.5.5 0 0 1 0-.708M6 6.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 6 6.5"></path>
+                                        </svg>
+                                        <h1 className="text-2xl font-bold mb-2 text-red-600">Booking Failed</h1>
+                                        <p className="text-center text-gray-600">{bookingResult.message}</p>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

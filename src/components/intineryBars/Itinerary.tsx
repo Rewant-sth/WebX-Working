@@ -132,7 +132,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
   // Sort data by createdAt in descending order (newest first)
   const sortedData = data?.sort((a, b) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-  });
+  }).reverse();
 
   const displayedData = showAll ? sortedData : sortedData?.slice(0, 5);
   const hasMoreItems = sortedData && sortedData.length > 5;
