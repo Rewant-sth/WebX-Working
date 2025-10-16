@@ -553,14 +553,21 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         }
 
         let totalPrice = 0;
-        const paxBreakdown: Array<{ paxId: string; min: number; max: number; count: number; pricePerPerson: number; total: number }> = [];
+        const paxBreakdown: Array<{ paxId: string; min: number; max: number; count: number; pricePerPerson: number; total: number; label: string }> = [];
 
         // Calculate price for each pax selection
         Object.entries(paxSelections).forEach(([paxId, count]) => {
             if (count > 0) {
                 const paxData = packageData?.pax?.find((p: any) => p._id === paxId);
                 if (paxData) {
-                    const pricePerPerson = paxData.discount; // Use discount as base price
+                    // Check if the selected count falls within the pax range
+                    const isWithinPaxRange = count >= paxData.min && count <= paxData.max;
+
+                    // If within range, use pax price; otherwise use fixed date price
+                    const pricePerPerson = isWithinPaxRange
+                        ? paxData.discount
+                        : selectedDate.pricePerPerson;
+
                     const subtotal = pricePerPerson * count;
                     totalPrice += subtotal;
 
@@ -570,7 +577,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                         max: paxData.max,
                         count,
                         pricePerPerson,
-                        total: subtotal
+                        total: subtotal,
+                        label: isWithinPaxRange ? 'Pax Price' : 'Fixed Price'
                     });
                 }
             }
@@ -1495,16 +1503,14 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                                                         {breakdown.min}-{breakdown.max} Pax × {breakdown.count}
                                                                     </span>
                                                                     <span className='text-zinc-500 text-xs'>
-                                                                        (US$ {breakdown.pricePerPerson} per person)
+                                                                        (US$ {breakdown.pricePerPerson} per person - {breakdown.label})
                                                                     </span>
                                                                 </div>
                                                                 <span className="font-medium text-[#F05E25]">
                                                                     US$ {breakdown.total.toFixed(2)}
                                                                 </span>
                                                             </div>
-                                                        ))}
-
-                                                        <div className="flex justify-between font-semibold mt-2 pt-2 border-t border-zinc-200">
+                                                        ))}                                                        <div className="flex justify-between font-semibold mt-2 pt-2 border-t border-zinc-200">
                                                             <span className="text-zinc-900">Subtotal:</span>
                                                             <span className="text-[#F05E25]">US$ {basePriceDetails.basePrice.toFixed(2)}</span>
                                                         </div>
