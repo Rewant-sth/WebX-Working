@@ -8,7 +8,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import ExpertCard from "./expertSlider";
 
-const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
+const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(false);
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
@@ -639,7 +639,7 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
               data?.fixedDates.length !== undefined && data?.fixedDates.length > 0 && (
                 <div className="text-center mb-4">
                   <div className="flex items-baseline justify-center  mb-3">
-                    <span className="text-4xl font-bold" style={{ color: '#f05e25' }}>
+                    <span className="text-3xl font-bold" style={{ color: '#f05e25' }}>
                       US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/
                     </span>
                     <span className="text-xl font-medium text-zinc-600">per person</span>
@@ -711,10 +711,10 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
               {/* Choose Your Date Button */}
               {data?.fixedDates.length ? (
                 <button
-                  onClick={scrollToDateSection}
+                  onClick={onShowBooking || scrollToDateSection}
                   onMouseEnter={() => setHovered("date")}
                   onMouseLeave={() => setHovered(null)}
-                  className="w-full px-6 py-2 rounded-sm font-semibold capitalize  transition-all duration-300 text-white border-2"
+                  className="w-full px-6 py-1.5 rounded-sm font-semibold capitalize  transition-all duration-300 text-white border-2"
                   style={{
                     backgroundColor: '#f05e25',
                     borderColor: '#f05e25',
@@ -724,34 +724,31 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
                 </button>
               ) : null}
 
-
-              <button
-                onClick={onShowContact}
-                onMouseEnter={() => setHovered("enquiry")}
-                onMouseLeave={() => setHovered(null)}
-                className="w-full px-6 py-2.5 text-sm rounded-sm font-semibold  border-2 bg-[#01283F] border-[#01283F] text-white transition-all duration-300"
-              >
-                Trip Enquiry
-              </button>
-
               {/* View Itinerary Button */}
-              <div className=" shrink-0">
+              <div className=" shrink-0 ">
                 <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    generatePdf();
-                  }}
-                  disabled={isGeneratingPdf || !data}
-                  className={`w-full hover:bg-[#3A3A3A] hover:text-white hover:border-[#3A3A3A] px-6 text-sm py-2.5 rounded-sm font-bold  shrink-0 border-2 flex items-center justify-center gap-2 transition-all duration-300 ${isGeneratingPdf || !data
+                  onClick={scrollToDateSection}
+                  className={`w-full hover:bg-[#3A3A3A] text-[#3a3a3ac7] hover:text-white hover:border-[#3A3A3A] px-6 text-sm py-1.5 rounded-sm font-bold  shrink-0 border-2 border-[#3a3a3a87] flex items-center justify-center gap-2 transition-all duration-300 ${isGeneratingPdf || !data
                     ? 'opacity-50 cursor-not-allowed'
                     : ' cursor-pointer'
                     }`}
 
                 >
-
-                  {isGeneratingPdf ? 'Downloading...' : 'View Dossier Online'}
+                  Check Availability
                 </button>
               </div>
+
+
+              <button
+                onClick={onShowContact}
+                onMouseEnter={() => setHovered("enquiry")}
+                onMouseLeave={() => setHovered(null)}
+                className="w-full px-6 py-2 text-sm rounded-sm font-semibold  border- bg-[#01283fbf] border-[#01283fbf] hover:bg-[#01283F] hover:border-[#01283F] text-white transition-all duration-300"
+              >
+                Trip Enquiry
+              </button>
+
+
 
               {/* Hidden content for PDF generation */}
               <div className="hidden">
@@ -806,8 +803,25 @@ const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, o
         </div>
 
         {/* Talk to Expert Section - Slider */}
-        <div className="sm:px-4 !mb-6 md:mb-0 md:px-0">
+        <div className="sm:px-4 !mb-4  md:mb-0 md:px-0">
           <ExpertCard />
+        </div>
+        {/* View Itinerary Button */}
+        <div className=" shrink-0 px-2">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              generatePdf();
+            }}
+            disabled={isGeneratingPdf || !data}
+            className={`w-full hover:bg-[#3A3A3A] text-[#3a3a3ac7] hover:text-white hover:border-[#3A3A3A] px-6 text-sm py-1.5 rounded-sm font-bold  shrink-0 border-2 border-[#3a3a3a87] flex items-center justify-center gap-2 transition-all duration-300 ${isGeneratingPdf || !data
+              ? 'opacity-50 cursor-not-allowed'
+              : ' cursor-pointer'
+              }`}
+
+          >
+            {isGeneratingPdf ? 'Generating...' : 'View Dossier Online'}
+          </button>
         </div>
       </div>
 

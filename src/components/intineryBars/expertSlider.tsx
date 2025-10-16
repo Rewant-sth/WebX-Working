@@ -72,7 +72,7 @@ export default function ExpertCard() {
 
     if (!(expertData.length > 2)) {
         return (
-            <div className=" bg-orange-100 rounded-2xl shadow-md p-6 w-full max-w-2xl mx-auto text-center">
+            <div className=" bg-orange-100 rounded-2xl shadow-sm p-4 w-full max-w-2xl mx-auto text-center">
                 <h3 className="text-xl font-bold text-zinc-900 mb-4">Speak to an Expert</h3>
 
                 {/* Carousel */}
@@ -96,18 +96,16 @@ export default function ExpertCard() {
                                     alt={expert.country}
                                     className={`rounded-full border-3  transition-all duration-300 ${i == currentIndex ? "border-orange-500" : "border-white hover:opacity-80"} object-cover object-center size-14 lg:size-20`}
                                 />
-
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Expert Location */}
-                <div className="text-center mb-5">
+                <div className="text-center mb-2">
                     <p className="text-orange-500 font-semibold flex text-lg items-center justify-center gap-1">
                         {currentExpert.name}
                     </p>
-
                     <Link href={`https://wa.me/${currentExpert.phone.replace(/\D/g, '')}`} className='flex mt-2 gap-2 items-center justify-center' target='_blank'>
                         <span><Image src="/icons/whatsapp.png" height={20} width={20} alt="WhatsApp" className="size-8" /></span> {currentExpert.phone}
                     </Link>
