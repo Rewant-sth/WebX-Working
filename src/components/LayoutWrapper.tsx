@@ -39,9 +39,9 @@ export default function LayoutWrapper({
     initializeAudioElement();
 
     // Check if audio confirmation has already been shown in this session
-    const audioConfirmationShown = sessionStorage.getItem("audio-confirmation-shown");
-    const audioWasEnabled = sessionStorage.getItem("audio-enabled") === "true";
-    const preloaderShown = sessionStorage.getItem("preloader-shown");
+    const audioConfirmationShown = localStorage.getItem("audio-confirmation-shown");
+    const audioWasEnabled = localStorage.getItem("audio-enabled") === "true";
+    const preloaderShown = localStorage.getItem("preloader-shown");
 
     if (audioConfirmationShown === "true") {
       // Audio confirmation already shown, skip it
@@ -69,7 +69,7 @@ export default function LayoutWrapper({
   // Handle preloader logic after audio confirmation
   useEffect(() => {
     if (!showAudioConfirmation && preloaderVisible) {
-      const preloaderShown = sessionStorage.getItem("preloader-shown");
+      const preloaderShown = localStorage.getItem("preloader-shown");
 
       if (preloaderShown !== "true") {
         const homeTimer = setTimeout(() => {
@@ -78,7 +78,7 @@ export default function LayoutWrapper({
 
         // Show preloader for 12 seconds, then hide it and mark as shown
         const timer = setTimeout(() => {
-          sessionStorage.setItem("preloader-shown", "true");
+          localStorage.setItem("preloader-shown", "true");
           setPreloaderVisible(false);
         }, 12000);
 
@@ -101,18 +101,18 @@ export default function LayoutWrapper({
   const handleAudioConfirmation = (allowAudio: boolean) => {
     setAudioEnabled(allowAudio);
     setShowAudioConfirmation(false);
-    sessionStorage.setItem("audio-confirmation-shown", "true");
-    sessionStorage.setItem("audio-enabled", allowAudio.toString());
+    localStorage.setItem("audio-confirmation-shown", "true");
+    localStorage.setItem("audio-enabled", allowAudio.toString());
 
     // Start preloader after audio confirmation
-    const preloaderShown = sessionStorage.getItem("preloader-shown");
+    const preloaderShown = localStorage.getItem("preloader-shown");
     if (preloaderShown !== "true") {
       setPreloaderVisible(true);
     }
   };
 
   const handleSkipPreloader = () => {
-    sessionStorage.setItem("preloader-shown", "true");
+    localStorage.setItem("preloader-shown", "true");
     setPreloaderVisible(false);
     setIsVisible(true);
   }; useEffect(() => {
