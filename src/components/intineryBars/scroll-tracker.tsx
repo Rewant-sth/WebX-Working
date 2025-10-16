@@ -3,9 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
     Users,
-    HelpCircle,
-    ClipboardCheck,
-    Backpack,
 } from "lucide-react";
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react";
@@ -41,37 +38,37 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             id: "major-highlights",
             label: "Highlights",
             icon: (
-                <Icon icon="stash:light-bulb-light" className="size-6" />
+                <Icon icon="lineicons:bulb-4" strokeWidth={4} className="size-6" />
             ),
             condition: (data) => data?.attraction?.length > 0,
         },
         {
             id: "seasonal-info",
             label: "Seasons",
-            icon: <Icon icon="ph:snowflake-thin" className="size-6 scale-110" />,
+            icon: <Icon icon="ph:snowflake" className="size-6 scale-110" />,
             condition: (data) => Array.isArray(data?.seasonalTrek) && data.seasonalTrek.length > 0,
         },
         {
             id: "overview",
             label: "Overview",
-            icon: <Icon icon="qlementine-icons:info-32" className="size-6" />,
+            icon: <Icon icon="si:info-line" className="size-6" />,
         },
         {
             id: "itinerary",
             label: "Itinerary",
-            icon: <Icon icon={"guidance:calendar"} className="size-6" />,
+            icon: <Icon icon={"guidance:calendar"} strokeWidth={1.3} className="size-6" />,
             condition: (data) => data?.itinerary?.length > 0,
         },
         {
             id: "date-&-prices",
             label: "Dates & Prices",
-            icon: <Icon icon={"ph:calendar-dots-thin"} className="size-6 scale-110" />,
+            icon: <Icon strokeWidth={0.5} icon={"ph:calendar-dots"} className="size-6 scale-110" />,
             condition: (data) => data?.fixedDates?.length > 0,
         },
         {
             id: "inclusion-&-exclusion",
             label: "Cost Info",
-            icon: <Icon strokeWidth={2} icon={"streamline-freehand:money-bag-dollar"} className="size-6" />,
+            icon: <Icon strokeWidth={1} icon={"ep:coin"} className="size-7 " />,
             condition: (data) => data?.inclusion?.length > 0,
         },
         {
@@ -83,7 +80,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         {
             id: "route-map",
             label: "Route Map",
-            icon: <Icon icon={'streamline-cyber:location-pin-1'} className="size-6" />,
+            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-6" />,
             condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
@@ -95,19 +92,19 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         {
             id: "insurance",
             label: "Insurance",
-            icon: <Icon icon={"ph:hand-arrow-up-thin"} className="size-6" />,
+            icon: <Icon icon={"fluent-mdl2:health-refresh"} className="size-6" />,
             condition: (data) => data?.insurance?.length > 0,
         },
         {
             id: "why-love-this",
             label: "Why Love This",
-            icon: <Icon icon={"ph:heart-thin"} className="size-6" />,
+            icon: <Icon icon={"solar:smile-circle-linear"} className="size-6" />,
             condition: (data) => data?.whyLoveThisTrek?.length > 0,
         },
         {
             id: "important-notice",
             label: "Important Notice",
-            icon: <Icon icon={"guidance:alert-triangle"} className="size-6" />,
+            icon: <Icon icon={"hugeicons:alert-square"} className="size-6" />,
             condition: (data) => data?.importantNotice?.length > 0,
         },
 
@@ -120,7 +117,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         {
             id: "faqs",
             label: "FAQs",
-            icon: <Icon icon={"qlementine-icons:question-32"} className="size-6" />,
+            icon: <Icon icon={"streamline-ultimate:contact-us-faq"} className="size-6" />,
             condition: (data) => data?.faq?.length > 0,
         },
     ];
@@ -279,7 +276,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                 <button
                                     key={section.id}
                                     onClick={() => handleScrollToSection(section.id)}
-                                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-sm  font-medium transition-all duration-300 text-left ${activeSection === section.id
+                                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-sm  font-medium transition-all duration-300 text-left ${activeSection === section.id
                                         ? "bg-orange-500 text-white "
                                         : "text-zinc-700 hover:bg-orange-50 hover:text-orange-600"
                                         }`}

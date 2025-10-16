@@ -129,8 +129,13 @@ const ItineraryDay = ({
 const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
   const [showAll, setShowAll] = useState(false);
 
-  const displayedData = showAll ? data : data?.slice(0, 5);
-  const hasMoreItems = data && data.length > 5;
+  // Sort data by createdAt in descending order (newest first)
+  const sortedData = data?.sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+
+  const displayedData = showAll ? sortedData : sortedData?.slice(0, 5);
+  const hasMoreItems = sortedData && sortedData.length > 5;
 
 
   return (
@@ -179,7 +184,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
               </>
             ) : (
               <>
-                Read More ({data!.length - 5} more days)
+                Read More ({sortedData!.length - 5} more days)
                 <ChevronRight
                   size={16}
                   className="transform rotate-90 transition-transform duration-200"
