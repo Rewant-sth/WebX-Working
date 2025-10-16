@@ -391,26 +391,26 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     const highlightedDates = useMemo(() => {
         if (!calendarSelectedDate || !selectedDate) return [];
 
-        // Highlight from the selected arrival date to the end date of the trip
+        // Calculate trip duration from the fixed date
+        const startDateObj = new Date(selectedDate.startDate);
+        const endDateObj = new Date(selectedDate.endDate);
+        const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+        const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+        const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+        // Highlight from the selected arrival date for the trip duration
         const dates: Date[] = [];
 
         // Use local date components to avoid timezone shift
-        const startDate = new Date(
+        const arrivalDate = new Date(
             calendarSelectedDate.getFullYear(),
             calendarSelectedDate.getMonth(),
             calendarSelectedDate.getDate()
         );
 
-        const endDateObj = new Date(selectedDate.endDate);
-        const endDate = new Date(
-            endDateObj.getFullYear(),
-            endDateObj.getMonth(),
-            endDateObj.getDate()
-        );
-
-        // Add all dates from arrival to departure
-        const currentDate = new Date(startDate);
-        while (currentDate <= endDate) {
+        // Add all dates for the trip duration starting from arrival date
+        const currentDate = new Date(arrivalDate);
+        for (let i = 0; i < tripDurationDays; i++) {
             dates.push(new Date(currentDate));
             currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -420,11 +420,13 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
     // Calculate trip duration from arrival to departure
     const tripDuration = useMemo(() => {
-        if (!selectedDate || !calendarSelectedDate) return 0;
-        const arrivalDateObj = new Date(calendarSelectedDate);
+        if (!selectedDate) return 0;
+        const startDateObj = new Date(selectedDate.startDate);
         const endDateObj = new Date(selectedDate.endDate);
-        return Math.ceil((endDateObj.getTime() - arrivalDateObj.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-    }, [selectedDate, calendarSelectedDate]);
+        const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+        const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+        return Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    }, [selectedDate]);
 
 
     // Update selectedDate when calendarSelectedDate changes
@@ -465,7 +467,34 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             });
 
             if (fixedDate) {
-                setSelectedDate(fixedDate);
+                // Calculate trip duration from fixed date
+                const startDateObj = new Date(fixedDate.startDate);
+                const endDateObj = new Date(fixedDate.endDate);
+                const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+                const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+                const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+                // Calculate departure date based on selected arrival date and trip duration
+                const arrivalDate = new Date(
+                    calendarSelectedDate.getFullYear(),
+                    calendarSelectedDate.getMonth(),
+                    calendarSelectedDate.getDate()
+                );
+                const calculatedDepartureDate = new Date(arrivalDate);
+                calculatedDepartureDate.setDate(calculatedDepartureDate.getDate() + tripDurationDays - 1);
+
+                // Store the fixed date with calculated departure date
+                setSelectedDate({
+                    ...fixedDate,
+                    calculatedDepartureDate: calculatedDepartureDate.toISOString()
+                });
+
+                console.log('📅 Date calculation', {
+                    selectedArrivalDate: arrivalDate.toDateString(),
+                    tripDuration: tripDurationDays,
+                    calculatedDepartureDate: calculatedDepartureDate.toDateString(),
+                    originalFixedDateRange: `${startDate.toDateString()} - ${endDate.toDateString()}`
+                });
             } else {
                 // Only allow selection of dates within available fixed date ranges
                 setSelectedDate(null);
@@ -675,6 +704,21 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     const handleSubmit = async () => {
         if (!validateStep4().isValid || !selectedDate || !calendarSelectedDate) return;
 
+        // Calculate departure date based on trip duration
+        const startDateObj = new Date(selectedDate.startDate);
+        const endDateObj = new Date(selectedDate.endDate);
+        const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+        const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+        const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+        const arrivalDate = new Date(
+            calendarSelectedDate.getFullYear(),
+            calendarSelectedDate.getMonth(),
+            calendarSelectedDate.getDate()
+        );
+        const calculatedDepartureDate = new Date(arrivalDate);
+        calculatedDepartureDate.setDate(calculatedDepartureDate.getDate() + tripDurationDays - 1);
+
         const bookingData = {
             personalInfo: travelerInfo,
             adults: totalParticipants,
@@ -682,8 +726,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             totalAmount,
             //@ts-ignore
             fixedDateId: selectedDate._id,
-            arrivalDate: new Date(calendarSelectedDate).toISOString().split('T')[0], // Use selected arrival date
-            departureDate: new Date(selectedDate.endDate).toISOString().split('T')[0], // Use fixed end date
+            arrivalDate: arrivalDate.toISOString().split('T')[0], // Use selected arrival date
+            departureDate: calculatedDepartureDate.toISOString().split('T')[0], // Use calculated departure date
             numberOfTravelers: totalParticipants,
             package: packageData._id,
             message,

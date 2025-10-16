@@ -15,12 +15,10 @@ const RelatedTrips = ({
   subCategory,
   category,
   packageId,
-  onshowBooking
 }: {
   subCategory: string;
   category: string;
   packageId: string
-  onshowBooking: () => void
 }) => {
 
   const pathname = usePathname()

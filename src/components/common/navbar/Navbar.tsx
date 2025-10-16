@@ -88,8 +88,70 @@ export default function Navbar() {
   const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const popupNavref = useRef<HTMLDivElement>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const { isPlaying, play, pause } = useMusicPlayerStore()
+
+  // Handle category hover with delay
+  const handleCategoryHover = (category: Category) => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+
+    // Set new timeout to delay the category change
+    hoverTimeoutRef.current = setTimeout(() => {
+      setSelectedCategory(category);
+      setSelectedStaticNav(null);
+      if (category.subCategories.length > 0) {
+        setSelectedSubcategoryId(category.subCategories[0]._id);
+      }
+    }, 200); // 200ms delay
+  };
+
+  // Handle static nav hover with delay
+  const handleStaticNavHover = (item: StaticNavItem) => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+
+    // Set new timeout to delay the nav change
+    hoverTimeoutRef.current = setTimeout(() => {
+      setSelectedStaticNav(item);
+      setSelectedCategory(null);
+      setSelectedSubcategoryId(null);
+      if (item.subItems && item.subItems.length > 0) {
+        setSelectedStaticSubItem(item.subItems[0]);
+      }
+    }, 200); // 200ms delay
+  };
+
+  // Handle subcategory hover with delay
+  const handleSubcategoryHover = (subcategoryId: string) => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+
+    // Set new timeout to delay the subcategory change
+    hoverTimeoutRef.current = setTimeout(() => {
+      setSelectedSubcategoryId(subcategoryId);
+    }, 150); // 150ms delay for subcategories
+  };
+
+  // Handle static sub-item hover with delay
+  const handleStaticSubItemHover = (subItem: StaticNavItem) => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+
+    // Set new timeout to delay the sub-item change
+    hoverTimeoutRef.current = setTimeout(() => {
+      setSelectedStaticSubItem(subItem);
+    }, 150); // 150ms delay
+  };
 
   // Fetch categories with React Query
   const { data: categories } = useQuery<ICategoryResponse>({
@@ -206,6 +268,10 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      // Clear hover timeout on unmount
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -305,13 +371,7 @@ export default function Navbar() {
                       onClick={handleClose}
                     >
                       <h2
-                        onMouseEnter={() => {
-                          setSelectedCategory(category);
-                          setSelectedStaticNav(null);
-                          if (category.subCategories.length > 0) {
-                            setSelectedSubcategoryId(category.subCategories[0]._id);
-                          }
-                        }}
+                        onMouseEnter={() => handleCategoryHover(category)}
                         className={`cursor-pointer lg:px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
                           ? "text-amber-300 bg-amber-500/5 "
                           : ""
@@ -441,14 +501,7 @@ export default function Navbar() {
                       {/* Desktop behavior */}
                       <h2
                         className="hidden lg:block"
-                        onMouseEnter={() => {
-                          setSelectedStaticNav(item);
-                          setSelectedCategory(null);
-                          setSelectedSubcategoryId(null);
-                          if (item.subItems && item.subItems.length > 0) {
-                            setSelectedStaticSubItem(item.subItems[0]);
-                          }
-                        }}
+                        onMouseEnter={() => handleStaticNavHover(item)}
                       >
                         <div className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
                           ? "text-amber-300 bg-amber-500/5 "
@@ -523,7 +576,7 @@ export default function Navbar() {
             {selectedCategory?.subCategories.map((subCategory) => (
               <h2
                 key={subCategory._id}
-                onMouseEnter={() => setSelectedSubcategoryId(subCategory._id)}
+                onMouseEnter={() => handleSubcategoryHover(subCategory._id)}
                 className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${selectedSubcategoryId === subCategory._id
                   ? "text-amber-300 bg-amber-500/5"
                   : ""
@@ -545,7 +598,7 @@ export default function Navbar() {
                 href={subItem.href!}
                 onClick={handleClose}
                 title="click to view more"
-                onMouseEnter={() => setSelectedStaticSubItem(subItem)}
+                onMouseEnter={() => handleStaticSubItemHover(subItem)}
                 className={`flex gap-2 justify-between items-center cursor-pointer transition-all duration-300 hover:text-amber-300 hover:translate-x-2 p-2 ${selectedStaticSubItem?.name === subItem.name
                   ? "text-amber-300 bg-amber-500/5"
                   : ""

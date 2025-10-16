@@ -36,6 +36,16 @@ const Calendar: React.FC<CalendarProps> = ({
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const today = new Date();
 
+    // Calculate trip duration in days from a fixed date
+    const calculateTripDuration = (fixedDate: IFixedDate) => {
+        const start = new Date(fixedDate.startDate);
+        const end = new Date(fixedDate.endDate);
+        const startDate = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+        const endDate = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+        const durationMs = endDate.getTime() - startDate.getTime();
+        return Math.ceil(durationMs / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
+    };
+
     // Helper function to check if a date is within any fixed date range
     const isDateInFixedRange = (date: Date) => {
         return fixedDates.some(fd => {
@@ -88,19 +98,21 @@ const Calendar: React.FC<CalendarProps> = ({
         });
     };
 
-    // Calculate hovered duration dates - from hovered date to end date of the fixed range
+    // Calculate hovered duration dates - from hovered date for the trip duration
     const hoveredDurationDates = useMemo(() => {
         if (!hoveredDate) return [];
 
         const fixedDate = getFixedDateForDate(hoveredDate);
         if (!fixedDate) return [];
 
-        const fixedEnd = new Date(fixedDate.endDate);
+        // Calculate the trip duration from the fixed date
+        const tripDurationDays = calculateTripDuration(fixedDate);
+
         const dates = [];
         const currentDate = new Date(hoveredDate);
 
-        // Generate all dates from hover date to the end date of the range
-        while (currentDate <= fixedEnd) {
+        // Generate dates for the trip duration starting from hovered date
+        for (let i = 0; i < tripDurationDays; i++) {
             dates.push(new Date(currentDate));
             currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -129,6 +141,42 @@ const Calendar: React.FC<CalendarProps> = ({
             d.getMonth() === date.getMonth() &&
             d.getFullYear() === date.getFullYear()
         );
+    };
+
+    // Check if date is the first date in the highlighted range
+    const isFirstHighlightedDate = (date: Date) => {
+        if (highlightedDates.length === 0) return false;
+        const firstDate = highlightedDates[0];
+        return firstDate.getDate() === date.getDate() &&
+            firstDate.getMonth() === date.getMonth() &&
+            firstDate.getFullYear() === date.getFullYear();
+    };
+
+    // Check if date is the last date in the highlighted range
+    const isLastHighlightedDate = (date: Date) => {
+        if (highlightedDates.length === 0) return false;
+        const lastDate = highlightedDates[highlightedDates.length - 1];
+        return lastDate.getDate() === date.getDate() &&
+            lastDate.getMonth() === date.getMonth() &&
+            lastDate.getFullYear() === date.getFullYear();
+    };
+
+    // Check if date is the first date in the hovered range
+    const isFirstHoveredDate = (date: Date) => {
+        if (hoveredDurationDates.length === 0) return false;
+        const firstDate = hoveredDurationDates[0];
+        return firstDate.getDate() === date.getDate() &&
+            firstDate.getMonth() === date.getMonth() &&
+            firstDate.getFullYear() === date.getFullYear();
+    };
+
+    // Check if date is the last date in the hovered range
+    const isLastHoveredDate = (date: Date) => {
+        if (hoveredDurationDates.length === 0) return false;
+        const lastDate = hoveredDurationDates[hoveredDurationDates.length - 1];
+        return lastDate.getDate() === date.getDate() &&
+            lastDate.getMonth() === date.getMonth() &&
+            lastDate.getFullYear() === date.getFullYear();
     };
 
     const handleDateClick = (day: number) => {
@@ -160,12 +208,20 @@ const Calendar: React.FC<CalendarProps> = ({
         // Days of the month
         for (let day = 1; day <= daysInMonth; day++) {
             const date = new Date(year, month, day);
-            const isToday = today.toDateString() === date.toDateString();
             const isPast = date < today;
             const isSelected = isDateSelected(date);
             const isHighlighted = isDateHighlighted(date);
             const isHovered = isDateHovered(date);
             const isValidFixedDate = isFixedDateStart(date);
+            const isFirstHighlighted = isFirstHighlightedDate(date);
+            const isLastHighlighted = isLastHighlightedDate(date);
+            const isFirstHovered = isFirstHoveredDate(date);
+            const isLastHovered = isLastHoveredDate(date);
+
+            // Determine if this date is first or last in range
+            // First/last dates should always have full orange background, regardless of selected/highlighted state
+            const isFirstOrLastDate = (isFirstHighlighted || isLastHighlighted) ||
+                (isFirstHovered || isLastHovered);
 
             days.push(
                 <button
@@ -174,27 +230,33 @@ const Calendar: React.FC<CalendarProps> = ({
                     onMouseEnter={() => !isPast && isValidFixedDate && handleDateHover(day)}
                     onMouseLeave={handleDateLeave}
                     disabled={isPast || !isValidFixedDate}
-                    className={`
-            p-2 border  relative text-sm font-medium rounded-sm transition-all duration-200
-            ${isPast || !isValidFixedDate
-                            ? ' cursor-not-allowed   border-zinc-300'
-                            : 'hover:cursor-pointer'
-                        }
-            ${isSelected ? 'text-white bg-[#F05E25]  hover:opacity-90' : ''}
-            ${isHighlighted && !isSelected ? '!text-white  border-[#F05E25] bg-[#F05E25]' : ''}
-            ${isHovered && !isSelected && !isHighlighted ? '!text-[#F05E25] !border-[#F05E25] bg-[#F05E25]/10' : ''}
-            ${!isHighlighted && !isSelected && !isHovered ? '' : ''}
-            ${isValidFixedDate && !isPast && !isSelected ? ' ' : ''}
+                    className={`p-2 border  relative text-sm group   font-medium rounded-sm transition-all duration-200
+                    ${isPast || !isValidFixedDate ? ' cursor-not-allowed   border-zinc-300' : 'hover:cursor-pointer'}
+                    ${isFirstOrLastDate ? '!text-white !border-[#F05E25] !bg-[#F05E25] hover:!bg-[#F05E25]/90' : ''}
+                    ${isSelected && !isFirstOrLastDate ? 'text-white   hover:opacity-90' : ''}
+                    ${isHovered && !isSelected && !isHighlighted && !isFirstOrLastDate ? '!text-[#F05E25] !border-[#F05E25] bg-[#F05E25]/10' : ''}
+                    ${isHighlighted && !isSelected && !isFirstOrLastDate ? '!text-[#F05E25]  !border-[#F05E25] bg-[#F05E25]/10' : ''}
+                    ${!isHighlighted && !isSelected && !isHovered && !isFirstOrLastDate ? '' : ''}
+                    ${isValidFixedDate && !isPast && !isSelected && !isFirstOrLastDate ? 'border-zinc-300 ' : ''}
+           
           `}
 
                     style={{
-                        color: isPast || !isValidFixedDate ? '#9CA3AF' : isSelected || isHighlighted ? '#FFFFFF' : isHovered ? '#F05E25' : '#1F2937',
+                        color: isPast || !isValidFixedDate ? '#9CA3AF' :
+                            isFirstOrLastDate ? '#FFFFFF' :
+                                isSelected || isHighlighted ? '#F05E25' :
+                                    isHovered ? '#F05E25' : '#1F2937',
+                        borderRadius: isFirstHighlighted || isFirstHovered ? '9999px 0 0 9999px' :
+                            isLastHighlighted || isLastHovered ? '0 9999px 9999px 0' :
+                                '0',
+                        borderColor: isHighlighted || isSelected || isFirstOrLastDate ? '#F05E25' : "",
+
                     }}
                 >
                     {
                         !isValidFixedDate && !isHighlighted && !isHovered && (
                             <>
-                                <div className="absolute  left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-zinc-400/80 flex justify-center items-center w-[60%] h-[1px] ">
+                                <div className="absolute  left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 group-hover:bg-[#F05E25]/80 bg-zinc-400/80 flex justify-center items-center w-[60%] h-[1px] ">
                                 </div>
                                 {/* <div className="absolute rotate-45 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-red-500 flex justify-center items-center w-[60%] h-[2px] ">
                 </div> */}

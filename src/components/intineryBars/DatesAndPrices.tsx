@@ -519,17 +519,37 @@ const DatesAndPrices = ({
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
+  // Find the first available date from fixedDates
+  const getFirstAvailableDate = useMemo(() => {
+    if (!data || data.length === 0) return null;
 
+    // Filter available fixed dates (open status and available seats)
+    const availableDates = data.filter(fd =>
+      fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0
+    );
 
-  // Calculate which months to display based on current display month or default to current month
+    if (availableDates.length === 0) return null;
+
+    // Sort by start date and get the earliest one
+    const sortedDates = availableDates.sort((a, b) =>
+      new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+    );
+
+    return new Date(sortedDates[0].startDate);
+  }, [data]);
+
+  // Calculate which months to display based on current display month or first available date
   const getDisplayMonths = () => {
     let baseDate: Date;
 
     if (currentDisplayMonth) {
       // Use the manually navigated month
       baseDate = currentDisplayMonth;
+    } else if (getFirstAvailableDate) {
+      // If there are available dates, show the month where the first available date is
+      baseDate = new Date(getFirstAvailableDate.getFullYear(), getFirstAvailableDate.getMonth(), 1);
     } else {
-      // Default: current month (don't jump to selected date's month)
+      // If no available dates, default to current month
       baseDate = new Date(currentYear, currentMonth, 1);
     }
 
@@ -563,27 +583,42 @@ const DatesAndPrices = ({
     setCurrentDisplayMonth(nextMonth);
   };
 
-  // Calculate trip duration from first fixed date (assuming all trips have same duration)
+  // Calculate trip duration from the fixed date's start and end dates
   const tripDuration = useMemo(() => {
-    if (!selectedDate || !selectedFixedDate) return 10; // Default to 10 days
-    const arrivalDate = new Date(selectedDate);
-    const departureDate = new Date(selectedFixedDate.endDate);
-    return Math.ceil((departureDate.getTime() - arrivalDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-  }, [selectedDate, selectedFixedDate]);
+    if (!selectedFixedDate) return 10; // Default to 10 days
+    const startDateObj = new Date(selectedFixedDate.startDate);
+    const endDateObj = new Date(selectedFixedDate.endDate);
+    const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+    const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+    return Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  }, [selectedFixedDate]);
 
   // Calculate highlighted dates based on selected date and trip duration
   const highlightedDates = useMemo(() => {
     if (!selectedDate || !selectedFixedDate) return [];
-    const dates = [];
-    const arrivalDate = new Date(selectedDate);
-    const departureDate = new Date(selectedFixedDate.endDate);
 
-    // Generate all dates from arrival to departure
+    // Calculate trip duration from fixed date
+    const startDateObj = new Date(selectedFixedDate.startDate);
+    const endDateObj = new Date(selectedFixedDate.endDate);
+    const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+    const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+    const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+    // Highlight from the selected arrival date for the trip duration
+    const dates = [];
+    const arrivalDate = new Date(
+      selectedDate.getFullYear(),
+      selectedDate.getMonth(),
+      selectedDate.getDate()
+    );
+
+    // Generate dates for the trip duration starting from selected arrival date
     const currentDate = new Date(arrivalDate);
-    while (currentDate <= departureDate) {
+    for (let i = 0; i < tripDurationDays; i++) {
       dates.push(new Date(currentDate));
       currentDate.setDate(currentDate.getDate() + 1);
     }
+
     return dates;
   }, [selectedDate, selectedFixedDate]);
 
@@ -613,21 +648,30 @@ const DatesAndPrices = ({
         setSelectedFixedDate(matchingFixedDate);
         setSelectedFixedDateId(matchingFixedDate._id);
 
+        // Calculate trip duration from the fixed date
+        const startDateObj = new Date(matchingFixedDate.startDate);
+        const endDateObj = new Date(matchingFixedDate.endDate);
+        const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+        const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+        const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
         // Set arrival date as the selected date (ensure no timezone shift)
         const arrivalDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
         setArrivalDate(arrivalDate);
 
-        // Calculate departure date from the fixed date's end date (ensure no timezone shift)
-        const endDateObj = new Date(matchingFixedDate.endDate);
-        const departureDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
-        setDepartureDate(departureDate);
+        // Calculate departure date based on selected arrival date and trip duration
+        const calculatedDepartureDate = new Date(arrivalDate);
+        calculatedDepartureDate.setDate(calculatedDepartureDate.getDate() + tripDurationDays - 1);
+        setDepartureDate(calculatedDepartureDate);
 
         console.log('💾 DatesAndPrices: Stored in booking store', {
           fixedDateId: matchingFixedDate._id,
           arrivalDate,
-          departureDate,
+          departureDate: calculatedDepartureDate,
           arrivalDateStr: arrivalDate.toDateString(),
-          departureDateStr: departureDate.toDateString()
+          departureDateStr: calculatedDepartureDate.toDateString(),
+          tripDuration: tripDurationDays,
+          originalFixedDateRange: `${startDate.toDateString()} - ${endDate.toDateString()}`
         });
       } else {
         console.warn('⚠️ DatesAndPrices: No matching fixed date found');
@@ -797,7 +841,20 @@ const DatesAndPrices = ({
                         <div>
                           <span className="text-zinc-800 font-medium">Departure Date:</span>
                           <p className="text-zinc-800">
-                            {new Date(selectedFixedDate.endDate).toDateString()}
+                            {(() => {
+                              // Calculate departure date based on trip duration
+                              const startDateObj = new Date(selectedFixedDate.startDate);
+                              const endDateObj = new Date(selectedFixedDate.endDate);
+                              const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
+                              const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
+                              const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+                              const arrivalDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+                              const calculatedDepartureDate = new Date(arrivalDate);
+                              calculatedDepartureDate.setDate(calculatedDepartureDate.getDate() + tripDurationDays - 1);
+
+                              return calculatedDepartureDate.toDateString();
+                            })()}
                           </p>
                         </div>
                         <div>

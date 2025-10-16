@@ -473,12 +473,6 @@ const Page = () => {
                           <VideoReview data={packageData?.data} />
                         ) : null}
                         <RelatedTrips
-                          onshowBooking={() => {
-                            if (packageData?.data) {
-                              openBookingModal(packageData.data, packageData.data.fixedDates?.[0]?._id || null);
-                            }
-                          }}
-
                           packageId={packageData?.data?._id as string}
                           category={packageData?.data?.categoryId?.slug as string}
                           subCategory={packageData?.data?.subCategoryId?.slug as string}
