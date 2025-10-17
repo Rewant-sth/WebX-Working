@@ -354,12 +354,12 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="flex  text-white min-h-[calc(100dvh-4rem)] ">
+        <div className="flex  text-white h-fit max-h-[calc(100dvh-4rem)] ">
           <div className="w-full lg:max-w-[16rem] text-lg 2xl:text-xl space-y-4  border-white/20 col-span-2 p-4 md:p-6">
             <h2 className="text-2xl  uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               Categories
             </h2>
-            <div className="grid gap-1 2xl:gap-3 divide-y lg:divide-y-0 divide-white/10">
+            <div className="grid gap-1 2xl:gap-2 divide-y lg:divide-y-0 divide-white/10">
               {categories?.data?.map((category) => {
                 if (category.subCategories.length === 0) return null;
                 return (
@@ -372,7 +372,7 @@ export default function Navbar() {
                     >
                       <h2
                         onMouseEnter={() => handleCategoryHover(category)}
-                        className={`cursor-pointer lg:px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedCategory?._id === category._id
+                        className={`cursor-pointer lg:px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1.5 ${selectedCategory?._id === category._id
                           ? "text-amber-300 bg-amber-500/5 "
                           : ""
                           }`}
@@ -503,7 +503,7 @@ export default function Navbar() {
                         className="hidden lg:block"
                         onMouseEnter={() => handleStaticNavHover(item)}
                       >
-                        <div className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-2 ${selectedStaticNav?.name === item.name
+                        <div className={`cursor-pointer px-2 transition-all flex justify-between items-center duration-300 hover:text-amber-300 py-1.5 ${selectedStaticNav?.name === item.name
                           ? "text-amber-300 bg-amber-500/5 "
                           : ""
                           }`}>
@@ -616,7 +616,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="p-6 w-full hidden lg:flex flex-col h-[calc(100dvh-8rem)] ">
+          <div className="p-6 w-full hidden lg:flex flex-col h-fit max-h-[calc(100dvh-8rem)] ">
             <h2 className="text-2xl uppercase font-bold bg-gradient-to-r from-white to-zinc-300 bg-clip-text text-transparent mb-6">
               {selectedStaticNav ? "Information" : "Packages"}
             </h2>
@@ -724,7 +724,7 @@ export default function Navbar() {
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 max-w-3xl  gap-5 flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
+              <div className="grid grid-cols-2 max-w-3xl  gap-4 h-fit flex-1 pr-4  scrollbar-none scrollbar-thumb-amber-500">
                 {packages?.data?.slice(0, 4).map((pkg) => (
                   <Link
                     key={pkg._id}

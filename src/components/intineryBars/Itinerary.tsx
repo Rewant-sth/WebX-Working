@@ -39,7 +39,7 @@ const ItineraryDay = ({
           <span className="rounded-sm shrink-0 px-3 bg-[#F05E25] py-2 text-sm h-fit font-semibold text-white">
             Day {day?.toString()?.padStart(2, "0")}
           </span>
-          <h3 className="font-semibold uppercase text-lg" >
+          <h3 className="font-semibold  text-lg" >
             {title}
           </h3>
         </div>

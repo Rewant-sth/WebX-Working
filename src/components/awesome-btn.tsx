@@ -1,6 +1,4 @@
 "use client";
-
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Draggable from "gsap/dist/Draggable";
@@ -129,6 +127,11 @@ const WhatsappBtn = () => {
                     }`}
                 style={{ visibility: isLoaded ? 'visible' : 'hidden' }}
             >
+                {/* <div className="h-full w-full relative">
+                    <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-max text-center text-xs bg-white  px-2 py-1 rounded-md opacity-80">
+                        <button>Chat on WhatsApp</button>
+                    </div>
+                </div> */}
                 <Link
                     href={"https://wa.me/9851026840"}
                     target="_blank"
@@ -137,9 +140,9 @@ const WhatsappBtn = () => {
                     onClick={(e) => isDragging && e.preventDefault()}
                     className="group flex flex-col items-center"
                 >
-                    <div className="flex justify-center p-2 items-center size-10 lg:size-16 relative bg-green-500 rounded-full transition-transform duration-300 group-hover:scale-110">
-                        <div className="absolute top-0 right-0 size-4 sm:size-5 text-[9px] sm:text-xs animate-pulse bg-red-500 text-white flex justify-center items-center rounded-full">1</div>
-                        <Icon icon="logos:whatsapp-icon" className="text-white text-3xl " />
+                    <div className="flex justify-center p-2 items-center size-8 lg:size-16 relative bg-[#FF6900] text-white rounded-full transition-transform duration-300 group-hover:scale-110">
+                        <div className="absolute top-0 right-0 size-4 sm:size-5 text-[9px] sm:text-xs animate-pulse bg-white text-[#FF6900] border flex justify-center items-center rounded-full">1</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" className="lg:size-7"><g fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 18h-.75a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3h.75a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-.75.75m15.75 0h-.75a.75.75 0 0 1-.75-.75v-7.5A.75.75 0 0 1 19.5 9h.75a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3M3.75 9a8.25 8.25 0 1 1 16.5 0M15 21.75h2.25a3 3 0 0 0 3-3V18"></path><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 23.25H12a1.5 1.5 0 1 1 0-3h1.5a1.5 1.5 0 1 1 0 3M9 8.25a3 3 0 0 1 5.753-1.192c.218.505.294 1.06.218 1.605A3 3 0 0 1 13 11.079a1.5 1.5 0 0 0-1 1.415v.256"></path><path d="M12 16.5a.375.375 0 0 1 0-.75m0 .75a.375.375 0 0 0 0-.75"></path></g></svg>
                     </div>
 
                 </Link>

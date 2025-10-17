@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import ExpertCard from "./expertSlider";
 
 const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
-  const [showPaxDropdown, setShowPaxDropdown] = useState(false);
+  const [showPaxDropdown, setShowPaxDropdown] = useState(true);
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
@@ -639,7 +639,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
               data?.fixedDates.length !== undefined && data?.fixedDates.length > 0 && (
                 <div className="text-center mb-4">
                   <div className="flex items-baseline justify-center  mb-3">
-                    <span className="text-3xl font-bold" style={{ color: '#f05e25' }}>
+                    <span className="text-2xl font-bold" style={{ color: '#f05e25' }}>
                       US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/
                     </span>
                     <span className="text-xl font-medium text-zinc-600">per person</span>
@@ -655,7 +655,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
                   onClick={() => setShowPaxDropdown(!showPaxDropdown)}
                   className="w-full  flex items-center justify-between rounded-sm   transition-colors duration-200"
                 >
-                  <span className="font-medium text-zinc-700">Group Bookings</span>
+                  <span className="font-medium text-zinc-700">Group Booking Price</span>
                   <Icon
                     icon={showPaxDropdown ? "mdi:chevron-up" : "mdi:chevron-down"}
                     width="20"
