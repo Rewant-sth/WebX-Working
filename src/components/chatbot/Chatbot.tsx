@@ -5,6 +5,7 @@ import Chatbot from 'react-chatbot-kit';
 import createConfig from './config';
 import MessageParser from './MessageParser';
 import ActionProvider from './ActionProvider';
+//@ts-ignore
 import './chatbot.css';
 
 const ChatbotComponent = () => {
@@ -117,7 +118,9 @@ const ChatbotComponent = () => {
                 <div className="bg-white rounded-xl overflow-hidden shadow- w-[350px] sm:w-[400px] flex flex-col max-h-[600px]">
                     {/* Chatbot - with proper height constraints */}
                     <div className="flex-1 overflow-hidden min-h-0">
+
                         <Chatbot
+                            //@ts-ignore
                             config={config}
                             messageParser={MessageParser}
                             actionProvider={ActionProvider}
