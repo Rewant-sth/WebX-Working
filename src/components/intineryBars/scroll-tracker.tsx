@@ -74,7 +74,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         {
             id: "requirements",
             label: "Requirements",
-            icon: <Icon icon={"streamline-freehand:form-edition-clipboard-check"} className="size-6" />,
+            icon: <Icon icon={"pepicons-pop:list-circle"} className="size-6" />,
             condition: (data) => data?.requirements?.length > 0,
         },
         {
