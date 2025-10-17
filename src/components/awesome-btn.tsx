@@ -14,7 +14,7 @@ const WhatsappBtn = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
 
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true);
 
     useEffect(() => {
         const button = buttonRef.current;
