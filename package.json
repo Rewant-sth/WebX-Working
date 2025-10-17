@@ -39,6 +39,7 @@
     "pnpm": "^10.15.0",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
+    "react-chatbot-kit": "^2.2.2",
     "react-datepicker": "^8.7.0",
     "react-dom": "^19.1.1",
     "react-gsap": "^3.2.1",
