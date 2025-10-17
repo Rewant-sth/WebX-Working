@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import Chatbot from 'react-chatbot-kit';
 import createConfig from './config';
 import MessageParser from './MessageParser';
@@ -16,8 +16,78 @@ const ChatbotComponent = () => {
 
     const config = useMemo(() => createConfig(toggleChatbot), [toggleChatbot]);
 
+    // Add effect to prevent empty message submission
+    useEffect(() => {
+        if (!showChatbot) return;
+
+        const handleInputChange = () => {
+            const inputElement = document.querySelector('.react-chatbot-kit-chat-input') as HTMLInputElement;
+            const submitButton = document.querySelector('.react-chatbot-kit-chat-btn-send') as HTMLButtonElement;
+
+            if (inputElement && submitButton) {
+                const isEmpty = !inputElement.value.trim() || inputElement.value.trim().length === 0;
+                submitButton.disabled = isEmpty;
+            }
+        };
+
+        const handleFormSubmit = (e: Event) => {
+            const inputElement = document.querySelector('.react-chatbot-kit-chat-input') as HTMLInputElement;
+            if (inputElement && (!inputElement.value.trim() || inputElement.value.trim().length === 0)) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        };
+
+        // Wait for chatbot to render
+        const timeoutId = setTimeout(() => {
+            const inputElement = document.querySelector('.react-chatbot-kit-chat-input');
+            const formElement = document.querySelector('.react-chatbot-kit-chat-input-form');
+            const submitButton = document.querySelector('.react-chatbot-kit-chat-btn-send') as HTMLButtonElement;
+
+            if (inputElement) {
+                // Initial check
+                handleInputChange();
+
+                // Listen for input changes
+                inputElement.addEventListener('input', handleInputChange);
+                inputElement.addEventListener('keyup', handleInputChange);
+            }
+
+            if (formElement) {
+                formElement.addEventListener('submit', handleFormSubmit, true);
+            }
+
+            if (submitButton) {
+                submitButton.addEventListener('click', (e) => {
+                    const input = document.querySelector('.react-chatbot-kit-chat-input') as HTMLInputElement;
+                    if (input && (!input.value.trim() || input.value.trim().length === 0)) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                }, true);
+            }
+        }, 100);
+
+        return () => {
+            clearTimeout(timeoutId);
+            const inputElement = document.querySelector('.react-chatbot-kit-chat-input');
+            const formElement = document.querySelector('.react-chatbot-kit-chat-input-form');
+
+            if (inputElement) {
+                inputElement.removeEventListener('input', handleInputChange);
+                inputElement.removeEventListener('keyup', handleInputChange);
+            }
+
+            if (formElement) {
+                formElement.removeEventListener('submit', handleFormSubmit, true);
+            }
+        };
+    }, [showChatbot]);
+
     return (
-        <div className="fixed bottom-4 left-4 z-50">
+        <div className="fixed bottom-8 right-4 z-50" title='Quick Chat' aria-label='Quick Chat With Us'>
             {/* Chat Toggle Button */}
             {!showChatbot && (
                 <button
@@ -44,32 +114,7 @@ const ChatbotComponent = () => {
 
             {/* Chatbot Container */}
             {showChatbot && (
-                <div className="bg-white rounded-lg shadow-2xl w-[350px] sm:w-[400px] flex flex-col max-h-[600px]">
-                    {/* Header */}
-                    {/* <div className="bg-[#FF6900] text-white p-4 flex justify-between items-center flex-shrink-0">
-                        <h3 className="font-semibold">Real Himalaya Assistant</h3>
-                        <button
-                            onClick={toggleChatbot}
-                            className="hover:bg-[#FF6900] rounded-full p-1 transition-colors"
-                            aria-label="Close chat"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        </button>
-                    </div> */}
-
+                <div className="bg-white rounded-xl overflow-hidden shadow- w-[350px] sm:w-[400px] flex flex-col max-h-[600px]">
                     {/* Chatbot - with proper height constraints */}
                     <div className="flex-1 overflow-hidden min-h-0">
                         <Chatbot

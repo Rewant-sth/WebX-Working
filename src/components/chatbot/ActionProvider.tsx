@@ -12,9 +12,28 @@ const ActionProvider = ({
     children,
 }: IActionProvider) => {
     const addMessageToState = (message: any) => {
+        // Additional validation before adding message
+        if (!message || (typeof message.message === 'string' && !message.message.trim())) {
+            return;
+        }
         setState((prevState: any) => ({
             ...prevState,
             messages: [...prevState.messages, message],
+        }));
+    };
+
+    // Handle user message from custom input
+    const handleUserMessage = (message: string) => {
+        // Add user message to state
+        const userMessage = {
+            message: message,
+            type: 'user',
+            id: Date.now(),
+        };
+
+        setState((prevState: any) => ({
+            ...prevState,
+            messages: [...prevState.messages, userMessage],
         }));
     };
 
@@ -30,9 +49,9 @@ const ActionProvider = ({
             'We offer amazing trips in the Himalayan region! You can explore:\n\n' +
             '1. Peak Climbing\n' +
             '2. Trekkings\n' +
-            '3. Private Tours'+
+            '3. Private Tours' +
             '3. Expeditions\n' +
-            '5. Other Personalized Trips \n\n'+
+            '5. Other Personalized Trips \n\n' +
             'Visit our package list page to see all available options, or tell me what kind of adventure you\'re looking for!'
         );
         addMessageToState(message);
@@ -63,12 +82,7 @@ const ActionProvider = ({
 
     const handleDefault = () => {
         const message = createChatBotMessage(
-            'I\'m not sure I understand. I can help you with:\n\n' +
-            '• Trip and trek information\n' +
-            '• Booking inquiries\n' +
-            '• Contact details\n' +
-            '• General questions about Real Himalaya\n\n' +
-            'What would you like to know more about?'
+            'I\'m not sure I understand. If you need precise information, please ask about our trips, booking process and dates Please Whatsapp us at +977-9851044236 for immediate assistance.'
         );
         addMessageToState(message);
     };
@@ -83,6 +97,7 @@ const ActionProvider = ({
                         handleBookingInquiry,
                         handleContactInquiry,
                         handleDefault,
+                        handleUserMessage,
                     },
                 });
             })}

@@ -7,7 +7,14 @@ interface IMessageParser {
 
 const MessageParser = ({ children, actions }: IMessageParser) => {
     const parse = (message: string) => {
-        const lowerCaseMessage = message.toLowerCase();
+        // Prevent processing empty or whitespace-only messages
+        if (!message || typeof message !== 'string' || !message.trim() || message.trim().length === 0) {
+            console.warn('Empty message blocked by MessageParser');
+            return;
+        }
+
+        const trimmedMessage = message.trim();
+        const lowerCaseMessage = trimmedMessage.toLowerCase();
 
         // Handle greetings
         if (
@@ -54,6 +61,10 @@ const MessageParser = ({ children, actions }: IMessageParser) => {
         // Default response
         actions.handleDefault();
     };
+
+    if (children == null) {
+        return null;
+    }
 
     return (
         <div>
