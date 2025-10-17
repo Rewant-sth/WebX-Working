@@ -187,7 +187,7 @@ export default function PremiumContact() {
                     </div>
 
                     <div title='Your Phone Number' aria-label='Your Phone Number' className="relative">
-                      <label htmlFor="name" className='text-lg  '>Full Name</label>
+                      <label htmlFor="name" className='text-lg  '>Phone Number</label>
 
                       <div className="relative mt-1  rounded-sm overflow-hidden">
 
@@ -213,7 +213,7 @@ export default function PremiumContact() {
                   </div>
 
                   <div title='Your Message' aria-label='Your Message' className="relative ">
-                    <label htmlFor="email" className='text-lg  '>Email Address</label>
+                    <label htmlFor="email" className='text-lg  '>Enquiry Message</label>
                     <div className="relative mt-1 rounded-sm overflow-hidden">
                       <textarea
                         placeholder="Tell us about your enquiry..."

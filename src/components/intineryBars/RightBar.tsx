@@ -655,7 +655,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
                   onClick={() => setShowPaxDropdown(!showPaxDropdown)}
                   className="w-full  flex items-center justify-between rounded-sm   transition-colors duration-200"
                 >
-                  <span className="font-medium text-zinc-700">Group Booking Discount</span>
+                  <span className="font-medium text-zinc-700">Group Bookings</span>
                   <Icon
                     icon={showPaxDropdown ? "mdi:chevron-up" : "mdi:chevron-down"}
                     width="20"
