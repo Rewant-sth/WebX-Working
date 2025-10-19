@@ -211,8 +211,8 @@ const FixedDatesTable: React.FC<FixedDatesTableProps> = ({ data, packageId, pkg 
                 </div>
 
                 {/* Month Tabs */}
-                <div className="py-2">
-                    <div className="flex flex-wrap justify-center items-center  gap-2">
+                <div className="py-2 shrink-0">
+                    <div className="flex  justify-center items-center  gap-2">
                         {/* Individual Month Tabs */}
                         {MONTHS.map((month) => {
                             const hasData = availableMonths.includes(month.value);
@@ -249,29 +249,30 @@ const FixedDatesTable: React.FC<FixedDatesTableProps> = ({ data, packageId, pkg 
                     <p className="text-zinc-500 text-sm mt-2">Try selecting a different month or year.</p>
                 </div>
             ) : (
-                <div className="w-full divide-y border border-zinc-300 mt-4  rounded-sm overflow-hidden bg-white">
+                <div className="w-full border border-zinc-300 mt-4 rounded-sm overflow-hidden bg-white">
+                    {/* Scrollable container for mobile */}
                     <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <tbody className="w-full">
+                        <table className="w-full min-w-[640px]">
+                            <tbody className="divide-y divide-zinc-200">
                                 {filteredData.map((fixedDate, index) => {
                                     const isAvailable = fixedDate.status?.toLowerCase() === 'open' && (fixedDate.availableSeats || 0) > 0;
                                     const isExpired = new Date(fixedDate.startDate) < new Date();
 
                                     return (
-                                        <tr key={fixedDate._id || index} className=" hover:bg-zinc-50 group transition-colors">
-                                            <td className="p-3">
+                                        <tr key={fixedDate._id || index} className="hover:bg-zinc-50 group transition-colors">
+                                            <td className="p-3 whitespace-nowrap">
                                                 <div className="flex flex-col">
                                                     <span className="text-xs text-zinc-500 mb-1">Start Date</span>
                                                     <span className="font-bold text-zinc-800">{formatDate(fixedDate.startDate)}</span>
                                                 </div>
                                             </td>
-                                            <td className="p-3">
+                                            <td className="p-3 whitespace-nowrap">
                                                 <div className="flex flex-col">
                                                     <span className="text-xs text-zinc-500 mb-1">End Date</span>
                                                     <span className="font-bold text-zinc-800">{formatDate(fixedDate.endDate)}</span>
                                                 </div>
                                             </td>
-                                            <td className="p-3">
+                                            <td className="p-3 whitespace-nowrap">
                                                 <div className="flex flex-col gap-1">
                                                     {isExpired ? (
                                                         <span className="flex items-center gap-2 text-zinc-500">
@@ -296,13 +297,13 @@ const FixedDatesTable: React.FC<FixedDatesTableProps> = ({ data, packageId, pkg 
                                                     )}
                                                 </div>
                                             </td>
-                                            <td className="p-3">
+                                            <td className="p-3 whitespace-nowrap">
                                                 <div className="flex flex-col">
                                                     <span className="font-bold text-lg text-[#F05E25]">US$ {fixedDate.pricePerPerson}</span>
                                                     <span className="text-xs text-zinc-600">Per Person</span>
                                                 </div>
                                             </td>
-                                            <td className="p-3">
+                                            <td className="p-3 whitespace-nowrap">
                                                 {isExpired ? (
                                                     <button
                                                         disabled
@@ -314,7 +315,7 @@ const FixedDatesTable: React.FC<FixedDatesTableProps> = ({ data, packageId, pkg 
                                                     <Link
                                                         href={`/booking/${packageId}`}
                                                         onClick={() => handleBookNow(fixedDate)}
-                                                        className="border border-[#F05E25] text-[#F05E25] group-hover:bg-[#F05E25] group-hover:text-white  px-4 rounded-md py-1.5 transition-colors duration-200 inline-block text-sm font-medium"
+                                                        className="border border-[#F05E25] text-[#F05E25] group-hover:bg-[#F05E25] group-hover:text-white px-4 rounded-md py-1.5 transition-colors duration-200 inline-block text-sm font-medium whitespace-nowrap"
                                                     >
                                                         Book Now
                                                     </Link>
@@ -332,9 +333,11 @@ const FixedDatesTable: React.FC<FixedDatesTableProps> = ({ data, packageId, pkg 
                                 })}
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             )}
+            <p className="md:hidden mt-3 text-sm">Slide to see more</p>
         </div>
     );
 };
