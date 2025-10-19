@@ -1,217 +1,21 @@
 "use client";
 
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Loader2, Minus, Plus, X, XCircle } from "lucide-react";
 import Banner from "@/components/bookingBanner/Banner";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPackagesById } from "@/service/packages";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { bookTraveller } from "@/service/booking";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { getPackage, getSelectedFixedDateId, useBookingStore } from "@/store/booking-store";
+import { getSelectedFixedDateId, useBookingStore } from "@/store/booking-store";
 import Link from "next/link";
 import BookingFormSkeleton from "./_components/Skeleton";
-import { Select, SelectOption } from '@highlight-ui/select';
-import { get } from "http";
 import { IFixedDate } from "@/types/IPackages";
-
-// Zod schemas
-const travelerSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  email: z.string().email("Invalid email address"),
-  phoneNumber: z.string().min(1, "Phone number is required"),
-  gender: z.string().min(1, "Gender is required"),
-  dateOfBirth: z.date({ required_error: "Date of birth is required" }),
-  country: z.string().min(1, "Country is required"),
-  passportNumber: z
-    .string()
-    .min(6, "Passport number must be at least 6 characters")
-    .max(9, "Passport number must not exceed 9 characters")
-    .regex(/^[A-Z0-9]+$/, "Passport number must be alphanumeric"),
-  passportExpiry: z.date({ required_error: "Passport expiry date is required" }),
-  isChild: z.boolean().default(false),
-});
-
-const formSchema = z.object({
-  personalInfo: z.array(travelerSchema),
-  arrivalDate: z.string().min(1, "Arrival date required"),
-  departureDate: z.string().min(1, "Departure date required"),
-  numberOfTravelers: z.number().min(1, "At least 1 traveler required"),
-  package: z.string().min(1, "Package is required"),
-  message: z.string().optional(),
-  specialRequirements: z.string().optional(),
-  termsAccepted: z.boolean().refine((val) => val, "You must accept the terms"),
-  totalAmount: z.number().min(1, "Total price required"),
-  totalPeople: z.number().min(1, "At least one adult required"),
-  children: z.number().min(0, "Children count cannot be negative"),
-  fixedDateId: z.string().min(1, "Fixed date not selected properly"),
-  selectedAddons: z.array(z.string()).default([]), // Add addons field
-});
-
-// Reusable form components
-const FormInput = ({
-  register,
-  name,
-  label,
-  error,
-  icon,
-  type = "text",
-  placeholder,
-  min,
-  required = true,
-  onChange
-}: any) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Only accept input if it's from a trusted user event
-    if (!e.isTrusted) {
-      e.preventDefault();
-      e.target.value = '';
-      return;
-    }
-    if (onChange) {
-      onChange(e);
-    }
-  };
-
-  return (
-    <div className="mb-4">
-      <label className="block text-zinc-700 mb-1">
-        {label} {required && "*"}
-      </label>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-400">
-          {icon}
-        </div>
-        <input
-          {...register(name, {
-            ...(type === "number" && {
-              valueAsNumber: true,
-            }),
-            onChange: handleInputChange
-          })}
-          min={min}
-          type={type}
-          placeholder={placeholder}
-          autoComplete="off"
-          data-form-type="other"
-          className="w-full pl-10 pr-3 py-2 border border-zinc-300 rounded-sm"
-        />
-      </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-    </div>
-  );
-};
-
-interface FormDateInputProps {
-  register: any;
-  name: string;
-  label: string;
-  error?: any;
-  min?: string;
-  max?: string;
-  required?: boolean;
-  disabled?: boolean;
-  asDateObject?: boolean; // New prop to control if value should be a Date object
-}
-
-const FormDateInput = ({
-  register,
-  name,
-  label,
-  error,
-  min,
-  max,
-  required = true,
-  disabled = false,
-  asDateObject = false, // Default to false (keep as string)
-}: FormDateInputProps) => {
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Only accept input if it's from a trusted user event
-    if (!e.isTrusted) {
-      e.preventDefault();
-      e.target.value = '';
-      return;
-    }
-  };
-
-  return (
-    <div className="mb-4 w-full">
-      <label className="block text-zinc-700 mb-1">
-        {label} {required && "*"}
-      </label>
-      <div className="relative w-full">
-        <input
-          type="date"
-          {...register(name, asDateObject ? {
-            setValueAs: (value: string) => value ? new Date(value) : null,
-            onChange: handleDateChange
-          } : {
-            onChange: handleDateChange
-          })}
-          min={min}
-          max={max}
-          disabled={disabled}
-          autoComplete="off"
-          data-form-type="other"
-          className={`w-full pl-10 pr-3 py-2 border border-zinc-300 rounded-sm ${disabled ? 'bg-zinc-100 cursor-not-allowed' : ''}`}
-        />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-400">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-          </svg>
-        </div>
-      </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-    </div>
-  );
-};
-
-const FormSelect = ({ register, name, label, error, icon, options, required = true }: any) => {
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Only accept input if it's from a trusted user event
-    if (!e.isTrusted) {
-      e.preventDefault();
-      e.target.value = '';
-      return;
-    }
-  };
-
-  return (
-    <div className="mb-4">
-      <label className="block text-zinc-700 mb-1">
-        {label} {required && "*"}
-      </label>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-zinc-400">
-          {icon}
-        </div>
-        <select
-          {...register(name, { onChange: handleSelectChange })}
-          autoComplete="off"
-          data-form-type="other"
-          className="w-full pl-10 pr-3 py-2 border border-zinc-300 rounded-sm appearance-none bg-white"
-        >
-          <option value="">Select {label}</option>
-          {options.map((option: any) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
-        </div>
-      </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
-    </div>
-  );
-};
-
+import Image from "next/image";
+import { formSchema, FormDateInput, FormInput, FormSelect } from "./_components/utils";
 
 
 export default function BookingForm() {
@@ -219,9 +23,12 @@ export default function BookingForm() {
   const router = useRouter();
   const [pricePerPerson, setPricePerPerson] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const selectedPackage = getPackage();
   const storedFixedDateId = getSelectedFixedDateId();
-  const [paxSelections, setPaxSelections] = useState<{ [key: string]: number }>({});
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [bookingResult, setBookingResult] = useState<{ success: boolean; message: string }>({ success: false, message: '' });
+  const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const clearBookingData = useBookingStore((state) => state.clearBookingData);
+  const [travelerCount, setTravelerCount] = useState(1);
 
   const { control, register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
     resolver: zodResolver(formSchema),
@@ -240,39 +47,37 @@ export default function BookingForm() {
       arrivalDate: "",
       departureDate: "",
       numberOfTravelers: 1,
-      package: selectedPackage?._id,
+      package: params.id as string || "",
       message: "",
       specialRequirements: "",
       termsAccepted: false,
       totalPeople: 1,
-      children: 0,
       totalAmount: 0,
       fixedDateId: "",
-      selectedAddons: [], // Add default for addons
+      addons: [], // Add default for addons,
+      createdBy: "user_12345", // Static value as specified
+      customizedBooking: false,// Static value as specified,
     }
   });
 
   const { fields } = useFieldArray({ control, name: "personalInfo" });
 
   // Watch form values for real-time updates
-  const personalInfo = useWatch({ control, name: "personalInfo" });
   const arrivalDate = useWatch({ control, name: "arrivalDate" });
   const departureDate = useWatch({ control, name: "departureDate" });
   const fixedDateId = useWatch({ control, name: "fixedDateId" });
-  const selectedAddons = useWatch({ control, name: "selectedAddons" });
+  const selectedAddons = useWatch({ control, name: "addons" });
   const numberOfTravelers = useWatch({ control, name: "numberOfTravelers" });
 
-  // Function to calculate pax discount based on number of travelers
-  const calculatePaxDiscount = (totalTravelers: number, paxData: any[]) => {
-    if (!paxData || paxData.length === 0) return 0;
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (autoCloseTimeoutRef.current) {
+        clearTimeout(autoCloseTimeoutRef.current);
+      }
+    };
+  }, []);
 
-    // Find the applicable pax discount based on number of travelers
-    const applicablePax = paxData.find(pax =>
-      totalTravelers >= pax.min && totalTravelers <= pax.max
-    );
-
-    return applicablePax ? applicablePax.discount : 0;
-  };
 
   // Fetch package data
   const { data: packageData } = useQuery({
@@ -338,40 +143,64 @@ export default function BookingForm() {
   }, [fixedDateId, packageData, setValue]);
 
   // Calculate counts and totals
-  const { totalPeopleCount, childrenCount, totalAmount, originalAmount, discountPercentage, discountAmount } = useMemo(() => {
-    // Calculate total travelers from all pax selections
-    const totalTravelers = Object.values(paxSelections).reduce((sum, count) => sum + count, 0) || numberOfTravelers || 1;
+  const { childrenCount, totalAmount, paxBreakdown, appliedPax } = useMemo(() => {
+    // Use traveler count from state
+    const totalTravelers = travelerCount;
 
-    // Update numberOfTravelers field to match total from pax selections
+    // Update numberOfTravelers field to match
     if (totalTravelers !== numberOfTravelers) {
       setValue("numberOfTravelers", totalTravelers);
     }
 
-    const totalPeople = totalTravelers; // For now, assume all are adults
-    const children = 0; // For now, set to 0
+    const totalPeople = totalTravelers;
+    const children = 0;
 
-    // Calculate base price for each pax selection with their respective discounts
-    let totalBasePrice = 0;
-    let totalDiscount = 0;
+    let totalPrice = 0;
+    let appliedPaxInfo = null;
+    const breakdown: Array<{ paxId: string; min: number; max: number; count: number; pricePerPerson: number; total: number; label: string }> = [];
 
-    Object.entries(paxSelections).forEach(([paxId, count]) => {
-      if (count > 0) {
-        const paxOption = packageData?.data?.pax?.find((p: any) => p._id === paxId);
-        if (paxOption) {
-          const priceForThisPax = pricePerPerson * count;
-          const discountForThisPax = (priceForThisPax * paxOption.discount) / 100;
+    // Find applicable pax based on traveler count
+    const applicablePax = packageData?.data?.pax?.find((p: any) =>
+      totalTravelers >= p.min && totalTravelers <= p.max
+    );
 
-          totalBasePrice += priceForThisPax;
-          totalDiscount += discountForThisPax;
-        }
-      }
-    });
+    // Get the selected fixed date to use its price
+    const selectedFixedDate = packageData?.data?.fixedDates?.find(
+      (date: IFixedDate) => date._id === fixedDateId
+    );
+    const fixedDatePrice = selectedFixedDate?.pricePerPerson || pricePerPerson;
 
-    // If no pax selections, use default calculation
-    if (totalBasePrice === 0) {
-      totalBasePrice = pricePerPerson * totalTravelers;
-      const paxDiscountPercentage = calculatePaxDiscount(totalTravelers, packageData?.data?.pax || []);
-      totalDiscount = (totalBasePrice * paxDiscountPercentage) / 100;
+    // Apply pax price if within range, otherwise use fixed date price
+    if (applicablePax) {
+      const pricePerPersonForPax = applicablePax.discount;
+      totalPrice = pricePerPersonForPax * totalTravelers;
+
+      appliedPaxInfo = {
+        paxId: applicablePax._id,
+        min: applicablePax.min,
+        max: applicablePax.max,
+        count: totalTravelers,
+        pricePerPerson: pricePerPersonForPax,
+        total: totalPrice,
+        label: 'Pax Price'
+      };
+
+      breakdown.push(appliedPaxInfo);
+    } else {
+      // Use fixed date price
+      totalPrice = fixedDatePrice * totalTravelers;
+
+      appliedPaxInfo = {
+        paxId: 'fixed-price',
+        min: 0,
+        max: 0,
+        count: totalTravelers,
+        pricePerPerson: fixedDatePrice,
+        total: totalPrice,
+        label: 'Fixed Price'
+      };
+
+      breakdown.push(appliedPaxInfo);
     }
 
     // Calculate add-ons total
@@ -379,50 +208,94 @@ export default function BookingForm() {
       ?.filter((addon: any) => selectedAddons?.includes(addon._id))
       ?.reduce((sum: number, addon: any) => sum + addon.price, 0) || 0;
 
-    const discountedBasePrice = totalBasePrice - totalDiscount;
-    const finalAmount = discountedBasePrice + addonsTotal;
-
-    // Calculate average discount percentage for display
-    const avgDiscountPercentage = totalBasePrice > 0 ? (totalDiscount / totalBasePrice) * 100 : 0;
+    const finalAmount = totalPrice + addonsTotal;
 
     return {
       totalPeopleCount: totalPeople,
       childrenCount: children,
       totalAmount: finalAmount,
-      originalAmount: totalBasePrice + addonsTotal,
-      discountPercentage: avgDiscountPercentage,
-      discountAmount: totalDiscount
+      originalAmount: totalPrice + addonsTotal,
+      discountPercentage: 0,
+      discountAmount: 0,
+      paxBreakdown: breakdown,
+      appliedPax: applicablePax
     };
-  }, [paxSelections, numberOfTravelers, pricePerPerson, selectedAddons, packageData, setValue]);  // Update form values when counts change
+  }, [travelerCount, numberOfTravelers, pricePerPerson, selectedAddons, packageData, setValue, fixedDateId]);  // Update form values when counts change
+
+
   useEffect(() => {
-    setValue("package", selectedPackage?._id as string);
+    setValue("package", params.id as string);
     setValue("totalPeople", numberOfTravelers || 1);
-    setValue("children", childrenCount);
     setValue("totalAmount", totalAmount);
-  }, [numberOfTravelers, childrenCount, totalAmount, setValue, selectedPackage]);
+  }, [numberOfTravelers, childrenCount, totalAmount, setValue, params.id]);
 
   const { mutate } = useMutation({
     mutationFn: bookTraveller,
     onMutate: () => setIsLoading(true),
     onSuccess: () => {
-      toast.success("Booking successful!");
+      setBookingResult({ success: true, message: 'Booking successful! Please check your email for confirmation.' });
+      setShowResultModal(true);
+      clearBookingData();
       sessionStorage.removeItem("selectedDate");
-      router.push("/booking/success");
+
+      // Clear any existing timeout
+      if (autoCloseTimeoutRef.current) {
+        clearTimeout(autoCloseTimeoutRef.current);
+      }
+
+      // Auto-close after 3 seconds
+      autoCloseTimeoutRef.current = setTimeout(() => {
+        setShowResultModal(false);
+        router.back();
+      }, 3000);
+
+      toast.success('Booking successful! Please check your email for confirmation.', {
+        position: 'bottom-right',
+        duration: 4000,
+        style: {
+          backgroundColor: 'green',
+          color: 'white'
+        }
+      });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Error occurred during booking");
+      setBookingResult({ success: false, message: error?.response?.data?.message || 'Booking failed. Please try again.' });
+      setShowResultModal(true);
+
+      // Clear any existing timeout
+      if (autoCloseTimeoutRef.current) {
+        clearTimeout(autoCloseTimeoutRef.current);
+      }
+
+      // Auto-close after 3 seconds
+      autoCloseTimeoutRef.current = setTimeout(() => {
+        setShowResultModal(false);
+      }, 3000);
+
+      toast.error(error?.response?.data?.message || "Error occurred during booking", {
+        position: 'bottom-right',
+        duration: 4000,
+        style: {
+          backgroundColor: 'red',
+          color: 'white'
+        }
+      });
     },
     onSettled: () => setIsLoading(false)
   });
 
+
+
   const onSubmit = (data: any) => {
+    console.log("onSubmit called with data:", data);
+
     // Validate number of travelers doesn't exceed available seats
     const selectedFixedDate = packageData?.data?.fixedDates?.find(
       (date: IFixedDate) => date._id === data.fixedDateId
     );
     const availableSeats = selectedFixedDate?.availableSeats || 0;
 
-    const totalTravelers = Object.values(paxSelections).reduce((sum, count) => sum + count, 0) || data.numberOfTravelers;
+    const totalTravelers = travelerCount;
 
     if (totalTravelers > availableSeats) {
       toast.error(`Cannot book ${totalTravelers} travelers. Only ${availableSeats} seats available.`);
@@ -430,73 +303,51 @@ export default function BookingForm() {
     }
 
     if (totalTravelers === 0) {
-      toast.error('Please select at least one traveler from the pax options.');
+      toast.error('Please select at least one traveler.');
       return;
     }
 
-    // Prepare pax selections for backend
-    const paxSelectionData = Object.entries(paxSelections)
-      .filter(([_, count]) => count > 0)
-      .map(([paxId, count]) => ({
-        paxId,
-        count,
-        paxDetails: packageData?.data?.pax?.find((p: any) => p._id === paxId)
-      }));
+    // Format personal info with correct date format and field names
+    const formattedPersonalInfo = data.personalInfo.map((person: any) => ({
+      fullName: person.fullName,
+      email: person.email,
+      country: person.country,
+      phoneNumber: person.phoneNumber,
+      gender: person.gender,
+      dateOfBirth: person.dateOfBirth instanceof Date
+        ? person.dateOfBirth.toISOString().split('T')[0]
+        : person.dateOfBirth,
+      passportNumber: person.passportNumber,
+      passportExpiryDate: person.passportExpiry instanceof Date
+        ? person.passportExpiry.toISOString().split('T')[0]
+        : person.passportExpiry,
+      isChild: false
 
-    // Only send addon IDs to backend
+    }));
+
+    // Prepare booking data according to the specified format
     const bookingData = {
-      ...data,
+      personalInfo: formattedPersonalInfo,
+      adults: 1, // Static value as specified
+      totalAmount: totalAmount,
+      fixedDateId: data.fixedDateId,
+      arrivalDate: data.arrivalDate,
+      departureDate: data.departureDate,
       numberOfTravelers: totalTravelers,
-      paxSelections: paxSelectionData,
-      selectedAddons: data.selectedAddons || [],
-      // Add discount information for backend processing
-      discountInfo: {
-        originalAmount: originalAmount,
-        discountPercentage: discountPercentage,
-        discountAmount: discountAmount,
-        finalAmount: totalAmount
-      }
+      package: packageData?.data?._id as any,
+      message: data.message || "",
+      specialRequirements: "N/A", // Static value as specified
+      termsAccepted: data.termsAccepted,
+      addons: data.selectedAddons || [], // Send addon IDs as selectedAddons
+      totalPeople: totalTravelers,
+      createdBy: "user_12345", // Static value as specified
+      customizedBooking: false // Static value as specified
     };
+
+    console.log("Booking data to be sent:", bookingData);
     mutate({ bookingData });
   };
 
-
-
-  // Validation functions
-  const validateBirthDate = (dob: Date, isChild: boolean) => {
-    if (!dob) return "Date of birth is required";
-
-    const today = new Date();
-    let age = today.getFullYear() - dob.getFullYear();
-
-    // Adjust for month/day not passed
-    const monthDiff = today.getMonth() - dob.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-      age--;
-    }
-
-    if (isChild && age >= 18) return "Child must be under 18 years";
-    if (!isChild && age < 18) return "Adult must be at least 18 years";
-    return true;
-  };
-
-  const validatePassportExpiry = (expiry: Date) => {
-    if (!expiry) return "Passport expiry is required";
-    if (!departureDate) return true;
-
-    const expiryDate = new Date(expiry);
-    const depDate = new Date(departureDate);
-
-    if (expiryDate < depDate) return "Passport expires before departure";
-
-    const sixMonthsAfter = new Date(depDate);
-    sixMonthsAfter.setMonth(sixMonthsAfter.getMonth() + 6);
-
-    if (expiryDate < sixMonthsAfter) {
-      return "Passport must be valid for at least 6 months after departure";
-    }
-    return true;
-  };
 
   // Function to extract all error messages
   const getAllErrorMessages = (errors: any): string[] => {
@@ -546,8 +397,16 @@ export default function BookingForm() {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit, (errors) => {
+          console.log("Form validation failed!");
+          console.log("Raw errors object:", errors);
           const errorMessages = getAllErrorMessages(errors);
-          toast.error(errorMessages[0] || "Please fill all required fields correctly");
+          console.log("Validation Errors:", errorMessages);
+          if (errorMessages.length > 0) {
+            toast.error(errorMessages[0]);
+          } else {
+            console.log("No error messages extracted but validation failed");
+            toast.error("Please check all required fields");
+          }
         })}>
           <input type="hidden" {...register("package")} />
           <input type="hidden" {...register("fixedDateId")} />
@@ -556,134 +415,89 @@ export default function BookingForm() {
             {/* Left Column - Traveler Info */}
             <div className="flex-1">
 
-              {/* Pax Selection Section */}
-              {packageData?.data?.pax && packageData.data.pax.length > 0 && (
-                <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
-                  <h3 className="text-orange-600 text-lg font-medium mb-4">Select Package</h3>
+              {/* Pax Selection Section - Always Show */}
+              <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
+                <h3 className="text-orange-600 text-lg font-medium mb-">Select Package</h3>
 
-                  <div className="grid grid-cols-1 divide-y divide-zinc-300 gap-4">
-                    {packageData.data.pax
-                      .sort((a: any, b: any) => a.sortOrder - b.sortOrder)
-                      .map((paxOption: any) => {
-                        const selectedCount = paxSelections[paxOption._id] || 0;
+                <div className=" mb-6">
+                  {packageData?.data?.pax && packageData.data.pax.length > 0 ? (
+                    // Show actual pax options if available
+                    packageData.data.pax.map((pax: any) => {
+                      const isApplied = appliedPax?._id === pax._id;
 
-                        // Find the selected fixed date to get available seats
-                        const selectedFixedDate = packageData.data.fixedDates?.find(
-                          (date: IFixedDate) => date._id === fixedDateId
-                        );
-                        const availableSeats = selectedFixedDate?.availableSeats || 0;
-
-                        // Calculate total selected across all pax
-                        const totalSelected = Object.values(paxSelections).reduce((sum, count) => sum + count, 0);
-                        const remainingSeats = availableSeats - totalSelected;
-
-                        // Calculate discounted price
-                        const basePrice = pricePerPerson;
-                        const discountedPrice = basePrice - (basePrice * paxOption.discount / 100);
-                        const depositAmount = (discountedPrice * 0.5).toFixed(0); // 30% deposit
-
-                        // Determine pax label
-                        const paxLabel = paxOption.min === paxOption.max
-                          ? `${paxOption.min} Pax`
-                          : `${paxOption.min}-${paxOption.max} Pax`;
-
-                        const isDisabled = availableSeats < paxOption.min;
-
-                        return (
-                          <div
-                            key={paxOption._id}
-                            className={`  transition-all ${selectedCount > 0
-                              ? ''
-                              : isDisabled
-                                ? 'border-zinc-200 opacity-30 text-zinc-400  '
-                                : 'border-zinc-200 hover:border-orange-300'
-                              }`}
-                          >
-                            <div className="flex items-start gap-4 lg:gap-6">
-                              {/* Left: User Icon and Number of Travelers Dropdown */}
-                              <div className="flex relative w-28 border px-2 py-1.5 border-zinc-400/80 rounded-md items-center gap-2">
-                                <div className={`absolute top-1/2 left-2 z-20 -translate-y-1/2`}>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className={`h-6 w-6 ${'text-orange-600'
-                                      }`}
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                  >
-                                    <circle cx={9.001} cy={6} r={4}></circle>
-                                    <ellipse cx={9.001} cy={17.001} rx={7} ry={4}></ellipse>
-                                    <path d="M21 17c0 1.657-2.036 3-4.521 3c.732-.8 1.236-1.805 1.236-2.998c0-1.195-.505-2.2-1.239-3.001C18.962 14 21 15.344 21 17M18 6a3 3 0 0 1-4.029 2.82A5.7 5.7 0 0 0 14.714 6c0-1.025-.27-1.987-.742-2.819A3 3 0 0 1 18 6.001"></path>
-                                  </svg>
-                                </div>
-
-                                {/* Dropdown for selecting number of travelers */}
-                                <select
-                                  value={selectedCount}
-                                  onChange={(e) => {
-                                    if (e.isTrusted) {
-                                      const newCount = parseInt(e.target.value);
-                                      setPaxSelections(prev => ({
-                                        ...prev,
-                                        [paxOption._id]: newCount
-                                      }));
-                                    }
-                                  }}
-                                  disabled={isDisabled}
-                                  className={`w-full relative text-center z-50 px-2 font-medium ${isDisabled
-                                    ? ' text-zinc-500 cursor-not-allowed'
-                                    : selectedCount > 0
-                                      ? ''
-                                      : '0 hover:border-orange-400'
-                                    } outline-none `}
-                                >
-                                  <option value={0}>0</option>
-                                  {Array.from({ length: Math.min(paxOption.max, remainingSeats + selectedCount) }, (_, i) => i + 1).map(num => (
-                                    <option className="text-center" key={num} value={num}>
-                                      {num}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-
-                              {/* Middle: Pax Info */}
-                              <div className="flex-1">
-                                <h4 className="text-lg font-semibold text-zinc-800 mb-1">
-                                  {paxLabel}
-                                </h4>
-                                <p className=" text-zinc-500 ">
-                                  Available until {selectedFixedDate ? new Date(selectedFixedDate.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'N/A'}
-                                </p>
-                                <p className=" text-zinc-600 mb-3">
-                                  Select this option if {paxOption.min === paxOption.max
-                                    ? `you are booking for ${paxOption.min} traveler${paxOption.min > 1 ? 's' : ''}`
-                                    : `${paxOption.min}-${paxOption.max} travelers are booking together`
-                                  }
-                                </p>
-
-                              </div>
-
-                              {/* Right: Pricing */}
-                              <div className="text-right">
-                                <div className="text-2xl font-bold text-orange-600 mb-1">
-                                  ${discountedPrice.toFixed(0)}
-                                </div>
-                                <div className=" text-zinc-500">
-                                  Deposit: ${depositAmount}
-                                </div>
-
-
-
-                              </div>
+                      return (
+                        <div
+                          key={pax._id}
+                          className={` transition-all max-w-sm  ${isApplied
+                            ? 'text-orange-500'
+                            : 'text-zinc-800'
+                            }`}
+                        >
+                          <div className="flex gap-1 justify-between items-center">
+                            <div className="flex shrink-0 items-center gap-3">
+                              <h4 className=" font-semibold">
+                                {pax.min} - {pax.max} Pax
+                              </h4>
                             </div>
-
-
+                            <div className="w-full border border-dashed"></div>
+                            <h4 className={`font-bold shrink-0 ${isApplied ? '' : ''}`}>
+                              US$ {pax.discount}
+                            </h4>
                           </div>
-                        );
-                      })}
-                  </div>
-
+                        </div>
+                      );
+                    })
+                  ) : (
+                    // Show static fixed date price when no pax available
+                    <div className="transition-all max-w-sm text-orange-500">
+                      <div className="flex gap-1 justify-between items-center">
+                        <div className="flex shrink-0 items-center gap-3">
+                          <h4 className="font-semibold">
+                            Fixed Price
+                          </h4>
+                        </div>
+                        <div className="w-full border border-dashed"></div>
+                        <h4 className="font-bold shrink-0">
+                          US$ {pricePerPerson}
+                        </h4>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
+
+                <div className="space-y-3">
+                  <label className="block text-zinc-700 font-medium">Number of Travelers</label>
+                  <div className="flex  w-fit items-center  ">
+                    <button
+                      type="button"
+                      onClick={() => setTravelerCount(prev => Math.max(1, prev - 1))}
+                      className="size-8 lg:size-10 rounded-full shrink-0  border-r bg-orange-100 border-orange-200 text-orange-500 hover:bg-orange-500 hover:text-white flex justify-center items-center text-sm transition-colors"
+                    >
+                      <Minus className="size-4" />
+                    </button>
+                    <input
+                      type="number"
+                      value={travelerCount}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        if (!isNaN(value) && value >= 1 && value <= 100) {
+                          setTravelerCount(value);
+                        }
+                      }}
+                      min={1}
+                      max={100}
+                      className="w-20 text-center text-xl text-orange-500 outline-none px-2"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setTravelerCount(prev => Math.min(100, prev + 1))}
+                      className="size-8 lg:size-10 rounded-full shrink-0  border-l border-orange-200 bg-orange-100 text-orange-500 hover:bg-orange-500 hover:text-white flex justify-center items-center text-sm transition-colors"
+                    >
+                      <Plus className="size-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               {/* Single Traveler Information Form */}
               {fields.length > 0 && (
@@ -736,7 +550,7 @@ export default function BookingForm() {
                     />
 
                     <FormSelect
-                      register={register}
+                      control={control}
                       name={`personalInfo.0.gender`}
                       label="Gender"
                       error={errors.personalInfo?.[0]?.gender}
@@ -801,16 +615,6 @@ export default function BookingForm() {
                 </div>
               )}
 
-              {/* <div className="flex justify-end mb-8">
-                <button
-                  type="button"
-                  onClick={addTraveler}
-                  className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-sm flex items-center gap-2 transition"
-                >
-                  Add Traveler
-                </button>
-              </div> */}
-
               {/* Trip Dates Section */}
               <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
                 <h3 className="text-orange-600 text-lg font-medium">Trip Dates</h3>
@@ -833,85 +637,95 @@ export default function BookingForm() {
                     error={errors.departureDate}
                   />
 
-                  <div className="mb-4 relative">
-                    <label className="block text-zinc-700 mb-1">Select Package Date *</label>
-                    <Select
-                      triggerLabel="Select a date"
-                      className="border border-zinc-300 rounded-sm w-full h p-2"
-                      closeOnSelect={true}
-                      listClassName="cursor-pointer  bg-white border border-zinc-300 gap-3 !space-y-5 p-2  !mt-2 rounded-sm -translate-x-2 w-full"
-                      selectedOptions={packageData?.data?.fixedDates?.filter((date: IFixedDate) => date._id === fixedDateId).map((date: IFixedDate) => ({
-                        label: `${new Date(date.startDate).toLocaleDateString()} - ${new Date(date.endDate).toLocaleDateString()} ($${date.pricePerPerson})`,
-                        value: date._id
-                      })) || []}
-                      onSelect={(selectedOptions: SelectOption[]) => {
-                        const selectedValue = selectedOptions[0]?.value || '';
-                        setValue("fixedDateId", selectedValue as string);
-                      }}
-                      options={packageData?.data?.fixedDates?.map((dateOption: IFixedDate) => {
-                        const startDate = new Date(dateOption.startDate).toLocaleDateString();
-                        const endDate = new Date(dateOption.endDate).toLocaleDateString();
-                        return {
-                          label: `${startDate} - ${endDate} ($${dateOption.pricePerPerson})`,
-                          value: dateOption._id
-                        };
-                      }) || []}
-                    />
-                    {errors.fixedDateId && (
-                      <p className="text-red-500 text-sm mt-1">{errors.fixedDateId.message}</p>
-                    )}
-                  </div>
+                  <FormSelect
+                    control={control}
+                    name="fixedDateId"
+                    label="Select Package Date"
+                    error={errors.fixedDateId}
+                    placeholder="Select a date"
+                    options={packageData?.data?.fixedDates?.map((dateOption: IFixedDate) => {
+                      const startDate = new Date(dateOption.startDate).toLocaleDateString();
+                      const endDate = new Date(dateOption.endDate).toLocaleDateString();
+                      return {
+                        label: `${startDate} - ${endDate} ($${dateOption.pricePerPerson})`,
+                        value: dateOption._id
+                      };
+                    }) || []}
+                  />
                 </div>
               </div>
 
               {/* Add-ons Section */}
               {packageData?.data?.addons && packageData.data.addons.length > 0 && (
-                <div className="sm:border border-zinc-200 sm:p-6 rounded-sm mb-6">
-                  <h3 className="text-orange-600 text-lg font-medium">Choose Add-ons</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {packageData.data.addons.map((addon: any) => (
-                      <div key={addon._id} className="flex flex-wrap items-center  bg-white md:gap-4 border border-zinc-200 rounded-sm hover:border-orange-300 transition-colors">
-                        <input
-                          type="checkbox"
-                          id={`addon-${addon._id}`}
-                          {...register("selectedAddons")}
-                          value={addon._id}
-                          className="mt-2 hidden accent-orange-500"
-                        />
-                        <label
-                          style={{
-                            backgroundColor: watch("selectedAddons")?.includes(addon._id) ? '#F54A00' : 'transparent',
-                            color: watch("selectedAddons")?.includes(addon._id) ? 'white' : ''
-                          }}
-                          htmlFor={`addon-${addon._id}`} className=" flex gap-4 items-center  cursor-pointer p-4 w-full">
-                          <div className="">
-                            {/* {addon.image && (
-                              <div className=" relative shrink-0 size-14 lg:size-20 ">
+                <div className="bg-white sm:p-6 rounded-sm sm:border border-zinc-200 mb-6">
+                  <h3 className="text-orange-600 text-lg font-medium ">Add-ons & Extras</h3>
+                  <p className="text-zinc-600 text-sm mb-4">Enhance your experience with these optional add-ons</p>
+
+                  <div className="space-y-4 lg:space-y-0 lg:grid grid-cols-2 gap-4">
+                    {packageData.data.addons.map((addon: any) => {
+                      const isSelected = watch("addons")?.includes(addon._id);
+
+                      return (
+                        <div
+                          key={addon._id}
+                          className={`border rounded-md transition-all ${isSelected
+                            ? 'border-orange-500 bg-orange-50'
+                            : 'border-zinc-200 hover:border-orange-300'
+                            }`}
+                        >
+                          <input
+                            type="checkbox"
+                            id={`addon-${addon._id}`}
+                            {...register("addons")}
+                            value={addon._id}
+                            className="hidden"
+                          />
+                          <label
+                            htmlFor={`addon-${addon._id}`}
+                            className="flex items-start gap-4 cursor-pointer p-4 w-full"
+                          >
+
+
+                            {/* Addon image (if available) */}
+                            {addon.image && (
+                              <div className="relative shrink-0 w-16 h-16 rounded-md overflow-hidden">
                                 <Image
                                   src={addon.image}
                                   alt={addon.name}
                                   fill
-                                  className="object-cover object-center rounded-"
+                                  className="object-cover"
                                 />
                               </div>
-                            )} */}
-                          </div>
-                          <div className="flex justify-between w-full items-center">
-                            <div className="">
-                              <span className="font-medium   lg:text-lg">{addon.name}</span>
-                              <div className=" text-sm " dangerouslySetInnerHTML={{ __html: addon.description }}></div>
+                            )}
+
+                            {/* Addon info */}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="flex-1">
+                                  <h4 className={`font-semibold text-base mb-1 ${isSelected ? 'text-orange-900' : 'text-zinc-800'}`}>
+                                    {addon.name}
+                                  </h4>
+                                  {addon.description && (
+                                    <div
+                                      className={`text-sm leading-relaxed ${isSelected ? 'text-orange-800' : 'text-zinc-600'}`}
+                                      dangerouslySetInnerHTML={{ __html: addon.description }}
+                                    />
+                                  )}
+                                </div>
+
+                                {/* Price tag */}
+                                <div className={`flex-shrink-0 px-3 py-1 rounded-full font-bold text-sm ${isSelected
+                                  ? 'bg-orange-600 text-white'
+                                  : 'bg-green-50 text-green-600'
+                                  }`}>
+                                  +${addon.price}
+                                </div>
+                              </div>
                             </div>
-                            <h2>
-                              <span
-                                style={{
-                                  color: watch("selectedAddons")?.includes(addon._id) ? 'white' : ''
-                                }}
-                                className="text-green-600 font-bold">+${addon.price}</span>
-                            </h2>
-                          </div>
-                        </label>
-                      </div>
-                    ))}
+                          </label>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -972,100 +786,107 @@ export default function BookingForm() {
 
             {/* Right Column - Booking Summary */}
             <div className="lg:w-96">
-              <div className="sticky top-6 bg-white lg:p-6   rounded-sm lg:border border-zinc-200 ">
+              <div className="sticky top-6 bg-white lg:p-6 rounded-sm lg:border border-zinc-200">
                 <h2 className="text-xl font-bold text-zinc-800 mb-6">Booking Summary</h2>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between">
-                    <span className="text-zinc-600">Package:</span>
-                    <span className="font-medium">{packageData?.data?.name}</span>
-                  </div>
-
-                  {/* Show pax breakdown if selections made */}
-                  {/* {Object.entries(paxSelections).some(([_, count]) => count > 0) && (
-                    <div className="border-t border-zinc-200 pt-3 mt-3">
-                      <h4 className="font-medium text-zinc-800 mb-2">Selected Pax:</h4>
-                      {Object.entries(paxSelections).map(([paxId, count]) => {
-                        if (count === 0) return null;
-                        const paxOption = packageData?.data?.pax?.find((p: any) => p._id === paxId);
-                        if (!paxOption) return null;
-
-                        const paxLabel = paxOption.min === paxOption.max
-                          ? `${paxOption.min} Pax`
-                          : `${paxOption.min}-${paxOption.max} Pax`;
-                        const discountedPrice = pricePerPerson - (pricePerPerson * paxOption.discount / 100);
-
-                        return (
-                          <div key={paxId} className="flex justify-between text-sm mb-2 bg-orange-50 p-2 rounded">
-                            <div>
-                              <span className="font-medium">{paxLabel}</span>
-                              <span className="text-zinc-500 ml-1">× {count}</span>
-                              {paxOption.discount > 0 && (
-                                <span className="text-green-600 text-xs ml-1">({paxOption.discount}% off)</span>
-                              )}
-                            </div>
-                            <span className="font-medium">${(discountedPrice * count).toFixed(0)}</span>
-                          </div>
-                        );
-                      })}
+                <div className="space-y-4 mb-6">
+                  {/* Package Info */}
+                  <div className="pb-3 border-b border-zinc-200">
+                    <div className="flex justify-between items-start">
+                      <span className="text-zinc-800 font-semibold text-sm">Package:</span>
+                      <span className="font-bold text-right text-sm text-orange-500 max-w-[200px]">{packageData?.data?.name}</span>
                     </div>
-                  )} */}
-
-                  <div className="flex justify-between">
-                    <span className="text-zinc-600">Number of Travelers:</span>
-                    <span className="font-medium">{Object.values(paxSelections).reduce((sum, count) => sum + count, 0) || numberOfTravelers || 1}</span>
                   </div>
 
-                  <div className="flex justify-between">
-                    <span className="text-zinc-600">Base price per traveler:</span>
-                    <span className="font-medium">${pricePerPerson}</span>
+                  {/* Pricing Breakdown */}
+                  <div className="pb-3 border-b border-zinc-200">
+                    <h4 className="text-zinc-800 font-semibold mb-3">Pricing Details</h4>
+
+                    {/* Show applied pax or standard pricing */}
+                    {appliedPax && (
+                      <div className="flex justify-between items-start ">
+                        <span className="text-zinc-800 font-semibold text-sm">
+                          {appliedPax.min}-{appliedPax.max} Pax Rate
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex justify-between  ">
+                      <span className="text-zinc-600 font-medium text-xs">{travelerCount} Traveler{travelerCount > 1 ? 's' : ''} × ${pricePerPerson.toFixed(0)}</span>
+                      <span className="font-bold  leading-0  text-orange-500">
+                        ${(pricePerPerson * travelerCount).toFixed(0)}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Show discount information if applicable */}
-                  {discountPercentage > 0 && (
-                    <>
-                      <div className="flex justify-between">
-                        <span className="text-zinc-600">Subtotal:</span>
-                        <span className="font-medium line-through text-zinc-500">${originalAmount.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-green-600">Group Discount ({discountPercentage.toFixed(1)}%):</span>
-                        <span className="font-medium text-green-600">-${discountAmount.toFixed(2)}</span>
-                      </div>
-                    </>
-                  )}
+                  {/* Trip Details */}
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-zinc-800 font-semibold">Total Travelers:</span>
+                      <span className="font-bold text-orange-500">{travelerCount}</span>
+                    </div>
 
-                  <div className="flex justify-between">
-                    <span className="text-zinc-600">Arrival Date:</span>
-                    <span className="font-medium">
-                      {arrivalDate ? new Date(arrivalDate).toLocaleDateString() : 'Not selected'}
-                    </span>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-zinc-800 font-semibold">Price per Traveler:</span>
+                      <span className="font-bold text-orange-500">${pricePerPerson.toFixed(0)}</span>
+                    </div>
+
+                    <div className="flex justify-between text-sm">
+                      <span className="text-zinc-800 font-semibold">Arrival Date:</span>
+                      <span className="font-bold text-orange-500">
+                        {arrivalDate ? new Date(arrivalDate).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        }) : 'Not selected'}
+                      </span>
+                    </div>
+
+                    {departureDate && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-zinc-800 font-semibold">Departure Date:</span>
+                        <span className="font-bold text-orange-500">
+                          {new Date(departureDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Selected Add-ons */}
                   {selectedAddons && selectedAddons.length > 0 && (
-                    <div className="border-t border-zinc-200 pt-3 mt-3">
-                      <h4 className="font-medium text-zinc-800 mb-2">Add-ons:</h4>
-                      {packageData?.data?.addons
-                        ?.filter((addon: any) => selectedAddons.includes(addon._id))
-                        ?.map((addon: any) => (
-                          <div key={addon._id} className="flex justify-between text-sm mb-1">
-                            <span>{addon.name}</span>
-                            <span>+${addon.price}</span>
-                          </div>
-                        ))}
+                    <div className="pt-3 border-t border-zinc-200">
+                      <h4 className="text-zinc-800 font-semibold mb-3 text-sm flex items-center gap-2">
+                        <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
+                        </svg>
+                        Add-ons ({selectedAddons.length})
+                      </h4>
+                      <div className="space-y-2">
+                        {packageData?.data?.addons
+                          ?.filter((addon: any) => selectedAddons.includes(addon._id))
+                          ?.map((addon: any) => (
+                            <div key={addon._id} className="flex justify-between items-center text-sm ">
+                              <span className="text-zinc-800 font-medium">{addon.name}</span>
+                              <span className="font-bold text-orange-500">+${addon.price}</span>
+                            </div>
+                          ))}
+                      </div>
                     </div>
                   )}
 
-                  <div className={`flex justify-between text-lg font-bold pt-3 border-t border-zinc-200 ${discountPercentage > 0 ? 'text-green-600' : ''}`}>
-                    <span>Total:</span>
-                    <span className={discountPercentage > 0 ? 'text-green-600' : 'text-orange-600'}>
-                      ${totalAmount.toFixed(2)}
-                      {discountPercentage > 0 && (
-                        <span className="text-sm font-normal ml-1">(Discounted)</span>
-                      )}
-                    </span>
+                  {/* Total */}
+                  <div className="pt-4 border-t border-zinc-300">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg text-zinc-800 font-semibold">Total Amount:</span>
+                      <div className="text-2xl font-bold text-orange-500">
+                        ${totalAmount.toFixed(2)}
+                      </div>
+                    </div>
                   </div>
+
                 </div>
 
                 <button
@@ -1090,6 +911,55 @@ export default function BookingForm() {
           </div>
         </form >
       </div >
+
+      {/* Success/Error Modal */}
+      {showResultModal && (
+        <div className="backdrop-blur-lg flex items-center justify-center p-4 fixed inset-0 bg-black/30 z-[9999999] h-full">
+          <div className="h-full w-full relative">
+            <div className="h-screen sticky top-0 flex justify-center items-center">
+              <div className="flex flex-col justify-center bg-white items-center p-8 py-12 relative rounded-lg shadow-lg max-w-2xl w-full">
+                <button
+                  onClick={() => {
+                    if (autoCloseTimeoutRef.current) {
+                      clearTimeout(autoCloseTimeoutRef.current);
+                    }
+                    setShowResultModal(false);
+                    if (bookingResult.success) {
+                      router.push("/");
+                    }
+                  }}
+                  className="absolute top-4 right-4 hover:bg-gray-100 rounded-full p-1 transition-colors"
+                >
+                  <X className="size-6" />
+                </button>
+
+                {bookingResult.success ? (
+                  <>
+                    <div className="flex justify-center items-center text-green-600 mb-4">
+                      <CheckCircle2 className="size-16" />
+                    </div>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Booking Successful!</h2>
+                    <p className="text-zinc-700 text-center">{bookingResult.message}</p>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-center items-center text-red-600 mb-4">
+                      <XCircle className="size-16" />
+                    </div>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Booking Failed</h2>
+                    <p className="text-zinc-700 text-center">{bookingResult.message}</p>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
+
+
+
+
+

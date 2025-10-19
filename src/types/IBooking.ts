@@ -18,6 +18,9 @@ export interface IBookingData {
     package: string, // Replace with a valid package ID
     message: string,
     specialRequirements: string,
-    termsAccepted: boolean
-    createdBy?: string // Optional: User ID if user is logged in
+    termsAccepted: boolean,
+    addons: string[], // Array of addon IDs
+    createdBy?: string, // Optional: User ID if user is logged in
+    customizedBooking?: boolean // Optional: Flag for customized booking
+
 }

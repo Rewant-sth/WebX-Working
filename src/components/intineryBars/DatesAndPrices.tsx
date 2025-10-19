@@ -1,66 +1,15 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { IFixedDate, ITravelPackage } from "@/types/IPackages";
-import Link from "next/link";
-import { useBookingStore } from "@/store/booking-store";
 import Select from "react-select";
 import { bookPrivateTrip } from "@/service/booking";
 import SuccessModal from "@/components/common/SuccessModal";
-import Calendar from "./Calendar";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCaptchaToken } from "@/service/captcha";
+import FixedDatesTable from "./FixedDatesTable";
 
-const BookingForm: React.FC<{
-  selectedDate: Date;
-  tripDuration: number;
-  packageId: string;
-  onClose: () => void;
-}> = ({ selectedDate, tripDuration, packageId, onClose }) => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    numberOfTravelers: 1,
-    specialRequests: ''
-  });
-
-  const endDate = new Date(selectedDate);
-  endDate.setDate(selectedDate.getDate() + tripDuration - 1);
-
-  return (
-    <div className="bg-white rounded-sm border border-zinc-200 p-6 mt-6">
-      <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-bold text-zinc-800">Complete Your Booking</h3>
-        <button
-          onClick={onClose}
-          className="text-zinc-500 hover:text-zinc-700"
-        >
-          <Icon icon="mdi:close" width="24" height="24" />
-        </button>
-      </div>
-
-      <div className="mb-6 p-4 bg-zinc-100 rounded-sm text-zinc-800">
-        <h4 className="font-semibold  mb-2">Selected Trip Details</h4>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div>
-            <span className=" font-medium">Start Date:</span>
-            <p className="">{selectedDate.toDateString()}</p>
-          </div>
-          <div>
-            <span className=" font-medium">End Date:</span>
-            <p className="">{endDate.toDateString()}</p>
-          </div>
-          <div>
-            <span className=" font-medium">Duration:</span>
-            <p className="">{tripDuration} days</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
 
@@ -71,16 +20,16 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
   })
 
   const [formData, setFormData] = useState({
-    startDate: '',
+    startDate: 'N/A',
     fullName: '',
     email: '',
     phone: '',
     countryCode: '+977',
     numberOfTravelers: '',
-    country: '',
-    howDidYouFind: '',
+    country: 'N/A',
+    howDidYouFind: 'N/A',
     comments: '',
-    agreeToTerms: false,
+    agreeToTerms: true,
     captchaToken: data?.data.token || "",
     captchaAnswer: '',
     packageId: packageId
@@ -110,15 +59,6 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
     { value: '+64', label: 'New Zealand', flag: '🇳🇿' },
   ];
 
-  // Options for "How did you find us"
-  const howDidYouFindOptions = [
-    { value: 'Google Search', label: 'Google Search' },
-    { value: 'Social Media', label: 'Social Media' },
-    { value: 'Friend/Family Referral', label: 'Friend/Family Referral' },
-    { value: 'Travel Agent', label: 'Travel Agent' },
-    { value: 'Previous Customer', label: 'Previous Customer' },
-    { value: 'Other', label: 'Other' },
-  ];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -158,7 +98,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
     try {
       // Prepare data according to API schema
       const privateTripData = {
-        date: formData.startDate,
+        date: "2022-01-01", // Placeholder date for private trips
         leadTravellerName: formData.fullName,
         email: formData.email,
         phone: `${formData.countryCode}${formData.phone}`, // Combine country code and phone
@@ -223,30 +163,12 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
           </div>
         )}
 
-        {/* Date Field */}
-        <div>
-          <label htmlFor="startDate" className="block text-sm font-medium text-zinc-700 mb-2">
-            Choose your own date*
-          </label>
-          <div className="relative">
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleInputChange}
-              required
-              disabled={isSubmitting}
-              className="w-full px-4 py-2 pl-10 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
-              placeholder="MM/DD/YYYY"
-            />
-          </div>
-        </div>
+
 
         {/* Full Name */}
         <div>
           <label htmlFor="fullName" className="block text-sm font-medium text-zinc-700 mb-2">
-            Lead Traveler's Full Name*
+            Full Name*
           </label>
           <input
             type="text"
@@ -350,56 +272,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
           />
         </div>
 
-        {/* Country */}
-        <div>
-          <label htmlFor="country" className="block text-sm font-medium text-zinc-700 mb-2">
-            Country
-          </label>
-          <input
-            type="text"
-            id="country"
-            name="country"
-            value={formData.country}
-            onChange={handleInputChange}
-            disabled={isSubmitting}
-            className="w-full px-4 py-2 border border-zinc-300 rounded-sm focus:ring-2 focus:ring-[#F05E25] focus:border-transparent outline-none disabled:bg-zinc-100 disabled:cursor-not-allowed"
-            placeholder="Country"
-          />
-        </div>
 
-        {/* How did you find us */}
-        <div className="col-span-2">
-          <label htmlFor="howDidYouFind" className="block text-sm font-medium text-zinc-700 mb-2">
-            How did you find Real Himalaya?*
-          </label>
-          <Select
-            value={howDidYouFindOptions.find(opt => opt.value === formData.howDidYouFind)}
-            onChange={(option) => {
-              if (option) {
-                setFormData(prev => ({ ...prev, howDidYouFind: option.value }));
-              }
-            }}
-            options={howDidYouFindOptions}
-            isDisabled={isSubmitting}
-            placeholder="How did you find Real Himalaya?"
-            classNamePrefix="react-select"
-            styles={{
-              control: (base) => ({
-                ...base,
-                borderColor: '#d1d5db',
-                '&:hover': { borderColor: '#F05E25' },
-                boxShadow: 'none',
-                minHeight: '42px'
-              }),
-              option: (base, state) => ({
-                ...base,
-                backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
-                color: state.isSelected ? 'white' : '#1f2937',
-                '&:active': { backgroundColor: '#F05E25' }
-              })
-            }}
-          />
-        </div>
 
         {/* Comments */}
         <div className="col-span-2">
@@ -418,28 +291,8 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
           />
         </div>
 
-        {/* Terms and Conditions */}
-        <div className="flex items-start gap-2">
-          <input
-            type="checkbox"
-            id="agreeToTerms"
-            name="agreeToTerms"
-            checked={formData.agreeToTerms}
-            onChange={handleInputChange}
-            required
-            disabled={isSubmitting}
-            className="mt-1 w-4 h-4 text-[#F05E25] border-zinc-300 rounded focus:ring-[#F05E25] disabled:cursor-not-allowed"
-          />
-          <label htmlFor="agreeToTerms" className="text-sm text-zinc-700">
-            I agree to Real Himalaya{' '}
-            <a href="/terms-and-conditions" className="text-[#F05E25] hover:underline">
-              Terms and Conditions
-            </a>
-          </label>
-        </div>
-
         {/* Captcha */}
-        <div className="col-span-2 flex gap-4 flex-wrap items-center mt-5 mb-3">
+        <div className="col-span-2 flex gap-4 flex-wrap items-center m mb-5">
           <label htmlFor="captchaAnswer" className="flex gap-4 items-center flex-wrap   font-medium text-zinc-700 ">
             <span>Prove your humanity: </span><span className="text-orange-500">{isLoading ? 'Loading...' : data?.data.question} = *</span>
           </label>
@@ -505,183 +358,7 @@ const DatesAndPrices = ({
   pkg: ITravelPackage | null;
   onShowBooking: () => void;
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
-  const [showForm, setShowForm] = useState(false);
-  const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date | null>(null);
   const [tripType, setTripType] = useState<'group' | 'private'>('group');
-  const [selectedFixedDate, setSelectedFixedDate] = useState<IFixedDate | null>(null);
-
-  // Use booking store
-  const { setPackage, setSelectedFixedDateId, setArrivalDate, setDepartureDate } = useBookingStore();
-
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
-
-  // Find the first available date from fixedDates
-  const getFirstAvailableDate = useMemo(() => {
-    if (!data || data.length === 0) return null;
-
-    // Filter available fixed dates (open status and available seats)
-    const availableDates = data.filter(fd =>
-      fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0
-    );
-
-    if (availableDates.length === 0) return null;
-
-    // Sort by start date and get the earliest one
-    const sortedDates = availableDates.sort((a, b) =>
-      new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-    );
-
-    return new Date(sortedDates[0].startDate);
-  }, [data]);
-
-  // Calculate which months to display based on current display month or first available date
-  const getDisplayMonths = () => {
-    let baseDate: Date;
-
-    if (currentDisplayMonth) {
-      // Use the manually navigated month
-      baseDate = currentDisplayMonth;
-    } else if (getFirstAvailableDate) {
-      // If there are available dates, show the month where the first available date is
-      baseDate = new Date(getFirstAvailableDate.getFullYear(), getFirstAvailableDate.getMonth(), 1);
-    } else {
-      // If no available dates, default to current month
-      baseDate = new Date(currentYear, currentMonth, 1);
-    }
-
-    const firstMonth = baseDate.getMonth();
-    const firstYear = baseDate.getFullYear();
-
-    const secondMonth = firstMonth === 11 ? 0 : firstMonth + 1;
-    const secondYear = firstMonth === 11 ? firstYear + 1 : firstYear;
-
-    return {
-      firstMonth,
-      firstYear,
-      secondMonth,
-      secondYear
-    };
-  };
-
-  const { firstMonth, firstYear, secondMonth, secondYear } = getDisplayMonths();
-
-  const handlePrevMonth = () => {
-    const currentFirstDate = new Date(firstYear, firstMonth, 1);
-    const prevMonth = new Date(currentFirstDate);
-    prevMonth.setMonth(prevMonth.getMonth() - 1);
-    setCurrentDisplayMonth(prevMonth);
-  };
-
-  const handleNextMonth = () => {
-    const currentFirstDate = new Date(firstYear, firstMonth, 1);
-    const nextMonth = new Date(currentFirstDate);
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    setCurrentDisplayMonth(nextMonth);
-  };
-
-  // Calculate trip duration from the fixed date's start and end dates
-  const tripDuration = useMemo(() => {
-    if (!selectedFixedDate) return 10; // Default to 10 days
-    const startDateObj = new Date(selectedFixedDate.startDate);
-    const endDateObj = new Date(selectedFixedDate.endDate);
-    const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
-    const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
-    return Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-  }, [selectedFixedDate]);
-
-  // Calculate highlighted dates based on selected date and trip duration
-  const highlightedDates = useMemo(() => {
-    if (!selectedDate || !selectedFixedDate) return [];
-
-    // Calculate trip duration from fixed date
-    const startDateObj = new Date(selectedFixedDate.startDate);
-    const endDateObj = new Date(selectedFixedDate.endDate);
-    const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
-    const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
-    const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-    // Highlight from the selected arrival date for the trip duration
-    const dates = [];
-    const arrivalDate = new Date(
-      selectedDate.getFullYear(),
-      selectedDate.getMonth(),
-      selectedDate.getDate()
-    );
-
-    // Generate dates for the trip duration starting from selected arrival date
-    const currentDate = new Date(arrivalDate);
-    for (let i = 0; i < tripDurationDays; i++) {
-      dates.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return dates;
-  }, [selectedDate, selectedFixedDate]);
-
-  const handleDateSelect = (date: Date) => {
-    console.log('📅 DatesAndPrices: Date selected', date);
-    setSelectedDate(date);
-    setShowForm(false); // Reset form visibility
-
-    // Find the matching fixed date and calculate arrival/departure
-    if (data) {
-      const matchingFixedDate = data.find(fd => {
-        const fixedStart = new Date(fd.startDate);
-        const fixedEnd = new Date(fd.endDate);
-        const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        const rangeStart = new Date(fixedStart.getFullYear(), fixedStart.getMonth(), fixedStart.getDate());
-        const rangeEnd = new Date(fixedEnd.getFullYear(), fixedEnd.getMonth(), fixedEnd.getDate());
-
-        // Check if date is within the range AND the fixed date is available
-        const isInRange = checkDate >= rangeStart && checkDate <= rangeEnd;
-        const isAvailable = fd.status?.toLowerCase() === 'open' && (fd.availableSeats || 0) > 0;
-
-        return isInRange && isAvailable;
-      });
-
-      if (matchingFixedDate) {
-        console.log('✅ DatesAndPrices: Found matching fixed date', matchingFixedDate);
-        setSelectedFixedDate(matchingFixedDate);
-        setSelectedFixedDateId(matchingFixedDate._id);
-
-        // Calculate trip duration from the fixed date
-        const startDateObj = new Date(matchingFixedDate.startDate);
-        const endDateObj = new Date(matchingFixedDate.endDate);
-        const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
-        const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
-        const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-        // Set arrival date as the selected date (ensure no timezone shift)
-        const arrivalDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        setArrivalDate(arrivalDate);
-
-        // Calculate departure date based on selected arrival date and trip duration
-        const calculatedDepartureDate = new Date(arrivalDate);
-        calculatedDepartureDate.setDate(calculatedDepartureDate.getDate() + tripDurationDays - 1);
-        setDepartureDate(calculatedDepartureDate);
-
-        console.log('💾 DatesAndPrices: Stored in booking store', {
-          fixedDateId: matchingFixedDate._id,
-          arrivalDate,
-          departureDate: calculatedDepartureDate,
-          arrivalDateStr: arrivalDate.toDateString(),
-          departureDateStr: calculatedDepartureDate.toDateString(),
-          tripDuration: tripDurationDays,
-          originalFixedDateRange: `${startDate.toDateString()} - ${endDate.toDateString()}`
-        });
-      } else {
-        console.warn('⚠️ DatesAndPrices: No matching fixed date found');
-      }
-    }
-  };
-
-  const handleDateHover = (date: Date | null) => {
-    setHoveredDate(date);
-  };
 
 
   return (
@@ -723,186 +400,17 @@ const DatesAndPrices = ({
           </p>
 
           {/* Calendar Section */}
-          <div className="mt-8 max-w-4xl">
-            <div className="flex justify-between items-center mb-2 gap-4 flex-wrap">
-              <h3 className="font-semibold text-zinc-800">Select Your Start Date</h3>
-
-              {/* Navigation dropdowns */}
-              <div className="flex items-center gap-2">
-                <button onClick={handlePrevMonth} className="text-orange-400 hover:text-orange-600">
-                  <Icon icon="mynaui:chevron-left-solid" width="24" height="24" />
-                </button>
-
-                <Select
-                  value={{ value: firstMonth, label: new Date(firstYear, firstMonth).toLocaleString('default', { month: 'long' }) }}
-                  onChange={(option) => {
-                    if (option) {
-                      setCurrentDisplayMonth(new Date(firstYear, option.value, 1));
-                    }
-                  }}
-                  options={Array.from({ length: 12 }, (_, i) => ({
-                    value: i,
-                    label: new Date(2000, i).toLocaleString('default', { month: 'long' })
-                  }))}
-                  className="min-w-[140px]"
-                  classNamePrefix="react-select"
-                  styles={{
-                    control: (base) => ({
-                      ...base,
-                      borderColor: '#d1d5db',
-                      '&:hover': { borderColor: '#F05E25' },
-                      boxShadow: 'none'
-                    }),
-                    option: (base, state) => ({
-                      ...base,
-                      backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
-                      color: state.isSelected ? 'white' : '#1f2937',
-                      '&:active': { backgroundColor: '#F05E25' }
-                    })
-                  }}
-                />
-                <Select
-                  value={{ value: firstYear, label: firstYear.toString() }}
-                  onChange={(option) => {
-                    if (option) {
-                      setCurrentDisplayMonth(new Date(option.value, firstMonth, 1));
-                    }
-                  }}
-                  options={Array.from({ length: 5 }, (_, i) => {
-                    const year = currentYear + i;
-                    return { value: year, label: year.toString() };
-                  })}
-                  className="min-w-[100px]"
-                  classNamePrefix="react-select"
-                  styles={{
-                    control: (base) => ({
-                      ...base,
-                      borderColor: '#d1d5db',
-                      '&:hover': { borderColor: '#F05E25' },
-                      boxShadow: 'none'
-                    }),
-                    option: (base, state) => ({
-                      ...base,
-                      backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#FEF3EF' : 'white',
-                      color: state.isSelected ? 'white' : '#1f2937',
-                      '&:active': { backgroundColor: '#F05E25' }
-                    })
-                  }}
-                />
-                <button className="text-orange-400 hover:text-orange-600" onClick={handleNextMonth}>
-                  <Icon icon="mynaui:chevron-right-solid" width="24" height="24" />
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 max-w-4xl md:grid-cols-2 gap-6 mb-8">
-              <Calendar
-                month={firstMonth}
-                year={firstYear}
-                selectedDate={selectedDate}
-                onDateSelect={handleDateSelect}
-                highlightedDates={highlightedDates}
-                tripDuration={tripDuration}
-                hoveredDate={hoveredDate}
-                onDateHover={handleDateHover}
-                fixedDates={data || []}
-              />
-
-              <div className="hidden sm:block">
-                <Calendar
-                  month={secondMonth}
-                  year={secondYear}
-                  selectedDate={selectedDate}
-                  onDateSelect={handleDateSelect}
-                  highlightedDates={highlightedDates}
-                  tripDuration={tripDuration}
-                  hoveredDate={hoveredDate}
-                  onDateHover={handleDateHover}
-                  fixedDates={data || []}
-                />
-              </div>
-            </div>
-
-
-            {/* Selected Date Info and Book Button */}
-            {selectedDate && selectedFixedDate && (
-              <>
-                <div className="bg-[#F05E25]/10 rounded-sm p-4 sm:p-6 mb-6">
-                  <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
-                    <div>
-                      <h4 className="text-lg font-bold text-zinc-800 mb-2">
-                        Selected Trip Details
-                      </h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-                        <div>
-                          <span className="text-zinc-800 font-medium">Arrival Date:</span>
-                          <p className="text-zinc-800">{selectedDate.toDateString()}</p>
-                        </div>
-                        <div>
-                          <span className="text-zinc-800 font-medium">Departure Date:</span>
-                          <p className="text-zinc-800">
-                            {(() => {
-                              // Calculate departure date based on trip duration
-                              const startDateObj = new Date(selectedFixedDate.startDate);
-                              const endDateObj = new Date(selectedFixedDate.endDate);
-                              const startDate = new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate());
-                              const endDate = new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate());
-                              const tripDurationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
-                              const arrivalDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
-                              const calculatedDepartureDate = new Date(arrivalDate);
-                              calculatedDepartureDate.setDate(calculatedDepartureDate.getDate() + tripDurationDays - 1);
-
-                              return calculatedDepartureDate.toDateString();
-                            })()}
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-zinc-800 font-medium">Duration:</span>
-                          <p className="text-zinc-800">{tripDuration} days</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <Link onClick={() => {
-                      console.log('🔘 Book This Trip clicked', {
-                        package: pkg?._id,
-                        selectedDate,
-                        selectedFixedDate,
-                        storeState: useBookingStore.getState()
-                      });
-                      setPackage(pkg as ITravelPackage);
-                      onShowBooking();
-                    }} href={`#booking-modal`} >
-                      <button
-                        className="bg-[#F05E25] text-white px-8 py-3 rounded-sm font-semibold hover:bg-[#01283F] transition-colors duration-200 flex items-center gap-2"
-                      >
-                        <Icon icon="mdi:calendar-check" width="20" height="20" />
-                        Book This Trip
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* Booking Form */}
-            {showForm && selectedDate && (
-              <BookingForm
-                selectedDate={selectedDate}
-                tripDuration={tripDuration}
-                packageId={packageId}
-                onClose={() => setShowForm(false)}
-              />
-            )}
+          <div className="mt-8 max-w-6xl">
+            <FixedDatesTable
+              data={data}
+              packageId={packageId}
+              pkg={pkg}
+            />
           </div>
         </>
       ) : (
         <PrivateTripForm packageId={packageId} />
       )}
-
-      {/* Original Fixed Dates Table (for reference) */}
-
     </div>
   );
 };

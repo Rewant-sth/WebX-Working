@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { getPackagesByCategory, getSubpackagesBySlug } from "@/service/packages";
+import {  getSubpackagesBySlug } from "@/service/packages";
 import Link from "next/link";
 import { useBookingStore } from "@/store/booking-store";
 import { ITravelPackage } from "@/types/IPackages";
@@ -34,9 +34,25 @@ const RelatedTrips = ({
   }, [pathname])
 
   const handleBookNow = (trip: ITravelPackage) => {
-    // Open booking modal with package data and redirect to itinerary page
-    openBookingModal(trip, trip.fixedDates?.[0]?._id || null);
-    router.push(`/itinerary/${trip.slug}`);
+    // Check if there are fixed dates available
+    if (trip.fixedDates && trip.fixedDates.length > 0) {
+      const firstFixedDate = trip.fixedDates[0];
+
+      // Save package data to booking store
+      openBookingModal(
+        trip,
+        firstFixedDate._id || null,
+        new Date(firstFixedDate.startDate),
+        new Date(firstFixedDate.endDate)
+      );
+
+      // Redirect to booking page
+      router.push(`/booking/${trip._id}`);
+    } else {
+      // If no fixed dates, redirect to itinerary page
+      openBookingModal(trip, null);
+      router.push(`/itinerary/${trip.slug}`);
+    }
   };
 
   if (data?.data?.length === 0) {

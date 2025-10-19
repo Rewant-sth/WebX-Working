@@ -7,12 +7,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import ExpertCard from "./expertSlider";
+import { useRouter } from "next/navigation";
+import { useBookingStore } from "@/store/booking-store";
 
 const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(true);
   const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { setPackage, setSelectedFixedDateId, setArrivalDate, setDepartureDate } = useBookingStore();
 
 
   const generatePdf = async () => {
@@ -619,6 +623,32 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
     }
   };
 
+  const handleBookNow = () => {
+    if (!data) return;
+
+    // If there are fixed dates, use the first available one
+    if (data.fixedDates && data.fixedDates.length > 0) {
+      const firstAvailableDate = data.fixedDates.find(
+        (date) => date.status?.toLowerCase() === 'open' && (date.availableSeats || 0) > 0
+      ) || data.fixedDates[0]; // Fallback to first date if none are available
+
+      // Set booking store data
+      setPackage(data);
+      setSelectedFixedDateId(firstAvailableDate._id);
+
+      // Set arrival and departure dates
+      const arrival = new Date(firstAvailableDate.startDate);
+      const departure = new Date(firstAvailableDate.endDate);
+      setArrivalDate(new Date(arrival.getFullYear(), arrival.getMonth(), arrival.getDate()));
+      setDepartureDate(new Date(departure.getFullYear(), departure.getMonth(), departure.getDate()));
+
+
+
+      // Navigate to booking page
+      router.push(`/booking/${data._id}`);
+    }
+  };
+
   return (
     <>
       <div className="  rounded-sm md:grid sm:grid-cols-2 gap-4 lg:gap-0 lg:mt-4 lg:grid-cols-1  space-y-4    h-fit">
@@ -711,7 +741,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
               {/* Choose Your Date Button */}
               {data?.fixedDates.length ? (
                 <button
-                  onClick={onShowBooking || scrollToDateSection}
+                  onClick={handleBookNow}
                   onMouseEnter={() => setHovered("date")}
                   onMouseLeave={() => setHovered(null)}
                   className="w-full px-6 py-1.5 rounded-sm font-semibold capitalize  transition-all duration-300 text-white border-2"

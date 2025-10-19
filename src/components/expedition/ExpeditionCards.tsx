@@ -6,7 +6,8 @@ import { ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
 import AnimatedSection from "../common/text-fadein";
 import CardSkeleton from "../common/card-skeleton";
-import { setPackage } from "@/store/booking-store";
+import { setPackage, openBookingModal } from "@/store/booking-store";
+import { useRouter } from "next/navigation";
 
 const ExpeditionCards = ({
   data,
@@ -17,6 +18,30 @@ const ExpeditionCards = ({
   isLoading: boolean;
   number: number;
 }) => {
+  const router = useRouter();
+
+  const handleBookNow = (pkg: ITravelPackage) => {
+    // Check if there are fixed dates available
+    if (pkg.fixedDates && pkg.fixedDates.length > 0) {
+      const firstFixedDate = pkg.fixedDates[0];
+
+      // Save package data to booking store
+      openBookingModal(
+        pkg,
+        firstFixedDate._id || null,
+        new Date(firstFixedDate.startDate),
+        new Date(firstFixedDate.endDate)
+      );
+
+      // Redirect to booking page
+      router.push(`/booking/${pkg._id}`);
+    } else {
+      // If no fixed dates, redirect to itinerary page
+      openBookingModal(pkg, null);
+      router.push(`/itinerary/${pkg.slug}`);
+    }
+  };
+
   return (
     <div className="w-full sm:mt-12 relative overflow-hidden">
       <AnimatedSection>
@@ -78,14 +103,12 @@ const ExpeditionCards = ({
                   className="line-clamp-2"
                 ></p>
                 <div className="flex mt-4 gap-4 lg:gap-6 items-center">
-                  <Link
-                    onClick={() => setPackage(data)}
-                    href={`/booking/${data._id}`}
+                  <button
+                    onClick={() => handleBookNow(data)}
+                    className="bg-blue-500 px-4 lg:px-6 py-1.5 sm:py-2.5 rounded-xl text-white sm:text-xl flex items-center gap-2"
                   >
-                    <button className="bg-blue-500 px-4 lg:px-6 py-1.5 sm:py-2.5 rounded-xl text-white sm:text-xl flex items-center gap-2">
-                      <Calendar size={18} /> Book Now
-                    </button>
-                  </Link>
+                    <Calendar size={18} /> Book Now
+                  </button>
                   <Link href={`/itinerary/${data.slug}`}>
                     <button className="flex gap-2 items-center sm:text-xl hover:text-blue-600">
                       View Details <ArrowRight size={18} />

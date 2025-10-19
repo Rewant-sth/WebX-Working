@@ -401,8 +401,22 @@ const ExpeditionCards: React.FC = () => {
                           <div className="flex  flex-wrap gap-2 sm:gap-3">
                             <button
                               onClick={() => {
-                                openBookingModal(card as any, card.fixedDates?.[0]?._id || null);
-                                router.push(`/itinerary/${card.slug}`);
+                                // Save package data to booking store
+                                if (card.fixedDates && card.fixedDates.length > 0) {
+                                  const firstFixedDate = card.fixedDates[0];
+                                  openBookingModal(
+                                    card as any,
+                                    firstFixedDate._id || null,
+                                    new Date(firstFixedDate.startDate),
+                                    new Date(firstFixedDate.endDate)
+                                  );
+                                  // Redirect to booking page
+                                  router.push(`/booking/${card._id}`);
+                                } else {
+                                  // If no fixed dates, redirect to itinerary page
+                                  openBookingModal(card as any, null);
+                                  router.push(`/itinerary/${card.slug}`);
+                                }
                               }}
                               className="flex-1 bg-[#F05E25] hover:bg-[#E04E1F] text-white font-medium py-2.5 px-4 rounded-md transition-colors duration-200 text-center text-xs sm:text-sm"
                             >
