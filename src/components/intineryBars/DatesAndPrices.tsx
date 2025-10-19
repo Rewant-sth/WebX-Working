@@ -358,7 +358,7 @@ const DatesAndPrices = ({
   pkg: ITravelPackage | null;
   onShowBooking: () => void;
 }) => {
-  const [tripType, setTripType] = useState<'group' | 'private'>('group');
+  const [tripType, setTripType] = useState<'group' | 'private'>('private');
 
 
   return (
@@ -374,15 +374,6 @@ const DatesAndPrices = ({
 
       <div className="flex  items-center mt-6">
         <button
-          onClick={() => setTripType('group')}
-          className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'group'
-            ? 'border-[#01283F] bg-[#01283F] text-white'
-            : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50'
-            }`}
-        >
-          Group Departure
-        </button>
-        <button
           onClick={() => setTripType('private')}
           className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'private'
             ? 'border-[#01283F] bg-[#01283F] text-white'
@@ -391,6 +382,16 @@ const DatesAndPrices = ({
         >
           Private Trip
         </button>
+        <button
+          onClick={() => setTripType('group')}
+          className={`border  px-4 py-2 transition-colors duration-200 ${tripType === 'group'
+            ? 'border-[#01283F] bg-[#01283F] text-white'
+            : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50'
+            }`}
+        >
+          Fixed Departure
+        </button>
+
       </div>
 
       {tripType === 'group' ? (
