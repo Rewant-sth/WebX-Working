@@ -612,5 +612,5 @@ input[type="date"]::after {
 }
 
 #editor p {
-    @apply text-lg
+    @apply !text-lg
 }

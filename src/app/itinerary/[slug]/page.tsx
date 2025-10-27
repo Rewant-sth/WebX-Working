@@ -217,21 +217,19 @@ const Page = () => {
                       </div>
 
                       {/* <Title data={packageData?.data as ITravelPackage} /> */}
-                      <div className="  z-[80]">
-                        {packageData?.data?.gallery?.length !== 0 && (
-                          <GalleryCarousel slides={packageData?.data?.gallery} />
-                        )}
-
-                        {packageData?.data?.gallery?.length === 0 && (
+                          <div className="  z-[80]">
                           <div className="h-dvh w-dvw relative">
+                              <div className="absolute flex flex-col items-center text-center inset-0 text-white bg-black/15 z-[100] p-6 py-20">
+                                <h2 className="text-2xl lg:text-4xl font-medium ">{packageData?.data?.name || "Travel day Itinerary"}</h2>
+                                <div className="line-clamp-2 max-w-4xl mx-auto mt-4 text-lg" dangerouslySetInnerHTML={{ __html: packageData?.data?.overview || "" }}></div>
+                              </div>
                             <Image
                               src={"/EVEREST REGION/NIKOND50001920.JPG"}
                               alt={`No images available`}
                               fill
                               className="object-cover object-top"
                             />
-                          </div>
-                        )}
+                            </div>
                       </div>
                     </div>
 
@@ -393,7 +391,7 @@ const Page = () => {
                             <div className="relative">
                               <div
                                 ref={noteRef}
-                                className={`text-zinc-800 overflow-hidden transition-all duration-500 ease-in-out ${showFullNote ? 'max-h-[2000px]' : 'max-h-[6rem]'
+                                    className={`text-zinc-800 overflow-hidden transition-all duration-500 ease-in-out ${showFullNote ? 'max-h-full' : 'max-h-[6rem]'
                                   }`}
                                 dangerouslySetInnerHTML={{ __html: packageData.data.note }}
                               />

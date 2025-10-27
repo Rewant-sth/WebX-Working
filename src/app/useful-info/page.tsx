@@ -95,7 +95,7 @@ const UsefulInfoPage = () => {
     };
 
     return (
-        <div className="min-h-screen   mx-auto">
+        <div className="min-h-screen h-full   mx-auto">
 
             <div className="grid md:grid-cols-2  gap-8 lg:gap-14">
 
@@ -148,11 +148,11 @@ const UsefulInfoPage = () => {
                                 <div
                                     id={`panel-${item._id}`}
                                     className="mt-3 prose max-w-none text-zinc-700  overflow-hidden transition-[max-height] duration-300 ease-in-out"
-                                    style={{ maxHeight: isOpen ? '600px' : '0px' }}
+                                    style={{ maxHeight: isOpen ? '100%' : '0px' }}
                                     aria-hidden={!isOpen}
                                 >
-                                    <div className={`pt-2 transition-opacity duration-200 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
-                                        <div dangerouslySetInnerHTML={{ __html: item.description }}></div>
+                                    <div className={`pt-2 transition-opacity text-base duration-200 ${isOpen ? 'opacity-100' : 'opacity-0'}`}>
+                                        <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></div>
                                     </div>
                                 </div>
                             </div>

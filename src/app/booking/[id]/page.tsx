@@ -16,6 +16,7 @@ import BookingFormSkeleton from "./_components/Skeleton";
 import { IFixedDate } from "@/types/IPackages";
 import Image from "next/image";
 import { formSchema, FormDateInput, FormInput, FormSelect } from "./_components/utils";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 
 export default function BookingForm() {
@@ -29,6 +30,7 @@ export default function BookingForm() {
   const autoCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const clearBookingData = useBookingStore((state) => state.clearBookingData);
   const [travelerCount, setTravelerCount] = useState(1);
+  const [showPaymentInfo, setShowPaymentInfo] = useState(false);
 
   const { control, register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
     resolver: zodResolver(formSchema),
@@ -786,10 +788,11 @@ export default function BookingForm() {
 
             {/* Right Column - Booking Summary */}
             <div className="lg:w-96">
-              <div className="sticky top-6 bg-white lg:p-6 rounded-sm lg:border border-zinc-200">
+              <div className="sticky top-6 space-y-3">
+                <div className=" bg-white lg:p-6 rounded-sm lg:border border-zinc-200">
                 <h2 className="text-xl font-bold text-zinc-800 mb-6">Booking Summary</h2>
 
-                <div className="space-y-4 mb-6">
+                  <div className="space-y-4 mb-2">
                   {/* Package Info */}
                   <div className="pb-3 border-b border-zinc-200">
                     <div className="flex justify-between items-start">
@@ -878,6 +881,7 @@ export default function BookingForm() {
                   )}
 
                   {/* Total */}
+
                   <div className="pt-4 border-t border-zinc-300">
                     <div className="flex justify-between items-center">
                       <span className="text-lg text-zinc-800 font-semibold">Total Amount:</span>
@@ -906,8 +910,21 @@ export default function BookingForm() {
                     "Confirm Booking"
                   )}
                 </button>
+
+
+
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPaymentInfo(true)}
+                  className="flex text-[#f05e25] font-semibold gap-2 items-center hover:text-orange-600 transition-colors"
+                >
+                  <Icon icon={'fluent:info-48-regular'} className="size-5" />
+                  Payment info
+                </button>
               </div>
             </div>
+
           </div>
         </form >
       </div >
@@ -950,6 +967,75 @@ export default function BookingForm() {
                     <p className="text-zinc-700 text-center">{bookingResult.message}</p>
                   </>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Payment Info Modal */}
+      {showPaymentInfo && (
+        <div className="backdrop-blur-sm flex items-center justify-center p-4 fixed inset-0 bg-black/30 z-[9999999]">
+          <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full relative">
+            <button
+              onClick={() => setShowPaymentInfo(false)}
+              className="absolute top-4 right-4 hover:bg-gray-100 rounded-full p-1 transition-colors"
+            >
+              <X className="size-6" />
+            </button>
+
+            <div className="p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="">
+                  <Icon icon={'ph:info-fill'} className="size-7 text-orange-600" />
+                </div>
+                <h2 className="text-xl font-semibold text-zinc-800">Payment Information</h2>
+              </div>
+
+              <div className="space-y-4 rounded-2xl p-4 bg-zinc-100/70">
+                <img src="/logo/global.png" alt="global bank logo" className="w-52" />
+                <div className="">
+
+                  <div className="space-y-3 grid lg:grid-cols-2">
+                    <div>
+                      <p className="text-base text-zinc-800 mb-1">A/C Holder Name</p>
+                      <p className="font-medium text-orange-500 text-lg">Real Himalaya Pvt. Ltd</p>
+                    </div>
+
+                    <div>
+                      <p className="text-base text-zinc-800 mb-1">A/C Holder Address</p>
+                      <p className="font-medium text-orange-500 text-lg">Changunarayan 3, Bhaktapur, Nepal</p>
+                    </div>
+
+                    <div>
+                      <p className="text-base text-zinc-800 mb-1">A/C Number</p>
+                      <p className="font-medium text-orange-500 text-lg font-mono">00101020005129</p>
+                    </div>
+
+                    <div>
+                      <p className="text-base text-zinc-800 mb-1">Bank Name</p>
+                      <p className="font-medium text-orange-500 text-lg">Global IME Bank Ltd</p>
+                    </div>
+
+                    <div>
+                      <p className="text-base text-zinc-800 mb-1">Bank Address</p>
+                      <p className="font-medium text-orange-500 text-lg">Kantipath branch, Kathmandu, Nepal</p>
+                    </div>
+
+                    <div>
+                      <p className="text-base text-zinc-800 mb-1">SWIFT Code</p>
+                      <p className="font-medium text-orange-500 text-lg font-mono">GLBBNPKA</p>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div className="mt-4">
+                <p className="">
+                  <strong>Note:</strong> Please use these bank details for wire transfer or direct bank deposit. After payment, kindly share the transaction receipt with us.
+                </p>
               </div>
             </div>
           </div>
