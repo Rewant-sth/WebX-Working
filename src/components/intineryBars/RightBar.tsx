@@ -72,8 +72,8 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
               data?.fixedDates.length !== undefined && data?.fixedDates.length > 0 && (
                 <div className="text-center  mb-4">
                   <div className="flex lg:flex-col justify-center items-center gap-2 2xl:flex-row  mb-3">
-                    <span className="text-xl  font-semibold" >Starting From   </span>
-                    <span className="text-2xl font-medium text-[#f05e25]"> US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/person</span>
+                    <span className="text-  font-semibold" >Starting Price   </span>
+                    <span className="text-xl font-medium text-[#f05e25]"> US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/person</span>
                   </div>
                 </div>
               )

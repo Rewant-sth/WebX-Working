@@ -614,3 +614,11 @@ input[type="date"]::after {
 #editor p {
     @apply !text-lg
 }
+#editor strong {
+    font-weight: 600;
+}
+
+#editor h2 {
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
