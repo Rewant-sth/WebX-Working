@@ -73,7 +73,7 @@ const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage
                 <div className="text-center  mb-4">
                   <div className="flex lg:flex-col justify-center items-center gap-2 2xl:flex-row  mb-3">
                     <span className="text-  font-semibold" >Starting Price   </span>
-                    <span className="text-xl font-medium text-[#f05e25]"> US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/person</span>
+                    <span className="text-2xl font-medium text-[#f05e25]"> US$ {data?.fixedDates[0]?.pricePerPerson || "N/A"}/<span className="text-xl">person</span></span>
                   </div>
                 </div>
               )

@@ -218,13 +218,13 @@ const Page = () => {
 
                       {/* <Title data={packageData?.data as ITravelPackage} /> */}
                           <div className="  z-[80]">
-                          <div className="h-dvh w-dvw relative">
-                              <div className="absolute flex flex-col items-start justify-center text-center inset-0 text-white bg-black/15 z-[100] p-6 py-20">
-                                <h2 className="text-2xl lg:text-4xl xl:text-5xl font-medium ">{packageData?.data?.name || "Travel day Itinerary"}</h2>
+                            <div className=" h-[60dvh] sm:min-h-screen w-dvw relative">
+                              <div className="absolute flex flex-col items-start justify-center  inset-0 text-white bg-black/15 z-[100] p-6 py-20">
+                                <h2 className="text-2xl line-clamp-2 sm:text-4xl md:text-5xl max-w-3xl uppercase font-bold text-white  text-left">{packageData?.data?.name || "Travel day Itinerary"}</h2>
                                 <div className="line-clamp-2 text-left max-w-3xl  mt-4 text-lg lg:text-xl" dangerouslySetInnerHTML={{ __html: packageData?.data?.overview || "" }}></div>
                               </div>
                             <Image
-                              src={"/EVEREST REGION/NIKOND50001920.JPG"}
+                                src={packageData?.data?.coverImage || "/EVEREST REGION/NIKOND50001920.JPG"}
                               alt={`No images available`}
                               fill
                               className="object-cover object-top"
