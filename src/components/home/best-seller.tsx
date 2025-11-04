@@ -7,6 +7,7 @@ import { ITravelPackage, ITravelPackageResponse } from "@/types/IPackages";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import useEmblaCarousel from 'embla-carousel-react';
 import Link from "next/link";
+import api from "@/service/api";
 
 function BestSeller() {
     const [bestSellingPackage, setBestSellingPackage] = useState<ITravelPackage[]>([]);
@@ -38,11 +39,8 @@ function BestSeller() {
     const fetchbestSellingPackage = async () => {
         try {
             setLoading(true);
-            const response = await fetch('https://rhapi.webxnepal.com/api/v1/get-best-seller', { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error('Failed to fetch best-selling packages');
-            }
-            const data: ITravelPackageResponse = await response.json();
+            const res = await api.get('/get-best-seller');
+            const data: ITravelPackageResponse = res.data;
             setBestSellingPackage(data.data || []);
             setError(null);
         } catch (err) {
