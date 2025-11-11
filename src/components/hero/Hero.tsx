@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import React, { useLayoutEffect, useRef } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll'
+import Image from 'next/image'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -147,13 +148,13 @@ export default function Hero() {
         className="absolute top-[0%] max-w-screen h-[150dvh] w-full z-[50] pointer-events-none"
       >
         <div className="relative h-full max-w-screen  ">
-          <img src="/himal.png" alt="hero" className="w-full h-full object-cover object-top" />
+          <Image height={1200} width={1400} src="/himal.png" quality={80} alt="hero" className="w-full h-full object-cover object-top" />
         </div>
       </div>
 
 
       <div ref={leftRef} className="absolute left-cloud bottom-10 left-0 -translate-x-1/2  z-[70]">
-        <img src="/cloud_1.webp" alt="cloud" className='-translate-x-20 z-[70]' />
+        <Image height={1200} width={1400} src="/cloud_1.webp" alt="cloud" className='-translate-x-20 z-[70] w-auto h-auto' />
       </div>
       <div ref={rightRef} className="absolute right-cloud bottom-10   right-0 translate-x-1/2  z-[70]">
         <img src="/cloud_2.webp" alt="cloud" className='translate-x-16' />

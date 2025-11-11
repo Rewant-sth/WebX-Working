@@ -16,7 +16,7 @@ export default function Footer() {
 
 
   return (
-    <footer id='footer' ref={footerRef} className="w-screen  relative  flex flex-col justify-end items-end   ">
+    <footer id='footer' ref={footerRef} className="w-screen max-w-[2000px] mx-auto  relative  flex flex-col justify-end items-end   ">
 
       {/* footer expert part */}
 
@@ -28,7 +28,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="  md:bottom-20 right-0 left-0 w-screen  overflow-hidden">
+      <div className="  md:bottom-20 max-w-[2000px] mx-auto right-0 left-0 w-screen  overflow-hidden">
         <img src="/Footer/line.png" alt="mountain" className='opacity-80 brightness-90 w-full' />
       </div>
 

@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${dancingScript.variable}`} suppressHydrationWarning>
+      <body className={`${dancingScript.variable} max-w-[2000px] mx-auto`} suppressHydrationWarning>
         <TrackVisitors />
         <Providers>
           <LayoutWrapper>

@@ -424,7 +424,7 @@ const Page = () => {
                         )}
 
 
-                        {packageData?.data.fixedDates?.length ? (
+                            {packageData?.data?.fixedDates?.length ? (
                           <DatesAndPrices
                             onShowBooking={handleOpenBookingModal}
                             pkg={packageData.data}
@@ -443,23 +443,23 @@ const Page = () => {
                         ) : null}
 
 
-                        {packageData?.data?.insurance.length ? (
+                            {packageData?.data?.insurance?.length ? (
                           <Insurance data={packageData?.data} />
                         ) : null}
 
                         {/* <Divider images={packageData?.data?.gallery as IGallery[]} /> */}
 
-                        {packageData?.data?.gearInfo.length ? (
+                            {packageData?.data?.gearInfo?.length ? (
                           <Gear data={packageData?.data} />
                         ) : null}
-                        {packageData?.data?.whyLoveThisTrek.length ? (
+                            {packageData?.data?.whyLoveThisTrek?.length ? (
                           <WhyLoveThis data={packageData?.data} />
                         ) : null}
-                        {packageData?.data?.importantNotice.length ? (
+                            {packageData?.data?.importantNotice?.length ? (
                           <ImportantNotice data={packageData?.data} />
                         ) : null}
 
-                        {packageData?.data?.faq.length ? (
+                            {packageData?.data?.faq?.length ? (
                           <Faq faq={packageData?.data?.faq} />
                         ) : null}
                         {packageData?.data?.testimonial.length ? (

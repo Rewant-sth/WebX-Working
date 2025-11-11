@@ -155,6 +155,7 @@ function TrekPage() {
                       src={pkg.coverImage || "/placeholder.webp"}
                       alt={pkg.name}
                       fill
+                      quality={80}
                       className="object-cover group-hover:blur-xs transition-all duration-500"
                     />
                     <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-between">
