@@ -31,7 +31,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
                             </h3>
                             <div
                                 className="text-sm leading-relaxed  text-zinc-800"
-                                id="editor" dangerouslySetInnerHTML={{ __html: item.description.replace(/&nbsp;/g, "<br />") }}
+                                id="editor" dangerouslySetInnerHTML={{ __html: item?.description?.replace(/&nbsp;/g, "<br />") }}
                             />
                         </div>
                     </div>

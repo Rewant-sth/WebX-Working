@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, CheckCircle2, Loader2, Minus, Plus, X, XCircle } from "lucide-react";
+import { ArrowLeft, Minus, Plus } from "lucide-react";
 import Banner from "@/components/bookingBanner/Banner";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +16,10 @@ import BookingFormSkeleton from "./_components/Skeleton";
 import { IFixedDate } from "@/types/IPackages";
 import Image from "next/image";
 import { formSchema, FormDateInput, FormInput, FormSelect } from "./_components/utils";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import PaymentInfoDialog from "./_components/PaymentInfoDialog";
+import BookingResultModal from "./_components/BookingResultModal";
+import InclusionExclusionDialog from "./_components/InclusionExclusionDialog";
+import BookingSummary from "./_components/BookingSummary";
 
 
 export default function BookingForm() {
@@ -31,6 +34,7 @@ export default function BookingForm() {
   const clearBookingData = useBookingStore((state) => state.clearBookingData);
   const [travelerCount, setTravelerCount] = useState(1);
   const [showPaymentInfo, setShowPaymentInfo] = useState(false);
+  const [showInclusionExclusion, setShowInclusionExclusion] = useState(false);
 
   const { control, register, handleSubmit, formState: { errors }, setValue, watch } = useForm({
     resolver: zodResolver(formSchema),
@@ -787,260 +791,52 @@ export default function BookingForm() {
             </div>
 
             {/* Right Column - Booking Summary */}
-            <div className="lg:w-96">
-              <div className="sticky top-6 space-y-3">
-                <div className=" bg-white lg:p-6 rounded-sm lg:border border-zinc-200">
-                <h2 className="text-xl font-bold text-zinc-800 mb-6">Booking Summary</h2>
-
-                  <div className="space-y-4 mb-2">
-                  {/* Package Info */}
-                  <div className="pb-3 border-b border-zinc-200">
-                    <div className="flex justify-between items-start">
-                      <span className="text-zinc-800 font-semibold text-sm">Package:</span>
-                      <span className="font-bold text-right text-sm text-orange-500 max-w-[200px]">{packageData?.data?.name}</span>
-                    </div>
-                  </div>
-
-                  {/* Pricing Breakdown */}
-                  <div className="pb-3 border-b border-zinc-200">
-                    <h4 className="text-zinc-800 font-semibold mb-3">Pricing Details</h4>
-
-                    {/* Show applied pax or standard pricing */}
-                    {appliedPax && (
-                      <div className="flex justify-between items-start ">
-                        <span className="text-zinc-800 font-semibold text-sm">
-                          {appliedPax.min}-{appliedPax.max} Pax Rate
-                        </span>
-                      </div>
-                    )}
-                    <div className="flex justify-between  ">
-                      <span className="text-zinc-600 font-medium text-xs">{travelerCount} Traveler{travelerCount > 1 ? 's' : ''} × ${pricePerPerson.toFixed(0)}</span>
-                      <span className="font-bold  leading-0  text-orange-500">
-                        ${(pricePerPerson * travelerCount).toFixed(0)}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Trip Details */}
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-zinc-800 font-semibold">Total Travelers:</span>
-                      <span className="font-bold text-orange-500">{travelerCount}</span>
-                    </div>
-
-                    <div className="flex justify-between text-sm">
-                      <span className="text-zinc-800 font-semibold">Price per Traveler:</span>
-                      <span className="font-bold text-orange-500">${pricePerPerson.toFixed(0)}</span>
-                    </div>
-
-                    <div className="flex justify-between text-sm">
-                      <span className="text-zinc-800 font-semibold">Arrival Date:</span>
-                      <span className="font-bold text-orange-500">
-                        {arrivalDate ? new Date(arrivalDate).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        }) : 'Not selected'}
-                      </span>
-                    </div>
-
-                    {departureDate && (
-                      <div className="flex justify-between text-sm">
-                        <span className="text-zinc-800 font-semibold">Departure Date:</span>
-                        <span className="font-bold text-orange-500">
-                          {new Date(departureDate).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Selected Add-ons */}
-                  {selectedAddons && selectedAddons.length > 0 && (
-                    <div className="pt-3 border-t border-zinc-200">
-                      <h4 className="text-zinc-800 font-semibold mb-3 text-sm flex items-center gap-2">
-                        <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
-                        </svg>
-                        Add-ons ({selectedAddons.length})
-                      </h4>
-                      <div className="space-y-2">
-                        {packageData?.data?.addons
-                          ?.filter((addon: any) => selectedAddons.includes(addon._id))
-                          ?.map((addon: any) => (
-                            <div key={addon._id} className="flex justify-between items-center text-sm ">
-                              <span className="text-zinc-800 font-medium">{addon.name}</span>
-                              <span className="font-bold text-orange-500">+${addon.price}</span>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Total */}
-
-                  <div className="pt-4 border-t border-zinc-300">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg text-zinc-800 font-semibold">Total Amount:</span>
-                      <div className="text-2xl font-bold text-orange-500">
-                        ${totalAmount.toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className={`w-full py-3 px-4 rounded-sm font-medium transition flex items-center justify-center ${isLoading
-                    ? "bg-zinc-400 cursor-not-allowed"
-                    : "bg-orange-600 hover:bg-orange-700 text-white"
-                    }`}
-                >
-                  {isLoading ? (
-                    <span className="flex items-center">
-                      <Loader2 className="animate-spin mr-2" size={20} />
-                      Processing...
-                    </span>
-                  ) : (
-                    "Confirm Booking"
-                  )}
-                </button>
-
-
-
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setShowPaymentInfo(true)}
-                  className="flex text-[#f05e25] font-semibold gap-2 items-center hover:text-orange-600 transition-colors"
-                >
-                  <Icon icon={'fluent:info-48-regular'} className="size-5" />
-                  Payment info
-                </button>
-              </div>
-            </div>
+            <BookingSummary
+              packageName={packageData?.data?.name}
+              travelerCount={travelerCount}
+              pricePerPerson={pricePerPerson}
+              arrivalDate={arrivalDate}
+              departureDate={departureDate}
+              selectedAddons={selectedAddons || []}
+              addons={packageData?.data?.addons || []}
+              totalAmount={totalAmount}
+              appliedPax={appliedPax}
+              isLoading={isLoading}
+              onPaymentInfoClick={() => setShowPaymentInfo(true)}
+              onInclusionExclusionClick={() => setShowInclusionExclusion(true)}
+            />
 
           </div>
         </form >
       </div >
 
-      {/* Success/Error Modal */}
-      {showResultModal && (
-        <div className="backdrop-blur-lg flex items-center justify-center p-4 fixed inset-0 bg-black/30 z-[9999999] h-full">
-          <div className="h-full w-full relative">
-            <div className="h-screen sticky top-0 flex justify-center items-center">
-              <div className="flex flex-col justify-center bg-white items-center p-8 py-12 relative rounded-lg shadow-lg max-w-2xl w-full">
-                <button
-                  onClick={() => {
-                    if (autoCloseTimeoutRef.current) {
-                      clearTimeout(autoCloseTimeoutRef.current);
-                    }
-                    setShowResultModal(false);
-                    if (bookingResult.success) {
-                      router.push("/");
-                    }
-                  }}
-                  className="absolute top-4 right-4 hover:bg-gray-100 rounded-full p-1 transition-colors"
-                >
-                  <X className="size-6" />
-                </button>
+      {/* Modals */}
+      <BookingResultModal
+        isOpen={showResultModal}
+        success={bookingResult.success}
+        message={bookingResult.message}
+        onClose={() => {
+          if (autoCloseTimeoutRef.current) {
+            clearTimeout(autoCloseTimeoutRef.current);
+          }
+          setShowResultModal(false);
+          if (bookingResult.success) {
+            router.push("/");
+          }
+        }}
+      />
 
-                {bookingResult.success ? (
-                  <>
-                    <div className="flex justify-center items-center text-green-600 mb-4">
-                      <CheckCircle2 className="size-16" />
-                    </div>
-                    <h2 className="text-2xl font-bold mb-4 text-center">Booking Successful!</h2>
-                    <p className="text-zinc-700 text-center">{bookingResult.message}</p>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex justify-center items-center text-red-600 mb-4">
-                      <XCircle className="size-16" />
-                    </div>
-                    <h2 className="text-2xl font-bold mb-4 text-center">Booking Failed</h2>
-                    <p className="text-zinc-700 text-center">{bookingResult.message}</p>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <PaymentInfoDialog
+        isOpen={showPaymentInfo}
+        onClose={() => setShowPaymentInfo(false)}
+      />
 
-      {/* Payment Info Modal */}
-      {showPaymentInfo && (
-        <div className="backdrop-blur-sm flex items-center justify-center p-4 fixed inset-0 bg-black/30 z-[9999999]">
-          <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full relative">
-            <button
-              onClick={() => setShowPaymentInfo(false)}
-              className="absolute top-4 right-4 hover:bg-gray-100 rounded-full p-1 transition-colors"
-            >
-              <X className="size-6" />
-            </button>
-
-            <div className="p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="">
-                  <Icon icon={'ph:info-fill'} className="size-7 text-orange-600" />
-                </div>
-                <h2 className="text-xl font-semibold text-zinc-800">Payment Information</h2>
-              </div>
-
-              <div className="space-y-4 rounded-2xl p-4 bg-zinc-100/70">
-                <img src="/logo/global.png" alt="global bank logo" className="w-52" />
-                <div className="">
-
-                  <div className="space-y-3 grid lg:grid-cols-2">
-                    <div>
-                      <p className="text-base text-zinc-800 mb-1">A/C Holder Name</p>
-                      <p className="font-medium text-orange-500 text-lg">Real Himalaya Pvt. Ltd</p>
-                    </div>
-
-                    <div>
-                      <p className="text-base text-zinc-800 mb-1">A/C Holder Address</p>
-                      <p className="font-medium text-orange-500 text-lg">Changunarayan 3, Bhaktapur, Nepal</p>
-                    </div>
-
-                    <div>
-                      <p className="text-base text-zinc-800 mb-1">A/C Number</p>
-                      <p className="font-medium text-orange-500 text-lg font-mono">00101020005129</p>
-                    </div>
-
-                    <div>
-                      <p className="text-base text-zinc-800 mb-1">Bank Name</p>
-                      <p className="font-medium text-orange-500 text-lg">Global IME Bank Ltd</p>
-                    </div>
-
-                    <div>
-                      <p className="text-base text-zinc-800 mb-1">Bank Address</p>
-                      <p className="font-medium text-orange-500 text-lg">Kantipath branch, Kathmandu, Nepal</p>
-                    </div>
-
-                    <div>
-                      <p className="text-base text-zinc-800 mb-1">SWIFT Code</p>
-                      <p className="font-medium text-orange-500 text-lg font-mono">GLBBNPKA</p>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <div className="mt-4">
-                <p className="">
-                  <strong>Note:</strong> Please use these bank details for wire transfer or direct bank deposit. After payment, kindly share the transaction receipt with us.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <InclusionExclusionDialog
+        isOpen={showInclusionExclusion}
+        onClose={() => setShowInclusionExclusion(false)}
+        inclusions={packageData?.data?.inclusion?.map(item => item.description) || []}
+        exclusions={packageData?.data?.exclusion?.map(item => item.description) || []}
+      />
     </>
   );
 }
