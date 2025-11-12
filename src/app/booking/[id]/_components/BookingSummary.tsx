@@ -16,6 +16,8 @@ interface BookingSummaryProps {
   isLoading: boolean;
   onPaymentInfoClick: () => void;
   onInclusionExclusionClick: () => void;
+  inclusions: string[];
+  exclusions: string[];
 }
 
 export default function BookingSummary({
@@ -30,8 +32,12 @@ export default function BookingSummary({
   appliedPax,
   isLoading,
   onPaymentInfoClick,
-  onInclusionExclusionClick
+  onInclusionExclusionClick,
+  inclusions,
+  exclusions
 }: BookingSummaryProps) {
+  const displayInclusions = inclusions?.slice(0, 2);
+  const hasMoreInclusions = inclusions?.length > 3 || exclusions?.length > 0;
   return (
     <div className="lg:w-96">
       <div className="sticky top-6 space-y-3">
@@ -106,13 +112,13 @@ export default function BookingSummary({
             </div>
 
             {/* Selected Add-ons */}
-            {selectedAddons && selectedAddons.length > 0 && (
+            {selectedAddons && selectedAddons?.length > 0 && (
               <div className="pt-3 border-t border-zinc-200">
                 <h4 className="text-zinc-800 font-semibold mb-3 text-sm flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
                   </svg>
-                  Add-ons ({selectedAddons.length})
+                  Add-ons ({selectedAddons?.length})
                 </h4>
                 <div className="space-y-2">
                   {addons
@@ -124,6 +130,36 @@ export default function BookingSummary({
                       </div>
                     ))}
                 </div>
+              </div>
+            )}
+
+            {/* Inclusions Preview */}
+            {displayInclusions?.length > 0 && (
+              <div className="pt-3 border-t border-zinc-200">
+                <h4 className="text-zinc-800 font-semibold mb-3 text-sm flex items-center gap-2">
+                  What's Included
+                </h4>
+                <div className="space-y-2">
+                  {displayInclusions?.map((item, index) => (
+                    <div key={index} className="flex items-start gap-2 text-sm text-zinc-600">
+                      <Icon icon={'mdi:check'} className="size-4 text-green-600 mt-0.5 shrink-0" />
+                      <span 
+                        className="line-clamp-2"
+                        dangerouslySetInnerHTML={{ __html: item.replace("●","") }} 
+                      />
+                    </div>
+                  ))}
+                </div>
+                {hasMoreInclusions && (
+                  <button
+                    type="button"
+                    onClick={onInclusionExclusionClick}
+                    className="mt-3 text-xs text-orange-600 hover:text-orange-700 font-medium flex items-center gap-1"
+                  >
+                    View All Details
+                    <Icon icon={'mdi:arrow-right'} className="size-4" />
+                  </button>
+                )}
               </div>
             )}
 
@@ -158,26 +194,15 @@ export default function BookingSummary({
           </button>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col gap-2">
-          <button
-            type="button"
-            onClick={onInclusionExclusionClick}
-            className="flex text-[#f05e25] font-semibold gap-2 items-center hover:text-orange-600 transition-colors"
-          >
-            <Icon icon={'mdi:information-outline'} className="size-5" />
-            Cost Includes & Excludes
-          </button>
-
-          <button
-            type="button"
-            onClick={onPaymentInfoClick}
-            className="flex text-[#f05e25] font-semibold gap-2 items-center hover:text-orange-600 transition-colors"
-          >
-            <Icon icon={'fluent:info-48-regular'} className="size-5" />
-            Payment Info
-          </button>
-        </div>
+        {/* Action Button */}
+        <button
+          type="button"
+          onClick={onPaymentInfoClick}
+          className="flex text-[#f05e25] font-semibold gap-2 items-center hover:text-orange-600 transition-colors"
+        >
+          <Icon icon={'fluent:info-48-regular'} className="size-5" />
+          Payment Information
+        </button>
       </div>
     </div>
   );

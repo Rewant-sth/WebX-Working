@@ -705,6 +705,7 @@ export default function BookingForm() {
                             )}
 
                             {/* Addon info */}
+                            
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-2">
                                 <div className="flex-1">
@@ -804,6 +805,8 @@ export default function BookingForm() {
               isLoading={isLoading}
               onPaymentInfoClick={() => setShowPaymentInfo(true)}
               onInclusionExclusionClick={() => setShowInclusionExclusion(true)}
+              inclusions={packageData?.data?.inclusion?.map(item => item.description) || []}
+              exclusions={packageData?.data?.exclusion?.map(item => item.description) || []}
             />
 
           </div>
