@@ -129,7 +129,6 @@ const ItineraryDay = ({
 const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
   const [showAll, setShowAll] = useState(false);
 
-  // When showAll is true we show the full itinerary, otherwise show the first 5 days
   const displayedData = showAll ? data : data?.slice(0, 5);
   const hasMoreItems = !!data && data.length > 5;
 

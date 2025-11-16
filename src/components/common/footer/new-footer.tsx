@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React from 'react'
 import TalkToExperts from './TalkToExperts/TalkToExperts';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -59,6 +60,15 @@ export default function Footer() {
               </div>
             </div>
 
+            <div className="flex ga-8 items-center">
+                            <p className='md:text-xl shrink-0'>Associated With : </p>
+                            <div className="flex gap-2 items-center pl-4">
+                              {['/brands/associated1.webp', '/brands/associated2.webp', '/brands/associated3.webp'].map((src, idx)=>(
+                              <Image src={src} key={idx} alt="associated with" width={100} height={100} className='w-10' />
+                            ))}
+                            </div>
+            </div>
+
             <div className="flex gap-4 md:gap-6 flex-wrap items-center">
               <p className='md:text-xl shrink-0'>We Accept : </p>
               <div className="">
@@ -68,6 +78,8 @@ export default function Footer() {
               </div>
             </div>
           </div>
+
+
           <div className="border-t p-6 border-dashed pt-4 pb-2 text-sm mt-4 w-full flex flex-col justify-center md:justify-between items-center gap-2  flex-wrap mx-auto">
 
             <div className=" w-full mx-auto">
