@@ -145,7 +145,7 @@ export default function BookingSummary({
                       <Icon icon={'mdi:check'} className="size-4 text-green-600 mt-0.5 shrink-0" />
                       <span 
                         className="line-clamp-2"
-                        dangerouslySetInnerHTML={{ __html: item.replace("●","") }} 
+                        dangerouslySetInnerHTML={{ __html: item?.replace("●","") }} 
                       />
                     </div>
                   ))}

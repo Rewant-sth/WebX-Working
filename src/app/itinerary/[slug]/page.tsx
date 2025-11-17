@@ -170,26 +170,7 @@ const Page = () => {
 
   return (
     <div className="h-full min-h-screen ">
-
-      {showBookingModal && (storePackage || packageData?.data) ? (
-        <div className="min-h-screen h-full"
-          style={{
-            backgroundImage: "url('/screenshot.png')",
-            backgroundAttachment: "fixed",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "contain",
-          }}
-        >
-          <div className="h-full   w-full bg-black/50 backdrop-blur-lg">
-            <BookingModal
-              packageData={(storePackage || packageData?.data) as ITravelPackage}
-              onClose={handleCloseBookingModal}
-            />
-          </div>
-        </div>)
-        : (
-          <>
+<>
             {showContactModal ? (
               <div className="min-h-screen"
                 style={{
@@ -508,10 +489,6 @@ const Page = () => {
               </div>
             )}
           </>
-        )
-      }
-
-
     </div>
   );
 };
