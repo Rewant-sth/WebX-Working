@@ -38,86 +38,86 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             id: "major-highlights",
             label: "Highlights",
             icon: (
-                <Icon icon="lineicons:bulb-4" strokeWidth={4} className="size-6" />
+                <Icon icon="lineicons:bulb-4" strokeWidth={4} className="size-5" />
             ),
             condition: (data) => data?.attraction?.length > 0,
         },
         {
             id: "seasonal-info",
             label: "Seasons",
-            icon: <Icon icon="ph:snowflake" className="size-6 scale-110" />,
+            icon: <Icon icon="ph:snowflake" className="size-5 scale-110" />,
             condition: (data) => Array.isArray(data?.seasonalTrek) && data.seasonalTrek.length > 0,
         },
         {
             id: "overview",
             label: "Overview",
-            icon: <Icon icon="si:info-line" className="size-6" />,
+            icon: <Icon icon="si:info-line" className="size-5" />,
         },
         {
             id: "itinerary",
             label: "Itinerary",
-            icon: <Icon icon={"guidance:calendar"} strokeWidth={1.3} className="size-6" />,
+            icon: <Icon icon={"guidance:calendar"} strokeWidth={1.3} className="size-5" />,
             condition: (data) => data?.itinerary?.length > 0,
         },
         {
             id: "date-&-prices",
             label: "Dates & Prices",
-            icon: <Icon strokeWidth={0.5} icon={"ph:calendar-dots"} className="size-6 scale-110" />,
+            icon: <Icon strokeWidth={0.5} icon={"ph:calendar-dots"} className="size-5 scale-110" />,
             condition: (data) => data?.fixedDates?.length > 0,
         },
         {
             id: "inclusion-&-exclusion",
             label: "Cost Info",
-            icon: <Icon strokeWidth={1} icon={"ep:coin"} className="size-7 " />,
+            icon: <Icon strokeWidth={1} icon={"ep:coin"} className="size-5 " />,
             condition: (data) => data?.inclusion?.length > 0,
         },
         {
             id: "requirements",
             label: "Requirements",
-            icon: <Icon icon={"pepicons-pop:list-circle"} className="size-6" />,
+            icon: <Icon icon={"pepicons-pop:list-circle"} className="size-5" />,
             condition: (data) => data?.requirements?.length > 0,
         },
         {
             id: "route-map",
             label: "Route Map",
-            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-6" />,
+            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-5" />,
             condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
             id: "gear",
             label: "Gear Info",
-            icon: <Icon icon={"streamline-ultimate:chef-gear-gloves"} className="size-6" />,
+            icon: <Icon icon={"streamline-ultimate:chef-gear-gloves"} className="size-5" />,
             condition: (data) => data?.gearInfo?.length > 0,
         },
         {
             id: "insurance",
             label: "Insurance",
-            icon: <Icon icon={"fluent-mdl2:health-refresh"} className="size-6" />,
+            icon: <Icon icon={"fluent-mdl2:health-refresh"} className="size-5" />,
             condition: (data) => data?.insurance?.length > 0,
         },
         {
             id: "why-love-this",
             label: "Why Love This",
-            icon: <Icon icon={"solar:smile-circle-linear"} className="size-6" />,
+            icon: <Icon icon={"solar:smile-circle-linear"} className="size-5" />,
             condition: (data) => data?.whyLoveThisTrek?.length > 0,
         },
         {
             id: "important-notice",
             label: "Important Notice",
-            icon: <Icon icon={"hugeicons:alert-square"} className="size-6" />,
+            icon: <Icon icon={"hugeicons:alert-square"} className="size-5" />,
             condition: (data) => data?.importantNotice?.length > 0,
         },
 
         {
             id: "traveller-review",
             label: "Reviews",
-            icon: <Users className="size-6" />,
+            icon: <Users className="size-5" />,
             condition: (data) => data?.testimonial?.length > 0,
         },
         {
             id: "faqs",
             label: "FAQs",
-            icon: <Icon icon={"streamline-ultimate:contact-us-faq"} className="size-6" />,
+            icon: <Icon icon={"streamline-ultimate:contact-us-faq"} className="size-5" />,
             condition: (data) => data?.faq?.length > 0,
         },
     ];
@@ -276,7 +276,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
                                 <button
                                     key={section.id}
                                     onClick={() => handleScrollToSection(section.id)}
-                                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-sm  font-medium transition-all duration-300 text-left ${activeSection === section.id
+                                    className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-sm  font-medium transition-all duration-300 text-left ${activeSection === section.id
                                         ? "bg-orange-500 text-white "
                                         : "text-zinc-700 hover:bg-orange-50 hover:text-orange-600"
                                         }`}

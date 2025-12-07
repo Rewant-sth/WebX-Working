@@ -14,14 +14,13 @@ import Insurance from "../../../components/tripGlance/Insurance";
 import Gear from "../../../components/tripGlance/Gear";
 import WhyLoveThis from "../../../components/tripGlance/WhyLoveThis";
 import ImportantNotice from "../../../components/tripGlance/ImportantNotice";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getPackagesById } from "@/service/packages";
 import { useQuery } from "@tanstack/react-query";
 import { ITravelPackage } from "@/types/IPackages";
 import SkeletonLoader from "./_components/SkeletonLoader";
 import { useRouter } from "next/navigation";
 import ScrollTracker from "@/components/intineryBars/scroll-tracker";
-import GalleryCarousel from "@/components/intineryBars/gallery/gallery-carousel";
 import RightBar from "@/components/intineryBars/RightBar";
 import OverviewSection from "./_components/OverviewSection";
 import RouteMapModal from "./_components/RouteMapModal";
@@ -31,7 +30,6 @@ import Image from "next/image";
 import EmblaCarousel from "@/components/ui/embla-carousel";
 import VideoReview from "./_components/video-review";
 import ContactModal from "@/components/contact-modal";
-import BookingModal from "@/components/booking-modal";
 import { useBookingStore } from "@/store/booking-store";
 import Link from "next/link";
 
@@ -80,9 +78,12 @@ const Page = () => {
     }
   }, [params.slug, router]);
 
-  const { data: packageData, isLoading } = useQuery({
-    queryKey: ["packageById"],
+  const { data: packageData, isLoading, isError, error } = useQuery({
+    queryKey: ["packageById", params?.slug],
     queryFn: () => getPackagesById(params?.slug as string),
+    enabled: !!params?.slug && params?.slug !== "undefined",
+    retry: 2,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -164,9 +165,6 @@ const Page = () => {
     }
   };
 
-  const handleCloseBookingModal = () => {
-    clearBookingData(); // Clear store on close
-  };
 
   return (
     <div className="h-full min-h-screen ">
@@ -190,6 +188,36 @@ const Page = () => {
 
                 {isLoading ? (
                   <SkeletonLoader />
+              ) : isError ? (
+                <div className="min-h-screen flex flex-col items-center justify-center px-4">
+                  <div className="text-center max-w-md">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-4">Package Not Found</h2>
+                    <p className="text-gray-600 mb-6">
+                      {error instanceof Error ? error.message : "We couldn't load this package. Please try again later."}
+                    </p>
+                    <Link
+                      href="/"
+                      className="inline-block bg-[#FF6A00] text-white px-6 py-3 rounded-lg hover:bg-[#e55f00] transition-colors"
+                    >
+                      Back to Home
+                    </Link>
+                  </div>
+                </div>
+              ) : !packageData?.data ? (
+                <div className="min-h-screen flex flex-col items-center justify-center px-4">
+                  <div className="text-center max-w-md">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-4">No Package Data</h2>
+                    <p className="text-gray-600 mb-6">
+                      This package doesn't have any data available.
+                    </p>
+                    <Link
+                      href="/"
+                      className="inline-block bg-[#FF6A00] text-white px-6 py-3 rounded-lg hover:bg-[#e55f00] transition-colors"
+                    >
+                      Back to Home
+                    </Link>
+                  </div>
+                </div>
                 ) : (
                   <>
                     <div ref={heroRef} className="relative h-[60dvh] sm:min-h-screen  overflow-hidden">
@@ -287,8 +315,6 @@ const Page = () => {
                       </nav>
                     </div>
 
-
-
                     <div className={`w-full relative  h-auto flex flex-col lg:flex-row justify-between gap-6 lg:gap-0  md:px-6 lg:px-10 ${modalOpen ? "filter blur-2xl" : ""}`}>
 
                       {/* Left Sidebar - Scroll Tracker */}
@@ -304,17 +330,8 @@ const Page = () => {
                       {/* Mobile Scroll Tracker - Sticky Top */}
                       <div className="lg:hidden sticky top-0 z-[99999]">
                         <ScrollTracker data={packageData?.data as ITravelPackage} />
-                      </div>
-
-
-
-
-
-                      {/* Center Content */}
-                      <div className="w-full lg:border-l lg:mt-4 border-zinc-200 lg:w-[53%] xl:w-[60%] px-4 xl:px-8 relative  min-w-0">
-
-
-
+                          </div>
+                          <div className="w-full lg:border-l lg:mt-4 border-zinc-200 lg:w-[53%] xl:w-[60%] px-4 xl:px-8 relative  min-w-0">
                         <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
                           <RightBar
                             onShowContact={() => setShowContactModal(true)}
@@ -358,8 +375,7 @@ const Page = () => {
                         {/* Overview Section */}
                         <OverviewSection packageData={packageData?.data as ITravelPackage} />
 
-                        {/* <Places data={packageData} /> */}
-                        {/* <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} /> */}
+
                         {packageData?.data?.itinerary.length ? (
                           <Itinerary data={packageData?.data.itinerary} />
                         ) : null}

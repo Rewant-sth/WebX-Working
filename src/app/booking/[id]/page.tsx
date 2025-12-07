@@ -149,7 +149,7 @@ export default function BookingForm() {
   }, [fixedDateId, packageData, setValue]);
 
   // Calculate counts and totals
-  const { childrenCount, totalAmount, paxBreakdown, appliedPax } = useMemo(() => {
+  const { childrenCount, totalAmount,  appliedPax } = useMemo(() => {
     // Use traveler count from state
     const totalTravelers = travelerCount;
 

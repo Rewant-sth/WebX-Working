@@ -7,9 +7,24 @@ export async function getPackages(page: number): Promise<ITravelPackageResponse>
 }
 
 export async function getPackagesById(id: string): Promise<IPackageByIdResponse> {
-    const res = await api.get(`/package/${id}`)
-    return res.data
-
+    try {
+        const res = await api.get(`/package/${id}`)
+        if (!res.data || !res.data.data) {
+            throw new Error('Package data not found')
+        }
+        return res.data
+    } catch (error: any) {
+        if (error.response?.status === 404) {
+            throw new Error('Package not found. It may have been removed or the link is incorrect.')
+        }
+        if (error.response?.status === 500) {
+            throw new Error('Server error. Please try again later.')
+        }
+        if (error.code === 'ECONNABORTED') {
+            throw new Error('Request timeout. Please check your internet connection.')
+        }
+        throw new Error(error.message || 'Failed to load package details')
+    }
 }
 
 export async function getSubpackagesBySlug(slug: string): Promise<ITravelPackageResponse> {
