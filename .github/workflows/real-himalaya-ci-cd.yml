@@ -1,8 +1,8 @@
-name: Next.js CI/CD (VPS)
+name: CI/CD (VPS)
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master","main"]
 
 jobs:
   build-and-deploy:
@@ -13,50 +13,50 @@ jobs:
         node-version: [22.x]
 
     steps:
-      # 1️⃣ Checkout the repository
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js
+      # 2️⃣ Setup Node and pnpm
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
-      # 3️⃣ Install pnpm globally
       - name: Install pnpm
         run: npm install -g pnpm@9
 
-      # 4️⃣ Deploy to VPS via SSH
+      # 3️⃣ Deploy to VPS over SSH
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            set -e
+
             echo "✅ SSH connection successful!"
-            whoami
-            pwd
-            ls -la
 
-            # 1️⃣ Navigate to project
-            cd /var/www/real-himalaya/real-himalaya
+            # Navigate to project dir
+            cd /var/www/real-himalaya
 
-            # 2️⃣ Pull latest code safely
             echo "📦 Pulling latest code..."
             git fetch origin main
             git reset --hard origin/main
 
-            # 3️⃣ Install dependencies
-            echo "📥 Installing dependencies..."
+            echo "📥 Installing dependencies (frozen lockfile)..."
             pnpm install --frozen-lockfile
 
-            # 4️⃣ Build the project
             echo "🛠 Building the project..."
             pnpm build
 
-            # 5️⃣ Restart PM2 process (match existing name)
-            echo "🔄 Restarting PM2 process..."
-            pm2 restart real-himalaya-frontend-3000 || pm2 start pnpm --name "real-himalaya-frontend-3000" -- run start
+            echo "🔄 Restarting PM2..."
+            if pm2 describe real-himalaya-frontend  > /dev/null 2>&1; then
+              pm2 restart real-himalaya-frontend  --time
+            else
+              pm2 start pnpm --name "real-himalaya-frontend" --time --cwd /var/www/real-himalaya -- start
+            fi
+
+            pm2 save
