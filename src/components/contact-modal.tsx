@@ -11,6 +11,14 @@ import { useMutation } from '@tanstack/react-query';
 import { sendContact } from '@/service/contact';
 import toast from 'react-hot-toast';
 
+interface ContactError {
+    data?: {
+        response?: {
+            message?: string;
+        };
+    };
+}
+
 export default function ContactModal({ packageName = "Real Himalaya Package", onClose }: { packageName: string, onClose?: () => void }) {
     const [formData, setFormData] = useState({
         name: '',
@@ -47,7 +55,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
         };
     }, []);
 
-    const handleInputChange = (field: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (field: string, value: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (!event.isTrusted) {
             return;
         }
@@ -62,7 +70,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
         mutationKey: ['contact us'],
         mutationFn: sendContact,
         onSuccess: () => { toast.success("Success"); setIsSubmitted(true) },
-        onError: (error: any) => (
+        onError: (error: ContactError) => (
             toast.error(error?.data?.response?.message || "Message not sent. Please try again")
         )
     })
@@ -311,7 +319,7 @@ export default function ContactModal({ packageName = "Real Himalaya Package", on
                                                         value={formData.message}
                                                         minLength={20}
                                                         onChange={(e) => {
-                                                            handleInputChange('message', e.target.value, e as any);
+                                                            handleInputChange('message', e.target.value, e);
                                                             // Auto-resize textarea
                                                             e.target.style.height = 'auto';
                                                             e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows

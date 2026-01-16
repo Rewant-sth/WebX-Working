@@ -5,7 +5,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { EmblaOptionsType } from "embla-carousel";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
-import { Testimonial } from "@/types/ITestimonial";
 import "./embla.css";
 
 // Legacy testimonial interface for backward compatibility

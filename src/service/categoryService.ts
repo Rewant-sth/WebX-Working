@@ -1,7 +1,7 @@
 import api from "./api";
 import { Category } from "../types/Type";
 import { SubCategory } from './../types/Type';
-import { ITravelPackage, ITravelPackageResponse } from "@/types/IPackages";
+import { ITravelPackageResponse } from "@/types/IPackages";
 
 
 

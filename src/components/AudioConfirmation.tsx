@@ -1,7 +1,5 @@
 "use client";
-import { Volume, VolumeX } from 'lucide-react';
 import React from 'react';
-import { GlassButton } from './glass-button';
 
 interface AudioConfirmationProps {
     onConfirm: (allowAudio: boolean) => void;

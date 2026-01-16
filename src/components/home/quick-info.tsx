@@ -26,7 +26,7 @@ const fetchBlogs = async (): Promise<BlogsResponse> => {
 
 export default function QuickInfo() {
   // Fetch blogs using React Query
-  const { data: blogsData, isLoading, error } = useQuery<BlogsResponse>({
+  const { data: blogsData } = useQuery<BlogsResponse>({
     queryKey: ['blogs-quick-info'],
     queryFn: fetchBlogs,
     staleTime: 5 * 60 * 1000, // 5 minutes

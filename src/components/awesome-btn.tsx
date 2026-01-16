@@ -1,9 +1,8 @@
 "use client"
 import React from 'react'
-import { Mail, MessageCircle, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { Button } from '@/components/home/button'
 import { cn } from '@/lib/utils'
-import { experts } from '@/static/expert'
 import { Icon } from '@iconify/react/dist/iconify.js'
 
 // A polished floating contact button with an expandable panel

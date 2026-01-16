@@ -16,5 +16,5 @@ export interface IPrivateTripData {
 export interface IPrivateTripResponse {
     success: boolean;
     message: string;
-    data?: any;
+    data?: Record<string, unknown>;
 }

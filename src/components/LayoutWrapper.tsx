@@ -124,6 +124,7 @@ export default function LayoutWrapper({
 
   useEffect(() => {
     clearBookingData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Don't render anything until initialization is complete

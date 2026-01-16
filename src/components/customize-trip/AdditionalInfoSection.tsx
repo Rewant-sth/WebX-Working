@@ -1,5 +1,4 @@
 import { CustomizeTripFormData } from './types';
-import FormSummary from './FormSummary';
 import { ITravelPackage } from '@/types/IPackages';
 
 interface AdditionalInfoSectionProps {
@@ -8,7 +7,7 @@ interface AdditionalInfoSectionProps {
     message: string;
     specialRequirements: string;
     termsAccepted: boolean;
-    onChange: (field: string, value: any) => void;
+    onChange: (field: string, value: string | boolean) => void;
 }
 
 export default function AdditionalInfoSection({

@@ -277,7 +277,6 @@ const useEventPackages = () => {
 
 const EventsPage = () => {
   const eventsRef = useRef<HTMLDivElement | null>(null);
-  const [page, setPage] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Use React Query for event packages
@@ -293,8 +292,8 @@ const EventsPage = () => {
     data: regularPackagesData,
     isLoading: isLoadingRegular,
   } = useQuery({
-    queryKey: ["getPackages", page],
-    queryFn: () => getPackages(page),
+    queryKey: ["getPackages", 1],
+    queryFn: () => getPackages(1),
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 

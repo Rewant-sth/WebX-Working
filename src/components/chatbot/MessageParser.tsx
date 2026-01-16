@@ -1,8 +1,16 @@
 import React from 'react';
 
+interface Actions {
+    handleGreeting: () => void;
+    handleTripInquiry: () => void;
+    handleBookingInquiry: () => void;
+    handleContactInquiry: () => void;
+    handleDefault: () => void;
+}
+
 interface IMessageParser {
     children: React.ReactNode;
-    actions: any;
+    actions: Actions;
 }
 
 const MessageParser = ({ children, actions }: IMessageParser) => {
@@ -69,7 +77,10 @@ const MessageParser = ({ children, actions }: IMessageParser) => {
     return (
         <div>
             {React.Children.map(children, (child) => {
-                return React.cloneElement(child as React.ReactElement<any>, {
+                return React.cloneElement(child as React.ReactElement<{
+                    parse: (message: string) => void;
+                    actions: Actions;
+                }>, {
                     parse: parse,
                     actions,
                 });

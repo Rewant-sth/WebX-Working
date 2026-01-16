@@ -8,22 +8,23 @@ export async function getPackages(page: number): Promise<ITravelPackageResponse>
 
 export async function getPackagesById(id: string): Promise<IPackageByIdResponse> {
     try {
-        const res = await api.get(`/package/${id}`)
+        const res = await api.get(`/package/${id}?populate=tripHighlight`)
         if (!res.data || !res.data.data) {
             throw new Error('Package data not found')
         }
         return res.data
-    } catch (error: any) {
-        if (error.response?.status === 404) {
+    } catch (error: unknown) {
+        const err = error as { response?: { status?: number }; code?: string; message?: string };
+        if (err.response?.status === 404) {
             throw new Error('Package not found. It may have been removed or the link is incorrect.')
         }
-        if (error.response?.status === 500) {
+        if (err.response?.status === 500) {
             throw new Error('Server error. Please try again later.')
         }
-        if (error.code === 'ECONNABORTED') {
+        if (err.code === 'ECONNABORTED') {
             throw new Error('Request timeout. Please check your internet connection.')
         }
-        throw new Error(error.message || 'Failed to load package details')
+        throw new Error(err.message || 'Failed to load package details')
     }
 }
 
@@ -87,4 +88,17 @@ export async function getPackagesByCategory(
     }
 
     return response.json();
+}
+
+/**
+ * Get trip highlights by package ID
+ */
+export async function getTripHighlightsByPackageId(packageId: string) {
+    try {
+        const res = await api.get(`/packages/${packageId}/trip-highlights`);
+        return res.data;
+    } catch (error: unknown) {
+        console.error('Failed to fetch trip highlights:', error);
+        return { data: [] };
+    }
 }

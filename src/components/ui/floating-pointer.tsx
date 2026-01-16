@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useMotionValue } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, AnimatePresence, useMotionValue, MotionValue } from "framer-motion";
 import { cn } from "@/components/lib/utils"; // optional utility, you can replace with classnames
 
 // Core wrapper component
@@ -62,8 +62,8 @@ export const FollowPointer = ({
   y,
   title,
 }: {
-  x: any;
-  y: any;
+  x: MotionValue<number>;
+  y: MotionValue<number>;
   title?: string | React.ReactNode;
 }) => {
   const colors = [

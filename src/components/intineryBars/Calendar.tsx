@@ -21,7 +21,6 @@ const Calendar: React.FC<CalendarProps> = ({
     selectedDate,
     onDateSelect,
     highlightedDates,
-    tripDuration,
     hoveredDate,
     onDateHover,
     fixedDates,

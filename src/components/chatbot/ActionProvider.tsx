@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface IActionProvider {
-    createChatBotMessage: any;
-    setState: any;
+    createChatBotMessage: (message: string) => { message: string; type: string; id: number };
+    setState: React.Dispatch<React.SetStateAction<{ messages: Array<{ message: string; type: string; id: number }> }>>;
     children: React.ReactNode;
 }
 
@@ -11,29 +11,14 @@ const ActionProvider = ({
     setState,
     children,
 }: IActionProvider) => {
-    const addMessageToState = (message: any) => {
+    const addMessageToState = (message: { message: string; type: string; id: number }) => {
         // Additional validation before adding message
         if (!message || (typeof message.message === 'string' && !message.message.trim())) {
             return;
         }
-        setState((prevState: any) => ({
+        setState((prevState) => ({
             ...prevState,
             messages: [...prevState.messages, message],
-        }));
-    };
-
-    // Handle user message from custom input
-    const handleUserMessage = (message: string) => {
-        // Add user message to state
-        const userMessage = {
-            message: message,
-            type: 'user',
-            id: Date.now(),
-        };
-
-        setState((prevState: any) => ({
-            ...prevState,
-            messages: [...prevState.messages, userMessage],
         }));
     };
 
@@ -90,14 +75,21 @@ const ActionProvider = ({
     return (
         <div>
             {React.Children.map(children, (child) => {
-                return React.cloneElement(child as React.ReactElement<any>, {
+                return React.cloneElement(child as React.ReactElement<{
+                    actions: {
+                        handleGreeting: () => void;
+                        handleTripInquiry: () => void;
+                        handleBookingInquiry: () => void;
+                        handleContactInquiry: () => void;
+                        handleDefault: () => void;
+                    };
+                }>, {
                     actions: {
                         handleGreeting,
                         handleTripInquiry,
                         handleBookingInquiry,
                         handleContactInquiry,
                         handleDefault,
-                        handleUserMessage,
                     },
                 });
             })}

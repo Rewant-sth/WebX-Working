@@ -16,7 +16,7 @@ export default function Hero() {
   const rightRef = useRef<HTMLDivElement>(null);
 
   // Carousel setup
-  const [emblaRef, emblaApi] = useEmblaCarousel(
+  const [emblaRef] = useEmblaCarousel(
     { loop: true, align: 'center' },
     [AutoScroll({ stopOnInteraction: false, stopOnFocusIn: false, stopOnMouseEnter: false, speed: 0.5 })]
   );

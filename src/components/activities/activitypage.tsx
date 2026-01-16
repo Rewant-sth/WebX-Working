@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import ActivityCard from "./activitycard";
 import Divider from "../Divider/Divider";
 import { useRouter } from "next/navigation";
+import { ITravelPackage } from "@/types/IPackages";
 
 function ActivityPage() {
-  const [packageData, setPackageData] = useState<any>([]);
+  const [packageData, setPackageData] = useState<ITravelPackage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [number, setNumber] = useState(3);
+  const number = 3;
   const router = useRouter();
   const fetchPackagebyCategory = async () => {
     try {

@@ -65,12 +65,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Generate random captcha values
-  const [captcha] = useState(() => {
-    const num1 = Math.floor(Math.random() * 50) + 10;
-    const num2 = Math.floor(Math.random() * 50) + 10;
-    return { num1, num2, answer: num1 + num2 };
-  });
-
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     if (type === 'checkbox') {
@@ -113,7 +108,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
       };
 
       // Call API
-      const response = await bookPrivateTrip(privateTripData);
+      await bookPrivateTrip(privateTripData);
 
       // Show success modal
       setShowSuccessModal(true);
@@ -134,12 +129,13 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
         captchaAnswer: '',
         packageId: packageId // Preserve packageId on reset
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error submitting private trip request:', error);
-      setErrorMessage(
-        error.response?.data?.message || error.response?.data?.msg ||
-        'Failed to submit your request. Please try again.'
-      );
+      const errorMessage = error instanceof Error && 'response' in error 
+        ? (error as { response?: { data?: { message?: string; msg?: string } } }).response?.data?.message || 
+          (error as { response?: { data?: { message?: string; msg?: string } } }).response?.data?.msg
+        : 'Failed to submit your request. Please try again.';
+      setErrorMessage(errorMessage || 'Failed to submit your request. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -351,7 +347,6 @@ const DatesAndPrices = ({
   data,
   packageId,
   pkg,
-  onShowBooking
 }: {
   data: IFixedDate[] | null;
   packageId: string;

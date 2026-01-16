@@ -29,7 +29,7 @@ export default function Stats() {
 
   const Counter = ({
     target,
-    plus,
+  
   }: {
     target: number;
     plus: React.ReactNode;

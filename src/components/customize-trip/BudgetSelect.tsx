@@ -5,7 +5,7 @@ interface BudgetSelectProps {
     selectedBudget: string;
     customBudget: number;
     numberOfTravelers: number;
-    onChange: (field: string, value: any) => void;
+    onChange: (field: string, value: string | number) => void;
 }
 
 const budgetRanges = [

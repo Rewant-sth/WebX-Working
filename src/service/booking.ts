@@ -3,7 +3,7 @@ import { IPrivateTripData, IPrivateTripResponse } from "@/types/IPrivateTrip";
 import api from "./api";
 
 
-export async function bookTraveller({ bookingData }: { bookingData: IBookingData }): Promise<{}> {
+export async function bookTraveller({ bookingData }: { bookingData: IBookingData }): Promise<Record<string, unknown>> {
     const req = await api.post(`/booking`,
         bookingData
     )

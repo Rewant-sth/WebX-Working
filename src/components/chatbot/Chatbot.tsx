@@ -5,7 +5,6 @@ import Chatbot from 'react-chatbot-kit';
 import createConfig from './config';
 import MessageParser from './MessageParser';
 import ActionProvider from './ActionProvider';
-//@ts-ignore
 import './chatbot.css';
 
 const ChatbotComponent = () => {
@@ -120,7 +119,7 @@ const ChatbotComponent = () => {
                     <div className="flex-1 overflow-hidden min-h-0">
 
                         <Chatbot
-                            //@ts-ignore
+                            // @ts-expect-error - react-chatbot-kit types
                             config={config}
                             messageParser={MessageParser}
                             actionProvider={ActionProvider}

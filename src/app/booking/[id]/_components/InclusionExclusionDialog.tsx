@@ -1,6 +1,5 @@
 "use client";
 
-import { X } from "lucide-react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef } from "react";
 
@@ -29,7 +28,7 @@ export default function InclusionExclusionDialog({
     // Enable smooth scrolling on the content
     const contentElement = contentRef.current;
     if (contentElement) {
-      // @ts-ignore - webkit prefix for iOS smooth scrolling
+      // @ts-expect-error - webkit prefix for iOS smooth scrolling
       contentElement.style.webkitOverflowScrolling = 'touch';
       
       // Add wheel event listener for better scroll handling

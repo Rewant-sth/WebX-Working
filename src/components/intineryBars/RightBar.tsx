@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 import { useBookingStore } from "@/store/booking-store";
 import { GeneratePdf } from "./generate-pdf";
 
-const RightBar = ({ data, onShowContact, onShowBooking }: { data: ITravelPackage | undefined, onShowContact: () => void, onShowBooking?: () => void }) => {
+const RightBar = ({ data, onShowContact }: { data: ITravelPackage | undefined, onShowContact: () => void }) => {
   const [showPaxDropdown, setShowPaxDropdown] = useState(true);
-  const [hovered, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
+  const [, setHovered] = useState<"date" | "enquiry" | "download" | "booking" | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const pdfRef = useRef<HTMLDivElement>(null);
   const router = useRouter();

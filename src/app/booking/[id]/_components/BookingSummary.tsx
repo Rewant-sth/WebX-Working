@@ -10,9 +10,9 @@ interface BookingSummaryProps {
   arrivalDate: string;
   departureDate: string;
   selectedAddons: string[];
-  addons: any[];
+  addons: Array<{ _id: string; name: string; price: number }>;
   totalAmount: number;
-  appliedPax: any;
+  appliedPax: { _id: string; min: number; max: number } | null;
   isLoading: boolean;
   onPaymentInfoClick: () => void;
   onInclusionExclusionClick: () => void;
@@ -122,8 +122,8 @@ export default function BookingSummary({
                 </h4>
                 <div className="space-y-2">
                   {addons
-                    ?.filter((addon: any) => selectedAddons.includes(addon._id))
-                    ?.map((addon: any) => (
+                    ?.filter((addon) => selectedAddons.includes(addon._id))
+                    ?.map((addon) => (
                       <div key={addon._id} className="flex justify-between items-center text-sm">
                         <span className="text-zinc-800 font-medium">{addon.name}</span>
                         <span className="font-bold text-orange-500">+${addon.price}</span>

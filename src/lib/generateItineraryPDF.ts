@@ -6,7 +6,7 @@ const safeText = (text: string | undefined | null): string => {
     return text || 'N/A';
 };
 
-const safeArray = (arr: any[] | undefined | null): any[] => {
+const safeArray = <T>(arr: T[] | undefined | null): T[] => {
     return arr || [];
 };
 
@@ -129,7 +129,7 @@ export const generateItineraryPDF = async (data: ITravelPackage): Promise<void> 
     <div class="section">
       <h2>Daily Itinerary (${safeArray(data.itinerary).length} days)</h2>
       ${safeArray(data.itinerary).length > 0 ?
-            safeArray(data.itinerary).map((day, index) => `
+            safeArray(data.itinerary).map((day) => `
           <div class="day-item">
             <h3>Day ${safeText(day.days)}: ${safeText(day.title)}</h3>
             <p><strong>Description:</strong> ${safeText(day.description)}</p>
@@ -249,7 +249,7 @@ export const generateItineraryPDF = async (data: ITravelPackage): Promise<void> 
             ${safeArray(data.pax).map(paxInfo => `
               <tr>
                 <td>${paxInfo.min} - ${paxInfo.max} persons</td>
-                <td>$${paxInfo.price}</td>
+                <td>$${paxInfo.discount}</td>
               </tr>
             `).join('')}
           </tbody>

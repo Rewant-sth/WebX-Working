@@ -4,6 +4,8 @@ import { X } from "lucide-react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useRef } from "react";
 
+// X is used in the component
+
 interface PaymentInfoDialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -22,7 +24,7 @@ export default function PaymentInfoDialog({ isOpen, onClose }: PaymentInfoDialog
     // Enable smooth scrolling on the content
     const contentElement = contentRef.current;
     if (contentElement) {
-      // @ts-ignore - webkit prefix for iOS smooth scrolling
+      // @ts-expect-error - webkit prefix for iOS smooth scrolling
       contentElement.style.webkitOverflowScrolling = 'touch';
       
       // Add wheel event listener for better scroll handling

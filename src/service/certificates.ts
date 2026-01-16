@@ -1,4 +1,3 @@
-import { ICertificate } from "@/types/ICertificate";
 import api from "./api";
 import { CertificatesResponse } from "@/app/certificate/page";
 

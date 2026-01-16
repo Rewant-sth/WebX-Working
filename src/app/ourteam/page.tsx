@@ -9,7 +9,7 @@ import React from "react";
 
 
 const OurTeam: React.FC = () => {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["getTeams"],
     queryFn: getTeams,
   });

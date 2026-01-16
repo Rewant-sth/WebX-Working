@@ -2,7 +2,13 @@ import { ITravelPackage } from '@/types/IPackages';
 import { ArrowRight, LocateIcon } from 'lucide-react';
 import React from 'react'
 
-export default function BottomInfo({ isStickyVisible, isScrolled, packageData }: { isStickyVisible: boolean; isScrolled: boolean; packageData: any | undefined; }) {
+interface BottomInfoProps {
+    isStickyVisible: boolean;
+    isScrolled: boolean;
+    packageData: { data?: ITravelPackage } | undefined;
+}
+
+export default function BottomInfo({ isStickyVisible, isScrolled, packageData }: BottomInfoProps) {
     return (
         <div>
             <div

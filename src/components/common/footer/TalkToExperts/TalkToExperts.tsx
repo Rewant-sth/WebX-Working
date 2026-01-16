@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getTeams } from "@/service/Teams";
 import ExpertSkeleton from "./skeleton";

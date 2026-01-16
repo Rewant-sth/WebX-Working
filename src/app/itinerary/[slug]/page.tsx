@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import TripGlance from "../../../components/tripGlance/TripGlance";
 import SeasonalInfo from "../../../components/tripGlance/SeasonalInfo";
 import MajorHighlight from "../../../components/tripGlance/MajorHighlight";
+import ShortItinerary from "../../../components/tripGlance/ShortItinerary";
+import TripHighlight from "../../../components/tripGlance/TripHighlight";
 import Cost from "../../../components/tripGlance/Cost";
 import Faq from "../../../components/tripGlance/Faq";
 import TravellerReview from "../../../components/tripGlance/Review";
@@ -36,16 +38,13 @@ import Link from "next/link";
 const Page = () => {
   const router = useRouter();
   const params = useParams();
-  const [isStickyVisible, setIsStickyVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   // Get all booking store state and actions
   const {
     isBookingModalOpen,
     package: storePackage,
-    clearBookingData,
     openBookingModal
   } = useBookingStore();
 
@@ -54,10 +53,7 @@ const Page = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (heroRef.current) {
-        const heroHeight = heroRef.current.offsetHeight;
-        const showAt = heroRef.current.offsetTop + (heroHeight * 0.8);
-        setIsStickyVisible(window.scrollY > showAt);
-        setIsScrolled(window.scrollY > 0);
+        // Keep scroll handler for potential future use
       }
     };
     handleScroll();
@@ -335,7 +331,6 @@ const Page = () => {
                         <div className="w-full  rounded-xl max-w-lg sm:max-w-full  sm:mx-4 lg:hidden">
                           <RightBar
                             onShowContact={() => setShowContactModal(true)}
-                            onShowBooking={handleOpenBookingModal}
                             data={packageData?.data}
                           />
                         </div>
@@ -354,7 +349,7 @@ const Page = () => {
                             <EmblaCarousel
                               rounded
                               className="h-full w-full"
-                              images={packageData.data.gallery.map((g: any) => ({
+                              images={packageData.data.gallery.map((g: { imageUrl?: string; caption?: string }) => ({
                                 src: g.imageUrl || "/placeholder.png",
                                 alt: g.caption || "Gallery image",
                               }))}
@@ -375,6 +370,9 @@ const Page = () => {
                         {/* Overview Section */}
                         <OverviewSection packageData={packageData?.data as ITravelPackage} />
 
+                        <TripHighlight data={packageData?.data} />
+
+                        <ShortItinerary data={packageData?.data} />
 
                         {packageData?.data?.itinerary.length ? (
                           <Itinerary data={packageData?.data.itinerary} />
@@ -480,7 +478,6 @@ const Page = () => {
                         <div className="sticky top-20 h-fit ">
                           <RightBar
                             onShowContact={() => setShowContactModal(true)}
-                            onShowBooking={handleOpenBookingModal}
                             data={packageData?.data}
                           />
                         </div>

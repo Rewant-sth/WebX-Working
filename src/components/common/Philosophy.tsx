@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Brain, BrainCog } from "lucide-react";
 import AnimatedSection from "./text-fadein";
 
@@ -63,7 +62,6 @@ interface FeaturesProps {
 
 export function Features({
   features,
-  primaryColor,
   progressGradientLight,
   progressGradientDark,
 }: FeaturesProps) {

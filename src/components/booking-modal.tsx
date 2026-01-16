@@ -4,12 +4,10 @@ import { ITravelPackage } from '@/types/IPackages'
 import { useMutation } from '@tanstack/react-query'
 import { ChevronRight, Minus, Plus, X } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import React, { useState, useMemo, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import CalendarComponent from '@/components/intineryBars/Calendar'
 import Select from 'react-select'
-import { on } from 'events'
 import { useBookingStore } from '@/store/booking-store'
 import { Icon } from '@iconify/react/dist/iconify.js'
 
@@ -70,7 +68,15 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     const storeSelectedFixedDateId = useBookingStore((state) => state.selectedFixedDateId);
 
     const [currentStep, setCurrentStep] = useState(1)
-    const [selectedDate, setSelectedDate] = useState<any>(null) // Changed to null initially
+    const [selectedDate, setSelectedDate] = useState<{
+        _id: string;
+        startDate: string;
+        endDate: string;
+        pricePerPerson: number;
+        availableSeats?: number;
+        status?: string;
+        calculatedDepartureDate?: string;
+    } | null>(null) // Changed to null initially
     const [calendarSelectedDate, setCalendarSelectedDate] = useState<Date | null>(null) // Will be set from store in useEffect
     const [currentDisplayMonth, setCurrentDisplayMonth] = useState<Date>(storeArrivalDate ? new Date(storeArrivalDate) : new Date())
     const [participants, setParticipants] = useState(1)
@@ -103,7 +109,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
     // Custom styles for react-select
     const selectStyles = {
-        control: (base: any) => ({
+        control: (base: Record<string, unknown>) => ({
             ...base,
             minHeight: '42px',
             borderColor: '#d1d5db',
@@ -116,7 +122,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 boxShadow: '0 0 0 2px rgba(233, 30, 99, 0.2)'
             }
         }),
-        option: (base: any, state: any) => ({
+        option: (base: Record<string, unknown>, state: { isSelected: boolean; isFocused: boolean }) => ({
             ...base,
             backgroundColor: state.isSelected ? '#F05E25' : state.isFocused ? '#fce4ec' : 'white',
             color: state.isSelected ? 'white' : '#1f2937',
@@ -173,7 +179,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
 
     const [selectedAddons, setSelectedAddons] = useState<SelectedAddon[]>([])
     const [message, setMessage] = useState('')
-    const [specialRequirements, setSpecialRequirements] = useState('')
+    const [specialRequirements] = useState('')
     const [termsAccepted, setTermsAccepted] = useState(false)
     const [showResultModal, setShowResultModal] = useState(false);
     const [bookingResult, setBookingResult] = useState<{ success: boolean; message: string }>({ success: false, message: '' });
@@ -238,7 +244,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             });
 
             // Find and set the corresponding fixed date
-            const matchingFixedDate = packageData?.fixedDates?.find((fd: any) => fd._id === storeSelectedFixedDateId);
+            const matchingFixedDate = packageData?.fixedDates?.find((fd: { _id: string }) => fd._id === storeSelectedFixedDateId);
             if (matchingFixedDate) {
                 setSelectedDate(matchingFixedDate);
                 console.log('✅ Found matching fixed date', matchingFixedDate);
@@ -254,7 +260,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 today.getDate()
             );
 
-            const firstAvailableDate = packageData.fixedDates.find((date: any) => {
+            const firstAvailableDate = packageData.fixedDates.find((date: { status?: string; startDate: string; availableSeats?: number }) => {
                 const isOpen = date.status?.toLowerCase() === 'open';
                 const startDateObj = new Date(date.startDate);
                 const startDate = new Date(
@@ -281,6 +287,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 console.log('📅 Auto-selected first available date', localDate);
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [packageData.fixedDates, storeArrivalDate, storeSelectedFixedDateId]);
 
     // Validation functions
@@ -456,7 +463,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             const normalizedSelected = normalizeDate(calendarSelectedDate);
 
             // Find fixed date where the selected date falls within the range
-            const fixedDate = packageData.fixedDates.find((date: any) => {
+            const fixedDate = packageData.fixedDates.find((date: { startDate: string; endDate: string; status?: string; availableSeats?: number }) => {
                 const startDateObj = new Date(date.startDate);
                 const endDateObj = new Date(date.endDate);
 
@@ -558,7 +565,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
         // Calculate price for each pax selection
         Object.entries(paxSelections).forEach(([paxId, count]) => {
             if (count > 0) {
-                const paxData = packageData?.pax?.find((p: any) => p._id === paxId);
+                const paxData = packageData?.pax?.find((p: { _id: string; min: number; max: number; discount: number }) => p._id === paxId);
                 if (paxData) {
                     // Check if the selected count falls within the pax range
                     const isWithinPaxRange = count >= paxData.min && count <= paxData.max;
@@ -736,7 +743,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 }
             });
         },
-        onError: (error: any) => {
+        onError: (error: Error) => {
             setBookingResult({ success: false, message: error?.message || 'Booking failed. Please try again.' });
             setShowResultModal(true);
 
@@ -750,7 +757,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                 setShowResultModal(false);
             }, 3000);
 
-            toast.error(error.message || error || 'Booking failed. Please try again.', {
+            toast.error(error.message || 'Booking failed. Please try again.', {
                 position: 'bottom-right',
                 duration: 4000,
                 style: {
@@ -784,7 +791,6 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
             adults: totalParticipants,
             totalPeople: totalParticipants,
             totalAmount,
-            //@ts-ignore
             fixedDateId: selectedDate._id,
             arrivalDate: arrivalDate.toISOString().split('T')[0], // Use selected arrival date
             departureDate: calculatedDepartureDate.toISOString().split('T')[0], // Use calculated departure date
@@ -922,8 +928,8 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
                                     <h2 className='text-xl font-medium'>Select Package</h2>
                                     <div className="mt-4 divide-y divide-zinc-200">
                                         {packageData.pax
-                                            .sort((a: any, b: any) => a.sortOrder - b.sortOrder)
-                                            .map((pax: any, index: number) => {
+                                            .sort((a: { sortOrder: number }, b: { sortOrder: number }) => a.sortOrder - b.sortOrder)
+                                            .map((pax: { _id: string; min: number; max: number; discount: number }) => {
                                                 const paxCount = paxSelections[pax._id] || 0;
                                                 return (
                                                     <div key={pax._id} className='flex gap-4 border border-zinc-100 p-3 rounded-sm md:gap-10 pb-4 items-center mb-3'>
@@ -1367,7 +1373,7 @@ export default function BookingModal({ packageData, onClose }: { packageData: IT
     }
 
     // Update the datesAvailable check:
-    const datesAvailable = packageData?.fixedDates?.some((date: any) => {
+    const datesAvailable = packageData?.fixedDates?.some((date: { status?: string; startDate: string; availableSeats?: number }) => {
         const isOpen = date.status?.toLowerCase() === 'open';
         const startDateObj = new Date(date.startDate);
         const today = new Date();

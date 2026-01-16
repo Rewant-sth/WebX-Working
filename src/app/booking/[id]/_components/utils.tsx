@@ -1,62 +1,24 @@
-import z from "zod";
 import Select from "react-select";
-import { Controller } from "react-hook-form";
+import { Controller, UseFormRegister, Control, FieldError } from "react-hook-form";
 
-// Zod schemas
-export const travelerSchema = z.object({
-    fullName: z.string().min(1, "Full name is required"),
-    email: z.string().email("Invalid email address"),
-    phoneNumber: z.string().min(1, "Phone number is required"),
-    gender: z.string().min(1, "Gender is required"),
-    dateOfBirth: z.date({ required_error: "Date of birth is required" }),
-    country: z.string().min(1, "Country is required"),
-    passportNumber: z
-        .string()
-        .min(6, "Passport number must be at least 6 characters")
-        .max(9, "Passport number must not exceed 9 characters")
-        .regex(/^[A-Z0-9]+$/, "Passport number must be alphanumeric"),
-    passportExpiry: z.date({ required_error: "Passport expiry date is required" }),
-    isChild: z.boolean().default(false),
-});
-
-
-export const formSchema = z.object({
-    personalInfo: z.array(travelerSchema),
-    arrivalDate: z.string().min(1, "Arrival date required").refine((date) => {
-        const selectedDate = new Date(date);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
-        return selectedDate >= today;
-    }, "Arrival date cannot be in the past"),
-    departureDate: z.string().min(1, "Departure date required"),
-    numberOfTravelers: z.number().min(1, "At least 1 traveler required"),
-    package: z.string().min(1, "Package is required"),
-    message: z.string().optional(),
-    specialRequirements: z.string().optional(),
-    termsAccepted: z.boolean().refine((val) => val, "You must accept the terms"),
-    totalAmount: z.number().min(1, "Total price required"),
-    totalPeople: z.number().min(1, "At least one adult required"),
-    // children: z.number().min(0, "Children count cannot be negative"),
-    fixedDateId: z.string().min(1, "Fixed date not selected properly"),
-    addons: z.array(z.string()).default([]), // Add addons field
-    createdBy: z.string().min(1, "Created by is required"),
-    customizedBooking: z.boolean().default(false),
-
-}).refine((data) => {
-    // Validate that departure date is after arrival date
-    if (data.arrivalDate && data.departureDate) {
-        const arrival = new Date(data.arrivalDate);
-        const departure = new Date(data.departureDate);
-        return departure > arrival;
-    }
-    return true;
-}, {
-    message: "Departure date must be after arrival date",
-    path: ["departureDate"], // This will show the error on the departureDate field
-});
-
+// Re-export schemas from separate file
+export { travelerSchema, formSchema } from "./schemas";
 
 // Reusable form components
+interface FormInputProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    register: UseFormRegister<any>;
+    name: string;
+    label: string;
+    error?: FieldError;
+    icon?: React.ReactNode;
+    type?: string;
+    placeholder?: string;
+    min?: string | number;
+    required?: boolean;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 export const FormInput = ({
     register,
     name,
@@ -68,7 +30,7 @@ export const FormInput = ({
     min,
     required = true,
     onChange
-}: any) => {
+}: FormInputProps) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // Only accept input if it's from a trusted user event
 
@@ -107,10 +69,11 @@ export const FormInput = ({
 };
 
 export interface FormDateInputProps {
-    register: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    register: UseFormRegister<any>;
     name: string;
     label: string;
-    error?: any;
+    error?: FieldError;
     min?: string;
     max?: string;
     required?: boolean;
@@ -129,11 +92,6 @@ export const FormDateInput = ({
     disabled = false,
     asDateObject = false, // Default to false (keep as string)
 }: FormDateInputProps) => {
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // Only accept input if it's from a trusted user event
-
-    };
-
     return (
         <div className="mb-4 w-full">
             <label className="block text-zinc-700 mb-1">
@@ -144,10 +102,7 @@ export const FormDateInput = ({
                     type="date"
                     {...register(name, asDateObject ? {
                         setValueAs: (value: string) => value ? new Date(value) : null,
-                        onChange: handleDateChange
-                    } : {
-                        onChange: handleDateChange
-                    })}
+                    } : {})}
                     min={min}
                     max={max}
                     disabled={disabled}
@@ -163,15 +118,21 @@ export const FormDateInput = ({
 };
 
 export interface FormSelectProps {
-    control: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    control: Control<any>;
     name: string;
     label: string;
-    error?: any;
+    error?: FieldError;
     icon?: React.ReactNode;
     options: Array<{ value: string; label: string }>;
     required?: boolean;
     placeholder?: string;
     isMulti?: boolean;
+}
+
+interface SelectOption {
+    value: string;
+    label: string;
 }
 
 export const FormSelect = ({
@@ -206,14 +167,14 @@ export const FormSelect = ({
                             isMulti={isMulti}
                             placeholder={placeholder || `Select ${label}`}
                             value={isMulti
-                                ? options.filter(option => field.value?.includes(option.value))
+                                ? options.filter(option => (field.value as string[])?.includes(option.value))
                                 : options.find(option => option.value === field.value) || null
                             }
                             onChange={(selected) => {
                                 if (isMulti) {
-                                    field.onChange((selected as any)?.map((item: any) => item.value) || []);
+                                    field.onChange((selected as SelectOption[])?.map((item) => item.value) || []);
                                 } else {
-                                    field.onChange((selected as any)?.value || '');
+                                    field.onChange((selected as SelectOption)?.value || '');
                                 }
                             }}
                             className={`${icon ? 'react-select-with-icon' : ''}`}
@@ -249,4 +210,4 @@ export const FormSelect = ({
             {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
         </div>
     );
-};
+};;

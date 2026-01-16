@@ -1,7 +1,7 @@
 "use client";
 
 import { ITravelPackage } from "@/types/IPackages";
-import { Heart } from "lucide-react";
+
 
 const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
     return (

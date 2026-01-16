@@ -20,7 +20,7 @@ const GalleryCarousel: React.FC<PropType> = ({ images, options = { loop: true } 
         })
     ]);
 
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [, setSelectedIndex] = useState(0);
 
     const scrollPrev = useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev();
@@ -30,21 +30,20 @@ const GalleryCarousel: React.FC<PropType> = ({ images, options = { loop: true } 
         if (emblaApi) emblaApi.scrollNext();
     }, [emblaApi]);
 
-    const onSelect = useCallback(() => {
-        if (!emblaApi) return;
-        setSelectedIndex(emblaApi.selectedScrollSnap());
-    }, [emblaApi]);
-
     useEffect(() => {
         if (!emblaApi) return;
 
-        onSelect();
-        emblaApi.on('select', onSelect);
+        const onSelectHandler = () => {
+            setSelectedIndex(emblaApi.selectedScrollSnap());
+        };
+
+        onSelectHandler();
+        emblaApi.on('select', onSelectHandler);
 
         return () => {
-            emblaApi.off('select', onSelect);
+            emblaApi.off('select', onSelectHandler);
         };
-    }, [emblaApi, onSelect]);
+    }, [emblaApi]);
 
     if (!images || images.length === 0) {
         return null;

@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { ITravelPackage } from '@/types/IPackages';
 
 // Register font if needed

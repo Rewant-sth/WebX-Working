@@ -54,16 +54,28 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             icon: <Icon icon="si:info-line" className="size-5" />,
         },
         {
+            id: "trip-highlight",
+            label: "Trip Highlights",
+            icon: <Icon icon="mdi:star-circle-outline" className="size-5" />,
+            condition: (data) => !!(data?.tripHighlight && data.tripHighlight.length > 0),
+        },
+        {
+            id: "short-itinerary",
+            label: "Short Itinerary",
+            icon: <Icon icon="mdi:map-marker-path" className="size-5" />,
+            condition: (data) => !!((data?.shortItinerary && data.shortItinerary.length > 0) || (data?.itinerary && data.itinerary.length > 0)),
+        },
+        {
             id: "itinerary",
             label: "Itinerary",
             icon: <Icon icon={"guidance:calendar"} strokeWidth={1.3} className="size-5" />,
-            condition: (data) => data?.itinerary?.length > 0,
+            condition: (data) => !!(data?.itinerary?.length && data.itinerary.length > 0),
         },
         {
             id: "date-&-prices",
             label: "Dates & Prices",
             icon: <Icon strokeWidth={0.5} icon={"ph:calendar-dots"} className="size-5 scale-110" />,
-            condition: (data) => data?.fixedDates?.length > 0,
+            condition: (data) => !!(data?.fixedDates?.length && data.fixedDates.length > 0),
         },
         {
             id: "inclusion-&-exclusion",
@@ -167,7 +179,6 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
 
             if (!isButtonVisible) {
                 // Calculate scroll position to center the button
-                const containerScrollLeft = scrollContainer.scrollLeft;
                 const containerWidth = scrollContainer.clientWidth;
                 const buttonOffsetLeft = activeButton.offsetLeft;
                 const buttonWidth = activeButton.offsetWidth;
@@ -201,7 +212,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             let current = sectionIds[0] || "major-highlights";
 
             // Find the section that's currently in view
-            for (let sectionId of sectionIds) {
+            for (const sectionId of sectionIds) {
                 const element = document.getElementById(sectionId);
                 if (element) {
                     const rect = element.getBoundingClientRect();
@@ -233,7 +244,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
         handleScrollSpy();
 
         return () => window.removeEventListener("scroll", throttledScrollSpy);
-    }, [visibleSections, isScrollingToSection]);
+    }, [visibleSections, isScrollingToSection, activeSection]);
 
     return (
         <div className="w-full ">

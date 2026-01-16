@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { IGallery } from "@/types/IGallery";
 
 export default function Gallery({ slides }: { slides: IGallery[] }) {
-  const [showAll, setShowAll] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [displayCount, setDisplayCount] = useState(4);
@@ -15,7 +14,7 @@ export default function Gallery({ slides }: { slides: IGallery[] }) {
     setDisplayCount(4);
   }, []);
 
-  const displayedImages = showAll ? slides : slides?.slice(0, displayCount);
+  const displayedImages = slides?.slice(0, displayCount);
   const remainingCount = slides?.length - displayCount;
 
   const openModal = (index: number) => {
@@ -27,17 +26,17 @@ export default function Gallery({ slides }: { slides: IGallery[] }) {
     setModalOpen(false);
   };
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? slides.length - 1 : prevIndex - 1
     );
-  };
+  }, [slides.length]);
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === slides.length - 1 ? 0 : prevIndex + 1
     );
-  };
+  }, [slides.length]);
 
   const goToImage = (index: number) => {
     setCurrentImageIndex(index);
@@ -55,7 +54,7 @@ export default function Gallery({ slides }: { slides: IGallery[] }) {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [modalOpen]);
+  }, [modalOpen, goToPrevious, goToNext]);
 
   if (!slides?.length) return null;
 
@@ -92,7 +91,7 @@ export default function Gallery({ slides }: { slides: IGallery[] }) {
             <div
               key={image._id}
               className={`relative rounded-md overflow-hidden cursor-pointer group transition-transform duration-300  ${gridClass}`}
-              onClick={() => openModal(showAll ? index : slides.findIndex(img => img._id === image._id))}
+              onClick={() => openModal(slides.findIndex(img => img._id === image._id))}
             >
               <Image
                 alt={image.caption || "RealHimalaya trip attractions"}
@@ -106,7 +105,7 @@ export default function Gallery({ slides }: { slides: IGallery[] }) {
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
 
               {/* Show remaining count on last visible image */}
-              {!showAll && index === displayCount - 1 && remainingCount > 0 && (
+              {index === displayCount - 1 && remainingCount > 0 && (
                 <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                   <span className="text-white text-xl lg:text-2xl font-semibold">
                     +{remainingCount}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, Mail, Clock, ArrowLeft, Phone, MapPin } from 'lucide-react';
+import { CheckCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 const TrekBookingSuccess = () => {

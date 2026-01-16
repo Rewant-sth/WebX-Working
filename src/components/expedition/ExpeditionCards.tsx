@@ -6,7 +6,7 @@ import { ITravelPackage } from "@/types/IPackages";
 import Link from "next/link";
 import AnimatedSection from "../common/text-fadein";
 import CardSkeleton from "../common/card-skeleton";
-import { setPackage, openBookingModal } from "@/store/booking-store";
+import { openBookingModal } from "@/store/booking-store";
 import { useRouter } from "next/navigation";
 
 const ExpeditionCards = ({

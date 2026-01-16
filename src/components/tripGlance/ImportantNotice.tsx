@@ -1,7 +1,7 @@
 "use client";
 
 import { ITravelPackage } from "@/types/IPackages";
-import { AlertTriangle } from "lucide-react";
+
 
 const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
     return (

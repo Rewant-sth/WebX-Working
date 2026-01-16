@@ -2,10 +2,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import { ArrowLeft } from "lucide-react";
 import { getBlogsById } from "@/service/blogs";
 import Image from "next/image";
-import Link from "next/link";
 import { Metadata } from "next/types";
 import ShareButtons from "@/components/ShareButtons";
 
@@ -18,35 +16,36 @@ interface BlogPageProps {
   }>;
 }
 
-async function getBlogData(id: string) {
-  try {
-    const data = await getBlogsById(id);
-    return data;
-  } catch (error) {
-    console.error("Error fetching blog:", error);
-    return null;
-  }
-}
-
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const { id } = await params;
-  const data = await getBlogData(id);
-
-  if (!data?.data) {
+  
+  try {
+    const data = await getBlogsById(id);
+    if (!data?.data) {
+      return {
+        title: 'Blog Not Found | HIGH5 ADVENTURES',
+      };
+    }
+    return {
+      title: `${data.data.title} | HIGH5 ADVENTURES`,
+      description: data.data.description,
+    };
+  } catch {
     return {
       title: 'Blog Not Found | HIGH5 ADVENTURES',
     };
   }
-
-  return {
-    title: `${data.data.title} | HIGH5 ADVENTURES`,
-    description: data.data.description,
-  };
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {
   const { id } = await params;
-  const data = await getBlogData(id);
+  
+  let data = null;
+  try {
+    data = await getBlogsById(id);
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+  }
 
   if (!data?.data) {
     notFound();

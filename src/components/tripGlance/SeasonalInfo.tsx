@@ -1,5 +1,4 @@
 import { ITravelPackage } from "@/types/IPackages";
-import { Icon } from "@iconify/react";
 
 interface SeasonalInfoProps {
     data: ITravelPackage;

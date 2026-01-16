@@ -20,18 +20,18 @@ export interface IHomePackage {
   coverImage: string;
   elevation: number;
   distance: number;
-  attraction: any[];
-  itinerary: any[];
-  faq: any[];
-  exclusion: any[];
-  inclusion: any[];
-  requirements: any[];
+  attraction: Array<{ title: string; description: string; sortOrder: number; _id: string }>;
+  itinerary: Array<{ day: string; title: string; description: string; sortOrder: number; _id: string }>;
+  faq: Array<{ title: string; description: string; sortOrder: number; _id: string }>;
+  exclusion: Array<{ title: string; description: string; sortOrder: number; _id: string }>;
+  inclusion: Array<{ title: string; description: string; sortOrder: number; _id: string }>;
+  requirements: Array<{ title: string; description: string; sortOrder: number; _id: string }>;
   routeMap: string;
   sortOrder: number;
-  pax: any[];
+  pax: Array<{ _id: string; min: number; max: number; discount: number; sortOrder: number }>;
   gallery: string[];
   fixedDates: { startDate: string; endDate: string }[];
-  addons: any[];
+  addons: Array<{ _id: string; name: string; price: number; description: string }>;
   slug: string;
-  testimonial: any[];
+  testimonial: Array<{ _id: string; fullName: string; rating: number; comment: string }>;
 }

@@ -24,13 +24,14 @@ const RelatedTrips = ({
   const pathname = usePathname()
   const router = useRouter()
   const { openBookingModal } = useBookingStore();
-  const { data, isLoading, refetch } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["getrelated", subCategory],
     queryFn: () => getSubpackagesBySlug(subCategory),
   });
 
   useEffect(() => {
     refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   const handleBookNow = (trip: ITravelPackage) => {

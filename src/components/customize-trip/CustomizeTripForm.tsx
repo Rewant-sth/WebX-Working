@@ -57,7 +57,7 @@ export default function CustomizeTripForm() {
     const router = useRouter()
 
     // Form validation
-    const { validationErrors, isStepValid, validateAllSteps } = useFormValidation(formData, currentStep);
+    const { validationErrors, isStepValid } = useFormValidation(formData, currentStep);
 
     // Fetch packages for selection
     const { data: packagesData, isLoading: packagesLoading } = useQuery<ITravelPackageResponse>({
@@ -69,7 +69,7 @@ export default function CustomizeTripForm() {
         staleTime: 5 * 60 * 1000,
     });
 
-    const handleInputChange = useCallback((field: string, value: any, index?: number) => {
+    const handleInputChange = useCallback((field: string, value: string | number | boolean, index?: number) => {
         if (field.startsWith('personalInfo.') && index !== undefined) {
             const personalField = field.replace('personalInfo.', '');
             setFormData(prev => ({
@@ -80,7 +80,7 @@ export default function CustomizeTripForm() {
             }));
         } else {
             // Ensure numeric fields remain as numbers
-            let processedValue = value;
+            let processedValue: string | number | boolean = value;
             if (field === 'totalPeople' || field === 'numberOfTravelers' || field === 'totalAmount' || field === 'customBudget') {
                 processedValue = typeof value === 'string' ? Number(value) || 0 : value;
             }
@@ -138,7 +138,7 @@ export default function CustomizeTripForm() {
         }
 
         return true;
-    }, [validateAllSteps]);
+    }, [formData]);
 
     const handleSubmit = useCallback(async () => {
         if (!validateForm()) return;
@@ -166,13 +166,16 @@ export default function CustomizeTripForm() {
             } else {
                 throw new Error(response.data.message || 'Failed to submit request');
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error submitting customize trip:', error);
-            toast.error(error.response?.data?.message || 'Failed to submit customize trip request');
+            const errorMessage = error instanceof Error && 'response' in error 
+                ? (error as { response?: { data?: { message?: string } } }).response?.data?.message 
+                : 'Failed to submit customize trip request';
+            toast.error(errorMessage || 'Failed to submit customize trip request');
         } finally {
             setIsSubmitting(false);
         }
-    }, [formData, validateForm]);
+    }, [formData, validateForm, router]);
 
     const renderCurrentStep = () => {
         switch (currentStep) {

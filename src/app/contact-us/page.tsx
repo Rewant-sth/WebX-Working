@@ -3,7 +3,6 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
-  CheckCircle,
 } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { sendContact } from '@/service/contact';
@@ -27,7 +26,7 @@ export default function PremiumContact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleInputChange = (field: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (field: string, value: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!event.isTrusted) {
       return;
     }
@@ -51,7 +50,7 @@ export default function PremiumContact() {
     mutationKey: ['contact us'],
     mutationFn: sendContact,
     onSuccess: () => { toast.success("Success"); setIsSubmitted(true) },
-    onError: (error: any) => (
+    onError: (error: Error & { data?: { response?: { message?: string } } }) => (
       toast.error(error?.data?.response?.message || "Message not sent. Please try again")
     )
   })
@@ -221,7 +220,7 @@ export default function PremiumContact() {
                         value={formData.message}
                         minLength={20}
                         onChange={(e) => {
-                          handleInputChange('message', e.target.value, e as any);
+                          handleInputChange('message', e.target.value, e);
                           // Auto-resize textarea
                           e.target.style.height = 'auto';
                           e.target.style.height = Math.max(e.target.scrollHeight, 120) + 'px'; // 120px ≈ 5 rows

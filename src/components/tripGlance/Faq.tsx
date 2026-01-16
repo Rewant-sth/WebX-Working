@@ -1,11 +1,7 @@
 import { useState } from "react";
 import {
   ChevronDown,
-  Calendar,
-  Mountain,
-  Sun,
-  Snowflake,
-  Map,
+ 
 } from "lucide-react";
 import { IFaq } from "@/types/IPackages";
 

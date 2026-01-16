@@ -7,14 +7,14 @@ import React, { useLayoutEffect } from 'react'
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Divider({ images }: { images: IGallery[] }) {
-    const imagesref = React.useRef<HTMLImageElement[] | []>([]);
+    const imagesref = React.useRef<HTMLImageElement[]>([]);
     const mainRef = React.useRef<HTMLDivElement>(null);
     useLayoutEffect(() => {
         ScrollTrigger.refresh();
         const ctx = gsap.context(() => {
 
             imagesref.current.forEach((image, index) => {
-                if (index != 0) {
+                if (index !== 0) {
                     gsap.set(image, {
                         opacity: 0
                     });
@@ -30,7 +30,7 @@ export default function Divider({ images }: { images: IGallery[] }) {
                 }
             });
 
-            imagesref.current.forEach((image, index) => {
+            imagesref.current.forEach((image) => {
                 timeline.to(image, {
                     opacity: 1
                 }, 0.5);

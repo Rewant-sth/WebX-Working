@@ -2,7 +2,6 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Star } from 'lucide-react';
 import { Testimonial } from '@/types/ITestimonial';
 import { useTestimonials } from '@/hooks/useTestimonials';
 import Link from 'next/link';
@@ -46,7 +45,7 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
         Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true }),
     ]);
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [, setSelectedIndex] = useState(0);
 
     const onSelect = useCallback(() => {
         if (!emblaApi) return;
@@ -113,8 +112,8 @@ export default function EmblaCarousel({ className = '' }: { className?: string }
                                 />
                                 <h2 className='md:text-2xl text-xl font-semibold  mt-3 md:mt-6 '>{slide.fullName}</h2>
                                 <div className="flex gap-1 mt-2 items-center justify-center">
-                                    {[...Array(5)].map((_, i) => {
-                                        return <div className=" size-3 lg:size-4 bg-[#199143] rounded-full"></div>
+                                    {[...Array(5)].map((_, idx) => {
+                                        return <div key={idx} className=" size-3 lg:size-4 bg-[#199143] rounded-full"></div>
                                     })}
                                 </div>
                                 <p className='mt-6 leading-tight  md:pb-0 md:mt-8 px-4 text-lg line-clamp-3 md:md:text-justify' dangerouslySetInnerHTML={{ __html: slide.comment || "" }}></p>

@@ -12,8 +12,6 @@ export const MusicControls: React.FC = () => {
         currentTrack,
         volume,
         loading,
-        play,
-        pause,
         toggle,
         setVolume,
         progress,

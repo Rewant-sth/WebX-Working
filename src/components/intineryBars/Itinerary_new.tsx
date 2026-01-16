@@ -13,14 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Types
-type ItineraryDetails = {
-  altitude?: string;
-  activity?: string;
-  distance?: string;
-  duration?: string;
-  accommodation?: string;
-  meals?: string;
-};
+
 
 type ItineraryDayProps = {
   day: string;
@@ -35,7 +28,6 @@ const ItineraryDay = ({
   day,
   title,
   description,
-  expanded: initialExpanded = true,
   data,
 }: ItineraryDayProps) => {
   const [expanded, setExpanded] = useState(false);

@@ -13,7 +13,63 @@ import toast from "react-hot-toast";
 import { getSelectedFixedDateId, useBookingStore } from "@/store/booking-store";
 import Link from "next/link";
 import BookingFormSkeleton from "./_components/Skeleton";
-import { IFixedDate } from "@/types/IPackages";
+import { IFixedDate, IPax } from "@/types/IPackages";
+
+// Define addon type from ITravelPackage
+interface IAddon {
+  image: string;
+  price: number;
+  packageId: string;
+  description: string;
+  name: string;
+  _id: string;
+}
+
+// Define personal info type
+interface IPersonalInfo {
+  fullName: string;
+  email: string;
+  country: string;
+  phoneNumber: string;
+  gender: string;
+  dateOfBirth: Date | string;
+  passportNumber: string;
+  passportExpiry: Date | string;
+  isChild?: boolean;
+}
+
+// Define form data type - used for type reference
+type FormDataType = {
+  personalInfo: IPersonalInfo[];
+  arrivalDate: string;
+  departureDate: string;
+  numberOfTravelers: number;
+  package: string;
+  message?: string;
+  specialRequirements?: string;
+  termsAccepted: boolean;
+  totalPeople: number;
+  totalAmount: number;
+  fixedDateId: string;
+  addons: string[];
+  selectedAddons?: string[];
+  createdBy: string;
+  customizedBooking: boolean;
+}
+
+// Define form errors type - used for getAllErrorMessages
+type FormErrorsType = {
+  arrivalDate?: { message?: string };
+  departureDate?: { message?: string };
+  termsAccepted?: { message?: string };
+  fixedDateId?: { message?: string };
+  totalPeople?: { message?: string };
+  personalInfo?: Array<{
+    [key: string]: { message?: string };
+  }>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any; // Allow additional fields from FieldErrors
+}
 import Image from "next/image";
 import { formSchema, FormDateInput, FormInput, FormSelect } from "./_components/utils";
 import PaymentInfoDialog from "./_components/PaymentInfoDialog";
@@ -146,7 +202,7 @@ export default function BookingForm() {
         }
       }
     }
-  }, [fixedDateId, packageData, setValue]);
+  }, [fixedDateId, packageData, setValue, arrivalDate, departureDate]);
 
   // Calculate counts and totals
   const { childrenCount, totalAmount,  appliedPax } = useMemo(() => {
@@ -166,7 +222,7 @@ export default function BookingForm() {
     const breakdown: Array<{ paxId: string; min: number; max: number; count: number; pricePerPerson: number; total: number; label: string }> = [];
 
     // Find applicable pax based on traveler count
-    const applicablePax = packageData?.data?.pax?.find((p: any) =>
+    const applicablePax = packageData?.data?.pax?.find((p: IPax) =>
       totalTravelers >= p.min && totalTravelers <= p.max
     );
 
@@ -211,8 +267,8 @@ export default function BookingForm() {
 
     // Calculate add-ons total
     const addonsTotal = packageData?.data?.addons
-      ?.filter((addon: any) => selectedAddons?.includes(addon._id))
-      ?.reduce((sum: number, addon: any) => sum + addon.price, 0) || 0;
+      ?.filter((addon: IAddon) => selectedAddons?.includes(addon._id))
+      ?.reduce((sum: number, addon: IAddon) => sum + addon.price, 0) || 0;
 
     const finalAmount = totalPrice + addonsTotal;
 
@@ -264,7 +320,7 @@ export default function BookingForm() {
         }
       });
     },
-    onError: (error: any) => {
+    onError: (error: Error & { response?: { data?: { message?: string } } }) => {
       setBookingResult({ success: false, message: error?.response?.data?.message || 'Booking failed. Please try again.' });
       setShowResultModal(true);
 
@@ -292,7 +348,7 @@ export default function BookingForm() {
 
 
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormDataType) => {
     console.log("onSubmit called with data:", data);
 
     // Validate number of travelers doesn't exceed available seats
@@ -314,7 +370,7 @@ export default function BookingForm() {
     }
 
     // Format personal info with correct date format and field names
-    const formattedPersonalInfo = data.personalInfo.map((person: any) => ({
+    const formattedPersonalInfo = data.personalInfo.map((person: IPersonalInfo) => ({
       fullName: person.fullName,
       email: person.email,
       country: person.country,
@@ -340,7 +396,7 @@ export default function BookingForm() {
       arrivalDate: data.arrivalDate,
       departureDate: data.departureDate,
       numberOfTravelers: totalTravelers,
-      package: packageData?.data?._id as any,
+      package: packageData?.data?._id as string,
       message: data.message || "",
       specialRequirements: "N/A", // Static value as specified
       termsAccepted: data.termsAccepted,
@@ -356,7 +412,7 @@ export default function BookingForm() {
 
 
   // Function to extract all error messages
-  const getAllErrorMessages = (errors: any): string[] => {
+  const getAllErrorMessages = (errors: FormErrorsType): string[] => {
     const messages: string[] = [];
 
     // Top-level errors
@@ -368,7 +424,7 @@ export default function BookingForm() {
 
     // Personal info errors
     if (errors.personalInfo) {
-      errors.personalInfo.forEach((traveler: any, index: number) => {
+      errors.personalInfo.forEach((traveler, index: number) => {
         if (!traveler) return;
 
         Object.keys(traveler).forEach(field => {
@@ -405,7 +461,7 @@ export default function BookingForm() {
         <form onSubmit={handleSubmit(onSubmit, (errors) => {
           console.log("Form validation failed!");
           console.log("Raw errors object:", errors);
-          const errorMessages = getAllErrorMessages(errors);
+          const errorMessages = getAllErrorMessages(errors as unknown as FormErrorsType);
           console.log("Validation Errors:", errorMessages);
           if (errorMessages.length > 0) {
             toast.error(errorMessages[0]);
@@ -428,7 +484,7 @@ export default function BookingForm() {
                 <div className=" mb-6">
                   {packageData?.data?.pax && packageData.data.pax.length > 0 ? (
                     // Show actual pax options if available
-                    packageData.data.pax.map((pax: any) => {
+                    packageData.data.pax.map((pax: IPax) => {
                       const isApplied = appliedPax?._id === pax._id;
 
                       return (
@@ -668,7 +724,7 @@ export default function BookingForm() {
                   <p className="text-zinc-600 text-sm mb-4">Enhance your experience with these optional add-ons</p>
 
                   <div className="space-y-4 lg:space-y-0 lg:grid grid-cols-2 gap-4">
-                    {packageData.data.addons.map((addon: any) => {
+                    {packageData.data.addons.map((addon: IAddon) => {
                       const isSelected = watch("addons")?.includes(addon._id);
 
                       return (
@@ -801,7 +857,7 @@ export default function BookingForm() {
               selectedAddons={selectedAddons || []}
               addons={packageData?.data?.addons || []}
               totalAmount={totalAmount}
-              appliedPax={appliedPax}
+              appliedPax={appliedPax ?? null}
               isLoading={isLoading}
               onPaymentInfoClick={() => setShowPaymentInfo(true)}
               onInclusionExclusionClick={() => setShowInclusionExclusion(true)}

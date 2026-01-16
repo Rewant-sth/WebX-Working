@@ -79,10 +79,7 @@ export async function GET(
 }
 
 // Export other HTTP methods if needed
-export async function POST(
-    request: NextRequest,
-    { params }: { params: Promise<{ categorySlug: string }> }
-) {
+export async function POST() {
     return NextResponse.json(
         {
             status: 'error',
@@ -92,10 +89,7 @@ export async function POST(
     );
 }
 
-export async function PUT(
-    request: NextRequest,
-    { params }: { params: Promise<{ categorySlug: string }> }
-) {
+export async function PUT() {
     return NextResponse.json(
         {
             status: 'error',
@@ -105,10 +99,7 @@ export async function PUT(
     );
 }
 
-export async function DELETE(
-    request: NextRequest,
-    { params }: { params: Promise<{ categorySlug: string }> }
-) {
+export async function DELETE() {
     return NextResponse.json(
         {
             status: 'error',

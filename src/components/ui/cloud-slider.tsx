@@ -11,7 +11,7 @@ type PropType = {
 }
 
 const CloudSlider: React.FC<PropType> = ({ slides, options }) => {
-    const [emblaRef, emblaApi] = EmblaCarousel({ ...options, loop: true }, [
+    const [emblaRef] = EmblaCarousel({ ...options, loop: true }, [
         AutoScroll({
             speed: 0.4,
             stopOnMouseEnter: false,

@@ -5,7 +5,7 @@ import { ITravelPackage } from '@/types/IPackages';
 interface TripDetailsSectionProps {
     formData: CustomizeTripFormData;
     packages: ITravelPackage[];
-    onChange: (field: keyof CustomizeTripFormData, value: any) => void;
+    onChange: (field: keyof CustomizeTripFormData, value: string | number | boolean) => void;
 }
 
 export default function TripDetailsSection({ formData, packages, onChange }: TripDetailsSectionProps) {

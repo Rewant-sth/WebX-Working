@@ -21,7 +21,7 @@ export default function TravellerReview({
     }
   });
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -158,9 +158,9 @@ export default function TravellerReview({
 
                   {/* User Info */}
                   <div className="flex items-center gap-3 mt-auto">
-                    {(testimonial as any).image ? (
+                    {testimonial.image ? (
                       <img
-                        src={(testimonial as any).image}
+                        src={testimonial.image}
                         alt={testimonial.fullName}
                         className="w-14 h-14 rounded-full object-cover border-2 border-zinc-200"
                       />

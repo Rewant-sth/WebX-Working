@@ -4,13 +4,11 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ITeamMember } from "@/types/ITeams";
 import api from "@/service/api";
 
 const Team = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [isCtaHovered, setIsCtaHovered] = useState(false);
   const cardsRef = useRef<(HTMLLIElement | null)[]>([]);
   const titleRef = useRef<HTMLDivElement | null>(null);
   const [data, setData] = useState<ITeamMember[]>([]);
@@ -36,7 +34,7 @@ const Team = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    cardsRef.current.forEach((card, index) => {
+    cardsRef.current.forEach((card) => {
       if (card) {
         gsap.fromTo(
           card,

@@ -1,19 +1,17 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import Link from "next/link";
 
 export default function ScrollingBanner() {
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimationControls();
-  const [width, setWidth] = useState(0);
 
   
   // Function to animate
   const startAnimation = () => {
     const scrollWidth = containerRef.current?.scrollWidth || 0;
     const viewportWidth = window.innerWidth;
-    setWidth(scrollWidth);
 
     controls.start({
       x: [-viewportWidth / 4, -scrollWidth / 2],

@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { ITravelPackage } from "@/types/IPackages";
 
 export  const GeneratePdf = async ({data, setIsGeneratingPdf}:{data:ITravelPackage | undefined, setIsGeneratingPdf: (isGenerating: boolean) => void}) => {

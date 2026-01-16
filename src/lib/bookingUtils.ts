@@ -1,9 +1,9 @@
+import { IFixedDate, ITravelPackage } from '@/types/IPackages';
+
 /**
  * Booking Utilities
  * Helper functions and constants for the booking system
  */
-
-import { ITravelPackage } from '@/types/IPackages';
 
 /**
  * Get the first available fixed date from a package
@@ -20,7 +20,7 @@ export const getFirstAvailableDate = (pkg: ITravelPackage): string | null => {
         today.getDate()
     ));
 
-    const availableDate = pkg.fixedDates.find((date: any) => {
+    const availableDate = pkg.fixedDates.find((date: IFixedDate) => {
         const isOpen = date.status?.toLowerCase() === 'open';
         const startDateObj = new Date(date.startDate);
         const startDate = new Date(Date.UTC(
@@ -52,7 +52,7 @@ export const hasAvailableDates = (pkg: ITravelPackage): boolean => {
         today.getDate()
     ));
 
-    return pkg.fixedDates.some((date: any) => {
+    return pkg.fixedDates.some((date: IFixedDate) => {
         const isOpen = date.status?.toLowerCase() === 'open';
         const startDateObj = new Date(date.startDate);
         const startDate = new Date(Date.UTC(
@@ -123,14 +123,19 @@ export const calculateTripDuration = (startDate: string, endDate: string): numbe
     return diffDays + 1; // Include both start and end day
 };
 
+// Window with gtag for analytics
+interface WindowWithGtag extends Window {
+    gtag?: (command: string, action: string, params: Record<string, unknown>) => void;
+}
+
 /**
  * Booking analytics event
  * Send analytics event when user initiates booking
  */
 export const trackBookingInitiated = (pkg: ITravelPackage) => {
     // Add your analytics tracking here
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'begin_checkout', {
+    if (typeof window !== 'undefined' && (window as WindowWithGtag).gtag) {
+        (window as WindowWithGtag).gtag!('event', 'begin_checkout', {
             currency: 'USD',
             value: pkg.fixedDates?.[0]?.pricePerPerson || 0,
             items: [{
@@ -147,8 +152,8 @@ export const trackBookingInitiated = (pkg: ITravelPackage) => {
  */
 export const trackBookingCompleted = (pkg: ITravelPackage, totalAmount: number) => {
     // Add your analytics tracking here
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'purchase', {
+    if (typeof window !== 'undefined' && (window as WindowWithGtag).gtag) {
+        (window as WindowWithGtag).gtag!('event', 'purchase', {
             currency: 'USD',
             value: totalAmount,
             items: [{

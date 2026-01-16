@@ -19,7 +19,7 @@ export const setupGSAPWithLenis = () => {
         // Try to get Lenis instance from global scope or from the component
         const checkLenis = () => {
             // Check if lenis is available on window (you might need to adjust this based on your Lenis setup)
-            const lenis = (window as any).lenis;
+            const lenis = (window as unknown as { lenis?: { on: (event: string, callback: () => void) => void } }).lenis;
             if (lenis) {
                 // Update ScrollTrigger on Lenis scroll
                 lenis.on('scroll', updateScrollTrigger);

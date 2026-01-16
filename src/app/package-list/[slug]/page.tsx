@@ -8,12 +8,38 @@ import CardSkeleton from "./_components/cardSkeleton";
 import Link from "next/link";
 import { openBookingModal } from "@/store/booking-store";
 
+interface SubCategory {
+  _id: string;
+  name: string;
+  slug: string;
+  coverImage?: string;
+  description?: string;
+}
+
+interface FixedDate {
+  _id: string;
+  startDate: string;
+  endDate: string;
+}
+
+interface PackageData {
+  _id: string;
+  name: string;
+  slug: string;
+  coverImage?: string;
+  location?: string;
+  price?: number;
+  overview?: string;
+  subCategoryId?: SubCategory;
+  fixedDates?: FixedDate[];
+}
+
 const ExpeditionCards: React.FC = () => {
   const { slug } = useParams();
   const router = useRouter();
-  const [cardData, setCardData] = useState<any[]>([]);
+  const [cardData, setCardData] = useState<PackageData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [subCategoryList, setSubCategoryList] = useState<any[]>([]);
+  const [subCategoryList, setSubCategoryList] = useState<SubCategory[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
   // New state for selected subcategory slug
@@ -37,7 +63,7 @@ const ExpeditionCards: React.FC = () => {
   const subcategories = Array.from(
     new Map(
       cardData
-        .filter((pkg) => pkg.subCategoryId) // filter only those with subCategoryId
+        .filter((pkg): pkg is typeof pkg & { subCategoryId: NonNullable<typeof pkg.subCategoryId> } => !!pkg.subCategoryId)
         .map((pkg) => [pkg.subCategoryId.slug, pkg.subCategoryId])
     ).values()
   );
@@ -63,7 +89,7 @@ const ExpeditionCards: React.FC = () => {
       // falling back to the first subcategory.
       const activeSub = activeSubSlug
         ? packagesArray.find(
-          (pkg: any) => pkg.subCategoryId?.slug === activeSubSlug
+          (pkg: PackageData) => pkg.subCategoryId?.slug === activeSubSlug
         )?.subCategoryId?.slug || null
         : null;
 
@@ -97,6 +123,7 @@ const ExpeditionCards: React.FC = () => {
       fetchPackageData();
       fetchSubcategories();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
 
   if (isLoading) return <CardSkeleton />;
@@ -251,7 +278,7 @@ const ExpeditionCards: React.FC = () => {
                         </button>
 
                         {/* Individual Category Tabs */}
-                        {subcategories.map((subcat, index) => {
+                        {subcategories.map((subcat) => {
                           const isActive = selectedSubcategory === subcat.slug;
                           const packageCount = cardData.filter(pkg => pkg.subCategoryId?.slug === subcat.slug).length;
 
@@ -339,12 +366,12 @@ const ExpeditionCards: React.FC = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-                  {filteredPackages.map((card, index) => {
+                  {filteredPackages.map((card) => {
                     if (!card) return null;
 
                     return (
                       <div
-                        key={card._id || `card-${index}`}
+                        key={card._id}
                         className="bg-white border relative border-slate-200 rounded-sm overflow-hidden hover:border-slate-300 hover:shadow-md transition-all duration-200"
                       >
                         {/* Location Badge */}
@@ -392,7 +419,7 @@ const ExpeditionCards: React.FC = () => {
 
                           <div className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">
                             <p
-                              id="editor" dangerouslySetInnerHTML={{ __html: card?.overview }}
+                              id="editor" dangerouslySetInnerHTML={{ __html: card?.overview || '' }}
                               className="line-clamp-2"
                             />
                           </div>
@@ -404,8 +431,9 @@ const ExpeditionCards: React.FC = () => {
                                 // Save package data to booking store
                                 if (card.fixedDates && card.fixedDates.length > 0) {
                                   const firstFixedDate = card.fixedDates[0];
+                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                   openBookingModal(
-                                    card as any,
+                                    card as unknown as Parameters<typeof openBookingModal>[0],
                                     firstFixedDate._id || null,
                                     new Date(firstFixedDate.startDate),
                                     new Date(firstFixedDate.endDate)
@@ -414,7 +442,8 @@ const ExpeditionCards: React.FC = () => {
                                   router.push(`/booking/${card._id}`);
                                 } else {
                                   // If no fixed dates, redirect to itinerary page
-                                  openBookingModal(card as any, null);
+                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                  openBookingModal(card as unknown as Parameters<typeof openBookingModal>[0], null);
                                   router.push(`/itinerary/${card.slug}`);
                                 }
                               }}

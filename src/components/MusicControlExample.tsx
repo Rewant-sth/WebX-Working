@@ -24,8 +24,7 @@ export const MusicControlExample: React.FC = () => {
 
     // Method 2: Getting state without hooks (useful for non-React contexts)
     const handleGetCurrentState = () => {
-        const state = getMusicPlayerState();
-
+        getMusicPlayerState();
     };
 
     return (

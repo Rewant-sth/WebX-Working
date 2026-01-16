@@ -42,16 +42,13 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
         "faqs",
       ];
       let current = "major-highlights";
-      for (let section of sections) {
+      for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const top = el.getBoundingClientRect().top;
           if (top <= 150) {
             current = section;
           }
-        }
-        else {
-          current == "major-highlights"
         }
       }
       setActiveSection(current);

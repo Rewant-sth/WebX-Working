@@ -1,5 +1,5 @@
 "use client"
-import { ArrowRight, Mountain } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import React from "react";
 
 export interface DividerProps {

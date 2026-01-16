@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 import { initializeSocket } from "../lib/socket";
 const VisitTracker = () => {
-  const [activeUsers, setActiveUsers] = useState(0);
+  const [, setActiveUsers] = useState(0);
   const pathname = usePathname();
   const hasTrackedRef = useRef(false);
 
@@ -67,7 +67,7 @@ const VisitTracker = () => {
         }
       });
   
-      socket.on("connect_error", (err) => {
+      socket.on("connect_error", () => {
       });
   
       // Update to listen for user_statistics instead of activeUsers

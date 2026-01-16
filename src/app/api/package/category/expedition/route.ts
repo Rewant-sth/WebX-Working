@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Export other HTTP methods if needed
-export async function POST(request: NextRequest) {
+export async function POST() {
     return NextResponse.json(
         {
             status: 'error',
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     );
 }
 
-export async function PUT(request: NextRequest) {
+export async function PUT() {
     return NextResponse.json(
         {
             status: 'error',
@@ -81,7 +81,7 @@ export async function PUT(request: NextRequest) {
     );
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE() {
     return NextResponse.json(
         {
             status: 'error',

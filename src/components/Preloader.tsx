@@ -12,7 +12,7 @@ export default function Preloader({ onSkip }: PreloaderProps) {
     const titleRef = useRef<HTMLHeadingElement>(null);
     const sectionRef = useRef<HTMLDivElement>(null);
     useLayoutEffect(() => {
-        let ctx = gsap.context(() => {
+        const ctx = gsap.context(() => {
             const tl = gsap.timeline();
             tl.fromTo(titleRef.current, { clipPath: "inset(0% 100% 0% 0%)" }, {
                 clipPath: "inset(0% 0% 0% 0%)",

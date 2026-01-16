@@ -1,6 +1,4 @@
 import { createChatBotMessage } from 'react-chatbot-kit';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { useState, FormEvent } from 'react';
 
 
 const createConfig = (onClose?: () => void) => ({

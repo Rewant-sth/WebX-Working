@@ -49,6 +49,7 @@ const Places = () => {
   useEffect(() => {
     const interval = setInterval(handleNext, 5000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const offset = -currentIndex * (100 / 3);

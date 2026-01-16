@@ -4,7 +4,7 @@ import { useState } from 'react';
 interface GroupSizeSelectProps {
     selectedGroupSize: string;
     numberOfTravelers: number;
-    onChange: (field: string, value: any) => void;
+    onChange: (field: string, value: string | number | boolean) => void;
 }
 
 const groupSizeOptions = [

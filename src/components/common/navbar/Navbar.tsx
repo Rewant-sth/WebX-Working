@@ -72,7 +72,7 @@ const navs: StaticNavItem[] = [
 
 export default function Navbar() {
   const [showNav, setShowNav] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [, setIsMobile] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );

@@ -1,4 +1,4 @@
-import { ISubCategory, ICategory } from "./ICategory";
+import { ISubCategory } from "./ICategory";
 import { IGallery } from "./IGallery";
 
 
@@ -21,6 +21,7 @@ export interface ITravelPackage {
   accommodation?: string;
   meal?: string;
   seasonalTrek?: ISeasonalTrek[];
+  tripHighlight?: ITripHighlight[];
   location: string;
   duration: string;
   note: string;
@@ -50,6 +51,7 @@ export interface ITravelPackage {
   }>;
   attraction: IAttraction[];
   itinerary: IItinerary[];
+  shortItinerary?: IShortItinerary[];
   faq: IFaq[];
   exclusion: IExclusion[];
   inclusion: IInclusion[];
@@ -78,6 +80,7 @@ export interface ITravelPackage {
     rating: number;
     sortOrder: number;
     comment: string;
+    image?: string;
     createdAt: string;
     updatedAt: string;
     __v: number;
@@ -155,6 +158,27 @@ export interface IAttraction {
   updatedAt: string;
   _id: string;
   image?: string;
+}
+
+export interface IShortItinerary {
+  _id: string;
+  title: string;
+  package: string;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface ITripHighlight {
+  _id: string;
+  title?: string;
+  description?: string;
+  package: string;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 export interface IItinerary {

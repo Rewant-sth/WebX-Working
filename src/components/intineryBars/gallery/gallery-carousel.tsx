@@ -27,7 +27,7 @@ const GalleryCarousel: React.FC<PropType> = ({ slides, options = { loop: true, a
         onNextButtonClick
     } = usePrevNextButtons(emblaApi);
 
-    const [centerIndex, setCenterIndex] = useState<number | null>(null)
+    const [, setCenterIndex] = useState<number | null>(null)
 
     const updateCarouselState = useCallback(() => {
         if (!emblaApi) return;

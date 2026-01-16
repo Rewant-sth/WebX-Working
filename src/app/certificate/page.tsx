@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getCertificates } from "@/service/certificates";
 import Skeleton from "react-loading-skeleton";
-//@ts-ignore
 import "react-loading-skeleton/dist/skeleton.css";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -274,7 +273,7 @@ const CertificatesPage = () => {
             </div>
           ) : (
             <div className="flex flex-wrap justify-center items-center w-full  gap-4 ">
-              {certificates.map((cert: Certificate, index: number) => (
+              {certificates.map((cert: Certificate) => (
                 <div
                   key={cert._id}
                   className="group transition-all border border-zinc-200 duration-500 transform"

@@ -31,7 +31,7 @@ export default function HeroSection() {
   }, []);
 
   // Carousel setup - disable auto-scroll on mobile for better performance
-  const [emblaRef, emblaApi] = useEmblaCarousel(
+  const [emblaRef] = useEmblaCarousel(
     { loop: true, align: 'center' },
     isMobile
       ? [] // No auto-scroll on mobile

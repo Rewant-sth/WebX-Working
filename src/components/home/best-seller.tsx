@@ -132,7 +132,7 @@ function BestSeller() {
             <div className="embla" ref={emblaRef}>
                 <div className="embla__container flex">
                     {bestSellingPackage.length > 0 ? (
-                        bestSellingPackage.map((pkg, index) => (
+                        bestSellingPackage.map((pkg) => (
                             <div
                                 key={pkg._id}
                                 className="embla__slide flex-none w-full md:w-1/2 lg:w-1/3 xl:w-1/4 pr-[0.5rem]"

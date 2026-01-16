@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Info, Search, Plus, Minus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import api from "@/service/api";
 import Image from "next/image";
 
@@ -53,7 +53,7 @@ const UsefulInfoSkeleton = () => (
 
 const UsefulInfoPage = () => {
     // local UI state
-    const [query, setQuery] = useState<string>("");
+    const [query] = useState<string>("");
     const [openId, setOpenId] = useState<string | null>(null);
 
     // Fetch useful info data
@@ -71,11 +71,11 @@ const UsefulInfoPage = () => {
         staleTime: 1000 * 60 * 5, // Cache for 5 minutes
     });
 
-    // Sort data by sortOrder (make a copy first)
-    const sortedData = usefulInfoData?.data?.slice().sort((a, b) => a.sortOrder - b.sortOrder) || [];
-
-    // Filtered by search query (name + description)
+    // Filtered by search query (name + description), sorted by sortOrder
     const filteredData = useMemo(() => {
+        // Sort data by sortOrder (make a copy first)
+        const sortedData = usefulInfoData?.data?.slice().sort((a, b) => a.sortOrder - b.sortOrder) || [];
+        
         const q = query.trim().toLowerCase();
         if (!q) return sortedData;
         return sortedData.filter((item) => {
@@ -84,7 +84,7 @@ const UsefulInfoPage = () => {
                 item.description.toLowerCase().includes(q)
             );
         });
-    }, [sortedData, query]);
+    }, [usefulInfoData?.data, query]);
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString("en-US", {
@@ -93,6 +93,9 @@ const UsefulInfoPage = () => {
             day: "numeric",
         });
     };
+
+    // formatDate is available for future use
+    void formatDate;
 
     return (
         <div className="min-h-screen h-full   mx-auto">
@@ -113,7 +116,7 @@ const UsefulInfoPage = () => {
                     )}
 
                     {isError && (
-                        <div className="p-4 bg-red-50 border border-red-200 rounded">Something went wrong: {(error as any)?.message || 'Failed to load.'}</div>
+                        <div className="p-4 bg-red-50 border border-red-200 rounded">Something went wrong: {error instanceof Error ? error.message : 'Failed to load.'}</div>
                     )}
 
                     {!isLoading && !isError && filteredData.length === 0 && (

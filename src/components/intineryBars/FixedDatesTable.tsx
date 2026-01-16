@@ -216,7 +216,6 @@ const FixedDatesTable: React.FC<FixedDatesTableProps> = ({ data, packageId, pkg 
                         {/* Individual Month Tabs */}
                         {MONTHS.map((month) => {
                             const hasData = availableMonths.includes(month.value);
-                            const isCurrentMonth = currentYear === selectedYear && currentMonth === month.value;
 
                             return (
                                 <button

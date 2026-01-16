@@ -82,7 +82,7 @@ const ValueCard: React.FC<ValueCardProps> = ({ icon, title, desc, delay = 0 }) =
 
 const AboutUsPage: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  useInView(ref, { once: true, amount: 0.1 });
 
   return (
     <main className="bg-white">

@@ -3,13 +3,12 @@ import React from "react";
 
 type PropType = {
   selected: boolean;
-  index: number;
   onClick: () => void;
   src: string;
 };
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, index, onClick, src } = props;
+  const { selected, onClick, src } = props;
 
   return (
     <div

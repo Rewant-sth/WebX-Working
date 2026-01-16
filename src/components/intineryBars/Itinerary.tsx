@@ -23,7 +23,6 @@ const ItineraryDay = ({
   day,
   title,
   description,
-  expanded: initialExpanded = true,
   data,
   isFirst = false,
 }: ItineraryDayProps) => {
