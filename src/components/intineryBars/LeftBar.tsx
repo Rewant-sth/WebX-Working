@@ -29,7 +29,7 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
   useEffect(() => {
     const handleScrollSpy = () => {
       const sections = [
-        "major-highlights",
+        "major-attractions",
         "overview",
         "trip-glance",
         "route-overview",
@@ -70,7 +70,7 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
         <ul className="flex flex-col">
           {data?.attraction?.length ? (
             <li
-              onClick={() => handleScroll("Major Highlights")}
+              onClick={() => handleScroll("Major Attractions")}
               className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("major-highlights")
                 ? "bg-blue-50 text-blue-500 font-medium"
                 : "hover:translate-x-1"
@@ -85,7 +85,7 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
                   className="w-4 object-contain"
                 />
               </div>
-              Major Highlights
+              Major Attractions
             </li>
           ) : null}
           <li

@@ -7,7 +7,7 @@ import { getTripHighlightsByPackageId } from "@/service/packages";
 // Helper function to strip HTML tags and decode HTML entities
 const stripHtml = (html: string | undefined | null): string => {
   if (!html) return '';
-  
+
   // Remove HTML tags
   const withoutTags = html.replace(/<[^>]*>/g, '');
   // Decode common HTML entities
@@ -65,10 +65,10 @@ const TripHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
         {sortedHighlights.map((item, index) => (
           <div
             key={item._id}
-            className="flex gap-4 items-start p-4 bg-white rounded-sm transition-all duration-200"
+            className="flex gap-4 items-start bg-white rounded-sm transition-all duration-200"
           >
             <div className="shrink-0">
-              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-semibold text-sm">
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-sm bg-orange-500 text-white font-semibold text-sm">
                 {index + 1}
               </span>
             </div>
@@ -77,7 +77,7 @@ const TripHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
                 {stripHtml(item.title)}
               </h3>
               {item.description && (
-                <div 
+                <div
                   className="text-zinc-800 leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: item.description }}
                 />

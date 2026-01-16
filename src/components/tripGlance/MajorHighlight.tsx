@@ -11,7 +11,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
         <div className="flex-1">
           {/* Section Title */}
           <h2 className="text-2xl mb-4 font-semibold text-orange-500 text-left">
-            <span>Major Highlights</span>
+            <span>Major Attractions</span>
           </h2>
 
 

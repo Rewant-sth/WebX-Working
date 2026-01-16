@@ -337,11 +337,11 @@ const Page = () => {
 
                         {packageData && <TripGlance data={packageData?.data} />}
 
-                        {packageData && <SeasonalInfo data={packageData.data} />}
-
                         {packageData?.data?.attraction.length ? (
                           <MajorHighlight data={packageData?.data} />
                         ) : null}
+
+                        {packageData && <SeasonalInfo data={packageData.data} />}
 
                         {/* add carousel here as well and have autoplay */}
                         {packageData?.data?.gallery && packageData?.data?.gallery.length > 0 ? (
