@@ -3,6 +3,7 @@
 import { ITravelPackage } from "@/types/IPackages";
 import { useQuery } from "@tanstack/react-query";
 import { getTripHighlightsByPackageId } from "@/service/packages";
+import { Icon } from "@iconify/react";
 
 // Helper function to strip HTML tags and decode HTML entities
 const stripHtml = (html: string | undefined | null): string => {
@@ -62,14 +63,14 @@ const TripHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
       </p>
 
       <div className="space-y-3">
-        {sortedHighlights.map((item, index) => (
+        {sortedHighlights.map((item) => (
           <div
             key={item._id}
             className="flex gap-4 items-start bg-white rounded-sm transition-all duration-200"
           >
             <div className="shrink-0">
-              <span className="inline-flex items-center justify-center w-8 h-8 rounded-sm bg-orange-500 text-white font-semibold text-sm">
-                {index + 1}
+              <span className="inline-flex items-center justify-center w-9 h-9 rounded-sm text-orange-500">
+                <Icon icon="mdi:arrow-right" className="size-5" />
               </span>
             </div>
             <div className="flex-1 min-w-0">

@@ -1,4 +1,5 @@
 import { ITravelPackage } from "@/types/IPackages";
+import { Icon } from "@iconify/react";
 
 // Helper function to strip HTML tags and decode HTML entities
 const stripHtml = (html: string): string => {
@@ -62,18 +63,18 @@ const ShortItinerary = ({ data }: { data: ITravelPackage | undefined }) => {
       </p>
 
       <div className="space-y-3">
-        {displayItems.map((item, index) => (
+        {displayItems.map((item) => (
           <div
             key={item.id}
             className="flex gap-4 items-start bg-white rounded-sm transition-all duration-200"
           >
             <div className="shrink-0">
-              <span className="inline-flex items-center justify-center w-8 h-8 rounded-sm bg-orange-500 text-white font-semibold text-sm">
-                {index + 1}
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-sm bg-white">
+                <Icon icon="mdi:square" className="size-4 text-orange-500 rotate-45" />
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-zinc-800 font-semibold leading-relaxed">{item.title}</div>
+              <div className="text-zinc-800 font-semibold text-lg leading-relaxed">{item.title}</div>
             </div>
           </div>
         ))}
