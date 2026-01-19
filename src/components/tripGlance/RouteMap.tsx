@@ -8,7 +8,7 @@ const RouteMap = ({ data, onShow }: { data: ITravelPackage | undefined, onShow: 
   if (!data?.routeMap) return null;
 
   return (
-    <div id="route-map" ref={routeMapRef} className="scroll-mt-20 pb-14">
+    <div id="route-map" ref={routeMapRef} className="scroll-mt-20 pt-6 pb-14">
       <h2 className="text-2xl font-semibold text-orange-500 text-left  mb-4">
         Route Map</h2>
       <div className=" transition-opacity duration-300 "

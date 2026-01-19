@@ -35,18 +35,10 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     // Define all possible sections with their conditions
     const sections: Section[] = [
         {
-            id: "major-highlights",
-            label: "Highlights",
-            icon: (
-                <Icon icon="lineicons:bulb-4" strokeWidth={4} className="size-5" />
-            ),
-            condition: (data) => data?.attraction?.length > 0,
-        },
-        {
-            id: "seasonal-info",
-            label: "Seasons",
-            icon: <Icon icon="ph:snowflake" className="size-5 scale-110" />,
-            condition: (data) => Array.isArray(data?.seasonalTrek) && data.seasonalTrek.length > 0,
+            id: "trip-highlight",
+            label: "Trip Highlights",
+            icon: <Icon icon="mdi:star-circle-outline" className="size-5" />,
+            condition: (data) => !!(data?.tripHighlight && data.tripHighlight.length > 0),
         },
         {
             id: "overview",
@@ -54,10 +46,12 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             icon: <Icon icon="si:info-line" className="size-5" />,
         },
         {
-            id: "trip-highlight",
-            label: "Trip Highlights",
-            icon: <Icon icon="mdi:star-circle-outline" className="size-5" />,
-            condition: (data) => !!(data?.tripHighlight && data.tripHighlight.length > 0),
+            id: "major-highlights",
+            label: "Major Attractions",
+            icon: (
+                <Icon icon="lineicons:bulb-4" strokeWidth={4} className="size-5" />
+            ),
+            condition: (data) => data?.attraction?.length > 0,
         },
         {
             id: "short-itinerary",
@@ -70,6 +64,18 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             label: "Itinerary",
             icon: <Icon icon={"guidance:calendar"} strokeWidth={1.3} className="size-5" />,
             condition: (data) => !!(data?.itinerary?.length && data.itinerary.length > 0),
+        },
+        {
+            id: "route-map",
+            label: "Route Map",
+            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-5" />,
+            condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
+        },
+        {
+            id: "seasonal-info",
+            label: "Seasons",
+            icon: <Icon icon="ph:snowflake" className="size-5 scale-110" />,
+            condition: (data) => Array.isArray(data?.seasonalTrek) && data.seasonalTrek.length > 0,
         },
         {
             id: "date-&-prices",
@@ -88,12 +94,6 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             label: "Requirements",
             icon: <Icon icon={"pepicons-pop:list-circle"} className="size-5" />,
             condition: (data) => data?.requirements?.length > 0,
-        },
-        {
-            id: "route-map",
-            label: "Route Map",
-            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-5" />,
-            condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
             id: "gear",
@@ -211,16 +211,29 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             const sectionIds = visibleSections.map((section) => section.id);
             let current = sectionIds[0] || "major-highlights";
 
-            // Find the section that's currently in view
+            // Find the section that's currently most visible in viewport
+            let maxVisibility = 0;
+            
             for (const sectionId of sectionIds) {
                 const element = document.getElementById(sectionId);
                 if (element) {
                     const rect = element.getBoundingClientRect();
-                    // Check if section is in the upper part of viewport
-                    if (rect.top <= 200) {
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Calculate how much of the section is visible
+                    const visibleTop = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+                    const visibilityRatio = visibleTop / viewportHeight;
+                    
+                    // If section is in the top portion of viewport (within first 30%), prioritize it
+                    if (rect.top >= 0 && rect.top <= 200) {
                         current = sectionId;
-                    } else {
-                        break; // Stop at first section not in view
+                        break;
+                    }
+                    
+                    // Otherwise, use the section with maximum visibility
+                    if (visibilityRatio > maxVisibility && rect.top < viewportHeight / 2) {
+                        maxVisibility = visibilityRatio;
+                        current = sectionId;
                     }
                 }
             }

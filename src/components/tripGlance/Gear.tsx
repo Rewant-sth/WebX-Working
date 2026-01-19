@@ -7,7 +7,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="gear"
-            className="border-b  border-zinc-200 mb-8 py-10"
+            className="border-b border-zinc-200 pt-6 mb-8 py-10"
         >
             {/* Gear */}
             <h2 className="text-2xl font-semibold text-orange-500 text-left ">

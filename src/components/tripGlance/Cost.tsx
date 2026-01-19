@@ -7,7 +7,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
   const [activeTab, setActiveTab] = useState<'inclusion' | 'exclusion'>('inclusion');
 
   return (
-    <div className="">
+    <div className="pt-6">
       <div
         id="inclusion-&-exclusion"
         className=" "

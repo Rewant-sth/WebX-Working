@@ -7,7 +7,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
         <>
             <div
                 id="insurance"
-                className=" pb-14"
+                className="pt-6 pb-14"
             >
                 {/* Insurance */}
                 <h2 className="text-2xl font-semibold text-orange-500 text-left ">

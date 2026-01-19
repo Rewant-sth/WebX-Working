@@ -92,7 +92,7 @@ export default function TravellerReview({
   return (
     <div
       id="traveller-review"
-      className="border-b border-zinc-200 mb-8 pb-10"
+      className="border-b border-zinc-200 pt-6 mb-8 pb-10"
     >
       <div className="mb-8">
         <h2 className="text-2xl font-semibold text-zinc-800 text-center sm:text-left">

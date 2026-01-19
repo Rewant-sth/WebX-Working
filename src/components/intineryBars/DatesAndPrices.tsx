@@ -359,7 +359,7 @@ const DatesAndPrices = ({
   return (
     <div
       id="date-&-prices"
-      className=" pb-14"
+      className="pt-6 pb-14"
     >
       <h2 className="text-2xl  text-orange-500 text-left ">
         <span className="w-fit   font-semibold " >

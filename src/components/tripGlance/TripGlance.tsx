@@ -4,7 +4,7 @@ const TripGlance = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="trip-glance"
-      className="pb-14 "
+      className="pt-6 pb-14 "
     >
       <div className=" mx-auto ">
         <h2 className="text-2xl font-semibold text-orange-500 text-left mb-6">

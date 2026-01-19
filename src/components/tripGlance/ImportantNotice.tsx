@@ -7,7 +7,7 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="important-notice"
-            className="    pb-14"
+            className="pt-6 pb-14"
         >
             {/* Important Notice */}
             <h2 className="text-2xl font-bold text-orange-500 text-left ">

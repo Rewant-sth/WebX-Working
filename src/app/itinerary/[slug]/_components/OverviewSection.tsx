@@ -19,7 +19,7 @@ const OverviewSection = ({ packageData }: OverviewSectionProps) => {
     return (
         <div
             id="overview"
-            className="relative    flex justify-center items-center"
+            className="relative pt-6 flex justify-center items-center"
         >
             <div className="relative pb-14">
                 <h2 className="text-2xl font-semibold text-orange-500 text-left mb-6">

@@ -6,7 +6,7 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
         <div
             id="requirements"
-            className="pb-14"
+            className="pt-6 pb-14"
         >
             {/* Requirements */}
             <h2 className="text-3xl font-bold text-orange-500 text-left ">

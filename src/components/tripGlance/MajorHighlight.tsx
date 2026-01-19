@@ -4,7 +4,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
       id="major-highlights"
-      className="pb-14 "
+      className="pt-6 pb-14 "
     >
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Content */}

@@ -8,7 +8,7 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
     if (!data.seasonalTrek || data.seasonalTrek.length === 0) return null;
 
     return (
-        <div id="seasonal-info" className="w-full bg-white rounded-xl  pb-14">
+        <div id="seasonal-info" className="w-full bg-white rounded-xl pt-6 pb-14">
             <div className="flex items-center gap-2 mb-4">
                 <h2 className="text-2xl font-semibold text-orange-500 text-left ">
                     Best Seasons for {data.name || "This Package"}</h2>
