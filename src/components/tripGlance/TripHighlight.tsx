@@ -64,38 +64,38 @@ const TripHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
         #trip-highlight #editor h4,
         #trip-highlight #editor ul,
         #trip-highlight #editor ol {
-          font-size: 16px !important;
+          font-size: 17px !important;
+          line-height: 1.4 !important;
         }
       `}</style>
       <h2 className="text-2xl font-semibold text-orange-500 text-left mb-2">
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2 mb-4">
           <span>Trip Highlights</span>
         </span>
       </h2>
-      <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
+      {/* <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
         Key highlights and features of this journey
-      </p>
+      </p> */}
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         {sortedHighlights.map((item) => (
           <div
             key={item._id}
-            className="flex gap-4 items-start bg-white rounded-sm transition-all duration-200"
+            className="flex gap-3 items-start bg-white rounded-sm transition-all duration-200"
           >
-            <div className="shrink-0 -mt-1">
-              <span className="inline-flex items-center justify-center w-9 h-9 rounded-sm text-orange-500">
+            <div className="shrink-0 mt-1">
+              <span className="inline-flex items-center justify-center text-orange-500">
                 <Icon icon="mdi:arrow-right" className="size-5" />
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-semibold text-zinc-900 mb-1">
+              <h3 className="text-base font-semibold text-zinc-900 mb-0.5 font-montserrat">
                 {stripHtml(item.title)}
               </h3>
               {item.description && (
                 <div
                   id="editor"
-                  className="text-base text-zinc-800 leading-relaxed"
-                  style={{ fontSize: '16px' }}
+                  className="text-[17px] text-zinc-800 leading-snug font-montserrat"
                   dangerouslySetInnerHTML={{ __html: item.description }}
                 />
               )}

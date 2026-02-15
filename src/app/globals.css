@@ -631,3 +631,20 @@ input[type="date"]::after {
     margin-bottom: 5px;
     margin-top: 15px;
 }
+
+/* Apply Montserrat font to all editor content */
+#editor,
+#editor p,
+#editor span,
+#editor div,
+#editor li,
+#editor ul,
+#editor ol,
+#editor h1,
+#editor h2,
+#editor h3,
+#editor h4,
+#editor h5,
+#editor h6 {
+    font-family: var(--font-montserrat), system-ui, sans-serif !important;
+}

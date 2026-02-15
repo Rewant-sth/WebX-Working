@@ -10,14 +10,12 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
             className="pt-6 pb-14"
         >
             {/* Requirements */}
-            <h2 className="text-3xl font-bold text-orange-500 text-left ">
+            <h2 className="text-3xl font-bold text-orange-500 text-left mb-4 ">
                 <span className="w-fit text-2xl font-semibold">
                     Requirements
                 </span>
             </h2>
-            <p className="text-base text-zinc-800 mt-1 leading-relaxed max-w-2xl mb-8">
-                Essential requirements and preparations needed for a safe and successful journey.
-            </p>
+           
             <ReadMore maxHeight="max-h-96" characterLimit={500}>
                 <div className="space-y-4">
                     {data?.requirements.map((item, index) => (
@@ -26,10 +24,10 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
                             className="flex items-start gap-4  transition-all duration-200"
                         >
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
+                                <h3 className="text-[17px] font-semibold mb-2 font-montserrat" style={{ color: '#3A3A3A' }}>
                                     {item.title}
                                 </h3>
-                                <div id="editor" className="text-base leading-relaxed text-zinc-800 space-y-4" dangerouslySetInnerHTML={{ __html: item.description }}></div>
+                                <div id="editor" className="text-[17px] leading-snug font-montserrat text-zinc-800 space-y-4" dangerouslySetInnerHTML={{ __html: item.description }}></div>
                             </div>
                         </div>
                     ))}

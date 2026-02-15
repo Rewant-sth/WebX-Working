@@ -6,16 +6,23 @@ import Providers from "./react-query-provider";
 import { Toaster } from "react-hot-toast";
 import TrackVisitors from "@/components/trackVisitors/TrackVisitors";
 import { SelectedTripProvider } from "@/contexts/SelectedDateContext";
-import { Dancing_Script } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { Suspense } from "react";
 import FooterWrapper from "@/components/FooterWrapper";
 import WhatsappBtn from "@/components/awesome-btn";
 
-const dancingScript = Dancing_Script({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-dancing-script",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap"
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
   display: "swap"
 });
 
@@ -34,7 +41,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${dancingScript.variable} max-w-[2000px] mx-auto`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${montserrat.variable} font-sans max-w-[2000px] mx-auto`} suppressHydrationWarning>
         <TrackVisitors />
         <Providers>
           <LayoutWrapper>

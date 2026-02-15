@@ -38,7 +38,7 @@ const ItineraryDay = ({
           <span className="rounded-sm shrink-0 px-3 bg-[#F05E25] py-2 text-sm h-fit font-semibold text-white">
             Day {day?.toString()?.padStart(2, "0")}
           </span>
-          <h3 className="font-semibold text-base" >
+          <h3 className="font-semibold text-[17px] font-montserrat" >
             {title}
           </h3>
         </div>
@@ -57,7 +57,7 @@ const ItineraryDay = ({
           }`}
       >
         <div className=" pb-6">
-          <div id="editor" dangerouslySetInnerHTML={{ __html: description }} className="text-base text-zinc-800 leading-relaxed mb-6">
+          <div id="editor" dangerouslySetInnerHTML={{ __html: description }} className="text-[17px] text-zinc-800 leading-snug font-montserrat mb-6">
 
           </div>
 
@@ -137,15 +137,15 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
       id="itinerary"
       className="pt-6 pb-14"
     >
-      <h2 className="text-2xl font-semibold text-orange-500 text-left mb-2">
+      <h2 className="text-2xl font-semibold text-orange-500 text-left mb-4">
         <span className="flex items-center gap-2">
           <span>Itinerary Details</span>
         </span>
       </h2>
-      <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
+      {/* <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
         Follow our detailed day-by-day itinerary to understand what each day of
         your adventure will bring.
-      </p>
+      </p> */}
 
       <div className="space-y-4 divide-y divide-zinc-200">
         {displayedData?.map((day, index) => (

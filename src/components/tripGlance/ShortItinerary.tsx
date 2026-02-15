@@ -39,27 +39,27 @@ const ShortItinerary = ({ data }: { data: ITravelPackage | undefined }) => {
       className="pt-6 pb-14"
     >
       <h2 className="text-2xl font-semibold text-orange-500 text-left mb-2">
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2 mb-4">
           <span>Short Itinerary</span>
         </span>
       </h2>
-      <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
+      {/* <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
         Quick overview of your journey day by day
-      </p>
+      </p> */}
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         {displayItems.map((item) => (
           <div
             key={item.id}
-            className="flex gap-4 items-start bg-white rounded-sm transition-all duration-200"
+            className="flex gap-3 items-center bg-white rounded-sm transition-all duration-200"
           >
             <div className="shrink-0">
-              <span className="rounded-sm px-3 bg-orange-500 py-2 text-sm font-semibold text-white">
+              <span className="rounded-sm px-3 bg-orange-500 py-2 text-sm font-semibold text-white font-montserrat w-[75px] inline-block text-center">
                 Day {item.day?.toString()?.padStart(2, "0")}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-base text-zinc-800 font-semibold leading-relaxed">{item.title}</div>
+              <div className="text-[17px] text-zinc-900 font-semibold leading-snug font-montserrat">{item.title}</div>
             </div>
           </div>
         ))}

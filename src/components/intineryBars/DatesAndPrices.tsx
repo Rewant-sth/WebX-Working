@@ -144,7 +144,7 @@ const PrivateTripForm: React.FC<{ packageId: string }> = ({ packageId }) => {
   return (
     <div id="date-and-price" className="mt-6">
       <div className="mb-6">
-        <p className="text-zinc-800 sm:text-lg leading-relaxed">
+        <p className="text-[17px] text-zinc-800 leading-snug font-montserrat">
           Looking for personalized experience? We organize privately guided journey which is mainly designed to fit your taste and interest. Please fill out the form below to get started.
         </p>
       </div>
@@ -391,7 +391,7 @@ const DatesAndPrices = ({
 
       {tripType === 'group' ? (
         <>
-          <p className="text-zinc-800  mt-6 sm:text-lg   leading-relaxed ">
+          <p className="text-[17px] text-zinc-800 mt-6 leading-snug font-montserrat">
             Choose your preferred travel date from the calendars below. Dates with a green ring are available fixed departure dates. Select any available date to see the complete trip duration and proceed to booking.
           </p>
 

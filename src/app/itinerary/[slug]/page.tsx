@@ -163,7 +163,7 @@ const Page = () => {
 
 
   return (
-    <div className="h-full min-h-screen ">
+    <div className="h-full min-h-screen font-montserrat">
       <>
         {showContactModal ? (
           <div className="min-h-screen"

@@ -18,31 +18,14 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
   return (
     <div
       id="faqs"
-      className="pt-6 pb-14  "
+      className="pt-6 pb-14"
     >
-      <style jsx>{`
-        #faqs #editor p,
-        #faqs #editor span,
-        #faqs #editor div,
-        #faqs #editor li,
-        #faqs #editor h1,
-        #faqs #editor h2,
-        #faqs #editor h3,
-        #faqs #editor h4,
-        #faqs #editor ul,
-        #faqs #editor ol {
-          font-size: 16px !important;
-        }
-      `}</style>
-      <h2 className="text-2xl font-semibold text-orange-500 text-left ">
-        <span className="w-fit  font-semibold">
-          FAQ and Guides
+      <h2 className="text-2xl font-semibold text-orange-500 text-left mb-2">
+        <span className="flex items-center gap-2 mb-4">
+          <span>FAQ and Guides</span>
         </span>
       </h2>
-      <p className="text-base text-zinc-800 mt-1 leading-relaxed max-w-2xl mb-4">
-        Find answers to commonly asked questions and helpful guides for your trip preparation.
-      </p>
-      <ReadMore maxHeight="max-h-96" characterLimit={800}>
+      <ReadMore maxHeight="max-h-80" characterLimit={800}>
         <div className="space-y-2">
           {faq?.map((item, index) => {
             return (
@@ -57,7 +40,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                   aria-controls={`faq-content-${index}`}
                 >
                   <div className="flex items-center flex-1 min-w-0">
-                    <span className="font-semibold text-base pr-4 transition-colors duration-200" style={{ color: '#3A3A3A' }}>
+                    <span className="text-[17px] text-zinc-900 font-semibold leading-snug font-montserrat pr-4 transition-colors duration-200">
                       {item.title}
                     </span>
                   </div>
@@ -76,7 +59,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                     }`}
                 >
                   <div className="pb-3">
-                    <p className="text-base text-zinc-800 leading-relaxed" id="editor" style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                    <p className="text-[17px] leading-snug text-zinc-900 font-montserrat" id="editor" dangerouslySetInnerHTML={{ __html: item.description }}></p>
                   </div>
                 </div>
               </div>
