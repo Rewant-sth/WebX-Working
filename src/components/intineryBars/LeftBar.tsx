@@ -16,7 +16,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
-  const [activeSection, setActiveSection] = useState<string>("major-highlights");
+  const [activeSection, setActiveSection] = useState<string>("trip-glance");
 
   const handleScroll = (section: string) => {
     const id = section.toLowerCase().replace(/\s+/g, "-");
@@ -29,10 +29,11 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
   useEffect(() => {
     const handleScrollSpy = () => {
       const sections = [
-        "major-attractions",
+        "trip-highlight",
+        "short-itinerary",
         "overview",
+        "major-attractions",
         "trip-glance",
-        "route-overview",
         "route-map",
         "itinerary",
         "date-&-prices",
@@ -41,7 +42,7 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
         "traveller-review",
         "faqs",
       ];
-      let current = "major-highlights";
+      let current = "trip-highlight";
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -68,10 +69,23 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
       </div>
       <div className="mt-2">
         <ul className="flex flex-col">
-          {data?.attraction?.length ? (
+          <li
+            onClick={() => handleScroll("Trip Glance")}
+            className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("trip-glance")
+              ? "bg-blue-50 text-blue-500 font-medium"
+              : "hover:translate-x-1"
+              }`}
+          >
+            <div className="p-1.5 bg-blue-50 rounded-md">
+              <Compass className="w-4 h-4" style={{ color: "#8B5CF6" }} />
+            </div>
+            Trip Glance
+          </li>
+
+          {data?.tripHighlight && data.tripHighlight.length > 0 ? (
             <li
-              onClick={() => handleScroll("Major Attractions")}
-              className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("major-highlights")
+              onClick={() => handleScroll("Trip Highlight")}
+              className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("trip-highlight")
                 ? "bg-blue-50 text-blue-500 font-medium"
                 : "hover:translate-x-1"
                 }`}
@@ -79,15 +93,31 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
               <div className="p-1.5 bg-blue-50 rounded-md">
                 <Image
                   src="/icons/high5-fav.png"
-                  alt="High Five"
+                  alt="Trip Highlight"
                   width={100}
                   height={100}
                   className="w-4 object-contain"
                 />
               </div>
-              Major Attractions
+              Trip Highlight
             </li>
           ) : null}
+
+          {data?.itinerary && data.itinerary.length > 0 ? (
+            <li
+              onClick={() => handleScroll("Short Itinerary")}
+              className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("short-itinerary")
+                ? "bg-blue-50 text-blue-500 font-medium"
+                : "hover:translate-x-1"
+                }`}
+            >
+              <div className="p-1.5 bg-blue-50 rounded-md">
+                <CalendarRange className="w-4 h-4" style={{ color: "#10B981" }} />
+              </div>
+              Short Itinerary
+            </li>
+          ) : null}
+
           <li
             onClick={() => handleScroll("Overview")}
             className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("overview")
@@ -101,18 +131,20 @@ const LeftBar = ({ data }: { data: ITravelPackage | undefined }) => {
             Overview
           </li>
 
-          <li
-            onClick={() => handleScroll("Trip Glance")}
-            className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("trip-glance")
-              ? "bg-blue-50 text-blue-500 font-medium"
-              : "hover:translate-x-1"
-              }`}
-          >
-            <div className="p-1.5 bg-blue-50 rounded-md">
-              <Compass className="w-4 h-4" style={{ color: "#14B8A6" }} />
-            </div>
-            Trip Glance
-          </li>
+          {data?.attraction?.length ? (
+            <li
+              onClick={() => handleScroll("Major Attractions")}
+              className={`flex items-center gap-3 px-2 py-1.5 rounded-md cursor-pointer transition-all duration-300 ${isActive("major-attractions")
+                ? "bg-blue-50 text-blue-500 font-medium"
+                : "hover:translate-x-1"
+                }`}
+            >
+              <div className="p-1.5 bg-blue-50 rounded-md">
+                <Compass className="w-4 h-4" style={{ color: "#14B8A6" }} />
+              </div>
+              Major Attractions
+            </li>
+          ) : null}
 
           {/* <li
             onClick={() => handleScroll("Route Overview")}

@@ -502,7 +502,7 @@ button:disabled {
 }
 
 #editor h2 {
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 
 /* For Chrome, Safari, Edge, Opera */
@@ -612,7 +612,16 @@ input[type="date"]::after {
 }
 
 #editor p {
-    @apply !text-lg
+    @apply !text-base;
+    font-size: 16px !important;
+}
+
+#editor span {
+    font-size: inherit !important;
+}
+
+#editor div {
+    font-size: inherit !important;
 }
 #editor strong {
     font-weight: 600;

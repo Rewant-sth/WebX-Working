@@ -1,5 +1,4 @@
 import { ITravelPackage } from "@/types/IPackages";
-import { Icon } from "@iconify/react";
 
 // Helper function to strip HTML tags and decode HTML entities
 const stripHtml = (html: string): string => {
@@ -18,35 +17,21 @@ const stripHtml = (html: string): string => {
 };
 
 const ShortItinerary = ({ data }: { data: ITravelPackage | undefined }) => {
-  // Check if we have shortItinerary data from API
-  const hasShortItinerary = data?.shortItinerary && data.shortItinerary.length > 0;
-  
-  // Check if we have regular itinerary to generate from
+  // Check if we have regular itinerary data
   const hasItinerary = data?.itinerary && data.itinerary.length > 0;
   
-  // If neither exists, don't render
-  if (!hasShortItinerary && !hasItinerary) {
+  // Only render if itinerary exists
+  if (!hasItinerary) {
     return null;
   }
 
-  // Use shortItinerary if available, otherwise generate from itinerary
-  let displayItems: Array<{ id: string; title: string }> = [];
-  
-  if (hasShortItinerary) {
-    // Sort by sortOrder to ensure correct display order
-    const sortedItinerary = [...data.shortItinerary!].sort((a, b) => a.sortOrder - b.sortOrder);
-    displayItems = sortedItinerary.map(item => ({
-      id: item._id,
-      title: stripHtml(item.title)
-    }));
-  } else if (hasItinerary) {
-    // Generate short itinerary from detailed itinerary
-    const sortedItinerary = [...data.itinerary!].sort((a, b) => a.sortOrder - b.sortOrder);
-    displayItems = sortedItinerary.map(item => ({
-      id: item._id,
-      title: stripHtml(item.title)
-    }));
-  }
+  // Sort by sortOrder and map to display format (day + title only)
+  const sortedItinerary = [...data.itinerary!].sort((a, b) => a.sortOrder - b.sortOrder);
+  const displayItems = sortedItinerary.map(item => ({
+    id: item._id,
+    day: item.days,
+    title: stripHtml(item.title)
+  }));
 
   return (
     <div
@@ -58,7 +43,7 @@ const ShortItinerary = ({ data }: { data: ITravelPackage | undefined }) => {
           <span>Short Itinerary</span>
         </span>
       </h2>
-      <p className="text-zinc-800 mt-1 leading-relaxed mb-4">
+      <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
         Quick overview of your journey day by day
       </p>
 
@@ -69,12 +54,12 @@ const ShortItinerary = ({ data }: { data: ITravelPackage | undefined }) => {
             className="flex gap-4 items-start bg-white rounded-sm transition-all duration-200"
           >
             <div className="shrink-0">
-              <span className="inline-flex items-center justify-center w-8 h-8 rounded-sm bg-white">
-                <Icon icon="mdi:square" className="size-4 text-orange-500 rotate-45" />
+              <span className="rounded-sm px-3 bg-orange-500 py-2 text-sm font-semibold text-white">
+                Day {item.day?.toString()?.padStart(2, "0")}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-zinc-800 font-semibold text-lg leading-relaxed">{item.title}</div>
+              <div className="text-base text-zinc-800 font-semibold leading-relaxed">{item.title}</div>
             </div>
           </div>
         ))}

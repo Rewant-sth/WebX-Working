@@ -3,9 +3,23 @@ import { ITravelPackage } from "@/types/IPackages";
 const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
     <div
-      id="major-highlights"
+      id="major-attractions"
       className="pt-6 pb-14 "
     >
+      <style jsx>{`
+        #major-attractions #editor p,
+        #major-attractions #editor span,
+        #major-attractions #editor div,
+        #major-attractions #editor li,
+        #major-attractions #editor h1,
+        #major-attractions #editor h2,
+        #major-attractions #editor h3,
+        #major-attractions #editor h4,
+        #major-attractions #editor ul,
+        #major-attractions #editor ol {
+          font-size: 16px !important;
+        }
+      `}</style>
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Content */}
         <div className="flex-1">
@@ -21,8 +35,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
             {data?.attraction.map((item, index) => (
               <div
                 key={index}
-                className="flex gap-4  border-zinc-200 bg-white  
-                           transition-all duration-300"
+                className="flex gap-4 border-zinc-200 bg-white transition-all duration-300"
               >
                 {/* Icon */}
                 {/* <div className="shrink-0 mt-1  size-10 flex items-start justify-center text-orange-500">
@@ -31,10 +44,10 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-bold text-zinc-900 mb-2">
+                  <h3 className="text-base font-semibold text-zinc-900 mb-1">
                     {item.title}
                   </h3>
-                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className=" leading-relaxed text-zinc-800 md:text-lg md:text-justify">
+                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className="leading-relaxed text-base text-zinc-800">
 
                   </div>
                 </div>

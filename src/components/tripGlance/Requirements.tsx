@@ -14,7 +14,7 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
                     Requirements
                 </span>
             </h2>
-            <p className="text-zinc-600 mt-1 leading-relaxed max-w-2xl mb-8">
+            <p className="text-base text-zinc-800 mt-1 leading-relaxed max-w-2xl mb-8">
                 Essential requirements and preparations needed for a safe and successful journey.
             </p>
             <div className="space-y-4">
@@ -30,7 +30,7 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
                             <h3 className="text-lg font-semibold mb-2" style={{ color: '#3A3A3A' }}>
                                 {item.title}
                             </h3>
-                            <div id="editor" className=" leading-relaxed text-zinc-600 space-y-4" dangerouslySetInnerHTML={{ __html: item.description }}></div>
+                            <div id="editor" className="text-base leading-relaxed text-zinc-800 space-y-4" dangerouslySetInnerHTML={{ __html: item.description }}></div>
                         </div>
                     </div>
                 ))}

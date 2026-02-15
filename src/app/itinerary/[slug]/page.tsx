@@ -335,6 +335,8 @@ const Page = () => {
                       />
                     </div>
 
+
+                        {/* Trip Glance - First */}
                     {packageData && <TripGlance data={packageData?.data} />}
 
                     {/* add carousel here as well and have autoplay */}
@@ -361,22 +363,31 @@ const Page = () => {
                       </div>
                     )}
 
-                    {/* Trip Highlights - First */}
+                
+
+                    {/* Trip Highlights - Second */}
                     <TripHighlight data={packageData?.data} />
 
-                    {/* Overview Section */}
+                    {/* Short Itinerary - Third */}
+                    <ShortItinerary data={packageData?.data} />
+
+                    {/* Overview Section - Fourth */}
                     <OverviewSection packageData={packageData?.data as ITravelPackage} />
 
+                    {/* Major Attractions - Fifth */}
                     {packageData?.data?.attraction.length ? (
                       <MajorHighlight data={packageData?.data} />
                     ) : null}
 
-                    <ShortItinerary data={packageData?.data} />
+                    {/* Route Map - Sixth */}
+                    <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} />
 
+                    {/* Detailed Itinerary - Seventh */}
                     {packageData?.data?.itinerary.length ? (
                       <Itinerary data={packageData?.data.itinerary} />
                     ) : null}
 
+                    {/* Note Section */}
                     {packageData?.data?.note && (
                       <div className="bg-orange-50 rounded-md  p-4 mb-6">
                         <h3 className=" flex gap-2 items-center text-lg font-semibold mb-2">
@@ -417,10 +428,10 @@ const Page = () => {
                       </div>
                     )}
 
-                    <RouteMap onShow={() => setIsVisible(true)} data={packageData?.data} />
-
+                    {/* Seasonal Info */}
                     {packageData && <SeasonalInfo data={packageData.data} />}
 
+                    {/* Dates & Prices */}
                     {packageData?.data?.fixedDates?.length ? (
                       <DatesAndPrices
                         onShowBooking={handleOpenBookingModal}
@@ -430,39 +441,54 @@ const Page = () => {
                       />
                     ) : null}
 
+                    {/* Cost (Inclusion & Exclusion) */}
                     {packageData?.data?.inclusion.length ? (
                       <Cost data={packageData?.data} />
                     ) : null}
 
+                    {/* Requirements */}
                     {packageData?.data?.requirements.length ? (
                       <Requirements data={packageData?.data} />
                     ) : null}
 
+                    {/* Gear Info */}
                     {packageData?.data?.gearInfo?.length ? (
                       <Gear data={packageData?.data} />
                     ) : null}
 
+                    {/* Insurance */}
                     {packageData?.data?.insurance?.length ? (
                       <Insurance data={packageData?.data} />
                     ) : null}
+
+                    {/* Why Love This */}
                     {packageData?.data?.whyLoveThisTrek?.length ? (
                       <WhyLoveThis data={packageData?.data} />
                     ) : null}
+
+                    {/* Important Notice */}
                     {packageData?.data?.importantNotice?.length ? (
                       <ImportantNotice data={packageData?.data} />
                     ) : null}
 
+                    {/* FAQs */}
                     {packageData?.data?.faq?.length ? (
                       <Faq faq={packageData?.data?.faq} />
                     ) : null}
+
+                    {/* Traveller Reviews */}
                     {packageData?.data?.testimonial.length ? (
                       <TravellerReview
                         data={packageData.data}
                       />
                     ) : null}
+
+                    {/* Video Reviews */}
                     {packageData?.data?.videos?.length ? (
                       <VideoReview data={packageData?.data} />
                     ) : null}
+
+                    {/* Related Trips */}
                     <RelatedTrips
                       packageId={packageData?.data?._id as string}
                       category={packageData?.data?.categoryId?.slug as string}

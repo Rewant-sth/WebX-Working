@@ -16,7 +16,7 @@ interface Section {
 }
 
 const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
-    const [activeSection, setActiveSection] = useState<string>("major-highlights");
+    const [activeSection, setActiveSection] = useState<string>("trip-glance");
     const [isScrollingToSection, setIsScrollingToSection] = useState(false);
     const lastScrollY = useRef(0);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -35,10 +35,21 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
     // Define all possible sections with their conditions
     const sections: Section[] = [
         {
+            id: "trip-glance",
+            label: "Trip Glance",
+            icon: <Icon icon="mdi:compass-outline" className="size-5" />,
+        },
+        {
             id: "trip-highlight",
             label: "Trip Highlights",
             icon: <Icon icon="mdi:star-circle-outline" className="size-5" />,
             condition: (data) => !!(data?.tripHighlight && data.tripHighlight.length > 0),
+        },
+        {
+            id: "short-itinerary",
+            label: "Short Itinerary",
+            icon: <Icon icon="mdi:map-marker-path" className="size-5" />,
+            condition: (data) => !!(data?.itinerary && data.itinerary.length > 0),
         },
         {
             id: "overview",
@@ -46,7 +57,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             icon: <Icon icon="si:info-line" className="size-5" />,
         },
         {
-            id: "major-highlights",
+            id: "major-attractions",
             label: "Major Attractions",
             icon: (
                 <Icon icon="lineicons:bulb-4" strokeWidth={4} className="size-5" />
@@ -54,22 +65,16 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             condition: (data) => data?.attraction?.length > 0,
         },
         {
-            id: "short-itinerary",
-            label: "Short Itinerary",
-            icon: <Icon icon="mdi:map-marker-path" className="size-5" />,
-            condition: (data) => !!((data?.shortItinerary && data.shortItinerary.length > 0) || (data?.itinerary && data.itinerary.length > 0)),
+            id: "route-map",
+            label: "Route Map",
+            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-5" />,
+            condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
             id: "itinerary",
             label: "Itinerary",
             icon: <Icon icon={"guidance:calendar"} strokeWidth={1.3} className="size-5" />,
             condition: (data) => !!(data?.itinerary?.length && data.itinerary.length > 0),
-        },
-        {
-            id: "route-map",
-            label: "Route Map",
-            icon: <Icon icon={'solar:map-point-linear'} strokeWidth={2} className="size-5" />,
-            condition: (data) => !!data?.routeMap && data.routeMap.length > 0,
         },
         {
             id: "seasonal-info",
@@ -209,7 +214,7 @@ const ScrollTracker = ({ data }: { data: ITravelPackage | null }) => {
             if (isScrollingToSection) return; // Don't update active section during manual scroll
 
             const sectionIds = visibleSections.map((section) => section.id);
-            let current = sectionIds[0] || "major-highlights";
+            let current = sectionIds[0] || "trip-glance";
 
             // Find the section that's currently most visible in viewport
             let maxVisibility = 0;

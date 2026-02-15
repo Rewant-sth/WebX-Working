@@ -102,3 +102,16 @@ export async function getTripHighlightsByPackageId(packageId: string) {
         return { data: [] };
     }
 }
+
+/**
+ * Get short itinerary by package ID
+ */
+export async function getShortItineraryByPackageId(packageId: string) {
+    try {
+        const res = await api.get(`/short-itinerary/package/${packageId}`);
+        return res.data;
+    } catch (error: unknown) {
+        console.error('Failed to fetch short itinerary:', error);
+        return { data: [] };
+    }
+}
