@@ -1,4 +1,7 @@
+"use client";
+
 import { ITravelPackage } from "@/types/IPackages";
+import ReadMore from "@/components/ui/ReadMore";
 
 const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
   return (
@@ -28,35 +31,31 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
             <span>Major Attractions</span>
           </h2>
 
-
-
-          {/* Highlights Grid */}
-          <div className="space-y-6">
-            {data?.attraction.map((item, index) => (
-              <div
-                key={index}
-                className="flex gap-4 border-zinc-200 bg-white transition-all duration-300"
-              >
-                {/* Icon */}
-                {/* <div className="shrink-0 mt-1  size-10 flex items-start justify-center text-orange-500">
-                  <img src="/icons/idea-bulb.png" alt="Real Himalaya" />
-                </div> */}
-
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-base font-semibold text-zinc-900 mb-1">
-                    {item.title}
-                  </h3>
-                  <div id="editor" dangerouslySetInnerHTML={{ __html: item.description }} className="leading-relaxed text-base text-zinc-800">
-
+          {/* Highlights Grid with ReadMore */}
+          <ReadMore maxHeight="max-h-96" characterLimit={500}>
+            <div className="space-y-6">
+              {data?.attraction.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex gap-4 border-zinc-200 bg-white transition-all duration-300"
+                >
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base font-semibold text-zinc-900 mb-1">
+                      {item.title}
+                    </h3>
+                    <div 
+                      id="editor" 
+                      dangerouslySetInnerHTML={{ __html: item.description }} 
+                      className="leading-relaxed text-base text-zinc-800"
+                    >
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </ReadMore>
         </div>
-
-
       </div>
     </div>
   );

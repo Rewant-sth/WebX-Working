@@ -2,6 +2,7 @@
 
 import { ITravelPackage } from "@/types/IPackages";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import ReadMore from "@/components/ui/ReadMore";
 
 const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
@@ -32,27 +33,30 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
             <p className="text-base text-zinc-800 mt-1 leading-relaxed max-w-2xl mb-4">
                 Complete gear list and equipment recommendations for your adventure.
             </p>
-            <div className="space-y-4">
-                {data?.gearInfo.map((item, index) => (
-                    <div
-                        key={index}
-                        className="flex items-start gap-4  transition-all duration-200"
-                        style={{ borderColor: '#f0f0f0' }}
-                    >
-                        <div className="flex-1 min-w-0">
-                            <h3 className="text-base flex gap-2 items-center  font-semibold mb-1" style={{ color: '#3A3A3A' }}>
-                                <span><Icon icon={"streamline-ultimate:chef-gear-gloves"} className="size-6" /></span> {item.title}
-                            </h3>
-                            <div
-                                className="text-base leading-relaxed text-zinc-800"
-                                id="editor" 
-                                style={{ fontSize: '16px' }}
-                                dangerouslySetInnerHTML={{ __html: item?.description?.replace(/&nbsp;/g, "<br />") }}
-                            />
+            
+            <ReadMore maxHeight="max-h-96" characterLimit={500}>
+                <div className="space-y-4">
+                    {data?.gearInfo.map((item, index) => (
+                        <div
+                            key={index}
+                            className="flex items-start gap-4  transition-all duration-200"
+                            style={{ borderColor: '#f0f0f0' }}
+                        >
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-base flex gap-2 items-center  font-semibold mb-1" style={{ color: '#3A3A3A' }}>
+                                    <span><Icon icon={"streamline-ultimate:chef-gear-gloves"} className="size-6" /></span> {item.title}
+                                </h3>
+                                <div
+                                    className="text-base leading-relaxed text-zinc-800"
+                                    id="editor"
+                                    style={{ fontSize: '16px' }}
+                                    dangerouslySetInnerHTML={{ __html: item?.description?.replace(/&nbsp;/g, "<br />") }}
+                                />
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            </ReadMore>
         </div>
     );
 };

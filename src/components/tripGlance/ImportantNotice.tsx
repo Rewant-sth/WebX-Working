@@ -1,6 +1,7 @@
 "use client";
 
 import { ITravelPackage } from "@/types/IPackages";
+import ReadMore from "@/components/ui/ReadMore";
 
 
 const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
@@ -32,29 +33,28 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
             <p className="text-base text-zinc-800 mt-1 leading-relaxed  mb-8">
                 Important information and notices that you should be aware of before booking your adventure.
             </p>
-            <div className="space-y-4 divide-y divide-zinc-200">
-                {data?.importantNotice.map((item, index) => (
-                    <div
-                        key={index}
-                        className="flex items-start gap-4 pb-6   transition-all duration-200"
-                    >
-                        {/* <div className="shrink-0 size-10 flex justify-center items-center mt-1 p-2 rounded-sm bg-green-500 text-white" >
-                            <AlertTriangle className="text-3xl" />
-                        </div> */}
-                        <div className="flex-1 min-w-0">
-                            <h3 className="text-base font-semibold mb-1" style={{ color: '#3A3A3A' }}>
-                                {item.title}
-                            </h3>
-                            <div
-                                className="text-base leading-relaxed text-zinc-800"
-                                id="editor" 
-                                style={{ fontSize: '16px' }}
-                                dangerouslySetInnerHTML={{ __html: item.description }}
-                            />
+            <ReadMore maxHeight="max-h-96" characterLimit={500}>
+                <div className="space-y-4 divide-y divide-zinc-200">
+                    {data?.importantNotice.map((item, index) => (
+                        <div
+                            key={index}
+                            className="flex items-start gap-4 pb-6   transition-all duration-200"
+                        >
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-base font-semibold mb-1" style={{ color: '#3A3A3A' }}>
+                                    {item.title}
+                                </h3>
+                                <div
+                                    className="text-base leading-relaxed text-zinc-800"
+                                    id="editor" 
+                                    style={{ fontSize: '16px' }}
+                                    dangerouslySetInnerHTML={{ __html: item.description }}
+                                />
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            </ReadMore>
         </div>
     );
 };

@@ -85,7 +85,7 @@ export function Features({
         setProgress(0);
       }, 200);
     }
-  }, [progress]);
+  }, [progress, features.length]);
 
   useEffect(() => {
     const activeFeatureElement = featureRefs.current[currentFeature];

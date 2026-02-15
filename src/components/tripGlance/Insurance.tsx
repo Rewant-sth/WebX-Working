@@ -1,6 +1,7 @@
 "use client";
 
 import { ITravelPackage } from "@/types/IPackages";
+import ReadMore from "@/components/ui/ReadMore";
 
 const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
     return (
@@ -32,26 +33,28 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                 <p className="text-base text-zinc-800 leading-relaxed mb-4">
                     Comprehensive insurance coverage details to ensure your safety and peace of mind during your adventure.
                 </p>
-                <div className="space-y-6">
-                    {data?.insurance.map((item, index) => (
-                        <div
-                            key={index}
-                            className="flex items-start gap-4   transition-all duration-200"
-                        >
-                            <div className="flex-1 min-w-0 ">
-                                <h3 className="text-base font-semibold mb-1">
-                                    {item.title}
-                                </h3>
-                                <div
-                                    id="editor"
-                                    className="text-base space-y-2 leading-relaxed text-zinc-800"
-                                    style={{ fontSize: '16px' }}
-                                    dangerouslySetInnerHTML={{ __html: item.description }}
-                                />
+                <ReadMore maxHeight="max-h-96" characterLimit={500}>
+                    <div className="space-y-6">
+                        {data?.insurance.map((item, index) => (
+                            <div
+                                key={index}
+                                className="flex items-start gap-4   transition-all duration-200"
+                            >
+                                <div className="flex-1 min-w-0 ">
+                                    <h3 className="text-base font-semibold mb-1">
+                                        {item.title}
+                                    </h3>
+                                    <div
+                                        id="editor"
+                                        className="text-base space-y-2 leading-relaxed text-zinc-800"
+                                        style={{ fontSize: '16px' }}
+                                        dangerouslySetInnerHTML={{ __html: item.description }}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </ReadMore>
             </div>
         </>
     );

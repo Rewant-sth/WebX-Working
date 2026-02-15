@@ -1,4 +1,7 @@
+"use client";
+
 import { ITravelPackage } from "@/types/IPackages";
+import ReadMore from "@/components/ui/ReadMore";
 
 interface SeasonalInfoProps {
     data: ITravelPackage;
@@ -28,19 +31,21 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
                     Best Seasons for {data.name || "This Package"}</h2>
             </div>
 
-            <div className="space-y-6">
-                {data.seasonalTrek.map((season) => (
-                    <div key={season._id} className="">
-                        <h3 className="text-base font-semibold mb-1">{season.title}</h3>
-                        <div
-                            id="editor"
-                            className="text-base text-zinc-800"
-                            style={{ fontSize: '16px' }}
-                            dangerouslySetInnerHTML={{ __html: season.description }}
-                        />
-                    </div>
-                ))}
-            </div>
+            <ReadMore maxHeight="max-h-96" characterLimit={500}>
+                <div className="space-y-6">
+                    {data.seasonalTrek.map((season) => (
+                        <div key={season._id} className="">
+                            <h3 className="text-base font-semibold mb-1">{season.title}</h3>
+                            <div
+                                id="editor"
+                                className="text-base text-zinc-800"
+                                style={{ fontSize: '16px' }}
+                                dangerouslySetInnerHTML={{ __html: season.description }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </ReadMore>
         </div>
     );
 };

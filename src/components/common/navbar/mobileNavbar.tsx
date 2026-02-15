@@ -222,7 +222,10 @@ const MobileNavbar = () => {
   );
 };
 
+// Named component for dynamic import
+const MobileNavbarDynamic = MobileNavbar;
+
 // Export with dynamic import and no SSR
-export default dynamic(() => Promise.resolve(MobileNavbar), {
+export default dynamic(() => Promise.resolve(MobileNavbarDynamic), {
   ssr: false,
 });

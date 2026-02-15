@@ -117,7 +117,7 @@ const Calendar: React.FC<CalendarProps> = ({
         }
 
         return dates;
-    }, [hoveredDate, fixedDates]);
+    }, [hoveredDate, getFixedDateForDate]);
 
     const isDateHighlighted = (date: Date) => {
         return highlightedDates.some(d =>

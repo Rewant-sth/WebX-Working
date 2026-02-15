@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 "use client";
 import { createContext, useContext, useState, useRef, useEffect, ReactNode } from 'react';
 
@@ -86,7 +87,7 @@ export function AudioProvider({ children }: AudioProviderProps) {
                 audio.pause();
             };
         }
-    }, []);
+    }, [currentTrack, volume]);
 
     const playNextTrack = () => {
         currentTrackIndex.current = (currentTrackIndex.current + 1) % DEFAULT_TRACKS.length;

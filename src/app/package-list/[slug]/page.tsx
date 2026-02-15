@@ -431,7 +431,6 @@ const ExpeditionCards: React.FC = () => {
                                 // Save package data to booking store
                                 if (card.fixedDates && card.fixedDates.length > 0) {
                                   const firstFixedDate = card.fixedDates[0];
-                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                   openBookingModal(
                                     card as unknown as Parameters<typeof openBookingModal>[0],
                                     firstFixedDate._id || null,
@@ -442,7 +441,6 @@ const ExpeditionCards: React.FC = () => {
                                   router.push(`/booking/${card._id}`);
                                 } else {
                                   // If no fixed dates, redirect to itinerary page
-                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                   openBookingModal(card as unknown as Parameters<typeof openBookingModal>[0], null);
                                   router.push(`/itinerary/${card.slug}`);
                                 }

@@ -116,7 +116,7 @@ export function useFormValidation(formData: CustomizeTripFormData, currentStep: 
             default:
                 return {};
         }
-    }, [formData, currentStep]);
+    }, [formData, currentStep, validateStep1, validateStep2, validateStep3, validateStep4, validateStep5, validateStep6]);
 
     const isStepValid = useMemo(() => {
         return Object.keys(validationErrors).length === 0;

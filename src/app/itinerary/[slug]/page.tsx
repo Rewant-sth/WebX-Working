@@ -315,7 +315,7 @@ const Page = () => {
 
                   {/* Left Sidebar - Scroll Tracker */}
                   <div className="hidden lg:block w-full lg:w-[22%] xl:w-[17%]  shrink-0">
-                    <div className="!sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pt-4">
+                    <div className="!sticky top-10 overflow-hidden pt-4">
                       <ScrollTracker data={packageData?.data as ITravelPackage} />
                     </div>
                   </div>

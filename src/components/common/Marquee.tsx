@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import Link from "next/link";
 
@@ -9,7 +9,7 @@ export default function ScrollingBanner() {
 
   
   // Function to animate
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     const scrollWidth = containerRef.current?.scrollWidth || 0;
     const viewportWidth = window.innerWidth;
 
@@ -24,7 +24,7 @@ export default function ScrollingBanner() {
         },
       },
     });
-  };
+  }, [controls]);
 
   // Setup on mount & resize
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function ScrollingBanner() {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [controls]);
+  }, [controls, startAnimation]);
 
   // Pause/resume handlers
   const handleMouseEnter = () => {
