@@ -57,11 +57,11 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex gap-4 ">
-                          <h3 className="text-[17px] capitalize font-semibold mb-1 font-montserrat" style={{ color: '#3A3A3A' }}>
+                          <h3 className="text-[17px] capitalize mb-1 font-montserrat" style={{ color: '#3A3A3A' }}>
                             {item.title}
                           </h3>
                         </div>
-                        <p className="text-[17px] leading-snug font-montserrat text-zinc-800" mb-6 id="editor" dangerouslySetInnerHTML={{ __html: item?.description?.replace("<br>", "") }}></p>
+                        <p className="text-[6px] leading-snug font-montserrat text-zinc-800" mb-6 id="editor" dangerouslySetInnerHTML={{ __html: item?.description?.replace("<br>", "") }}></p>
                       </div>
                     </div>
                   ))}
@@ -84,7 +84,7 @@ const Cost = ({ data }: { data: ITravelPackage | undefined }) => {
                     >
                       <div className="flex-1 min-w-0">
                         <div className="flex gap-4 ">
-                          <h3 className="text-[17px] capitalize font-semibold mb-1 font-montserrat" style={{ color: '#3A3A3A' }}>
+                          <h3 className="text-[17px] capitalize mb-1 font-montserrat" style={{ color: '#3A3A3A' }}>
                             {item.title}
                           </h3>
                         </div>

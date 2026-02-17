@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   ChevronDown,
- 
+
 } from "lucide-react";
 import { IFaq } from "@/types/IPackages";
 import ReadMore from "@/components/ui/ReadMore";
@@ -40,7 +40,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                   aria-controls={`faq-content-${index}`}
                 >
                   <div className="flex items-center flex-1 min-w-0">
-                    <span className="text-[17px] text-zinc-900 font-semibold leading-snug font-montserrat pr-4 transition-colors duration-200">
+                    <span className="text-[17px] text-zinc-900 leading-snug font-montserrat pr-4 transition-colors duration-200">
                       {item.title}
                     </span>
                   </div>

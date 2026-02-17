@@ -16,7 +16,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                         Travel Insurance
                     </span>
                 </h2>
-             
+
                 <ReadMore maxHeight="max-h-96" characterLimit={500}>
                     <div className="space-y-4">
                         {data?.insurance.map((item, index) => (
@@ -25,7 +25,7 @@ const Insurance = ({ data }: { data: ITravelPackage | undefined }) => {
                                 className="flex items-start gap-4   transition-all duration-200"
                             >
                                 <div className="flex-1 min-w-0 ">
-                                    <h3 className="text-[17px] font-semibold mb-1 font-montserrat">
+                                    <h3 className="text-[17px] mb-1 font-montserrat">
                                         {item.title}
                                     </h3>
                                     <div

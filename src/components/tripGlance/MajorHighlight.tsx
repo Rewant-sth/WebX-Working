@@ -41,7 +41,7 @@ const MajorHighlight = ({ data }: { data: ITravelPackage | undefined }) => {
                 >
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base font-semibold text-zinc-900 mb-1">
+                    <h3 className="text-base  text-zinc-900 mb-1">
                       {item.title}
                     </h3>
                     <div 

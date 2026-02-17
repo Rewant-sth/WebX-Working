@@ -51,15 +51,15 @@ const ShortItinerary = ({ data }: { data: ITravelPackage | undefined }) => {
         {displayItems.map((item) => (
           <div
             key={item.id}
-            className="flex gap-3 items-center bg-white rounded-sm transition-all duration-200"
+            className="flex gap-3 items-center font-light bg-white rounded-sm transition-all duration-200"
           >
             <div className="shrink-0">
-              <span className="rounded-sm px-3 bg-orange-500 py-2 text-sm font-semibold text-white font-montserrat w-[75px] inline-block text-center">
+              <span className="rounded-sm px-3 bg-orange-500 py-2 text-sm font-medium text-white font-montserrat w-[75px] inline-block text-center">
                 Day {item.day?.toString()?.padStart(2, "0")}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-[17px] text-zinc-900 font-semibold leading-snug font-montserrat">{item.title}</div>
+              <div className="text-[17px] text-zinc-900 font-light leading-snug font-montserrat">{item.title}</div>
             </div>
           </div>
         ))}

@@ -38,7 +38,7 @@ const ItineraryDay = ({
           <span className="rounded-sm shrink-0 px-3 bg-[#F05E25] py-2 text-sm h-fit font-semibold text-white">
             Day {day?.toString()?.padStart(2, "0")}
           </span>
-          <h3 className="font-semibold text-[17px] font-montserrat" >
+          <h3 className=" text-[17px] font-montserrat" >
             {title}
           </h3>
         </div>
@@ -68,7 +68,7 @@ const ItineraryDay = ({
                   <img src="/icons/time.png" alt="time" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-sm font-semibold leading-4 mb-1">
+                  <h3 className="text-sm  leading-4 mb-1">
                     Duration
                   </h3>
                   <p className="text-sm text-zinc-800">{data.duration}</p>
@@ -82,7 +82,7 @@ const ItineraryDay = ({
                   <img src="/icons/mountain.png" alt="mountain" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-sm font-semibold leading-4 mb-1">
+                  <h3 className="text-sm leading-4 mb-1">
                     Max Altitude
                   </h3>
                   <p className="text-sm text-zinc-800">{data.maxAltitude} m</p>
@@ -96,7 +96,7 @@ const ItineraryDay = ({
                   <img src="/icons/mansion.png" alt="time" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-sm font-semibold leading-4 mb-1">
+                  <h3 className="text-sm  leading-4 mb-1">
                     Accommodation
                   </h3>
                   <p className="text-sm text-zinc-800">{data.accommodation}</p>
@@ -110,7 +110,7 @@ const ItineraryDay = ({
                   <img src="/icons/bibimbap.png" alt="meal" className="" />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-sm font-semibold leading-4 mb-1">
+                  <h3 className="text-sm leading-4 mb-1">
                     Meals
                   </h3>
                   <p className="text-sm text-zinc-800">{data.meals}</p>
@@ -165,7 +165,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
         <div className="text-center mt-6">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-sm hover:opacity-90 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 text-white  rounded-sm hover:opacity-90 transition-all duration-200"
             style={{ backgroundColor: "#f05e25" }}
           >
             {showAll ? (
@@ -178,7 +178,7 @@ const ItineraryPreview = ({ data }: { data: IItinerary[] | undefined, }) => {
               </>
             ) : (
               <>
-                  Read More ({data!.length - 5} more days)
+                Read More ({data!.length - 5} more days)
                 <ChevronRight
                   size={16}
                   className="transform rotate-90 transition-transform duration-200"
