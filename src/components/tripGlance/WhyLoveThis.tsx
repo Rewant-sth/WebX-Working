@@ -28,7 +28,7 @@ const WhyLoveThis = ({ data }: { data: ITravelPackage | undefined }) => {
                                 <img src="/icons/heart.png" alt="attraction icon" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-[17px] mb-1 font-montserrat" style={{ color: '#3A3A3A' }}>
+                                <h3 className="text-[17px] mb-1 font-semibold  font-montserrat" style={{ color: '#3A3A3A' }}>
                                     {item.title}
                                 </h3>
                                 <div

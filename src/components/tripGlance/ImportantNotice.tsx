@@ -16,9 +16,7 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
                     <span>Important Notice</span>
                 </span>
             </h2>
-            <p className="text-base text-zinc-800 mt-1 leading-relaxed mb-4">
-                Important information and notices that you should be aware of before booking your adventure.
-            </p>
+
             <ReadMore maxHeight="max-h-80" characterLimit={500}>
                 <div className="space-y-2">
                     {data?.importantNotice.map((item, index) => (
@@ -27,7 +25,7 @@ const ImportantNotice = ({ data }: { data: ITravelPackage | undefined }) => {
                             className="flex gap-3 items-start bg-white rounded-sm transition-all duration-200"
                         >
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-[17px] text-zinc-900 leading-snug font-montserrat mb-1">
+                                <h3 className="text-[17px] text-zinc-900 font-semibold leading-snug font-montserrat mb-1">
                                     {item.title}
                                 </h3>
                                 <div

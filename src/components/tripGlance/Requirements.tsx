@@ -24,7 +24,7 @@ const Requirements = ({ data }: { data: ITravelPackage | undefined }) => {
                             className="flex items-start gap-4  transition-all duration-200"
                         >
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-[17px]  mb-2 font-montserrat" style={{ color: '#3A3A3A' }}>
+                                <h3 className="text-[17px]  mb-2 font-semibold  font-montserrat" style={{ color: '#3A3A3A' }}>
                                     {item.title}
                                 </h3>
                                 <div id="editor" className="text-[17px] leading-snug font-montserrat text-zinc-800 space-y-4" dangerouslySetInnerHTML={{ __html: item.description }}></div>

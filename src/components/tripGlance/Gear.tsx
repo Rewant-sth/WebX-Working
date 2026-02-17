@@ -29,7 +29,7 @@ const Gear = ({ data }: { data: ITravelPackage | undefined }) => {
                             style={{ borderColor: '#f0f0f0' }}
                         >
                             <div className="flex-1 min-w-0">
-                                <h3 className="text-[17px] flex gap-2 items-center mb-1 font-montserrat" style={{ color: '#3A3A3A' }}>
+                                <h3 className="text-[17px] flex gap-2 items-center mb-1 font-semibold  font-montserrat" style={{ color: '#3A3A3A' }}>
                                     <span><Icon icon={"streamline-ultimate:chef-gear-gloves"} className="size-6" /></span> {item.title}
                                 </h3>
                                 <div

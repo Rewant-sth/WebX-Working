@@ -6,10 +6,10 @@ import {
 
 } from "lucide-react";
 import { IFaq } from "@/types/IPackages";
-import ReadMore from "@/components/ui/ReadMore";
+
 
 export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -25,7 +25,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
           <span>FAQ and Guides</span>
         </span>
       </h2>
-      <ReadMore maxHeight="max-h-80" characterLimit={800}>
+      
         <div className="space-y-2">
           {faq?.map((item, index) => {
             return (
@@ -40,7 +40,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
                   aria-controls={`faq-content-${index}`}
                 >
                   <div className="flex items-center flex-1 min-w-0">
-                    <span className="text-[17px] text-zinc-900 leading-snug font-montserrat pr-4 transition-colors duration-200">
+                    <span className="text-[17px] text-zinc-900 leading-snug font-semibold font-montserrat pr-4 transition-colors duration-200">
                       {item.title}
                     </span>
                   </div>
@@ -66,7 +66,7 @@ export default function Faq({ faq }: { faq: IFaq[] | undefined }) {
             );
           })}
         </div>
-      </ReadMore>
+   
     </div>
   );
 }

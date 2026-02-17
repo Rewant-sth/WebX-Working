@@ -21,7 +21,7 @@ const SeasonalInfo = ({ data }: SeasonalInfoProps) => {
                 <div className="space-y-2">
                     {data.seasonalTrek.map((season) => (
                         <div key={season._id} className="">
-                            <h3 className="text-[17px] mb-1 font-montserrat">{season.title}</h3>
+                            <h3 className="text-[17px] mb-1  font-semibold font-montserrat">{season.title}</h3>
                             <div
                                 id="editor"
                                 className="text-[17px] text-zinc-800 leading-snug font-montserrat"
